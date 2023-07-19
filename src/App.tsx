@@ -45,18 +45,17 @@ function App() {
           </Stack>
 
           <Button
-            justify="center"
-            fullWidth
             leftSection={<IconPlus size={18} />}
             variant="default"
-            mt="md"
+            mt="xl"
             size="xs"
             onClick={() =>
               notifications.show({
                 title: "Noch nicht implementiert",
-                message: "Das ist leider noch nicht implementiert. Aber es wird super!",
+                message:
+                  "Das ist leider noch nicht implementiert. Aber es wird super!",
                 withBorder: true,
-                color: 'gray',
+                color: "gray",
               })
             }
           >
