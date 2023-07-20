@@ -3,9 +3,11 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
 import { Card } from "./Card";
+import { useState } from "react";
 
-export function Board() {
+export function Board({ cards }) {
   const [opened, { open, close }] = useDisclosure(false);
+  const [selectedCard, setSelectedCard] = useState();
 
   return (
     <>
@@ -13,7 +15,7 @@ export function Board() {
         <Modal.Overlay />
         <Modal.Content>
           <Modal.Header>
-            <Modal.Title>Das ist ein Titel für die Karte</Modal.Title>
+            <Modal.Title>{selectedCard && selectedCard.title}</Modal.Title>
             <Group justify="flex-end">
               <Button
                 leftSection={<IconLink size={20} />}
@@ -41,14 +43,29 @@ export function Board() {
             </Group>
           </Modal.Header>
           <Modal.Body mt={"xl"}>
-            <Card />
+            {selectedCard ? (
+              <Card card={selectedCard} />
+            ) : (
+              <Text>Lade Karte...</Text>
+            )}
           </Modal.Body>
         </Modal.Content>
       </Modal.Root>
 
-      <Button variant="default" onClick={open}>
-        Karte öffnen
-      </Button>
+      {cards &&
+        cards.map((card) => (
+          <Button
+            key={card.id}
+            onClick={() => {
+              setSelectedCard(card);
+              open();
+            }}
+          >
+            <strong>{card.title}</strong>
+          </Button>
+        ))}
+
+      {/* <pre>{JSON.stringify(cards, null, 2)}</pre> */}
     </>
   );
 }

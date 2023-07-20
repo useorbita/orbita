@@ -5,6 +5,11 @@ import "@mantine/notifications/styles.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
+import PocketBase from "pocketbase";
+
+export const pb = new PocketBase("http://127.0.0.1:8090");
+
+await pb.admins.authWithPassword("", "");
 
 const theme = createTheme({
   /** Put your mantine theme override here */

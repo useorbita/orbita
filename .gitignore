@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# PocketBase
+pocketbase/*
+!pocketbase/install.sh
+!pocketbase/collections.json

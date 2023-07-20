@@ -1,11 +1,15 @@
 import { Group, Stack, Text } from "@mantine/core";
 
-export function Card() {
+export function Card({ card }) {
+
+  console.log(card)
+
   return (
     <>
+      {/* <pre>{JSON.stringify(card, null, 2)}</pre> */}
       <Group>
         <Stack>
-          <Text>Beschreibung</Text>
+          <Text>{card && card.description}</Text>
           <Text>Checklist/Progress</Text>
           <Text>Kommentare</Text>
         </Stack>

@@ -3,9 +3,24 @@ import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconPlus } from "@tabler/icons-react";
 import { Project } from "./Project";
+import { useEffect, useState } from "react";
+import { pb } from "./main";
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
+  const [projects, setProjects] = useState();
+  const [selectedProject, setSelectedProject] = useState();
+
+  useEffect(() => {
+    (async () => {
+      const result = await pb.collection("projects").getFullList();
+
+      console.log(result);
+      setProjects(result);
+      setSelectedProject(result[0]);
+    })();
+  }, []);
+
   return (
     <>
       <AppShell
@@ -31,17 +46,15 @@ function App() {
 
         <AppShell.Navbar p="md">
           <Stack>
-            <Text>
-              <strong>Projekt A</strong>
-            </Text>
-
-            <Text>
-              <strong>Projekt B</strong>
-            </Text>
-
-            <Text>
-              <strong>Projekt C</strong>
-            </Text>
+            {projects &&
+              projects.map((project) => (
+                <Button
+                  key={project.id}
+                  onClick={() => setSelectedProject(project)}
+                >
+                  <strong>{project.name}</strong>
+                </Button>
+              ))}
           </Stack>
 
           <Button
@@ -64,7 +77,11 @@ function App() {
         </AppShell.Navbar>
 
         <AppShell.Main>
-          <Project />
+          {selectedProject ? (
+            <Project project={selectedProject} />
+          ) : (
+            <Text>Lade Projekt...</Text>
+          )}
         </AppShell.Main>
       </AppShell>
     </>
