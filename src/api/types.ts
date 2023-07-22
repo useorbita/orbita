@@ -56,7 +56,7 @@ export type CardsRecord = {
 	dueDate?: IsoDateString
 	priority?: CardsPriorityOptions
 	author?: RecordIdString
-	project?: RecordIdString
+	board?: RecordIdString
 }
 
 export type CommentsRecord = {

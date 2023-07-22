@@ -4,7 +4,7 @@ import { CardsResponse, BoardsResponse, Collections } from "../api/types";
 import { Card } from "./Card";
 import { pb } from "../api/pocketbase";
 
-export function Board({ project }: { project: BoardsResponse }) {
+export function Board({ board }: { board: BoardsResponse }) {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardsResponse>();
 
@@ -14,18 +14,18 @@ export function Board({ project }: { project: BoardsResponse }) {
     (async () => {
       const result = await pb
         .collection(Collections.Cards)
-        .getFullList<CardsResponse>({ filter: `project = "${project.id}"` });
+        .getFullList<CardsResponse>({ filter: `board = "${board.id}"` });
 
       console.log(result);
       setCards(result);
     })();
-  }, [project.id]);
+  }, [board.id]);
 
-  if (!project) return <Text>Lade...</Text>;
+  if (!board) return <Text>Lade...</Text>;
 
   return (
     <>
-      <Title>{project.name}</Title>
+      <Title>{board.name}</Title>
 
       <Card open={open} close={() => setOpen(false)} card={selectedCard} />
 

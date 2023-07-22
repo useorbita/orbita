@@ -7,8 +7,8 @@ import { BoardsResponse, Collections } from "../api/types";
 import { Board } from "./Board";
 
 export function App() {
-  const [projects, setProjects] = useState<BoardsResponse[]>([]);
-  const [selectedProject, setSelectedProject] = useState<BoardsResponse>();
+  const [boards, setBoards] = useState<BoardsResponse[]>([]);
+  const [selectedBoard, setSelectedBoard] = useState<BoardsResponse>();
 
   useEffect(() => {
     (async () => {
@@ -16,9 +16,8 @@ export function App() {
         .collection(Collections.Boards)
         .getFullList<BoardsResponse>();
 
-      console.log(result);
-      setProjects(result);
-      setSelectedProject(result[0]);
+      setBoards(result);
+      setSelectedBoard(result[0]);
     })();
   }, []);
 
@@ -33,14 +32,14 @@ export function App() {
       navbar={
         <Navbar width={{ base: 300 }} p="xs">
           <Stack>
-            {projects &&
-              projects.map((project) => (
+            {boards &&
+              boards.map((board) => (
                 <Button
-                  key={project.id}
-                  onClick={() => setSelectedProject(project)}
+                  key={board.id}
+                  onClick={() => setSelectedBoard(board)}
                   variant="subtle"
                 >
-                  <strong>{project.name}</strong>
+                  <strong>{board.name}</strong>
                 </Button>
               ))}
           </Stack>
@@ -73,8 +72,8 @@ export function App() {
         },
       })}
     >
-      {selectedProject ? (
-        <Board project={selectedProject} />
+      {selectedBoard ? (
+        <Board board={selectedBoard} />
       ) : (
         <Text>Lade Projekt...</Text>
       )}

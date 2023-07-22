@@ -148,7 +148,7 @@
   },
   {
     "id": "u86ozokc9lcwy28",
-    "name": "projects",
+    "name": "boards",
     "type": "base",
     "system": false,
     "schema": [
@@ -293,7 +293,7 @@
       },
       {
         "id": "ssxbho0k",
-        "name": "project",
+        "name": "board",
         "type": "relation",
         "system": false,
         "required": false,
