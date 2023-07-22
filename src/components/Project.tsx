@@ -1,16 +1,17 @@
 import { Text, Title } from "@mantine/core";
 import { Board } from "./Board";
 import { useState, useEffect } from "react";
-import { pb } from "./main";
+import { pb } from "../api/pocketbase";
+import { CardsResponse, ProjectsResponse } from "../api/types";
 
-export function Project({ project }) {
-  const [cards, setCards] = useState();
+export function Project({ project }: { project: ProjectsResponse }) {
+  const [cards, setCards] = useState<CardsResponse[]>([]);
 
   useEffect(() => {
     (async () => {
       const result = await pb
         .collection("cards")
-        .getFullList({ filter: `project = "${project.id}"` });
+        .getFullList<CardsResponse>({ filter: `project = "${project.id}"` });
 
       console.log(result);
       setCards(result);

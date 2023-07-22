@@ -1,8 +1,8 @@
 import { Group, Stack, Text } from "@mantine/core";
+import { CardsResponse } from "../api/types";
 
-export function Card({ card }) {
-
-  console.log(card)
+export function Card({ card }: { card: CardsResponse }) {
+  console.log(card);
 
   return (
     <>

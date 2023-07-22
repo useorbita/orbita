@@ -1,13 +1,14 @@
-import { ActionIcon, Button, Group, Modal } from "@mantine/core";
+import { ActionIcon, Button, Group, Modal, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
 import { Card } from "./Card";
 import { useState } from "react";
+import { CardsResponse } from "../api/types";
 
-export function Board({ cards }) {
+export function Board({ cards }: { cards: CardsResponse[] }) {
   const [opened, { open, close }] = useDisclosure(false);
-  const [selectedCard, setSelectedCard] = useState();
+  const [selectedCard, setSelectedCard] = useState<CardsResponse>();
 
   return (
     <>
@@ -53,7 +54,7 @@ export function Board({ cards }) {
       </Modal.Root>
 
       {cards &&
-        cards.map((card) => (
+        cards.map((card: CardsResponse) => (
           <Button
             key={card.id}
             onClick={() => {

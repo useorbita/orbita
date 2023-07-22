@@ -4,16 +4,19 @@ import { notifications } from "@mantine/notifications";
 import { IconPlus } from "@tabler/icons-react";
 import { Project } from "./Project";
 import { useEffect, useState } from "react";
-import { pb } from "./main";
+import { pb } from "../api/pocketbase";
+import { ProjectsResponse } from "../api/types";
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
-  const [projects, setProjects] = useState();
-  const [selectedProject, setSelectedProject] = useState();
+  const [projects, setProjects] = useState<ProjectsResponse[]>([]);
+  const [selectedProject, setSelectedProject] = useState<ProjectsResponse>();
 
   useEffect(() => {
     (async () => {
-      const result = await pb.collection("projects").getFullList();
+      const result = await pb
+        .collection("projects")
+        .getFullList<ProjectsResponse>();
 
       console.log(result);
       setProjects(result);
