@@ -1,18 +1,16 @@
-import { createTheme, MantineProvider } from "@mantine/core";
-import "@mantine/core/styles.css";
+import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import "@mantine/notifications/styles.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./components/App.tsx";
-
-const theme = createTheme({
-  /** Put your mantine theme override here */
-});
+import { App } from "./components/App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MantineProvider theme={theme} defaultColorScheme="dark">
+    <MantineProvider
+      theme={{ colorScheme: "dark" }}
+      withGlobalStyles
+      withNormalizeCSS
+    >
       <Notifications />
       <App />
     </MantineProvider>

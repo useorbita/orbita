@@ -27,3 +27,5 @@ dist-ssr
 pocketbase/*
 !pocketbase/install.sh
 !pocketbase/collections.json
+
+.env

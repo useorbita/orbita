@@ -17,9 +17,9 @@ export function Board({ cards }: { cards: CardsResponse[] }) {
         <Modal.Content>
           <Modal.Header>
             <Modal.Title>{selectedCard && selectedCard.title}</Modal.Title>
-            <Group justify="flex-end">
+            <Group position="right">
               <Button
-                leftSection={<IconLink size={20} />}
+                leftIcon={<IconLink size={20} />}
                 variant="subtle"
                 color="gray"
                 size="xs"

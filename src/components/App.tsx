@@ -1,14 +1,12 @@
-import { AppShell, Burger, Button, Group, Stack, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
-import { IconPlus } from "@tabler/icons-react";
-import { Project } from "./Project";
-import { useEffect, useState } from "react";
+import { AppShell, Button, Header, Navbar, Stack, Text } from "@mantine/core";
+import { useState, useEffect } from "react";
 import { pb } from "../api/pocketbase";
 import { ProjectsResponse } from "../api/types";
+import { Project } from "./Project";
+import { IconPlus } from "@tabler/icons-react";
+import { notifications } from "@mantine/notifications";
 
-function App() {
-  const [opened, { toggle }] = useDisclosure();
+export function App() {
   const [projects, setProjects] = useState<ProjectsResponse[]>([]);
   const [selectedProject, setSelectedProject] = useState<ProjectsResponse>();
 
@@ -25,35 +23,22 @@ function App() {
   }, []);
 
   return (
-    <>
-      <AppShell
-        header={{ height: 60 }}
-        navbar={{
-          width: 300,
-          breakpoint: "xs",
-          collapsed: { mobile: !opened },
-        }}
-        padding="md"
-      >
-        <AppShell.Header>
-          <Group h="100%" px="md">
-            <Burger
-              opened={opened}
-              onClick={toggle}
-              hiddenFrom="xs"
-              size="sm"
-            />
-            Mello
-          </Group>
-        </AppShell.Header>
-
-        <AppShell.Navbar p="md">
+    <AppShell
+      padding="md"
+      header={
+        <Header height={60} p="xs">
+          <Text>Mello</Text>
+        </Header>
+      }
+      navbar={
+        <Navbar width={{ base: 300 }} p="xs">
           <Stack>
             {projects &&
               projects.map((project) => (
                 <Button
                   key={project.id}
                   onClick={() => setSelectedProject(project)}
+                  variant="subtle"
                 >
                   <strong>{project.name}</strong>
                 </Button>
@@ -61,7 +46,7 @@ function App() {
           </Stack>
 
           <Button
-            leftSection={<IconPlus size={18} />}
+            leftIcon={<IconPlus size={18} />}
             variant="default"
             mt="xl"
             size="xs"
@@ -77,18 +62,22 @@ function App() {
           >
             Projekt hinzufügen
           </Button>
-        </AppShell.Navbar>
-
-        <AppShell.Main>
-          {selectedProject ? (
-            <Project project={selectedProject} />
-          ) : (
-            <Text>Lade Projekt...</Text>
-          )}
-        </AppShell.Main>
-      </AppShell>
-    </>
+        </Navbar>
+      }
+      styles={(theme) => ({
+        main: {
+          backgroundColor:
+            theme.colorScheme === "dark"
+              ? theme.colors.dark[8]
+              : theme.colors.gray[0],
+        },
+      })}
+    >
+      {selectedProject ? (
+        <Project project={selectedProject} />
+      ) : (
+        <Text>Lade Projekt...</Text>
+      )}
+    </AppShell>
   );
 }
-
-export default App;
