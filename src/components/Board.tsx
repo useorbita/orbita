@@ -1,57 +1,33 @@
-import { ActionIcon, Button, Group, Modal, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { notifications } from "@mantine/notifications";
-import { IconLink, IconTrash } from "@tabler/icons-react";
+import { Button, Title, Text } from "@mantine/core";
+import { useEffect, useState } from "react";
+import { CardsResponse, BoardsResponse, Collections } from "../api/types";
 import { Card } from "./Card";
-import { useState } from "react";
-import { CardsResponse } from "../api/types";
+import { pb } from "../api/pocketbase";
 
-export function Board({ cards }: { cards: CardsResponse[] }) {
-  const [opened, { open, close }] = useDisclosure(false);
+export function Board({ project }: { project: BoardsResponse }) {
+  const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CardsResponse>();
+
+  const [cards, setCards] = useState<CardsResponse[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const result = await pb
+        .collection(Collections.Cards)
+        .getFullList<CardsResponse>({ filter: `project = "${project.id}"` });
+
+      console.log(result);
+      setCards(result);
+    })();
+  }, [project.id]);
+
+  if (!project) return <Text>Lade...</Text>;
 
   return (
     <>
-      <Modal.Root opened={opened} onClose={close} centered size={"45em"}>
-        <Modal.Overlay />
-        <Modal.Content>
-          <Modal.Header>
-            <Modal.Title>{selectedCard && selectedCard.title}</Modal.Title>
-            <Group position="right">
-              <Button
-                leftIcon={<IconLink size={20} />}
-                variant="subtle"
-                color="gray"
-                size="xs"
-                onClick={() =>
-                  notifications.show({
-                    title: "Noch nicht implementiert",
-                    message:
-                      "Das ist leider noch nicht implementiert. Aber es wird super!",
-                    withBorder: true,
-                    color: "gray",
-                  })
-                }
-              >
-                Link kopieren
-              </Button>
+      <Title>{project.name}</Title>
 
-              <ActionIcon color="gray" variant="subtle">
-                <IconTrash size={20} />
-              </ActionIcon>
-
-              <Modal.CloseButton />
-            </Group>
-          </Modal.Header>
-          <Modal.Body mt={"xl"}>
-            {selectedCard ? (
-              <Card card={selectedCard} />
-            ) : (
-              <Text>Lade Karte...</Text>
-            )}
-          </Modal.Body>
-        </Modal.Content>
-      </Modal.Root>
+      <Card open={open} close={() => setOpen(false)} card={selectedCard} />
 
       {cards &&
         cards.map((card: CardsResponse) => (
@@ -59,7 +35,7 @@ export function Board({ cards }: { cards: CardsResponse[] }) {
             key={card.id}
             onClick={() => {
               setSelectedCard(card);
-              open();
+              setOpen(true);
             }}
           >
             <strong>{card.title}</strong>

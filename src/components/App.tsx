@@ -1,20 +1,20 @@
 import { AppShell, Button, Header, Navbar, Stack, Text } from "@mantine/core";
-import { useState, useEffect } from "react";
-import { pb } from "../api/pocketbase";
-import { ProjectsResponse } from "../api/types";
-import { Project } from "./Project";
-import { IconPlus } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
+import { IconPlus } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
+import { pb } from "../api/pocketbase";
+import { BoardsResponse, Collections } from "../api/types";
+import { Board } from "./Board";
 
 export function App() {
-  const [projects, setProjects] = useState<ProjectsResponse[]>([]);
-  const [selectedProject, setSelectedProject] = useState<ProjectsResponse>();
+  const [projects, setProjects] = useState<BoardsResponse[]>([]);
+  const [selectedProject, setSelectedProject] = useState<BoardsResponse>();
 
   useEffect(() => {
     (async () => {
       const result = await pb
-        .collection("projects")
-        .getFullList<ProjectsResponse>();
+        .collection(Collections.Boards)
+        .getFullList<BoardsResponse>();
 
       console.log(result);
       setProjects(result);
@@ -74,7 +74,7 @@ export function App() {
       })}
     >
       {selectedProject ? (
-        <Project project={selectedProject} />
+        <Board project={selectedProject} />
       ) : (
         <Text>Lade Projekt...</Text>
       )}

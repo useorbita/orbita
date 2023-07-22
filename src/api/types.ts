@@ -3,10 +3,10 @@
 */
 
 export enum Collections {
+	Boards = "boards",
 	Cards = "cards",
 	Comments = "comments",
 	Labels = "labels",
-	Projects = "projects",
 	States = "states",
 	Users = "users",
 }
@@ -34,6 +34,11 @@ export type AuthSystemFields<T = never> = {
 } & BaseSystemFields<T>
 
 // Record types for each collection
+
+export type BoardsRecord = {
+	name?: string
+	members?: RecordIdString[]
+}
 
 export enum CardsPriorityOptions {
 	"lowest" = "lowest",
@@ -63,11 +68,6 @@ export type LabelsRecord = {
 	name: string
 }
 
-export type ProjectsRecord = {
-	name?: string
-	members?: RecordIdString[]
-}
-
 export type StatesRecord = {
 	name: string
 }
@@ -78,29 +78,29 @@ export type UsersRecord = {
 }
 
 // Response types include system fields and match responses from the PocketBase API
+export type BoardsResponse<Texpand = unknown> = Required<BoardsRecord> & BaseSystemFields<Texpand>
 export type CardsResponse<Texpand = unknown> = Required<CardsRecord> & BaseSystemFields<Texpand>
 export type CommentsResponse<Texpand = unknown> = Required<CommentsRecord> & BaseSystemFields<Texpand>
 export type LabelsResponse<Texpand = unknown> = Required<LabelsRecord> & BaseSystemFields<Texpand>
-export type ProjectsResponse<Texpand = unknown> = Required<ProjectsRecord> & BaseSystemFields<Texpand>
 export type StatesResponse<Texpand = unknown> = Required<StatesRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
 export type CollectionRecords = {
+	boards: BoardsRecord
 	cards: CardsRecord
 	comments: CommentsRecord
 	labels: LabelsRecord
-	projects: ProjectsRecord
 	states: StatesRecord
 	users: UsersRecord
 }
 
 export type CollectionResponses = {
+	boards: BoardsResponse
 	cards: CardsResponse
 	comments: CommentsResponse
 	labels: LabelsResponse
-	projects: ProjectsResponse
 	states: StatesResponse
 	users: UsersResponse
 }
