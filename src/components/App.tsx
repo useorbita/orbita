@@ -9,15 +9,25 @@ import { Board } from "./Board";
 export function App() {
   const [boards, setBoards] = useState<BoardsResponse[]>([]);
   const [selectedBoard, setSelectedBoard] = useState<BoardsResponse>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      const result = await pb
+      setLoading(true);
+
+      // TODO: remove this and replace with proper auth
+      await pb.admins.authWithPassword(
+        import.meta.env.VITE_PB_USERNAME,
+        import.meta.env.VITE_PB_PASSWORD
+      );
+
+      const boards = await pb
         .collection(Collections.Boards)
         .getFullList<BoardsResponse>();
 
-      setBoards(result);
-      setSelectedBoard(result[0]);
+      setBoards(boards);
+      setSelectedBoard(boards[0]);
+      setLoading(false);
     })();
   }, []);
 
@@ -32,7 +42,9 @@ export function App() {
       navbar={
         <Navbar width={{ base: 300 }} p="xs">
           <Stack>
-            {boards &&
+            {loading ? (
+              <Text>Lade Boards...</Text>
+            ) : (
               boards.map((board) => (
                 <Button
                   key={board.id}
@@ -41,26 +53,25 @@ export function App() {
                 >
                   <strong>{board.name}</strong>
                 </Button>
-              ))}
-          </Stack>
+              ))
+            )}
 
-          <Button
-            leftIcon={<IconPlus size={18} />}
-            variant="default"
-            mt="xl"
-            size="xs"
-            onClick={() =>
-              notifications.show({
-                title: "Noch nicht implementiert",
-                message:
-                  "Das ist leider noch nicht implementiert. Aber es wird super!",
-                withBorder: true,
-                color: "gray",
-              })
-            }
-          >
-            Projekt hinzufügen
-          </Button>
+            <Button
+              leftIcon={<IconPlus size={18} />}
+              variant="default"
+              onClick={() =>
+                notifications.show({
+                  title: "Noch nicht implementiert",
+                  message:
+                    "Das ist leider noch nicht implementiert. Aber es wird super!",
+                  withBorder: true,
+                  color: "gray",
+                })
+              }
+            >
+              Board hinzufügen
+            </Button>
+          </Stack>
         </Navbar>
       }
       styles={(theme) => ({
@@ -72,10 +83,10 @@ export function App() {
         },
       })}
     >
-      {selectedBoard ? (
-        <Board board={selectedBoard} />
+      {loading || !selectedBoard ? (
+        <Text>Lade Board...</Text>
       ) : (
-        <Text>Lade Projekt...</Text>
+        <Board board={selectedBoard} />
       )}
     </AppShell>
   );

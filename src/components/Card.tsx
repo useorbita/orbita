@@ -1,7 +1,7 @@
 import { ActionIcon, Button, Group, Modal, Stack, Text } from "@mantine/core";
-import { CardsResponse } from "../api/types";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
+import { CardsResponse } from "../api/types";
 
 export function Card({
   open,
@@ -51,18 +51,17 @@ export function Card({
             <Group>
               <Stack>
                 <Text>{card && card.description}</Text>
-                <Text>Checklist/Progress</Text>
                 <Text>Kommentare</Text>
               </Stack>
               <Stack>
-                <Text>Status (Backlog, Next, etc.)</Text>
-                <Text>Label</Text>
-                <Text>Mitglieder</Text>
-                <Text>Priorität</Text>
-                <Text>Datum</Text>
-                <Text>Author</Text>
-                <Text>Erstellt am</Text>
-                <Text>Verändert zuletzt</Text>
+                <Text>Status: {card && card.state}</Text>
+                <Text>Labels: {card && card.labels}</Text>
+                <Text>Mitglieder: {card && card.members}</Text>
+                <Text>Priorität: {card && card.priority}</Text>
+                <Text>Datum: {card && card.dueDate}</Text>
+                <Text>Author: {card && card.author}</Text>
+                <Text>Erstellt am {card && card.created}</Text>
+                <Text>Verändert zuletzt{card && card.updated}</Text>
               </Stack>
             </Group>
           ) : (
