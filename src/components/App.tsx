@@ -46,7 +46,9 @@ export function App() {
                 <Button
                   key={board.id}
                   onClick={() => setSelectedBoard(board)}
-                  variant="subtle"
+                  variant={
+                    board.id === selectedBoard?.id ? "outline" : "subtle"
+                  }
                 >
                   <strong>{board.name}</strong>
                 </Button>
