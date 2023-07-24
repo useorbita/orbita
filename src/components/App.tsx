@@ -1,4 +1,4 @@
-import { AppShell, Button, Header, Navbar, Stack, Text } from "@mantine/core";
+import { AppShell, Button, Navbar, Space, Stack, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { IconPlus } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
@@ -34,13 +34,10 @@ export function App() {
   return (
     <AppShell
       padding="md"
-      header={
-        <Header height={60} p="xs">
-          <Text>Mello</Text>
-        </Header>
-      }
       navbar={
         <Navbar width={{ base: 300 }} p="xs">
+          <Text>Mello</Text>
+          <Space h="xl" />
           <Stack>
             {loading ? (
               <Text>Lade Boards...</Text>
