@@ -1,9 +1,8 @@
 import {
-  Box,
   Button,
   Center,
   Group,
-  ScrollArea,
+  Paper,
   SegmentedControl,
   Space,
   Stack,
@@ -94,9 +93,9 @@ export function Board({ board }: { board: BoardsResponse }) {
       {!loading && view === "board" && (
         <Group>
           {states.map((state: StatesResponse) => (
-            <Box>
+            <div>
               <Text>{state.name}</Text>
-              <ScrollArea h={"100%"}>
+              <Paper h={500} w={150}>
                 <Stack>
                   {cards
                     .filter((card) => card.state === state.id)
@@ -112,8 +111,8 @@ export function Board({ board }: { board: BoardsResponse }) {
                       </Button>
                     ))}
                 </Stack>
-              </ScrollArea>
-            </Box>
+              </Paper>
+            </div>
           ))}
         </Group>
       )}
