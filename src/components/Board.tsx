@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   Button,
   Center,
   Group,
@@ -10,11 +9,7 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import {
-  IconLayoutGrid,
-  IconLayoutList,
-  IconSettings,
-} from "@tabler/icons-react";
+import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { pb } from "../api/pocketbase";
 import {
@@ -63,12 +58,8 @@ export function Board({ board }: { board: BoardsResponse }) {
   return (
     <>
       <Group position="apart">
-        <Group spacing={"0.2em"}>
-          <Text>{board?.name}</Text>
-          <ActionIcon onClick={() => alert(JSON.stringify(board, null, 2))}>
-            <IconSettings size="1.125rem" />
-          </ActionIcon>
-        </Group>
+        <Text>{board?.name}</Text>
+
         <SegmentedControl
           data={[
             {
