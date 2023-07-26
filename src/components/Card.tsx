@@ -1,5 +1,4 @@
 import { ActionIcon, Button, Group, Modal, Stack, Text } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
 import { CardsResponse } from "../api/types";
 
@@ -12,8 +11,6 @@ export function Card({
   close: () => void;
   card?: CardsResponse;
 }) {
-  console.log(card);
-
   return (
     <Modal.Root opened={open} onClose={close} centered size={"45em"}>
       <Modal.Overlay />
@@ -26,15 +23,7 @@ export function Card({
               variant="subtle"
               color="gray"
               size="xs"
-              onClick={() =>
-                notifications.show({
-                  title: "Noch nicht implementiert",
-                  message:
-                    "Das ist leider noch nicht implementiert. Aber es wird super!",
-                  withBorder: true,
-                  color: "gray",
-                })
-              }
+              onClick={() => {}}
             >
               Link kopieren
             </Button>

@@ -1,34 +1,31 @@
 import {
-  Button,
   Center,
   Group,
   Paper,
   SegmentedControl,
-  Space,
   Stack,
   Table,
   Text,
 } from "@mantine/core";
 import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { pb } from "../api/pocketbase";
-import {
-  BoardsResponse,
-  CardsResponse,
-  Collections,
-  StatesResponse,
-} from "../api/types";
-import { Card } from "./Card";
+import { CardsResponse, Collections, StatesResponse } from "../api/types";
+import { Card } from "../components/Card";
 
-export function Board({ board }: { board: BoardsResponse }) {
+export function Board() {
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
   const [view, setView] = useState("board");
 
   const [selectedCard, setSelectedCard] = useState<CardsResponse>();
 
   const [cards, setCards] = useState<CardsResponse[]>([]);
   const [states, setStates] = useState<StatesResponse[]>([]);
+
+  const { boardId, cardId } = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -40,25 +37,38 @@ export function Board({ board }: { board: BoardsResponse }) {
       const [allStates, allCards] = await Promise.all([
         pb
           .collection(Collections.States)
-          .getFullList<StatesResponse>({ filter: `board = "${board.id}"` }),
+          .getFullList<StatesResponse>({ filter: `board = "${boardId}"` }),
         pb.collection(Collections.Cards).getFullList<CardsResponse>({
-          filter: `board = "${board.id}"`,
+          filter: `board = "${boardId}"`,
         }),
       ]);
 
       setStates(allStates);
       setCards(allCards);
 
-      setSelectedCard(undefined);
+      if (!!cardId)
+        setSelectedCard(allCards.find((card) => card.id === cardId));
       setLoading(false);
       console.timeEnd("getting states and cards...");
     })();
-  }, [board.id]);
+  }, [boardId]);
+
+  useEffect(() => {
+    setSelectedCard(cards.find((card) => card.id === cardId));
+  }, [cardId]);
 
   return (
     <>
+      {cardId && (
+        <Card
+          open={!!cardId}
+          close={() => navigate("/" + boardId)}
+          card={selectedCard}
+        />
+      )}
+
       <Group position="apart">
-        <Text>{board?.name}</Text>
+        <Text>{boardId}</Text>
 
         <SegmentedControl
           data={[
@@ -67,7 +77,6 @@ export function Board({ board }: { board: BoardsResponse }) {
               label: (
                 <Center>
                   <IconLayoutList size="1rem" />
-                  {/* <Box ml={10}>Liste</Box> */}
                 </Center>
               ),
             },
@@ -76,7 +85,6 @@ export function Board({ board }: { board: BoardsResponse }) {
               label: (
                 <Center>
                   <IconLayoutGrid size="1rem" />
-                  {/* <Box ml={10}>Board</Box> */}
                 </Center>
               ),
             },
@@ -86,29 +94,19 @@ export function Board({ board }: { board: BoardsResponse }) {
         />
       </Group>
 
-      <Card open={open} close={() => setOpen(false)} card={selectedCard} />
-
-      <Space h="xl" />
-
       {!loading && view === "board" && (
         <Group>
           {states.map((state: StatesResponse) => (
-            <div>
-              <Text>{state.name}</Text>
+            <div key={state.id}>
+              <Text>{state.title}</Text>
               <Paper h={500} w={150}>
                 <Stack>
                   {cards
                     .filter((card) => card.state === state.id)
                     .map((card: CardsResponse) => (
-                      <Button
-                        key={card.id}
-                        onClick={() => {
-                          setSelectedCard(card);
-                          setOpen(true);
-                        }}
-                      >
-                        <strong>{card.title}</strong>
-                      </Button>
+                      <Link key={card.id} to={card.id}>
+                        {card.title}
+                      </Link>
                     ))}
                 </Stack>
               </Paper>
@@ -129,8 +127,12 @@ export function Board({ board }: { board: BoardsResponse }) {
           <tbody>
             {cards.map((card: CardsResponse) => (
               <tr key={card.id}>
-                <td>{card.title}</td>
-                <td>{states.find((state) => state.id === card.state)?.name}</td>
+                <Link to={card.id}>
+                  <td>{card.title}</td>
+                </Link>
+                <td>
+                  {states.find((state) => state.id === card.state)?.title}
+                </td>
                 <td>{card.description}</td>
               </tr>
             ))}

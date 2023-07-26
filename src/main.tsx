@@ -2,7 +2,11 @@ import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { App } from "./components/App";
+import { BrowserRouter } from "react-router-dom";
+import { App } from "./App";
+import { Authentication } from "./pages/Authentication";
+
+const userAuthenticated = true;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -12,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       withNormalizeCSS
     >
       <Notifications />
-      <App />
+      <BrowserRouter>
+        {userAuthenticated ? <App /> : <Authentication />}
+      </BrowserRouter>
     </MantineProvider>
   </React.StrictMode>
 );
