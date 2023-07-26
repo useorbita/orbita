@@ -36,7 +36,7 @@ export type AuthSystemFields<T = never> = {
 // Record types for each collection
 
 export type BoardsRecord = {
-	name?: string
+	title?: string
 	members?: RecordIdString[]
 }
 
@@ -62,14 +62,16 @@ export type CardsRecord = {
 export type CommentsRecord = {
 	content?: HTMLString
 	field?: RecordIdString
+	author?: RecordIdString
 }
 
 export type LabelsRecord = {
-	name: string
+	title: string
 }
 
 export type StatesRecord = {
-	name: string
+	title: string
+	board?: RecordIdString
 }
 
 export type UsersRecord = {
