@@ -1,32 +1,5 @@
 [
   {
-    "id": "cfpcl1077stm96z",
-    "name": "labels",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "id": "mjimwqdw",
-        "name": "name",
-        "type": "text",
-        "system": false,
-        "required": true,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": null,
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {}
-  },
-  {
     "id": "tixyk1oxz33bqb8",
     "name": "comments",
     "type": "base",
@@ -73,47 +46,6 @@
     "listRule": null,
     "viewRule": null,
     "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {}
-  },
-  {
-    "id": "u86ozokc9lcwy28",
-    "name": "boards",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "id": "pviuvxtc",
-        "name": "name",
-        "type": "text",
-        "system": false,
-        "required": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "id": "rzlcoxka",
-        "name": "members",
-        "type": "relation",
-        "system": false,
-        "required": false,
-        "options": {
-          "collectionId": "_pb_users_auth_",
-          "cascadeDelete": false,
-          "minSelect": null,
-          "maxSelect": null,
-          "displayFields": []
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": "@request.auth.id != \"\" && members.id ?= @request.auth.id",
-    "viewRule": "@request.auth.id != \"\" && members.id ?= @request.auth.id",
-    "createRule": "@request.auth.id != \"\"",
     "updateRule": null,
     "deleteRule": null,
     "options": {}
@@ -246,47 +178,6 @@
     "options": {}
   },
   {
-    "id": "d00dy4a9lm5burv",
-    "name": "states",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "id": "npddllqb",
-        "name": "name",
-        "type": "text",
-        "system": false,
-        "required": true,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      },
-      {
-        "id": "57xs3skq",
-        "name": "board",
-        "type": "relation",
-        "system": false,
-        "required": false,
-        "options": {
-          "collectionId": "u86ozokc9lcwy28",
-          "cascadeDelete": false,
-          "minSelect": null,
-          "maxSelect": 1,
-          "displayFields": []
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {}
-  },
-  {
     "id": "_pb_users_auth_",
     "name": "users",
     "type": "auth",
@@ -341,5 +232,114 @@
       "onlyEmailDomains": null,
       "requireEmail": false
     }
+  },
+  {
+    "id": "d00dy4a9lm5burv",
+    "name": "states",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "npddllqb",
+        "name": "title",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "57xs3skq",
+        "name": "board",
+        "type": "relation",
+        "system": false,
+        "required": false,
+        "options": {
+          "collectionId": "u86ozokc9lcwy28",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": []
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
+    "viewRule": null,
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
+    "id": "cfpcl1077stm96z",
+    "name": "labels",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "mjimwqdw",
+        "name": "title",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": null,
+    "viewRule": null,
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
+    "id": "u86ozokc9lcwy28",
+    "name": "boards",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "pviuvxtc",
+        "name": "title",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "rzlcoxka",
+        "name": "members",
+        "type": "relation",
+        "system": false,
+        "required": false,
+        "options": {
+          "collectionId": "_pb_users_auth_",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": null,
+          "displayFields": []
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.auth.id != \"\" && members.id ?= @request.auth.id",
+    "viewRule": "@request.auth.id != \"\" && members.id ?= @request.auth.id",
+    "createRule": "@request.auth.id != \"\"",
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
   }
 ]
