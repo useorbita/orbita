@@ -1,5 +1,20 @@
-import { Button, Divider, Select, Stack } from "@mantine/core";
-import { IconAdjustments, IconUser } from "@tabler/icons-react";
+import {
+  Box,
+  Button,
+  Center,
+  SegmentedControl,
+  Select,
+  Space,
+  Stack,
+  Text,
+} from "@mantine/core";
+import {
+  IconAdjustments,
+  IconMoon,
+  IconSun,
+  IconToggleRight,
+  IconUser,
+} from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
 export function AppSettings() {
@@ -9,7 +24,7 @@ export function AppSettings() {
     <>
       <Button.Group>
         <Button
-          variant="light"
+          variant="outline"
           color="dark"
           leftIcon={<IconAdjustments />}
           onClick={() => navigate("/settings")}
@@ -26,17 +41,40 @@ export function AppSettings() {
         </Button>
       </Button.Group>
 
-      <Divider mt="sm" mb="lg" />
+      <Space h="xl" />
+      <Space h="md" />
 
       <Stack w={"20em"}>
-        <Select
-          label="Farbschema"
-          value={"light"}
-          placeholder="Hell/Dunkel/Auto"
+        <Text size="sm">Farbschema</Text>
+        <SegmentedControl
           data={[
-            { value: "light", label: "Hell" },
-            { value: "dark", label: "Dunkel" },
-            { value: "auto", label: "Automatisch" },
+            {
+              value: "light",
+              label: (
+                <Center>
+                  <IconSun size="1rem" />
+                  <Box ml={10}>Hell</Box>
+                </Center>
+              ),
+            },
+            {
+              value: "dark",
+              label: (
+                <Center>
+                  <IconMoon size="1rem" />
+                  <Box ml={10}>Dunkel</Box>
+                </Center>
+              ),
+            },
+            {
+              value: "auto",
+              label: (
+                <Center>
+                  <IconToggleRight size="1rem" />
+                  <Box ml={10}>Auto</Box>
+                </Center>
+              ),
+            },
           ]}
         />
 

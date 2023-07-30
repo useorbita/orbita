@@ -84,7 +84,7 @@ export function Board() {
       <Group position="apart">
         <Text>{boardId}</Text>
 
-        <Group>
+        <Group mb="xl">
           <Menu shadow="md" width={200} closeOnItemClick={false}>
             <Menu.Target>
               <Button
@@ -174,7 +174,7 @@ export function Board() {
 
       {!loading && view === "list" && (
         <ScrollArea>
-          <Table mt="xl">
+          <Table>
             <thead>
               <tr>
                 <th>

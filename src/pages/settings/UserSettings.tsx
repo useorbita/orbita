@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, Group, Text } from "@mantine/core";
+import { Avatar, Button, Group, Space, Text } from "@mantine/core";
 import { IconAdjustments, IconLogout, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { pb } from "../../api/pocketbase";
@@ -18,7 +18,7 @@ export function UserSettings() {
           Anwendung
         </Button>
         <Button
-          variant="light"
+          variant="outline"
           color="dark"
           leftIcon={<IconUser />}
           onClick={() => navigate("/settings/me")}
@@ -27,7 +27,8 @@ export function UserSettings() {
         </Button>
       </Button.Group>
 
-      <Divider mt="sm" mb="lg" />
+      <Space h="xl" />
+      <Space h="md" />
 
       <Group>
         <Avatar size={40} color="dark" radius="xl">

@@ -1,12 +1,12 @@
 import {
   ActionIcon,
   Avatar,
-  Divider,
   Group,
   NavLink,
   Space,
   Text,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import {
@@ -35,19 +35,21 @@ export function Navigation({
         <Title order={2} ml="sm">
           Mello
         </Title>
-        <Avatar
-          size={36}
-          color="dark"
-          radius="xl"
-          mr="xs"
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/settings/me")}
-        >
-          {pb.authStore.model?.name.substring(0, 2)}
-        </Avatar>
+        <Tooltip label={pb.authStore.model?.name} position="right">
+          <Avatar
+            size={36}
+            color="dark"
+            radius="xl"
+            mr="xs"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/settings/me")}
+          >
+            {pb.authStore.model?.name.substring(0, 2)}
+          </Avatar>
+        </Tooltip>
       </Group>
 
-      <Space h="sm" />
+      <Space h="xl" />
 
       <NavLink
         label="Übersicht"
@@ -63,9 +65,7 @@ export function Navigation({
         onClick={() => navigate("settings")}
       />
 
-      <Space h="md" />
-      <Divider />
-      <Space h="md" />
+      <Space h="xl" />
 
       {loading ? (
         <Text>Lade Boards...</Text>
@@ -92,7 +92,7 @@ export function Navigation({
         ))
       )}
 
-      <Space h="sm" />
+      <Space h="xl" />
 
       <NavLink
         label="Board hinzufügen"
