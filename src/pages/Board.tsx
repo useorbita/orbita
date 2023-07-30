@@ -81,10 +81,10 @@ export function Board() {
         />
       )}
 
-      <Group position="apart">
+      <Group position="apart" mb="xl">
         <Text>{boardId}</Text>
 
-        <Group mb="xl">
+        <Group>
           <Menu shadow="md" width={200} closeOnItemClick={false}>
             <Menu.Target>
               <Button

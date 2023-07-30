@@ -31,6 +31,8 @@ export function Navigation({
 
   return (
     <>
+     <Space h="xl" />
+
       <Group position="apart">
         <Title order={2} ml="sm">
           Mello

@@ -82,7 +82,11 @@ export function AppSettings() {
           label="Sprache"
           value={"de"}
           placeholder="Sprache auswählen"
-          data={[{ value: "de", label: "Deutsch" }]}
+          data={[
+            { value: "de", label: "Deutsch" },
+            { value: "en", label: "English" },
+            { value: "fr", label: "Francais" },
+          ]}
         />
       </Stack>
     </>
