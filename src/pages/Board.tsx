@@ -13,12 +13,14 @@ import {
   Stack,
   Table,
   Text,
+  TextInput,
   Tooltip,
 } from "@mantine/core";
 import {
   IconFilter,
   IconLayoutGrid,
   IconLayoutList,
+  IconSearch,
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -85,6 +87,12 @@ export function Board() {
         <Text>{boardId}</Text>
 
         <Group>
+          <TextInput
+            size="xs"
+            placeholder="Suchen"
+            icon={<IconSearch size="0.8rem" />}
+          />
+
           <Menu shadow="md" width={200} closeOnItemClick={false}>
             <Menu.Target>
               <Button
