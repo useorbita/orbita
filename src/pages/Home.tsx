@@ -1,7 +1,5 @@
+import { Text } from "@mantine/core";
+
 export function Home() {
-  return (
-    <>
-      <p>Start</p>
-    </>
-  );
+  return <Text>Start</Text>;
 }

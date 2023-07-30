@@ -17,14 +17,10 @@ import { Card } from "../components/Card";
 export function Board() {
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState("board");
-
   const [selectedCard, setSelectedCard] = useState<CardsResponse>();
-
   const [cards, setCards] = useState<CardsResponse[]>([]);
   const [states, setStates] = useState<StatesResponse[]>([]);
-
   const { boardId, cardId } = useParams();
-
   const navigate = useNavigate();
 
   useEffect(() => {

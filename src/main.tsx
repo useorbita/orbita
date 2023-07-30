@@ -5,13 +5,15 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import { Authentication } from "./pages/Authentication";
+import { pb } from "./api/pocketbase";
 
-const userAuthenticated = true;
+// TODO: this only works with refresh 
+const userAuthenticated = pb.authStore.isValid;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <MantineProvider
-      theme={{ colorScheme: "dark" }}
+      theme={{ colorScheme: "light" }}
       withGlobalStyles
       withNormalizeCSS
     >

@@ -1,7 +1,22 @@
-import { Button, Divider, Group, Stack, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Avatar,
+  Divider,
+  Group,
+  NavLink,
+  Space,
+  Text,
+  Title,
+} from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { IconPlus } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import {
+  IconHome2,
+  IconPencil,
+  IconPlus,
+  IconSettings,
+} from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
+import { pb } from "../api/pocketbase";
 import { BoardsResponse } from "../api/types";
 
 export function Navigation({
@@ -11,23 +26,75 @@ export function Navigation({
   loading: boolean;
   boards: BoardsResponse[];
 }) {
+  const navigate = useNavigate();
+
   return (
-    <Stack>
-      <Link to={"/"}>Start</Link>
+    <>
+      <Group position="apart">
+        <Title order={2} ml="sm">
+          Mello
+        </Title>
+        <Avatar
+          size={40}
+          color="blue"
+          radius="xl"
+          mr="xs"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/settings/me")}
+        >
+          {pb.authStore.model?.name.substring(0, 2)}
+        </Avatar>
+      </Group>
+
+      <Space h="sm" />
+
+      <NavLink
+        label="Übersicht"
+        icon={<IconHome2 size="1rem" stroke={1.5} />}
+        onClick={() => navigate("/")}
+      />
+
+      <NavLink
+        label="Einstellungen"
+        icon={<IconSettings size="1rem" stroke={1.5} />}
+        onClick={() => navigate("settings")}
+      />
+
+      <Space h="md" />
       <Divider />
+      <Space h="md" />
+
       {loading ? (
         <Text>Lade Boards...</Text>
       ) : (
         boards.map((board) => (
           <Group key={board.id} position="apart">
-            <Link to={board.id}>{board.title}</Link>
-            <Link to={"settings/" + board.id}>Einstellungen</Link>
+            <NavLink
+              label={board.title}
+              // icon={<IconSettings size="1rem" stroke={1.5} />}
+              onClick={() => navigate(board.id)}
+              rightSection={
+                <ActionIcon
+                  variant="light"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("settings/" + board.id);
+                  }}
+                >
+                  <IconPencil size="1em" />
+                </ActionIcon>
+              }
+            />
           </Group>
         ))
       )}
-      <Button
-        leftIcon={<IconPlus size={18} />}
-        variant="default"
+
+      <Space h="sm" />
+
+      <NavLink
+        label="Board hinzufügen"
+        icon={<IconPlus size="1rem" stroke={1.5} />}
+        style={{ color: "grey" }}
         onClick={() =>
           notifications.show({
             title: "Noch nicht implementiert",
@@ -36,12 +103,7 @@ export function Navigation({
             color: "gray",
           })
         }
-      >
-        Board hinzufügen
-      </Button>
-      <Divider />
-      <Link to={"/settings"}>Mello Einstellungen</Link>
-      <Link to={"/settings/me"}>Nutzer Einstellungen</Link>
-    </Stack>
+      />
+    </>
   );
 }

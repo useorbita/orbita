@@ -1,12 +1,13 @@
 import { Text } from "@mantine/core";
 
-export function AppSettings() {
+export function BoardSettings() {
   return (
     <>
       <Text>Einstellungen</Text>
       <ul>
-        <li>Theme</li>
-        <li>Sprache</li>
+        <li>Name</li>
+        <li>Mitglieder</li>
+        <li>Board löschen</li>
       </ul>
     </>
   );
