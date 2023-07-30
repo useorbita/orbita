@@ -1,4 +1,4 @@
-import { Button, Divider, Group, Select, Stack } from "@mantine/core";
+import { Button, Divider, Select, Stack } from "@mantine/core";
 import { IconAdjustments, IconUser } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,9 +7,10 @@ export function AppSettings() {
 
   return (
     <>
-      <Group>
+      <Button.Group>
         <Button
           variant="light"
+          color="dark"
           leftIcon={<IconAdjustments />}
           onClick={() => navigate("/settings")}
         >
@@ -17,18 +18,20 @@ export function AppSettings() {
         </Button>
         <Button
           variant="subtle"
+          color="dark"
           leftIcon={<IconUser />}
           onClick={() => navigate("/settings/me")}
         >
           Profil
         </Button>
-      </Group>
+      </Button.Group>
 
       <Divider mt="sm" mb="lg" />
 
       <Stack w={"20em"}>
         <Select
           label="Farbschema"
+          value={"light"}
           placeholder="Hell/Dunkel/Auto"
           data={[
             { value: "light", label: "Hell" },
@@ -39,6 +42,7 @@ export function AppSettings() {
 
         <Select
           label="Sprache"
+          value={"de"}
           placeholder="Sprache auswählen"
           data={[{ value: "de", label: "Deutsch" }]}
         />

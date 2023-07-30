@@ -8,6 +8,8 @@ export function BoardSettings() {
         <li>Name</li>
         <li>Mitglieder</li>
         <li>Board löschen</li>
+        <li>Labels (Titel, Farbe)</li>
+        <li>States (Titel)</li>
       </ul>
     </>
   );

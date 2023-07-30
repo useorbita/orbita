@@ -8,9 +8,10 @@ export function UserSettings() {
 
   return (
     <>
-      <Group>
+      <Button.Group>
         <Button
           variant="subtle"
+          color="dark"
           leftIcon={<IconAdjustments />}
           onClick={() => navigate("/settings")}
         >
@@ -18,17 +19,18 @@ export function UserSettings() {
         </Button>
         <Button
           variant="light"
+          color="dark"
           leftIcon={<IconUser />}
           onClick={() => navigate("/settings/me")}
         >
           Profil
         </Button>
-      </Group>
+      </Button.Group>
 
       <Divider mt="sm" mb="lg" />
 
       <Group>
-        <Avatar size={40} color="blue" radius="xl">
+        <Avatar size={40} color="dark" radius="xl">
           {pb.authStore.model?.name.substring(0, 2)}
         </Avatar>
         <div>

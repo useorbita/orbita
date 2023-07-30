@@ -16,33 +16,40 @@ export function Card({ card }: { card: CardsResponse }) {
   return (
     <MantineCard shadow="sm" withBorder onClick={() => navigate(card.id)}>
       <Text weight={500}>{card.title}</Text>
+
       {card.labels.map((label) => (
         <Badge variant="light">{label}</Badge>
       ))}
 
-      <Tooltip.Group openDelay={300} closeDelay={100}>
-        <Avatar.Group spacing="sm">
-          {card.members.map((member) => (
-            <Tooltip label={member} withArrow>
-              <Avatar src="image.png" radius="xl" />
-            </Tooltip>
-          ))}
-        </Avatar.Group>
-      </Tooltip.Group>
+      {card.members.length > 0 && (
+        <Tooltip.Group openDelay={300} closeDelay={100}>
+          <Avatar.Group spacing="sm">
+            {card.members.map((member) => (
+              <Tooltip label={member} withArrow>
+                <Avatar src="image.png" radius="xl" />
+              </Tooltip>
+            ))}
+          </Avatar.Group>
+        </Tooltip.Group>
+      )}
 
-      <Group>
-        <IconCalendar color="gray" size={"1rem"} />
-        <Text color="dimmed" size="sm">
-          {new Date(card.dueDate).toLocaleDateString("DE-de")}
-        </Text>
-      </Group>
+      {card.dueDate && (
+        <Group>
+          <IconCalendar color="gray" size={"1rem"} />
+          <Text color="dimmed" size="sm">
+            {new Date(card.dueDate).toLocaleDateString("DE-de")}
+          </Text>
+        </Group>
+      )}
 
-      <Group>
-        <IconTriangle color="gray" size={"1rem"} />
-        <Text color="dimmed" size="sm">
-          {card.priority}
-        </Text>
-      </Group>
+      {card.priority && (
+        <Group>
+          <IconTriangle color="gray" size={"1rem"} />
+          <Text color="dimmed" size="sm">
+            {card.priority}
+          </Text>
+        </Group>
+      )}
     </MantineCard>
   );
 }

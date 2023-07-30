@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import {
+  IconCircleDotted,
   IconHome2,
   IconPencil,
   IconPlus,
@@ -35,8 +36,8 @@ export function Navigation({
           Mello
         </Title>
         <Avatar
-          size={40}
-          color="blue"
+          size={36}
+          color="dark"
           radius="xl"
           mr="xs"
           style={{ cursor: "pointer" }}
@@ -50,11 +51,13 @@ export function Navigation({
 
       <NavLink
         label="Übersicht"
+        h={44}
         icon={<IconHome2 size="1rem" stroke={1.5} />}
         onClick={() => navigate("/")}
       />
 
       <NavLink
+        h={44}
         label="Einstellungen"
         icon={<IconSettings size="1rem" stroke={1.5} />}
         onClick={() => navigate("settings")}
@@ -71,7 +74,7 @@ export function Navigation({
           <Group key={board.id} position="apart">
             <NavLink
               label={board.title}
-              // icon={<IconSettings size="1rem" stroke={1.5} />}
+              icon={<IconCircleDotted size="1rem" stroke={1.5} />}
               onClick={() => navigate(board.id)}
               rightSection={
                 <ActionIcon
