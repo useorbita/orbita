@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { pb } from "../api/pocketbase";
 import { CardsResponse, Collections, StatesResponse } from "../api/types";
+import { CardModal } from "../components/CardModal";
 import { Card } from "../components/Card";
 
 export function Board() {
@@ -56,7 +57,7 @@ export function Board() {
   return (
     <>
       {cardId && (
-        <Card
+        <CardModal
           open={!!cardId}
           close={() => navigate("/" + boardId)}
           card={selectedCard}
@@ -95,14 +96,12 @@ export function Board() {
           {states.map((state: StatesResponse) => (
             <div key={state.id}>
               <Text>{state.title}</Text>
-              <Paper h={500} w={150}>
+              <Paper h={500} w={250}>
                 <Stack>
                   {cards
                     .filter((card) => card.state === state.id)
                     .map((card: CardsResponse) => (
-                      <Link key={card.id} to={card.id}>
-                        {card.title}
-                      </Link>
+                      <Card card={card} />
                     ))}
                 </Stack>
               </Paper>

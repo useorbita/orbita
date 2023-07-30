@@ -67,6 +67,7 @@ export type CommentsRecord = {
 
 export type LabelsRecord = {
 	title: string
+	color?: string
 }
 
 export type StatesRecord = {

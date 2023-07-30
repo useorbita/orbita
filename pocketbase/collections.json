@@ -275,33 +275,6 @@
     "options": {}
   },
   {
-    "id": "cfpcl1077stm96z",
-    "name": "labels",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "id": "mjimwqdw",
-        "name": "title",
-        "type": "text",
-        "system": false,
-        "required": true,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": null,
-    "viewRule": null,
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {}
-  },
-  {
     "id": "u86ozokc9lcwy28",
     "name": "boards",
     "type": "base",
@@ -338,6 +311,45 @@
     "listRule": "@request.auth.id != \"\" && members.id ?= @request.auth.id",
     "viewRule": "@request.auth.id != \"\" && members.id ?= @request.auth.id",
     "createRule": "@request.auth.id != \"\"",
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
+    "id": "cfpcl1077stm96z",
+    "name": "labels",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "mjimwqdw",
+        "name": "title",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      },
+      {
+        "id": "ahtmorna",
+        "name": "color",
+        "type": "text",
+        "system": false,
+        "required": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": ""
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": null,
+    "viewRule": null,
+    "createRule": null,
     "updateRule": null,
     "deleteRule": null,
     "options": {}
