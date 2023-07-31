@@ -33,6 +33,20 @@ import {
 } from "../api/types";
 import { CardModal } from "../components/CardModal";
 import { Card } from "../components/Card";
+import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 export function Board() {
   const [loading, setLoading] = useState(true);
@@ -64,6 +78,7 @@ export function Board() {
 
       if (!!cardId)
         setSelectedCard(allCards.find((card) => card.id === cardId));
+
       setLoading(false);
       console.timeEnd("getting states and cards...");
     })();
@@ -72,6 +87,37 @@ export function Board() {
   useEffect(() => {
     setSelectedCard(cards.find((card) => card.id === cardId));
   }, [cardId]);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      console.time("reordering cards");
+
+      const activeCard = cards.find((card) => card.id === active.id);
+      const overCard = cards.find((card) => card.id === over.id);
+
+      if (activeCard!.state !== overCard!.state) {
+        activeCard!.state = overCard!.state;
+        setCards(cards);
+      }
+
+      setCards((cards) => {
+        const oldIndex = cards.map((c) => c.id).indexOf(active.id);
+        const newIndex = cards.map((c) => c.id).indexOf(over.id);
+
+        return arrayMove(cards, oldIndex, newIndex);
+      });
+      console.timeEnd("reordering cards");
+    }
+  }
 
   return (
     <>
@@ -161,22 +207,33 @@ export function Board() {
 
       {!loading && view === "board" && (
         <ScrollArea>
-          <Group>
-            {states.map((state: StatesResponse) => (
-              <div key={state.id}>
-                <Text>{state.title}</Text>
-                <Paper h={500} w={250}>
-                  <Stack>
-                    {cards
-                      .filter((card) => card.state === state.id)
-                      .map((card: CardsResponse) => (
-                        <Card card={card} />
-                      ))}
-                  </Stack>
-                </Paper>
-              </div>
-            ))}
-          </Group>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <Group>
+              {states.map((state: StatesResponse) => (
+                <div key={state.id}>
+                  <Text>{state.title}</Text>
+                  <Paper h={500} w={250}>
+                    <Stack>
+                      <SortableContext
+                        items={cards}
+                        strategy={verticalListSortingStrategy}
+                      >
+                        {cards
+                          .filter((card) => card.state === state.id)
+                          .map((card: CardsResponse) => (
+                            <Card card={card} />
+                          ))}
+                      </SortableContext>
+                    </Stack>
+                  </Paper>
+                </div>
+              ))}
+            </Group>
+          </DndContext>
         </ScrollArea>
       )}
 
