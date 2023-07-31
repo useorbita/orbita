@@ -1,4 +1,18 @@
 import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import {
   Avatar,
   Badge,
   Button,
@@ -31,22 +45,8 @@ import {
   Collections,
   StatesResponse,
 } from "../api/types";
-import { CardModal } from "../components/CardModal";
 import { Card } from "../components/Card";
-import {
-  DndContext,
-  KeyboardSensor,
-  PointerSensor,
-  closestCenter,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { CardModal } from "../components/CardModal";
 
 export function Board() {
   const [loading, setLoading] = useState(true);
@@ -99,6 +99,7 @@ export function Board() {
     })
   );
 
+  // @ts-ignore FIXME with correct type
   function handleDragEnd(event) {
     const { active, over } = event;
 

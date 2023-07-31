@@ -4,8 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
-import { Authentication } from "./pages/Authentication";
 import { pb } from "./api/pocketbase";
+import { Authentication } from "./pages/Authentication";
 
 // TODO: this only works with refresh 
 const userAuthenticated = pb.authStore.isValid;

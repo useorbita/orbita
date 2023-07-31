@@ -1,3 +1,5 @@
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import {
   Avatar,
   Badge,
@@ -6,11 +8,9 @@ import {
   Text,
   Tooltip,
 } from "@mantine/core";
+import { IconCalendar, IconTriangle } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { CardsResponse } from "../api/types";
-import { IconCalendar, IconTriangle } from "@tabler/icons-react";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 
 export function Card({ card }: { card: CardsResponse }) {
   const navigate = useNavigate();
