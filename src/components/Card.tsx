@@ -19,7 +19,7 @@ export function Card({ card }: { card: CardsResponse }) {
     useSortable({ id: card.id });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
   };
 
