@@ -53,15 +53,16 @@ export type CardsRecord = {
 	members?: RecordIdString[]
 	labels?: RecordIdString[]
 	state: RecordIdString
-	dueDate?: IsoDateString
+	date?: IsoDateString
 	priority?: CardsPriorityOptions
 	author?: RecordIdString
 	board?: RecordIdString
+	position?: number
 }
 
 export type CommentsRecord = {
 	content?: HTMLString
-	field?: RecordIdString
+	card?: RecordIdString
 	author?: RecordIdString
 }
 
@@ -73,6 +74,7 @@ export type LabelsRecord = {
 export type StatesRecord = {
 	title: string
 	board?: RecordIdString
+	position?: number
 }
 
 export type UsersRecord = {

@@ -47,7 +47,7 @@ export function CardModal({
                 <Text>Labels: {card && card.labels}</Text>
                 <Text>Mitglieder: {card && card.members}</Text>
                 <Text>Priorität: {card && card.priority}</Text>
-                <Text>Datum: {card && card.dueDate}</Text>
+                <Text>Datum: {card && card.date}</Text>
                 <Text>Author: {card && card.author}</Text>
                 <Text>Erstellt am {card && card.created}</Text>
                 <Text>Verändert zuletzt{card && card.updated}</Text>

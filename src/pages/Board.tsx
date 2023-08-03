@@ -218,25 +218,28 @@ export function Board() {
             onDragEnd={handleDragEnd}
           >
             <Group>
-              {states.map((state: StatesResponse) => (
-                <div key={state.id}>
-                  <Text>{state.title}</Text>
-                  <Paper h={500} w={250}>
-                    <Stack>
-                      <SortableContext
-                        items={cards}
-                        strategy={verticalListSortingStrategy}
-                      >
-                        {cards
-                          .filter((card) => card.state === state.id)
-                          .map((card: CardsResponse) => (
-                            <Card card={card} />
-                          ))}
-                      </SortableContext>
-                    </Stack>
-                  </Paper>
-                </div>
-              ))}
+              {states
+                .sort((a, b) => a.position - b.position)
+                .map((state: StatesResponse) => (
+                  <div key={state.id}>
+                    <Text>{state.title}</Text>
+                    <Paper h={500} w={250}>
+                      <Stack>
+                        <SortableContext
+                          items={cards}
+                          strategy={verticalListSortingStrategy}
+                        >
+                          {cards
+                            .filter((card) => card.state === state.id)
+                            .sort((a, b) => a.position - b.position)
+                            .map((card: CardsResponse) => (
+                              <Card card={card} />
+                            ))}
+                        </SortableContext>
+                      </Stack>
+                    </Paper>
+                  </div>
+                ))}
             </Group>
           </DndContext>
         </ScrollArea>
@@ -336,9 +339,9 @@ export function Board() {
                   </td>
 
                   <td>
-                    {card.dueDate && (
+                    {card.date && (
                       <Text size="sm">
-                        {new Date(card.dueDate).toLocaleDateString("DE-de")}
+                        {new Date(card.date).toLocaleDateString("DE-de")}
                       </Text>
                     )}
                   </td>

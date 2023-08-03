@@ -44,11 +44,11 @@ export function Card({ card }: { card: CardsResponse }) {
           </Tooltip.Group>
         )}
 
-        {card.dueDate && (
+        {card.date && (
           <Group>
             <IconCalendar color="gray" size={"1rem"} />
             <Text color="dimmed" size="sm">
-              {new Date(card.dueDate).toLocaleDateString("DE-de")}
+              {new Date(card.date).toLocaleDateString("DE-de")}
             </Text>
           </Group>
         )}
