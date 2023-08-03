@@ -38,7 +38,7 @@ export function Board() {
       setStates(allStates);
       setCards(allCards);
 
-      if (!!cardId)
+      if (cardId)
         setSelectedCard(allCards.find((card) => card.id === cardId));
 
       setLoading(false);
@@ -48,7 +48,7 @@ export function Board() {
 
   useEffect(() => {
     setSelectedCard(cards.find((card) => card.id === cardId));
-  }, [cardId]);
+  }, [cards, cardId]);
 
   return (
     <>
