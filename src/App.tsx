@@ -6,9 +6,9 @@ import { BoardsResponse, Collections } from "./api/types";
 import { Navigation } from "./components/App/Navigation";
 import { Board } from "./pages/Board";
 import { Home } from "./pages/Home";
-import { AppSettings } from "./pages/settings/AppSettings";
-import { BoardSettings } from "./pages/settings/BoardSettings";
-import { UserSettings } from "./pages/settings/UserSettings";
+import { AppSettings } from "./pages/Settings/AppSettings";
+import { BoardSettings } from "./pages/Settings/BoardSettings";
+import { UserSettings } from "./pages/Settings/UserSettings";
 
 export function App() {
   const [boards, setBoards] = useState<BoardsResponse[]>([]);
