@@ -1,8 +1,8 @@
 import { ActionIcon, Button, Group, Modal, Stack, Text } from "@mantine/core";
-import { IconLink, IconTrash } from "@tabler/icons-react";
-import { CardsResponse } from "../api/types";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
+import { IconLink, IconTrash } from "@tabler/icons-react";
+import { CardsResponse } from "../../api/types";
 
 export function CardModal({
   open,

@@ -17,8 +17,8 @@ import {
   IconSettings,
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import { pb } from "../api/pocketbase";
-import { BoardsResponse } from "../api/types";
+import { pb } from "../../api/pocketbase";
+import { BoardsResponse } from "../../api/types";
 
 export function Navigation({
   loading,

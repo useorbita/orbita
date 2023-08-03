@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { IconCalendar, IconTriangle } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import { CardsResponse } from "../api/types";
+import { CardsResponse } from "../../api/types";
 
 export function Card({ card }: { card: CardsResponse }) {
   const navigate = useNavigate();

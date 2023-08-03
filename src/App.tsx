@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { pb } from "./api/pocketbase";
 import { BoardsResponse, Collections } from "./api/types";
-import { Navigation } from "./components/Navigation";
+import { Navigation } from "./components/App/Navigation";
 import { Board } from "./pages/Board";
 import { Home } from "./pages/Home";
 import { AppSettings } from "./pages/settings/AppSettings";
