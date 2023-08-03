@@ -84,7 +84,9 @@ export function ListView({ cards, states }: ListViewProps) {
 
               <td>
                 {card.labels.map((label) => (
-                  <Badge variant="light">{label}</Badge>
+                  <Badge key={label} variant="light">
+                    {label}
+                  </Badge>
                 ))}
               </td>
 
@@ -92,7 +94,7 @@ export function ListView({ cards, states }: ListViewProps) {
                 <Tooltip.Group openDelay={300} closeDelay={100}>
                   <Avatar.Group spacing="sm">
                     {card.members.map((member) => (
-                      <Tooltip label={member} withArrow>
+                      <Tooltip key={member} label={member} withArrow>
                         <Avatar radius="xl" />
                       </Tooltip>
                     ))}

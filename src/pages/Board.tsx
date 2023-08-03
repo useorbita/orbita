@@ -12,7 +12,7 @@ import { ViewSwitch } from "../components/UI/ViewSwitch";
 
 export function Board() {
   const [loading, setLoading] = useState(true);
-  const [view, setView] = useState("board");
+  const [view, setView] = useState("column");
   const [selectedCard, setSelectedCard] = useState<CardsResponse>();
   const [cards, setCards] = useState<CardsResponse[]>([]);
   const [states, setStates] = useState<StatesResponse[]>([]);
@@ -38,8 +38,7 @@ export function Board() {
       setStates(allStates);
       setCards(allCards);
 
-      if (cardId)
-        setSelectedCard(allCards.find((card) => card.id === cardId));
+      if (cardId) setSelectedCard(allCards.find((card) => card.id === cardId));
 
       setLoading(false);
       console.timeEnd("getting states and cards...");
@@ -66,11 +65,11 @@ export function Board() {
         <Group>
           <Search />
           <FilterMenu />
-          <ViewSwitch view={view} setView={() => setView} />
+          <ViewSwitch view={view} setView={setView} />
         </Group>
       </Group>
 
-      {!loading && view === "board" && (
+      {!loading && view === "column" && (
         <ColumnView states={states} cards={cards} />
       )}
 

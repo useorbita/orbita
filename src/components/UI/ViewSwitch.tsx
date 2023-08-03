@@ -3,7 +3,7 @@ import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 
 interface ViewStateProps {
   view: string;
-  setView: () => void;
+  setView: (view: string) => void;
 }
 
 export function ViewSwitch({ view, setView }: ViewStateProps) {
@@ -19,7 +19,7 @@ export function ViewSwitch({ view, setView }: ViewStateProps) {
           ),
         },
         {
-          value: "board",
+          value: "column",
           label: (
             <Center>
               <IconLayoutGrid size="1rem" />
