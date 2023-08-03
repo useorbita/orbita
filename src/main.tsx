@@ -6,8 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import { pb } from "./api/pocketbase";
 import { Authentication } from "./pages/Authentication";
+import { ModalsProvider } from "@mantine/modals";
 
-// TODO: this only works with refresh 
+// TODO: this only works with refresh
 const userAuthenticated = pb.authStore.isValid;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     >
       <Notifications />
       <BrowserRouter>
-        {userAuthenticated ? <App /> : <Authentication />}
+        <ModalsProvider>
+          {userAuthenticated ? <App /> : <Authentication />}
+        </ModalsProvider>
       </BrowserRouter>
     </MantineProvider>
   </React.StrictMode>

@@ -29,14 +29,14 @@ export function Card({ card }: { card: CardsResponse }) {
         <Text weight={500}>{card.title}</Text>
 
         {card.labels.map((label) => (
-          <Badge variant="light">{label}</Badge>
+          <Badge key={label} variant="light">{label}</Badge>
         ))}
 
         {card.members.length > 0 && (
           <Tooltip.Group openDelay={300} closeDelay={100}>
             <Avatar.Group spacing="sm">
               {card.members.map((member) => (
-                <Tooltip label={member} withArrow>
+                <Tooltip key={member} label={member} withArrow>
                   <Avatar src="image.png" radius="xl" />
                 </Tooltip>
               ))}

@@ -233,7 +233,7 @@ export function Board() {
                             .filter((card) => card.state === state.id)
                             .sort((a, b) => a.position - b.position)
                             .map((card: CardsResponse) => (
-                              <Card card={card} />
+                              <Card key={card.id} card={card} />
                             ))}
                         </SortableContext>
                       </Stack>
