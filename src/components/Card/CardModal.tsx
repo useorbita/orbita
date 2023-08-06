@@ -5,6 +5,7 @@ import { IconLink, IconTrash } from "@tabler/icons-react";
 import { CardsResponse, Collections, CommentsResponse } from "../../api/types";
 import { useEffect, useState } from "react";
 import { pb } from "../../api/pocketbase";
+import { TextEditor } from "../App/TextEditor";
 
 export function CardModal({
   open,
@@ -93,7 +94,10 @@ export function CardModal({
         <Modal.Body mt={"xl"}>
           {card ? (
             <Stack>
-              <Text dangerouslySetInnerHTML={{ __html: card.description }} />
+              {/* <Text dangerouslySetInnerHTML={{ __html: card.description }} /> */}
+
+              <TextEditor content={card.description} />
+
               <Text>Status: {card && card.state}</Text>
               <Text>Labels: {card && card.labels}</Text>
               <Text>Mitglieder: {card && card.members}</Text>
