@@ -12,15 +12,22 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Group, Paper, ScrollArea, Stack, Text } from "@mantine/core";
-import { CardsResponse, StatesResponse } from "../../api/types";
+import {
+  CardsResponse,
+  LabelsResponse,
+  StatesResponse,
+  UsersResponse,
+} from "../../api/types";
 import { Card } from "../Card/Card";
 
 interface ColumnViewProps {
   states: StatesResponse[];
   cards: CardsResponse[];
+  users: UsersResponse[];
+  labels: LabelsResponse[];
 }
 
-export function ColumnView({ cards, states }: ColumnViewProps) {
+export function ColumnView({ cards, states, users, labels }: ColumnViewProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -81,7 +88,12 @@ export function ColumnView({ cards, states }: ColumnViewProps) {
                         .filter((card) => card.state === state.id)
                         .sort((a, b) => a.position - b.position)
                         .map((card: CardsResponse) => (
-                          <Card key={card.id} card={card} />
+                          <Card
+                            key={card.id}
+                            card={card}
+                            users={users}
+                            labels={labels}
+                          />
                         ))}
                     </SortableContext>
                   </Stack>

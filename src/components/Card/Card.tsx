@@ -10,9 +10,15 @@ import {
 } from "@mantine/core";
 import { IconCalendar, IconTriangle } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import { CardsResponse } from "../../api/types";
+import { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
 
-export function Card({ card }: { card: CardsResponse }) {
+interface CardProps {
+  card: CardsResponse;
+  users: UsersResponse[];
+  labels: LabelsResponse[];
+}
+
+export function Card({ card, users, labels }: CardProps) {
   const navigate = useNavigate();
 
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -29,15 +35,43 @@ export function Card({ card }: { card: CardsResponse }) {
         <Text weight={500}>{card.title}</Text>
 
         {card.labels.map((label) => (
-          <Badge key={label} variant="light">{label}</Badge>
+          <Badge
+            key={label}
+            variant="light"
+            color={
+              (
+                labels.find((l: LabelsResponse) => l.id === label) || {
+                  color: "grey",
+                }
+              ).color
+            }
+          >
+            {
+              (
+                labels.find((l: LabelsResponse) => l.id === label) || {
+                  title: "Unbekannt",
+                }
+              ).title
+            }
+          </Badge>
         ))}
 
         {card.members.length > 0 && (
           <Tooltip.Group openDelay={300} closeDelay={100}>
             <Avatar.Group spacing="sm">
               {card.members.map((member) => (
-                <Tooltip key={member} label={member} withArrow>
-                  <Avatar src="image.png" radius="xl" />
+                <Tooltip
+                  key={member}
+                  label={
+                    (
+                      users.find(
+                        (user: UsersResponse) => user.id === member
+                      ) || { name: "Unbekannt" }
+                    ).name
+                  }
+                  withArrow
+                >
+                  <Avatar radius="xl" />
                 </Tooltip>
               ))}
             </Avatar.Group>

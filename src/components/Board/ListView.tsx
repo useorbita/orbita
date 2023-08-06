@@ -11,15 +11,19 @@ import { Link } from "react-router-dom";
 import {
   CardsPriorityOptions,
   CardsResponse,
+  LabelsResponse,
   StatesResponse,
+  UsersResponse,
 } from "../../api/types";
 
 interface ListViewProps {
   states: StatesResponse[];
   cards: CardsResponse[];
+  users: UsersResponse[];
+  labels: LabelsResponse[];
 }
 
-export function ListView({ cards, states }: ListViewProps) {
+export function ListView({ cards, states, users, labels }: ListViewProps) {
   return (
     <ScrollArea>
       <Table>
@@ -58,7 +62,16 @@ export function ListView({ cards, states }: ListViewProps) {
           {cards.map((card: CardsResponse) => (
             <tr key={card.id}>
               <td>
-                <Tooltip label={card.author} withArrow>
+                <Tooltip
+                  label={
+                    (
+                      users.find(
+                        (user: UsersResponse) => user.id === card.author
+                      ) || { name: "Unbekannt" }
+                    ).name
+                  }
+                  withArrow
+                >
                   <Avatar radius="xl" />
                 </Tooltip>
               </td>
@@ -72,20 +85,36 @@ export function ListView({ cards, states }: ListViewProps) {
               <td>
                 {states && (
                   <Select
-                    withinPortal
                     value={card.state}
                     data={states.map((state) => ({
                       value: state.id,
                       label: state.title,
                     }))}
+                    withinPortal
                   />
                 )}
               </td>
 
               <td>
                 {card.labels.map((label) => (
-                  <Badge key={label} variant="light">
-                    {label}
+                  <Badge
+                    key={label}
+                    variant="light"
+                    color={
+                      (
+                        labels.find((l: LabelsResponse) => l.id === label) || {
+                          color: "",
+                        }
+                      ).color
+                    }
+                  >
+                    {
+                      (
+                        labels.find((l: LabelsResponse) => l.id === label) || {
+                          title: "Unbekannt",
+                        }
+                      ).title
+                    }
                   </Badge>
                 ))}
               </td>
@@ -94,7 +123,17 @@ export function ListView({ cards, states }: ListViewProps) {
                 <Tooltip.Group openDelay={300} closeDelay={100}>
                   <Avatar.Group spacing="sm">
                     {card.members.map((member) => (
-                      <Tooltip key={member} label={member} withArrow>
+                      <Tooltip
+                        key={member}
+                        label={
+                          (
+                            users.find(
+                              (user: UsersResponse) => user.id === member
+                            ) || { name: "Unbekannt" }
+                          ).name
+                        }
+                        withArrow
+                      >
                         <Avatar radius="xl" />
                       </Tooltip>
                     ))}
