@@ -37,10 +37,9 @@ export function Navigation({
         <Title order={2} ml="sm">
           Mello
         </Title>
-        <Tooltip label={pb.authStore.model?.name} position="right">
+        <Tooltip label={pb.authStore.model?.name} position="bottom">
           <Avatar
             size={36}
-            color="dark"
             radius="xl"
             mr="xs"
             style={{ cursor: "pointer" }}

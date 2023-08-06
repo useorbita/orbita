@@ -67,7 +67,7 @@ export function CardModal({
     });
 
   return (
-    <Modal.Root opened={open} onClose={close} centered size={"45em"}>
+    <Modal.Root opened={open} onClose={close} centered size={"50em"}>
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Header>

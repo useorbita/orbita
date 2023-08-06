@@ -1,50 +1,18 @@
 import {
   Box,
-  Button,
   Center,
   SegmentedControl,
   Select,
-  Space,
   Stack,
   Text,
 } from "@mantine/core";
-import {
-  IconAdjustments,
-  IconMoon,
-  IconSun,
-  IconToggleRight,
-  IconUser,
-} from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
+import { IconMoon, IconSun, IconToggleRight } from "@tabler/icons-react";
 
 export function AppSettings() {
-  const navigate = useNavigate();
-
   return (
     <>
-      <Button.Group>
-        <Button
-          variant="outline"
-          color="dark"
-          leftIcon={<IconAdjustments />}
-          onClick={() => navigate("/settings")}
-        >
-          Anwendung
-        </Button>
-        <Button
-          variant="subtle"
-          color="dark"
-          leftIcon={<IconUser />}
-          onClick={() => navigate("/settings/me")}
-        >
-          Profil
-        </Button>
-      </Button.Group>
-
-      <Space h="xl" />
-      <Space h="md" />
-
-      <Stack w={"20em"}>
+      <Text>Einstellungen</Text>
+      <Stack w={"20em"} mt={"xl"}>
         <Text size="sm">Farbschema</Text>
         <SegmentedControl
           data={[
