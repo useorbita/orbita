@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "typegen": "npx pocketbase-typegen --db ./pocketbase/pb_data/data.db --out ./src/api/types.ts"
+    "typegen": "pocketbase-typegen --db ./pocketbase/pb_data/data.db --out ./src/api/types.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
@@ -33,6 +33,7 @@
     "eslint": "^8.46.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "pocketbase-typegen": "^1.1.11",
     "typescript": "^5.1.6",
     "vite": "^4.4.8"
   }
