@@ -20,7 +20,6 @@ import { ViewSwitch } from "../components/UI/ViewSwitch";
 export function Board() {
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState("column");
-  const [selectedCard, setSelectedCard] = useState<CardsResponse>();
   const [cards, setCards] = useState<CardsResponse[]>([]);
   const [states, setStates] = useState<StatesResponse[]>([]);
   const [users, setUsers] = useState<UsersResponse[]>([]);
@@ -58,16 +57,10 @@ export function Board() {
       setLabels(allLabels);
       setActiveBoard(selectedBoard);
 
-      if (cardId) setSelectedCard(allCards.find((card) => card.id === cardId));
-
       setLoading(false);
       console.timeEnd("getting states and cards...");
     })();
   }, [boardId]);
-
-  useEffect(() => {
-    setSelectedCard(cards.find((card) => card.id === cardId));
-  }, [cards, cardId]);
 
   return (
     <>
@@ -75,7 +68,7 @@ export function Board() {
         <CardModal
           open={!!cardId}
           close={() => navigate("/" + boardId)}
-          card={selectedCard}
+          cardId={cardId}
         />
       )}
 

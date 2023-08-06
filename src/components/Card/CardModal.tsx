@@ -9,26 +9,29 @@ import { pb } from "../../api/pocketbase";
 export function CardModal({
   open,
   close,
-  card,
+  cardId,
 }: {
   open: boolean;
   close: () => void;
-  card?: CardsResponse;
+  cardId: string;
 }) {
+  const [card, setCard] = useState<CardsResponse>();
   const [comments, setComments] = useState<CommentsResponse[]>([]);
 
   useEffect(() => {
     (async () => {
-      const allComments = await pb
-        .collection(Collections.Comments)
-        .getFullList<CommentsResponse>({
-          filter: `card = "${card?.id}"`,
+      const [selectedCard, allComments] = await Promise.all([
+        pb.collection(Collections.Cards).getOne<CardsResponse>(cardId),
+        pb.collection(Collections.Comments).getFullList<CommentsResponse>({
+          filter: `card = "${cardId}"`,
           sort: "-created",
-        });
+        }),
+      ]);
 
+      setCard(selectedCard);
       setComments(allComments);
     })();
-  }, [card, card?.id]);
+  }, [cardId]);
 
   const confirmDelete = () =>
     modals.openConfirmModal({
