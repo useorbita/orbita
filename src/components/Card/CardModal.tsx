@@ -2,7 +2,9 @@ import { ActionIcon, Button, Group, Modal, Stack, Text } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
-import { CardsResponse } from "../../api/types";
+import { CardsResponse, Collections, CommentsResponse } from "../../api/types";
+import { useEffect, useState } from "react";
+import { pb } from "../../api/pocketbase";
 
 export function CardModal({
   open,
@@ -13,6 +15,21 @@ export function CardModal({
   close: () => void;
   card?: CardsResponse;
 }) {
+  const [comments, setComments] = useState<CommentsResponse[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const allComments = await pb
+        .collection(Collections.Comments)
+        .getFullList<CommentsResponse>({
+          filter: `card = "${card?.id}"`,
+          sort: "-created",
+        });
+
+      setComments(allComments);
+    })();
+  }, [card, card?.id]);
+
   const confirmDelete = () =>
     modals.openConfirmModal({
       title: "Karte löschen",
@@ -74,7 +91,6 @@ export function CardModal({
           {card ? (
             <Stack>
               <Text dangerouslySetInnerHTML={{ __html: card.description }} />
-              <Text>Kommentare</Text>
               <Text>Status: {card && card.state}</Text>
               <Text>Labels: {card && card.labels}</Text>
               <Text>Mitglieder: {card && card.members}</Text>
@@ -83,6 +99,17 @@ export function CardModal({
               <Text>Author: {card && card.author}</Text>
               <Text>Erstellt am {card && card.created}</Text>
               <Text>Verändert zuletzt{card && card.updated}</Text>
+              <Text>Kommentare:</Text>
+              <ul>
+                {comments.map((comment) => (
+                  <li key={comment.id}>
+                    {comment.author}, {comment.created},
+                    <Text
+                      dangerouslySetInnerHTML={{ __html: comment.content }}
+                    />
+                  </li>
+                ))}
+              </ul>
             </Stack>
           ) : (
             <Text>Lade Karte...</Text>
