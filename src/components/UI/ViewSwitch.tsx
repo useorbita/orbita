@@ -14,7 +14,7 @@ export function ViewSwitch({ view, setView }: ViewStateProps) {
           value: "list",
           label: (
             <Center>
-              <IconLayoutList size="1rem" />
+              <IconLayoutList size="1em" />
             </Center>
           ),
         },
@@ -22,7 +22,7 @@ export function ViewSwitch({ view, setView }: ViewStateProps) {
           value: "column",
           label: (
             <Center>
-              <IconLayoutGrid size="1rem" />
+              <IconLayoutGrid size="1em" />
             </Center>
           ),
         },

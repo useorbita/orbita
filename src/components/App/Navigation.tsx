@@ -56,14 +56,14 @@ export function Navigation({
       <NavLink
         label="Übersicht"
         h={44}
-        icon={<IconHome2 size="1rem" stroke={1.5} />}
+        icon={<IconHome2 size="1em" stroke={1.5} />}
         onClick={() => navigate("/")}
       />
 
       <NavLink
         h={44}
         label="Einstellungen"
-        icon={<IconSettings size="1rem" stroke={1.5} />}
+        icon={<IconSettings size="1em" stroke={1.5} />}
         onClick={() => navigate("settings")}
       />
 
@@ -76,7 +76,7 @@ export function Navigation({
           <Group key={board.id} position="apart">
             <NavLink
               label={board.title}
-              icon={<IconCircleDotted size="1rem" stroke={1.5} />}
+              icon={<IconCircleDotted size="1em" stroke={1.5} />}
               onClick={() => navigate(board.id)}
               rightSection={
                 <ActionIcon
@@ -98,7 +98,7 @@ export function Navigation({
 
       <NavLink
         label="Board hinzufügen"
-        icon={<IconPlus size="1rem" stroke={1.5} />}
+        icon={<IconPlus size="1em" stroke={1.5} />}
         style={{ color: "grey" }}
         onClick={() =>
           notifications.show({

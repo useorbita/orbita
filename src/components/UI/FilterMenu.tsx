@@ -9,7 +9,7 @@ export function FilterMenu() {
           color="gray"
           variant="outline"
           size={"xs"}
-          leftIcon={<IconFilter size={"1rem"} />}
+          leftIcon={<IconFilter size={"1em"} />}
         >
           Filter
         </Button>

@@ -80,7 +80,7 @@ export function Card({ card, users, labels }: CardProps) {
 
         {card.date && (
           <Group>
-            <IconCalendar color="gray" size={"1rem"} />
+            <IconCalendar color="gray" size={"1em"} />
             <Text color="dimmed" size="sm">
               {new Date(card.date).toLocaleDateString("DE-de")}
             </Text>
@@ -89,7 +89,7 @@ export function Card({ card, users, labels }: CardProps) {
 
         {card.priority && (
           <Group>
-            <IconTriangle color="gray" size={"1rem"} />
+            <IconTriangle color="gray" size={"1em"} />
             <Text color="dimmed" size="sm">
               {card.priority}
             </Text>

@@ -6,7 +6,7 @@ export function Search() {
     <TextInput
       size="xs"
       placeholder="Suchen"
-      icon={<IconSearch size="0.8rem" />}
+      icon={<IconSearch size="0.8em" />}
     />
   );
 }

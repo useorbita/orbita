@@ -52,7 +52,7 @@ export function AppSettings() {
               value: "light",
               label: (
                 <Center>
-                  <IconSun size="1rem" />
+                  <IconSun size="1em" />
                   <Box ml={10}>Hell</Box>
                 </Center>
               ),
@@ -61,7 +61,7 @@ export function AppSettings() {
               value: "dark",
               label: (
                 <Center>
-                  <IconMoon size="1rem" />
+                  <IconMoon size="1em" />
                   <Box ml={10}>Dunkel</Box>
                 </Center>
               ),
@@ -70,7 +70,7 @@ export function AppSettings() {
               value: "auto",
               label: (
                 <Center>
-                  <IconToggleRight size="1rem" />
+                  <IconToggleRight size="1em" />
                   <Box ml={10}>Auto</Box>
                 </Center>
               ),
