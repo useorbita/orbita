@@ -149,6 +149,57 @@
     "options": {}
   },
   {
+    "id": "tixyk1oxz33bqb8",
+    "name": "comments",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "id": "r6jxediy",
+        "name": "content",
+        "type": "editor",
+        "system": false,
+        "required": false,
+        "options": {}
+      },
+      {
+        "id": "ghrqd1d7",
+        "name": "card",
+        "type": "relation",
+        "system": false,
+        "required": false,
+        "options": {
+          "collectionId": "tkpkgund127xiyi",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": []
+        }
+      },
+      {
+        "id": "atxuw42l",
+        "name": "author",
+        "type": "relation",
+        "system": false,
+        "required": false,
+        "options": {
+          "collectionId": "_pb_users_auth_",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": []
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "@request.auth.id != \"\" && card.board.members.id ?= @request.auth.id",
+    "viewRule": null,
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "options": {}
+  },
+  {
     "id": "tkpkgund127xiyi",
     "name": "cards",
     "type": "base",
@@ -280,7 +331,7 @@
     ],
     "indexes": [],
     "listRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
-    "viewRule": null,
+    "viewRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
     "createRule": null,
     "updateRule": null,
     "deleteRule": null,
@@ -315,62 +366,25 @@
           "max": null,
           "pattern": ""
         }
+      },
+      {
+        "id": "qgmmyypb",
+        "name": "board",
+        "type": "relation",
+        "system": false,
+        "required": false,
+        "options": {
+          "collectionId": "u86ozokc9lcwy28",
+          "cascadeDelete": false,
+          "minSelect": null,
+          "maxSelect": 1,
+          "displayFields": []
+        }
       }
     ],
     "indexes": [],
     "listRule": "@request.auth.id != \"\"",
     "viewRule": "@request.auth.id != \"\"",
-    "createRule": null,
-    "updateRule": null,
-    "deleteRule": null,
-    "options": {}
-  },
-  {
-    "id": "tixyk1oxz33bqb8",
-    "name": "comments",
-    "type": "base",
-    "system": false,
-    "schema": [
-      {
-        "id": "r6jxediy",
-        "name": "content",
-        "type": "editor",
-        "system": false,
-        "required": false,
-        "options": {}
-      },
-      {
-        "id": "ghrqd1d7",
-        "name": "card",
-        "type": "relation",
-        "system": false,
-        "required": false,
-        "options": {
-          "collectionId": "tkpkgund127xiyi",
-          "cascadeDelete": false,
-          "minSelect": null,
-          "maxSelect": 1,
-          "displayFields": []
-        }
-      },
-      {
-        "id": "atxuw42l",
-        "name": "author",
-        "type": "relation",
-        "system": false,
-        "required": false,
-        "options": {
-          "collectionId": "_pb_users_auth_",
-          "cascadeDelete": false,
-          "minSelect": null,
-          "maxSelect": 1,
-          "displayFields": []
-        }
-      }
-    ],
-    "indexes": [],
-    "listRule": "@request.auth.id != \"\" && card.board.members.id ?= @request.auth.id",
-    "viewRule": null,
     "createRule": null,
     "updateRule": null,
     "deleteRule": null,

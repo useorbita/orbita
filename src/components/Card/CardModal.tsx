@@ -94,8 +94,6 @@ export function CardModal({
         <Modal.Body mt={"xl"}>
           {card ? (
             <Stack>
-              {/* <Text dangerouslySetInnerHTML={{ __html: card.description }} /> */}
-
               <TextEditor content={card.description} />
 
               <Text>Status: {card && card.state}</Text>
