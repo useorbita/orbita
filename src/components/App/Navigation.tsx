@@ -33,7 +33,7 @@ export function Navigation({
     <>
       <Space h="xl" />
 
-      <Group position="apart">
+      <Group justify="space-between">
         <Title order={2} ml="sm">
           Mello
         </Title>
@@ -55,14 +55,14 @@ export function Navigation({
       <NavLink
         label="Übersicht"
         h={44}
-        icon={<IconHome2 size="1em" stroke={1.5} />}
+        leftSection={<IconHome2 size="1em" stroke={1.5} />}
         onClick={() => navigate("/")}
       />
 
       <NavLink
         h={44}
         label="Einstellungen"
-        icon={<IconSettings size="1em" stroke={1.5} />}
+        leftSection={<IconSettings size="1em" stroke={1.5} />}
         onClick={() => navigate("settings")}
       />
 
@@ -72,14 +72,15 @@ export function Navigation({
         <Text>Lade Boards...</Text>
       ) : (
         boards.map((board) => (
-          <Group key={board.id} position="apart">
+          <Group key={board.id} justify="space-between">
             <NavLink
               label={board.title}
-              icon={<IconCircleDotted size="1em" stroke={1.5} />}
+              leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
               onClick={() => navigate(board.id)}
               rightSection={
                 <ActionIcon
-                  variant="light"
+                  variant="subtle"
+                  color="gray"
                   onClick={(e) => {
                     e.stopPropagation();
                     navigate("settings/" + board.id);
@@ -97,7 +98,7 @@ export function Navigation({
 
       <NavLink
         label="Board hinzufügen"
-        icon={<IconPlus size="1em" stroke={1.5} />}
+        leftSection={<IconPlus size="1em" stroke={1.5} />}
         style={{ color: "grey" }}
         onClick={() =>
           notifications.show({

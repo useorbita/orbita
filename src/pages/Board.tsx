@@ -72,7 +72,7 @@ export function Board() {
         />
       )}
 
-      <Group position="apart" mb="xl">
+      <Group justify="space-between" mb="xl">
         <Text>{activeBoard?.title}</Text>
 
         <Group>

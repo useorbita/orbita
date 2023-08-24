@@ -6,10 +6,9 @@ export function FilterMenu() {
     <Menu shadow="md" width={200} closeOnItemClick={false}>
       <Menu.Target>
         <Button
-          color="gray"
-          variant="outline"
+          variant="default"
           size={"xs"}
-          leftIcon={<IconFilter size={"1em"} />}
+          leftSection={<IconFilter size={"1em"} />}
         >
           Filter
         </Button>

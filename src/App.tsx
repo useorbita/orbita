@@ -1,4 +1,4 @@
-import { AppShell, Container, Navbar } from "@mantine/core";
+import { AppShell, Container } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { pb } from "./api/pocketbase";
@@ -30,23 +30,25 @@ export function App() {
   return (
     <AppShell
       padding="md"
-      navbar={
-        <Navbar width={{ base: 250 }} p="md">
-          <Navigation loading={loading} boards={boards} />
-        </Navbar>
-      }
+      navbar={{ width: 300, breakpoint: "sm" }}
     >
-      <Container pt="xl">
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/:boardId" element={<Board />} />
-          <Route path="/:boardId/:cardId" element={<Board />} />
-          <Route path="/settings" element={<AppSettings />} />
-          <Route path="/settings/me" element={<UserSettings />} />
-          <Route path="/settings/:boardId" element={<BoardSettings />} />
-          <Route path="*" element={<p>Seite nicht gefunden</p>} />
-        </Routes>
-      </Container>
+      <AppShell.Navbar p="md">
+        <Navigation loading={loading} boards={boards} />
+      </AppShell.Navbar>
+
+      <AppShell.Main>
+        <Container pt="xl">
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/:boardId" element={<Board />} />
+            <Route path="/:boardId/:cardId" element={<Board />} />
+            <Route path="/settings" element={<AppSettings />} />
+            <Route path="/settings/me" element={<UserSettings />} />
+            <Route path="/settings/:boardId" element={<BoardSettings />} />
+            <Route path="*" element={<p>Seite nicht gefunden</p>} />
+          </Routes>
+        </Container>
+      </AppShell.Main>
     </AppShell>
   );
 }

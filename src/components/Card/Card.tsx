@@ -32,7 +32,7 @@ export function Card({ card, users, labels }: CardProps) {
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <MantineCard shadow="sm" withBorder onClick={() => navigate(card.id)}>
-        <Text weight={500}>{card.title}</Text>
+        <Text fw={500}>{card.title}</Text>
 
         {card.labels.map((label) => (
           <Badge
@@ -57,7 +57,7 @@ export function Card({ card, users, labels }: CardProps) {
         ))}
 
         {card.members.length > 0 && (
-          <Tooltip.Group openDelay={300} closeDelay={100}>
+          <Tooltip.Group openDelay={100} closeDelay={100}>
             <Avatar.Group spacing="sm">
               {card.members.map((member) => (
                 <Tooltip
@@ -81,7 +81,7 @@ export function Card({ card, users, labels }: CardProps) {
         {card.date && (
           <Group>
             <IconCalendar color="gray" size={"1em"} />
-            <Text color="dimmed" size="sm">
+            <Text c="dimmed" size="sm">
               {new Date(card.date).toLocaleDateString("DE-de")}
             </Text>
           </Group>
@@ -90,7 +90,7 @@ export function Card({ card, users, labels }: CardProps) {
         {card.priority && (
           <Group>
             <IconTriangle color="gray" size={"1em"} />
-            <Text color="dimmed" size="sm">
+            <Text c="dimmed" size="sm">
               {card.priority}
             </Text>
           </Group>

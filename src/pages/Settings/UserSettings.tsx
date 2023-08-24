@@ -13,7 +13,7 @@ export function UserSettings() {
         </Avatar>
         <div>
           <Text>{pb.authStore.model?.name}</Text>
-          <Text size="xs" color="dimmed">
+          <Text size="xs" c="dimmed">
             {pb.authStore.model?.email}
           </Text>
         </div>
@@ -29,7 +29,7 @@ export function UserSettings() {
       <Button
         variant="outline"
         color="gray"
-        leftIcon={<IconLogout />}
+        leftSection={<IconLogout size={18} />}
         onClick={() => pb.authStore.clear()}
       >
         Logout

@@ -90,7 +90,6 @@ export function ListView({ cards, states, users, labels }: ListViewProps) {
                       value: state.id,
                       label: state.title,
                     }))}
-                    withinPortal
                   />
                 )}
               </td>
@@ -143,7 +142,6 @@ export function ListView({ cards, states, users, labels }: ListViewProps) {
 
               <td>
                 <Select
-                  withinPortal
                   value={card.priority}
                   data={Object.keys(CardsPriorityOptions).map((priority) => ({
                     value: priority,

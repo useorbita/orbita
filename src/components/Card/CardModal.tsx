@@ -73,9 +73,9 @@ export function CardModal({
       <Modal.Content>
         <Modal.Header>
           <Modal.Title>{card && card.title}</Modal.Title>
-          <Group position="right">
+          <Group justify="start">
             <Button
-              leftIcon={<IconLink size={20} />}
+              leftSection={<IconLink size={20} />}
               variant="subtle"
               color="gray"
               size="xs"
