@@ -1,23 +1,27 @@
 import {
   ActionIcon,
   Avatar,
+  FocusTrap,
   Group,
   NavLink,
   Space,
   Text,
+  TextInput,
   Title,
   Tooltip,
 } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import {
+  IconCheck,
   IconCircleDotted,
+  IconDots,
   IconHome2,
-  IconPencil,
   IconPlus,
   IconSettings,
+  IconX,
 } from "@tabler/icons-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { pb } from "../../api/pocketbase";
+import { createBoard, pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
 
 export function Navigation({
@@ -28,6 +32,9 @@ export function Navigation({
   boards: BoardsResponse[];
 }) {
   const navigate = useNavigate();
+
+  const [addBoardMode, setAddBoardMode] = useState(false);
+  const [newBoardName, setNewBoardName] = useState("");
 
   return (
     <>
@@ -86,7 +93,7 @@ export function Navigation({
                     navigate("settings/" + board.id);
                   }}
                 >
-                  <IconPencil size="1em" />
+                  <IconDots size="1em" />
                 </ActionIcon>
               }
             />
@@ -94,21 +101,55 @@ export function Navigation({
         ))
       )}
 
-      <Space h="xl" />
+      {addBoardMode ? (
+        <FocusTrap active={addBoardMode}>
+          <TextInput
+            variant="unstyled"
+            mt={"xs"}
+            onChange={(event) => setNewBoardName(event.currentTarget.value)}
+            leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
+            leftSectionWidth={40}
+            rightSection={
+              <>
+                <ActionIcon
+                  variant="subtle"
+                  color="gray"
+                  onClick={async (e) => {
+                    await createBoard({
+                      title: newBoardName,
+                      member: pb.authStore.model?.id,
+                    });
 
-      <NavLink
-        label="Board hinzufügen"
-        leftSection={<IconPlus size="1em" stroke={1.5} />}
-        style={{ color: "grey" }}
-        onClick={() =>
-          notifications.show({
-            title: "Noch nicht implementiert",
-            message: "Das ist leider noch nicht implementiert :(",
-            withBorder: true,
-            color: "gray",
-          })
-        }
-      />
+                    // TODO: we need to trigger reload of boards.
+                    // i think we need proper state management here
+                    window.location.reload();
+                  }}
+                >
+                  <IconCheck size="1em" />
+                </ActionIcon>
+                <ActionIcon
+                  variant="subtle"
+                  color="gray"
+                  onClick={() => {
+                    setAddBoardMode(false);
+                  }}
+                >
+                  <IconX size="1em" />
+                </ActionIcon>
+              </>
+            }
+            rightSectionWidth={79}
+          />
+        </FocusTrap>
+      ) : (
+        <NavLink
+          mt={"xs"}
+          label="Board hinzufügen"
+          leftSection={<IconPlus size="1em" stroke={1.5} />}
+          style={{ color: "grey" }}
+          onClick={() => setAddBoardMode(true)}
+        />
+      )}
     </>
   );
 }

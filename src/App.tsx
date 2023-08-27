@@ -20,7 +20,7 @@ export function App() {
 
       const boards = await pb
         .collection(Collections.Boards)
-        .getFullList<BoardsResponse>();
+        .getFullList<BoardsResponse>({ sort: "created" });
 
       setBoards(boards);
       setLoading(false);
@@ -28,10 +28,7 @@ export function App() {
   }, []);
 
   return (
-    <AppShell
-      padding="md"
-      navbar={{ width: 300, breakpoint: "sm" }}
-    >
+    <AppShell padding="md" navbar={{ width: 300, breakpoint: "sm" }}>
       <AppShell.Navbar p="md">
         <Navigation loading={loading} boards={boards} />
       </AppShell.Navbar>
