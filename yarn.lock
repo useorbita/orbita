@@ -254,10 +254,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@mantine/core@^7.0.0-beta.1":
-  version "7.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.0.0-beta.1.tgz#d0685e08191987d7d3aefec2832eabb14ff41aaf"
-  integrity sha512-5sqmKakoffvNIqIyn9jJQVINkX6Rg1Lk/KigJofubOxhM7B+cSjbdqR2WAoADt7Gmf9xdF7VGjptBKHqoJl8wQ==
+"@mantine/core@^7.0.0-beta.2":
+  version "7.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.0.0-beta.2.tgz#692841ff8b4cac75d6bd50feaadf27ccfe2d7b15"
+  integrity sha512-Na8MvXnbbjt5Pd1F3c+HKgH1l3vYx+xCBL/OQlQoRwsougKwpOZIf1cnV0Xm0dMELN0KPqDXxJj8w68LMTJWYw==
   dependencies:
     "@floating-ui/react" "^0.24.8"
     clsx "2.0.0"
@@ -266,33 +266,33 @@
     react-textarea-autosize "8.5.2"
     type-fest "^4.0.0"
 
-"@mantine/hooks@^7.0.0-beta.1":
-  version "7.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.0.0-beta.1.tgz#3c9f6da42918d244c4387934bbaba1226779df05"
-  integrity sha512-pf4k8q8bjIFsnb6sGaFySReG+TgmNJRE03WuwGiM9AD7nqnw6JEWH45M5RjGWIjo/j2iq7DDyu2mgifzLeQkKA==
+"@mantine/hooks@^7.0.0-beta.2":
+  version "7.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.0.0-beta.2.tgz#aba6a5932a9a651c054d98443fe4470a3f7026ba"
+  integrity sha512-UWgiIW1tD/iieowZrBl/4GbVFPtyRJqv/R1wgv0ElSZa1DJxkOVAJPxRGD8S85T6NkMdYQOTSbmWOyIgdAaVOg==
 
-"@mantine/modals@^7.0.0-beta.1":
-  version "7.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-7.0.0-beta.1.tgz#e559123b91ed280ec6837fc239d902721b44112a"
-  integrity sha512-Yd/AsW6DpNuALD+yV1hBgIkm3tle8b22C6KAiFsTRNmP0ga9zttZ3NinwlTIO/D+9kzVlSAOpBUNcQ02v4M5Aw==
+"@mantine/modals@^7.0.0-beta.2":
+  version "7.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-7.0.0-beta.2.tgz#e2dabfd3d6d3f0957de854db7656d883c32a31ca"
+  integrity sha512-wECTNHTWiI0HwgziJaR6/lSesROropwZr0Fn1ax8mYmxQymaGGo12ZlLnBZwdOO0ML1LgChXjy7B/oXwDAw/2w==
 
-"@mantine/notifications@^7.0.0-beta.1":
-  version "7.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-7.0.0-beta.1.tgz#01f82d87b167934c23fa3a7641b674cdf05fa056"
-  integrity sha512-KwbJueqMdmyLxTm/gTrDSN5TGvTKY2klbhf1sFgamdJYe26aFmE6DOEdWKLeit0LSZEgvl+3VeOT44SyK2ecGQ==
+"@mantine/notifications@^7.0.0-beta.2":
+  version "7.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-7.0.0-beta.2.tgz#aa8e07d87d045ca128dc07ea22ca28b963225e0b"
+  integrity sha512-VmB3JGCkOHzTlPW6uZPhIWPO8A781LGUSQV6XxIV38//i4cerrSSovd8Tj6nkSfOaPxl+Qp8G0r0AiwiXTUfbw==
   dependencies:
-    "@mantine/store" "7.0.0-beta.1"
+    "@mantine/store" "7.0.0-beta.2"
     react-transition-group "4.4.5"
 
-"@mantine/store@7.0.0-beta.1":
-  version "7.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@mantine/store/-/store-7.0.0-beta.1.tgz#f43fe900d1a141235c618d1dfe72b6743731bf36"
-  integrity sha512-IT+5mVEMRyK2fZqFDX/3BbvaMbrkLQxUV9dRYpT+Tii5UfI2ImYAn95DtmbFQzF6mHsmSZi8puWa/J3qa6ed9w==
+"@mantine/store@7.0.0-beta.2":
+  version "7.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@mantine/store/-/store-7.0.0-beta.2.tgz#f708498d65c79d7cd7a8ad95d6cdee4069f79c87"
+  integrity sha512-5eEh4hRInREq5Q3a9uYqnxTvTMhQl2i5bzu1lgU3aLleiOPZdukcqwb4nLYPqe9sGDC1FqlfEiggB/IWjXPABQ==
 
-"@mantine/tiptap@^7.0.0-beta.1":
-  version "7.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@mantine/tiptap/-/tiptap-7.0.0-beta.1.tgz#87013c07683c809d2b3ba31413f743aa70f97a8c"
-  integrity sha512-dmvSlDGeMBH+i2P/ugM+0MoxCb5UIkyuiP+ZJFbx2q3NiHPZzSzbslCGWEJQlaoQfph1VaBy31Bo7bgUfEKwgQ==
+"@mantine/tiptap@^7.0.0-beta.2":
+  version "7.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@mantine/tiptap/-/tiptap-7.0.0-beta.2.tgz#e5038d3101798d4117fb37463d05b49508eea1ac"
+  integrity sha512-E2PCE5+WImWg0/U3FHxtUtwL5zO2V3U9FNLpuxzxmi/C7+rjU4XDMMtVosheC1hmzN+yfPwGdELAIZZXymw1tg==
 
 "@mapbox/node-pre-gyp@^1.0.0":
   version "1.0.11"
@@ -2064,10 +2064,10 @@ pocketbase-typegen@^1.1.12:
     sqlite "^4.1.2"
     sqlite3 "^5.1.4"
 
-pocketbase@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/pocketbase/-/pocketbase-0.16.0.tgz#156c05a26b126b97a202b7173e9c1544f090eff1"
-  integrity sha512-sndPu4Mbu1Y2VefvO2gIa/No5aIdP6E5br9HUGomvDYSfkmGfBxJNkivJSSKlr9KwWnaF8otf14304UUeFGOrA==
+pocketbase@^0.17.3:
+  version "0.17.3"
+  resolved "https://registry.yarnpkg.com/pocketbase/-/pocketbase-0.17.3.tgz#bce74cd7259b63b25ac07a7bbcaf87176f6ae4ba"
+  integrity sha512-tqtk7kd8K4/5BspCzqf8DcbjS+iCBLFdpC7s/d6hAuxeoqP5MH6llRICm22dldJDFcTa1chuCfyeeKoU5mYaHQ==
 
 postcss-js@^4.0.0:
   version "4.0.1"
