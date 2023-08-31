@@ -11,7 +11,8 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Group, Paper, ScrollArea, Stack, Text } from "@mantine/core";
+import { Button, Group, Paper, ScrollArea, Stack, Text } from "@mantine/core";
+import { IconPlus } from "@tabler/icons-react";
 import {
   CardsResponse,
   LabelsResponse,
@@ -66,19 +67,24 @@ export function ColumnView({ cards, states, users, labels }: ColumnViewProps) {
   }
 
   return (
-    <ScrollArea>
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <Group>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+    >
+      <ScrollArea>
+        <Group style={{ width: states.length * 280 + 150 }} justify="start">
           {states
             .sort((a, b) => a.position - b.position)
             .map((state: StatesResponse) => (
               <div key={state.id}>
                 <Text>{state.title}</Text>
-                <Paper h={500} w={250}>
+
+                <Paper
+                  h={"75vh"}
+                  w={250}
+                  style={{ backgroundColor: "#00000009" }}
+                >
                   <Stack>
                     <SortableContext
                       items={cards}
@@ -100,8 +106,18 @@ export function ColumnView({ cards, states, users, labels }: ColumnViewProps) {
                 </Paper>
               </div>
             ))}
+
+          <div style={{ height: "75vh", paddingTop: "1em" }}>
+            <Button
+              variant="subtle"
+              leftSection={<IconPlus size="1em" stroke={1.5} />}
+              style={{ color: "grey" }}
+            >
+              Liste hinzufügen
+            </Button>
+          </div>
         </Group>
-      </DndContext>
-    </ScrollArea>
+      </ScrollArea>
+    </DndContext>
   );
 }
