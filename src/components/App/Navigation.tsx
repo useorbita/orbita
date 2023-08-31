@@ -5,7 +5,6 @@ import {
   Group,
   NavLink,
   Space,
-  Text,
   TextInput,
   Title,
   Tooltip,
@@ -21,8 +20,9 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createBoard, pb } from "../../api/pocketbase";
+import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
+import { useBoardStore } from "../../stores/boardStore";
 
 export function Navigation({
   loading,
@@ -35,6 +35,8 @@ export function Navigation({
 
   const [addBoardMode, setAddBoardMode] = useState(false);
   const [newBoardName, setNewBoardName] = useState("");
+
+  const createBoard = useBoardStore((state) => state.createBoard);
 
   return (
     <>
@@ -75,9 +77,7 @@ export function Navigation({
 
       <Space h="xl" />
 
-      {loading ? (
-        <Text>Lade Boards...</Text>
-      ) : (
+      {!loading &&
         boards.map((board) => (
           <Group key={board.id} justify="space-between">
             <NavLink
@@ -98,8 +98,7 @@ export function Navigation({
               }
             />
           </Group>
-        ))
-      )}
+        ))}
 
       {addBoardMode ? (
         <FocusTrap active={addBoardMode}>
@@ -114,15 +113,14 @@ export function Navigation({
                 <ActionIcon
                   variant="subtle"
                   color="gray"
-                  onClick={async (e) => {
-                    await createBoard({
+                  onClick={() => {
+                    createBoard({
                       title: newBoardName,
                       member: pb.authStore.model?.id,
                     });
 
-                    // TODO: we need to trigger reload of boards.
-                    // i think we need proper state management here
-                    window.location.reload();
+                    setNewBoardName("");
+                    setAddBoardMode(false);
                   }}
                 >
                   <IconCheck size="1em" />
