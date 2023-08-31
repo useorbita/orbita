@@ -1,36 +1,27 @@
 import { AppShell, Container } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { pb } from "./api/pocketbase";
-import { BoardsResponse, Collections } from "./api/types";
 import { Navigation } from "./components/App/Navigation";
 import { Board } from "./pages/Board";
 import { Home } from "./pages/Home";
 import { AppSettings } from "./pages/Settings/AppSettings";
 import { BoardSettings } from "./pages/Settings/BoardSettings";
 import { UserSettings } from "./pages/Settings/UserSettings";
+import { useBoardStore } from "./stores/boardStore";
 
 export function App() {
-  const [boards, setBoards] = useState<BoardsResponse[]>([]);
-  const [loading, setLoading] = useState(true);
+  const boards = useBoardStore((state) => state.boards);
+  const getAllBoards = useBoardStore((state) => state.getAllBoards);
+  const isLoading = useBoardStore((state) => state.isLoading);
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-
-      const boards = await pb
-        .collection(Collections.Boards)
-        .getFullList<BoardsResponse>({ sort: "created" });
-
-      setBoards(boards);
-      setLoading(false);
-    })();
+    getAllBoards();
   }, []);
 
   return (
     <AppShell padding="md" navbar={{ width: 300, breakpoint: "sm" }}>
       <AppShell.Navbar p="md">
-        <Navigation loading={loading} boards={boards} />
+        <Navigation loading={isLoading} boards={boards} />
       </AppShell.Navbar>
 
       <AppShell.Main>
