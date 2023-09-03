@@ -30,9 +30,6 @@ export function ListView({ cards, states, users, labels }: ListViewProps) {
         <thead>
           <tr>
             <th>
-              <Text>Author</Text>
-            </th>
-            <th>
               <Text size="sm">Titel</Text>
             </th>
             <th>
@@ -61,21 +58,6 @@ export function ListView({ cards, states, users, labels }: ListViewProps) {
         <tbody>
           {cards.map((card: CardsResponse) => (
             <tr key={card.id}>
-              <td>
-                <Tooltip
-                  label={
-                    (
-                      users.find(
-                        (user: UsersResponse) => user.id === card.author
-                      ) || { name: "Unbekannt" }
-                    ).name
-                  }
-                  withArrow
-                >
-                  <Avatar radius="xl" />
-                </Tooltip>
-              </td>
-
               <td>
                 <Link to={card.id}>
                   <Text size="sm">{card.title}</Text>

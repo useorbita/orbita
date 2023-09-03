@@ -6,7 +6,7 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { IconMoon, IconSun, IconToggleRight } from "@tabler/icons-react";
+import { IconMoon, IconSun } from "@tabler/icons-react";
 
 export function AppSettings() {
   return (
@@ -31,15 +31,6 @@ export function AppSettings() {
                 <Center>
                   <IconMoon size="1em" />
                   <Box ml={10}>Dunkel</Box>
-                </Center>
-              ),
-            },
-            {
-              value: "auto",
-              label: (
-                <Center>
-                  <IconToggleRight size="1em" />
-                  <Box ml={10}>Auto</Box>
                 </Center>
               ),
             },

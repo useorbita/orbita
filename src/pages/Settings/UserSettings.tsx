@@ -1,4 +1,4 @@
-import { Avatar, Button, Group, Text } from "@mantine/core";
+import { Button, Text } from "@mantine/core";
 import { IconLogout } from "@tabler/icons-react";
 import { pb } from "../../api/pocketbase";
 
@@ -6,18 +6,6 @@ export function UserSettings() {
   return (
     <>
       <Text>Einstellungen - Profil</Text>
-
-      <Group mt={"xl"}>
-        <Avatar size={40} radius="xl">
-          {pb.authStore.model?.name.substring(0, 2)}
-        </Avatar>
-        <div>
-          <Text>{pb.authStore.model?.name}</Text>
-          <Text size="xs" c="dimmed">
-            {pb.authStore.model?.email}
-          </Text>
-        </div>
-      </Group>
 
       <ul>
         <li>Name</li>

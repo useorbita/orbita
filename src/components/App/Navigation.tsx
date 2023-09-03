@@ -7,7 +7,8 @@ import {
   Space,
   TextInput,
   Title,
-  Tooltip,
+  Text,
+  UnstyledButton,
 } from "@mantine/core";
 import {
   IconCheck,
@@ -42,22 +43,9 @@ export function Navigation({
     <>
       <Space h="xl" />
 
-      <Group justify="space-between">
-        <Title order={2} ml="sm">
-          Mello
-        </Title>
-        <Tooltip label={pb.authStore.model?.name} position="bottom">
-          <Avatar
-            size={36}
-            radius="xl"
-            mr="xs"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/settings/me")}
-          >
-            {pb.authStore.model?.name.substring(0, 2)}
-          </Avatar>
-        </Tooltip>
-      </Group>
+      <Title order={2} ml="sm">
+        Mello
+      </Title>
 
       <Space h="xl" />
 
@@ -148,6 +136,23 @@ export function Navigation({
           onClick={() => setAddBoardMode(true)}
         />
       )}
+
+      <Space h={"xl"} />
+      <Space h={"xl"} />
+
+      <UnstyledButton onClick={() => navigate("/settings/me")}>
+        <Group mt={"xl"}>
+          <Avatar size={40} radius="xl">
+            {pb.authStore.model?.name.substring(0, 2)}
+          </Avatar>
+          <div>
+            <Text size="sm">{pb.authStore.model?.name}</Text>
+            <Text size="xs" c="dimmed">
+              {pb.authStore.model?.email}
+            </Text>
+          </div>
+        </Group>
+      </UnstyledButton>
     </>
   );
 }
