@@ -1,19 +1,19 @@
 import {
   ActionIcon,
+  AppShell,
   Avatar,
   FocusTrap,
   Group,
   NavLink,
+  ScrollArea,
   Space,
+  Text,
   TextInput,
   Title,
-  Text,
-  UnstyledButton,
 } from "@mantine/core";
 import {
   IconCheck,
   IconCircleDotted,
-  IconDots,
   IconHome2,
   IconPlus,
   IconSettings,
@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
 import { useBoardStore } from "../../stores/boardStore";
+import { BoardLink } from "./BoardLink";
 
 export function Navigation({
   loading,
@@ -41,118 +42,98 @@ export function Navigation({
 
   return (
     <>
-      <Space h="xl" />
-
-      <Title order={2} ml="sm">
-        Mello
-      </Title>
-
-      <Space h="xl" />
-
-      <NavLink
-        label="Übersicht"
-        h={44}
-        leftSection={<IconHome2 size="1em" stroke={1.5} />}
-        onClick={() => navigate("/")}
-      />
-
-      <NavLink
-        h={44}
-        label="Einstellungen"
-        leftSection={<IconSettings size="1em" stroke={1.5} />}
-        onClick={() => navigate("settings")}
-      />
-
-      <Space h="xl" />
-
-      {!loading &&
-        boards.map((board) => (
-          <Group key={board.id} justify="space-between">
-            <NavLink
-              label={board.title}
-              leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
-              onClick={() => navigate(board.id)}
-              rightSection={
-                <ActionIcon
-                  variant="subtle"
-                  color="gray"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate("settings/" + board.id);
-                  }}
-                >
-                  <IconDots size="1em" />
-                </ActionIcon>
-              }
-            />
-          </Group>
-        ))}
-
-      {addBoardMode ? (
-        <FocusTrap active={addBoardMode}>
-          <TextInput
-            variant="unstyled"
-            mt={"xs"}
-            onChange={(event) => setNewBoardName(event.currentTarget.value)}
-            leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
-            leftSectionWidth={40}
-            rightSection={
-              <>
-                <ActionIcon
-                  variant="subtle"
-                  color="gray"
-                  onClick={() => {
-                    createBoard({
-                      title: newBoardName,
-                      member: pb.authStore.model?.id,
-                    });
-
-                    setNewBoardName("");
-                    setAddBoardMode(false);
-                  }}
-                >
-                  <IconCheck size="1em" />
-                </ActionIcon>
-                <ActionIcon
-                  variant="subtle"
-                  color="gray"
-                  onClick={() => {
-                    setAddBoardMode(false);
-                  }}
-                >
-                  <IconX size="1em" />
-                </ActionIcon>
-              </>
-            }
-            rightSectionWidth={79}
-          />
-        </FocusTrap>
-      ) : (
+      <AppShell.Section>
+        <Space h="xl" />
+        <Title order={2} ml="sm">
+          Mello
+        </Title>
+        <Space h="xl" />
         <NavLink
-          mt={"xs"}
-          label="Board hinzufügen"
-          leftSection={<IconPlus size="1em" stroke={1.5} />}
-          style={{ color: "grey" }}
-          onClick={() => setAddBoardMode(true)}
+          label="Übersicht"
+          h={44}
+          leftSection={<IconHome2 size="1em" stroke={1.5} />}
+          onClick={() => navigate("/")}
         />
-      )}
+        <NavLink
+          h={44}
+          label="Einstellungen"
+          leftSection={<IconSettings size="1em" stroke={1.5} />}
+          onClick={() => navigate("settings")}
+        />
+      </AppShell.Section>
 
-      <Space h={"xl"} />
-      <Space h={"xl"} />
+      <AppShell.Section grow component={ScrollArea} mt={"xl"}>
+        {!loading && boards.map((board) => <BoardLink board={board} />)}
 
-      <UnstyledButton onClick={() => navigate("/settings/me")}>
-        <Group mt={"xl"}>
-          <Avatar size={40} radius="xl">
-            {pb.authStore.model?.name.substring(0, 2)}
-          </Avatar>
-          <div>
-            <Text size="sm">{pb.authStore.model?.name}</Text>
-            <Text size="xs" c="dimmed">
-              {pb.authStore.model?.email}
-            </Text>
-          </div>
-        </Group>
-      </UnstyledButton>
+        {addBoardMode ? (
+          <FocusTrap active={addBoardMode}>
+            <TextInput
+              variant="unstyled"
+              mt={"xs"}
+              onChange={(event) => setNewBoardName(event.currentTarget.value)}
+              leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
+              leftSectionWidth={40}
+              rightSection={
+                <>
+                  <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    onClick={() => {
+                      createBoard({
+                        title: newBoardName,
+                        member: pb.authStore.model?.id,
+                      });
+
+                      setNewBoardName("");
+                      setAddBoardMode(false);
+                    }}
+                  >
+                    <IconCheck size="1em" />
+                  </ActionIcon>
+                  <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    onClick={() => {
+                      setAddBoardMode(false);
+                    }}
+                  >
+                    <IconX size="1em" />
+                  </ActionIcon>
+                </>
+              }
+              rightSectionWidth={79}
+            />
+          </FocusTrap>
+        ) : (
+          <NavLink
+            mt={"xs"}
+            label="Neues Board hinzufügen"
+            leftSection={<IconPlus size="1em" stroke={1.5} />}
+            style={{ color: "grey" }}
+            onClick={() => setAddBoardMode(true)}
+          />
+        )}
+      </AppShell.Section>
+
+      <AppShell.Section>
+        <NavLink
+          h={60}
+          label={
+            <Group>
+              <Avatar radius="xl">
+                {pb.authStore.model?.name.substring(0, 2)}
+              </Avatar>
+              <div>
+                <Text size="sm">{pb.authStore.model?.name}</Text>
+                <Text size="xs" c="dimmed">
+                  {pb.authStore.model?.email}
+                </Text>
+              </div>
+            </Group>
+          }
+          onClick={() => navigate("/settings/me")}
+        />
+      </AppShell.Section>
     </>
   );
 }

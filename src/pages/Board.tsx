@@ -1,4 +1,5 @@
-import { Group, Text } from "@mantine/core";
+import { ActionIcon, Group, Text, Tooltip } from "@mantine/core";
+import { IconDots, IconWorld } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { pb } from "../api/pocketbase";
@@ -73,7 +74,34 @@ export function Board() {
       )}
 
       <Group justify="space-between" mb="xl">
-        <Text>{activeBoard?.title}</Text>
+        <Group gap={"xs"}>
+          <Tooltip
+            label="[TODO] Dieses Board ist öffentlich"
+            position="bottom-start"
+            openDelay={500}
+            withArrow
+          >
+            <IconWorld size={"1em"} />
+          </Tooltip>
+          <Text>{activeBoard?.title}</Text>
+
+          <Tooltip
+            label="Einstellungen"
+            position="right"
+            openDelay={500}
+            withArrow
+          >
+            <ActionIcon
+              variant="subtle"
+              color="gray"
+              onClick={() => {
+                navigate("/settings/" + boardId);
+              }}
+            >
+              <IconDots size="1em" />
+            </ActionIcon>
+          </Tooltip>
+        </Group>
 
         <Group>
           <Search />
