@@ -8,8 +8,6 @@ interface UserStore {
   logout: () => void;
 }
 
-console.log(pb.authStore.model);
-
 export const useUserStore = create<UserStore>()((set) => ({
   isLoading: false,
   isAuthenticated: !!pb.authStore.model,

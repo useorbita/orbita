@@ -63,7 +63,7 @@ export function Navigation({
       </AppShell.Section>
 
       <AppShell.Section grow component={ScrollArea} mt={"xl"}>
-        {!loading && boards.map((board) => <BoardLink board={board} />)}
+        {!loading && boards.map((board) => <BoardLink key={board.id} board={board} />)}
 
         {addBoardMode ? (
           <FocusTrap active={addBoardMode}>

@@ -1,5 +1,5 @@
 import { ActionIcon, Group, Text, Tooltip } from "@mantine/core";
-import { IconDots, IconWorld } from "@tabler/icons-react";
+import { IconDots } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { pb } from "../api/pocketbase";
@@ -32,7 +32,6 @@ export function Board() {
 
   useEffect(() => {
     (async () => {
-      console.time("getting states and cards...");
       setLoading(true);
       setStates([]);
       setCards([]);
@@ -59,7 +58,6 @@ export function Board() {
       setActiveBoard(selectedBoard);
 
       setLoading(false);
-      console.timeEnd("getting states and cards...");
     })();
   }, [boardId]);
 
