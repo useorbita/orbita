@@ -9,28 +9,37 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { pb } from "../api/pocketbase";
+import { useUserStore } from "../stores/userStore";
 
 export function Authentication() {
+  const login = useUserStore((state) => state.login);
+
   return (
     <Container pt={"10em"}>
       <Center maw={900} h="70%" mx="auto">
         <Paper withBorder shadow="xl" p="xl" w={"20em"}>
           <Stack>
             <Title>Mello</Title>
-            <TextInput placeholder="Email" label="Email"></TextInput>
-            <PasswordInput placeholder="Password" label="Password" />
+            <TextInput
+              placeholder="Email"
+              label="Email"
+              value={import.meta.env.VITE_PB_USERNAME}
+              readOnly
+            ></TextInput>
+            <PasswordInput
+              placeholder="Password"
+              label="Password"
+              value={import.meta.env.VITE_PB_PASSWORD}
+              readOnly
+            />
             <Space h="xs" />
             <Button
               variant="default"
               onClick={async () => {
-                const result = await pb
-                  .collection("users")
-                  .authWithPassword(
-                    import.meta.env.VITE_PB_USERNAME,
-                    import.meta.env.VITE_PB_PASSWORD
-                  );
-                console.log(result);
+                login({
+                  email: import.meta.env.VITE_PB_USERNAME,
+                  password: import.meta.env.VITE_PB_PASSWORD,
+                });
               }}
             >
               Anmelden

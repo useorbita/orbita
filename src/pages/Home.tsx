@@ -12,7 +12,9 @@ export function Home() {
 
       <List>
         {!isLoading &&
-          boards.map((board) => <List.Item>{board.title}</List.Item>)}
+          boards.map((board) => (
+            <List.Item key={board.id}>{board.title}</List.Item>
+          ))}
       </List>
 
       <Text>Letzte Aktivität:</Text>

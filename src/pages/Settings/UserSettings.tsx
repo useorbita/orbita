@@ -1,8 +1,9 @@
 import { Button, Text } from "@mantine/core";
 import { IconLogout } from "@tabler/icons-react";
-import { pb } from "../../api/pocketbase";
+import { useUserStore } from "../../stores/userStore";
 
 export function UserSettings() {
+  const logout = useUserStore((state) => state.logout);
   return (
     <>
       <Text>Einstellungen - Profil</Text>
@@ -18,7 +19,7 @@ export function UserSettings() {
         variant="outline"
         color="gray"
         leftSection={<IconLogout size={18} />}
-        onClick={() => pb.authStore.clear()}
+        onClick={logout}
       >
         Logout
       </Button>

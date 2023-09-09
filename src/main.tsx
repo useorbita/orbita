@@ -5,20 +5,22 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
-import { pb } from "./api/pocketbase";
 import { Authentication } from "./pages/Authentication";
 
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/tiptap/styles.css";
+import { useUserStore } from "./stores/userStore";
 
 const theme = createTheme({
   /** Your theme override here */
 });
 
-// TODO: this only works with refresh
-const userAuthenticated = pb.authStore.isValid;
+function Application() {
+  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+  return isAuthenticated ? <App /> : <Authentication />;
+}
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -26,7 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Notifications />
       <BrowserRouter>
         <ModalsProvider>
-          {userAuthenticated ? <App /> : <Authentication />}
+          <Application />
         </ModalsProvider>
       </BrowserRouter>
     </MantineProvider>
