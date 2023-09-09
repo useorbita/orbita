@@ -75,14 +75,14 @@ export function Board() {
 
       <Group justify="space-between" mb="xl">
         <Group gap={"xs"}>
-          <Tooltip
+          {/* <Tooltip
             label="[TODO] Dieses Board ist öffentlich"
             position="bottom-start"
             openDelay={500}
             withArrow
           >
             <IconWorld size={"1em"} />
-          </Tooltip>
+          </Tooltip> */}
           <Text>{activeBoard?.title}</Text>
 
           <Tooltip

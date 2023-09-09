@@ -6,10 +6,13 @@ import {
   MultiSelect,
   Space,
   Stack,
+  Switch,
   Text,
   TextInput,
 } from "@mantine/core";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { modals } from "@mantine/modals";
+import { notifications } from "@mantine/notifications";
+import { IconArrowLeft, IconTrash } from "@tabler/icons-react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function BoardSettings() {
@@ -20,19 +23,57 @@ export function BoardSettings() {
   const inputSpan = 6;
   const offset = 1;
 
+  const confirmDelete = () =>
+    modals.openConfirmModal({
+      title: "Board löschen",
+      centered: true,
+      zIndex: 1000,
+      children: (
+        <Text size="sm">
+          Sind Sie sich sicher, dass Sie dieses Board löschen möchten? Das Board
+          und alle dazugehörigen Daten werden gelöscht. Dies kann nicht
+          rückgängig gemacht werden
+        </Text>
+      ),
+      labels: { confirm: "Board löschen", cancel: "Nein, nicht löschen" },
+      confirmProps: { color: "red" },
+      onCancel: () => console.log("Cancel"),
+      onConfirm: () => {
+        close();
+        notifications.show({
+          title: "Noch nicht implementiert",
+          message: "Das ist leider noch nicht implementiert :(",
+          withBorder: true,
+          color: "gray",
+        });
+      },
+    });
+
   return (
     <>
-      <Group>
-        <ActionIcon
+      <Group justify="space-between" mb="xl">
+        <Group gap={"xs"}>
+          <ActionIcon
+            variant="subtle"
+            color="gray"
+            onClick={() => {
+              navigate("/" + boardId);
+            }}
+          >
+            <IconArrowLeft size="1em" />
+          </ActionIcon>
+          <Text>{boardId} Einstellungen</Text>
+        </Group>
+
+        <Button
+          leftSection={<IconTrash size={20} />}
           variant="subtle"
           color="gray"
-          onClick={() => {
-            navigate("/" + boardId);
-          }}
+          size="xs"
+          onClick={confirmDelete}
         >
-          <IconArrowLeft size="1em" />
-        </ActionIcon>
-        <Text>{boardId} Einstellungen</Text>
+          Board löschen
+        </Button>
       </Group>
 
       <Space h={"xl"} />
@@ -80,15 +121,22 @@ export function BoardSettings() {
       <Grid align="flex-start">
         <Grid.Col span={descriptionSpan}>
           <Stack gap={"xs"}>
-            <Text>Board löschen</Text>
+            <Text>Öffentlich</Text>
             <Text size="sm" c="dimmed">
-              Das Board wird und alle dazugehörigen Daten werden gelöscht. Dies
-              kann nicht rückgängig gemacht werden
+              Öffentliche Boards können über einen Link eingesehen werden.
+              Änderungen und Kommentare können nicht vorgenommen werden.
             </Text>
           </Stack>
         </Grid.Col>
         <Grid.Col span={inputSpan} offset={offset}>
-          <Button color={"red"}>Board löschen</Button>
+          <Switch />
+          <Space h={"sm"} />
+          <TextInput
+            placeholder="URL"
+            disabled
+            variant="filled"
+            value={"Link..."}
+          />
         </Grid.Col>
       </Grid>
     </>
