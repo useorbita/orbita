@@ -259,6 +259,13 @@
     react-textarea-autosize "8.5.2"
     type-fest "^3.13.1"
 
+"@mantine/dates@^7.0.0-beta.4":
+  version "7.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-7.0.0-beta.4.tgz#13db37dc424fc566364cee0a94afccbdfd5db22a"
+  integrity sha512-02KbveCNVCYx+V6HJDIZfluh/UceB2tucCnLb1mPCpPhLmdz3x0KCx/oqd1yj65nZS4+ff1O4Lh73vQNeRUfAQ==
+  dependencies:
+    clsx "2.0.0"
+
 "@mantine/hooks@^7.0.0-beta.4":
   version "7.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.0.0-beta.4.tgz#a28f671c05197dda38d5f5a69ba47fab486f6920"
@@ -1070,6 +1077,11 @@ dash-get@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/dash-get/-/dash-get-1.0.2.tgz#4c9e9ad5ef04c4bf9d3c9a451f6f7997298dcc7c"
   integrity sha512-4FbVrHDwfOASx7uQVxeiCTo7ggSdYZbqs8lH+WU6ViypPlDbe9y6IP5VVUDQBv9DcnyaiPT5XT0UWHgJ64zLeQ==
+
+dayjs@^1.11.9:
+  version "1.11.9"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.9.tgz#9ca491933fadd0a60a2c19f6c237c03517d71d1a"
+  integrity sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==
 
 debug@4, debug@^4.1.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4:
   version "4.3.4"

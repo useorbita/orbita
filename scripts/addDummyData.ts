@@ -23,7 +23,7 @@ for (const state of states) {
     position: 123,
   });
 
-  for (let index = 0; index < 100; index++) {
+  for (let index = 0; index < 10; index++) {
     const data = {
       title: "Lorem Ipsum",
       description:
