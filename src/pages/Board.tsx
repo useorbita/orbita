@@ -2,63 +2,31 @@ import { ActionIcon, Group, Text, Tooltip } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { pb } from "../api/pocketbase";
-import {
-  BoardsResponse,
-  CardsResponse,
-  Collections,
-  LabelsResponse,
-  StatesResponse,
-  UsersResponse,
-} from "../api/types";
 import { ColumnView } from "../components/Board/ColumnView";
 import { ListView } from "../components/Board/ListView";
 import { CardModal } from "../components/Card/CardModal";
 import { FilterMenu } from "../components/UI/FilterMenu";
 import { Search } from "../components/UI/Search";
 import { ViewSwitch } from "../components/UI/ViewSwitch";
+import { useActiveBoardStore } from "../stores/activeBoardStore";
 
 export function Board() {
-  const [loading, setLoading] = useState(true);
-  const [view, setView] = useState("column");
-  const [cards, setCards] = useState<CardsResponse[]>([]);
-  const [states, setStates] = useState<StatesResponse[]>([]);
-  const [users, setUsers] = useState<UsersResponse[]>([]);
-  const [labels, setLabels] = useState<LabelsResponse[]>([]);
-  const [activeBoard, setActiveBoard] = useState<BoardsResponse>();
-
   const { boardId, cardId } = useParams();
+
+  const isLoading = useActiveBoardStore((state) => state.isLoading);
+  const getActiveBoard = useActiveBoardStore((state) => state.getActiveBoard);
+  const activeBoard = useActiveBoardStore((state) => state.activeBoard);
+
+  const states = useActiveBoardStore((state) => state.states);
+  const users = useActiveBoardStore((state) => state.users);
+  const labels = useActiveBoardStore((state) => state.labels);
+  const cards = useActiveBoardStore((state) => state.cards);
+
+  const [view, setView] = useState("column");
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      setStates([]);
-      setCards([]);
-
-      const [allStates, allCards, allUsers, allLabels, selectedBoard] =
-        await Promise.all([
-          pb
-            .collection(Collections.States)
-            .getFullList<StatesResponse>({ filter: `board = "${boardId}"` }),
-          pb.collection(Collections.Cards).getFullList<CardsResponse>({
-            filter: `board = "${boardId}"`,
-          }),
-          pb.collection(Collections.Users).getFullList<UsersResponse>(),
-          pb.collection(Collections.Labels).getFullList<LabelsResponse>(),
-          pb
-            .collection(Collections.Boards)
-            .getOne<BoardsResponse>(boardId || ""),
-        ]);
-
-      setStates(allStates);
-      setCards(allCards);
-      setUsers(allUsers);
-      setLabels(allLabels);
-      setActiveBoard(selectedBoard);
-
-      setLoading(false);
-    })();
+    getActiveBoard({ boardId });
   }, [boardId]);
 
   return (
@@ -108,7 +76,7 @@ export function Board() {
         </Group>
       </Group>
 
-      {!loading && view === "column" && (
+      {!isLoading && view === "column" && (
         <ColumnView
           states={states}
           cards={cards}
@@ -117,7 +85,7 @@ export function Board() {
         />
       )}
 
-      {!loading && view === "list" && (
+      {!isLoading && view === "list" && (
         <ListView states={states} cards={cards} users={users} labels={labels} />
       )}
     </>

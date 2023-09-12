@@ -10,7 +10,7 @@ import { UserSettings } from "./pages/Settings/UserSettings";
 import { useBoardStore } from "./stores/boardStore";
 
 export function App() {
-  const boards = useBoardStore((state) => state.boards);
+  const allBoards = useBoardStore((state) => state.allBoards);
   const getAllBoards = useBoardStore((state) => state.getAllBoards);
   const isLoading = useBoardStore((state) => state.isLoading);
 
@@ -21,7 +21,7 @@ export function App() {
   return (
     <AppShell padding="md" navbar={{ width: 300, breakpoint: "sm" }}>
       <AppShell.Navbar p="md">
-        <Navigation loading={isLoading} boards={boards} />
+        <Navigation loading={isLoading} boards={allBoards} />
       </AppShell.Navbar>
 
       <AppShell.Main>

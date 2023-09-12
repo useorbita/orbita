@@ -2,7 +2,7 @@ import { List, Stack, Text, Title } from "@mantine/core";
 import { useBoardStore } from "../stores/boardStore";
 
 export function Home() {
-  const boards = useBoardStore((state) => state.boards);
+  const allBoards = useBoardStore((state) => state.allBoards);
   const isLoading = useBoardStore((state) => state.isLoading);
 
   return (
@@ -12,7 +12,7 @@ export function Home() {
 
       <List>
         {!isLoading &&
-          boards.map((board) => (
+          allBoards.map((board) => (
             <List.Item key={board.id}>{board.title}</List.Item>
           ))}
       </List>
