@@ -15,9 +15,8 @@ import { DatePickerInput } from "@mantine/dates";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
-import { pb } from "../../api/pocketbase";
-import { CardsResponse, Collections, CommentsResponse } from "../../api/types";
+import { useEffect } from "react";
+import { useActiveCardStore } from "../../stores/activeCardStore";
 import { TextEditor } from "../App/TextEditor";
 
 export function CardModal({
@@ -29,22 +28,13 @@ export function CardModal({
   close: () => void;
   cardId: string;
 }) {
-  const [card, setCard] = useState<CardsResponse>();
-  const [comments, setComments] = useState<CommentsResponse[]>([]);
+  const isLoading = useActiveCardStore((state) => state.isLoading);
+  const getActiveCard = useActiveCardStore((state) => state.getActiveCard);
+  const activeCard = useActiveCardStore((state) => state.activeCard);
+  const comments = useActiveCardStore((state) => state.comments);
 
   useEffect(() => {
-    (async () => {
-      const [selectedCard, allComments] = await Promise.all([
-        pb.collection(Collections.Cards).getOne<CardsResponse>(cardId),
-        pb.collection(Collections.Comments).getFullList<CommentsResponse>({
-          filter: `card = "${cardId}"`,
-          sort: "-created",
-        }),
-      ]);
-
-      setCard(selectedCard);
-      setComments(allComments);
-    })();
+    getActiveCard({ cardId });
   }, [cardId]);
 
   const confirmDelete = () =>
@@ -54,7 +44,7 @@ export function CardModal({
       zIndex: 1000,
       children: (
         <Text size="sm">
-          Sind Sie sich sicher, dass Sie die Karte "{card?.title}" löschen
+          Sind Sie sich sicher, dass Sie die Karte "{activeCard?.title}" löschen
           möchten?
         </Text>
       ),
@@ -86,7 +76,7 @@ export function CardModal({
       <Modal.Content>
         <Modal.Header>
           <Modal.Title>
-            {card && <Title order={4}>{card.title}</Title>}
+            {activeCard && <Title order={4}>{activeCard.title}</Title>}
           </Modal.Title>
           <Group justify="start">
             <Button
@@ -108,14 +98,12 @@ export function CardModal({
         </Modal.Header>
 
         <Modal.Body p={"lg"}>
-          {card ? (
+          {!isLoading && activeCard ? (
             <Grid>
               <Grid.Col span={7}>
                 <Text>Beschreibung:</Text>
-                <TextEditor content={card.description} />
-
+                <TextEditor content={activeCard.description} />
                 <Space h={"xl"} />
-
                 <Text>Aktivität:</Text>
                 <ul>
                   {comments.map((comment) => (
@@ -129,25 +117,28 @@ export function CardModal({
                 </ul>
                 <Text>
                   Verändert am{" "}
-                  {card && new Date(card.updated).toLocaleString("de")}
-                </Text>{" "}
+                  {activeCard &&
+                    new Date(activeCard.updated).toLocaleString("de")}
+                </Text>
                 <Text>
                   Erstellt am{" "}
-                  {card && new Date(card.created).toLocaleString("de")} von
-                  {card && card.author}
+                  {activeCard &&
+                    new Date(activeCard.created).toLocaleString("de")}{" "}
+                  von{" "}
+                  {activeCard && activeCard.author}
                 </Text>
               </Grid.Col>
 
               <Grid.Col span={5}>
                 <Stack>
-                  {/* <Text>Status: {card && card.state}</Text> */}
+                  {/* <Text>Status: {activeCard && activeCard.state}</Text> */}
                   <Select
                     label="Status"
                     placeholder="Status wählen"
                     data={["Status 1", "Status 2", "Status 3"]}
                   />
 
-                  {/* <Text>Labels: {card && card.labels}</Text> */}
+                  {/* <Text>Labels: {activeCard && activeCard.labels}</Text> */}
                   <MultiSelect
                     label="Label"
                     placeholder="Status Auswählen"
@@ -155,7 +146,7 @@ export function CardModal({
                     searchable
                   />
 
-                  {/* <Text>Mitglieder: {card && card.members}</Text> */}
+                  {/* <Text>Mitglieder: {activeCard && activeCard.members}</Text> */}
                   <MultiSelect
                     label="Mitglieder"
                     placeholder="Personen Auswählen"
@@ -172,14 +163,14 @@ export function CardModal({
                       { value: "high", label: "Hoch" },
                       { value: "highest", label: "Sehr Hoch" },
                     ]}
-                    value={card.priority}
+                    value={activeCard.priority}
                     onChange={(value) => console.log(value)}
                   />
 
                   <DatePickerInput
                     label="Datum"
                     placeholder="Datum auswählen"
-                    value={new Date(card.date)}
+                    value={new Date(activeCard.date)}
                     onChange={() => {}}
                     clearable
                   />
