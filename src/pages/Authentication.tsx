@@ -12,6 +12,7 @@ import {
 import { useUserStore } from "../stores/userStore";
 
 export function Authentication() {
+  const isLoading = useUserStore((state) => state.isLoading);
   const login = useUserStore((state) => state.login);
 
   return (
@@ -35,6 +36,7 @@ export function Authentication() {
             <Space h="xs" />
             <Button
               variant="default"
+              loading={isLoading}
               onClick={async () => {
                 login({
                   email: import.meta.env.VITE_PB_USERNAME,
