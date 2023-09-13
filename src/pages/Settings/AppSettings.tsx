@@ -5,10 +5,13 @@ import {
   Select,
   Stack,
   Text,
+  useMantineColorScheme,
 } from "@mantine/core";
-import { IconMoon, IconSun } from "@tabler/icons-react";
+import { IconBrush, IconMoon, IconSun } from "@tabler/icons-react";
 
 export function AppSettings() {
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
+
   return (
     <>
       <Text>Einstellungen</Text>
@@ -34,7 +37,18 @@ export function AppSettings() {
                 </Center>
               ),
             },
+            {
+              value: "auto",
+              label: (
+                <Center>
+                  <IconBrush size="1em" />
+                  <Box ml={10}>System</Box>
+                </Center>
+              ),
+            },
           ]}
+          onChange={setColorScheme}
+          value={colorScheme}
         />
 
         <Select
