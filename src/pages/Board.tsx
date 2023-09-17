@@ -9,6 +9,7 @@ import { FilterMenu } from "../components/UI/FilterMenu";
 import { Search } from "../components/UI/Search";
 import { ViewSwitch } from "../components/UI/ViewSwitch";
 import { useActiveBoardStore } from "../stores/activeBoardStore";
+import { CodeView } from "../components/Board/CodeView";
 
 export function Board() {
   const { boardId, cardId } = useParams();
@@ -75,6 +76,15 @@ export function Board() {
           <ViewSwitch view={view} setView={setView} />
         </Group>
       </Group>
+
+      {!isLoading && view === "code" && (
+        <CodeView
+          states={states}
+          cards={cards}
+          users={users}
+          labels={labels}
+        />
+      )}
 
       {!isLoading && view === "column" && (
         <ColumnView

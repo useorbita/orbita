@@ -1,5 +1,5 @@
 import { Center, SegmentedControl } from "@mantine/core";
-import { IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
+import { IconCode, IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
 
 interface ViewStateProps {
   view: string;
@@ -23,6 +23,14 @@ export function ViewSwitch({ view, setView }: ViewStateProps) {
           label: (
             <Center>
               <IconLayoutGrid size="1em" />
+            </Center>
+          ),
+        },
+        {
+          value: "code",
+          label: (
+            <Center>
+              <IconCode size="1em" />
             </Center>
           ),
         },
