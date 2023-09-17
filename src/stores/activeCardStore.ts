@@ -6,7 +6,7 @@ interface ActiveCardStore {
   isLoading: boolean;
   activeCard: CardsResponse | null;
   comments: CommentsResponse[];
-  getActiveCard: ({ cardId }: { cardId: string }) => void;
+  getActiveCard: ({ cardId }: { cardId: string }) => Promise<void>;
 }
 
 export const useActiveCardStore = create<ActiveCardStore>()((set) => ({

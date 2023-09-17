@@ -4,7 +4,15 @@ import { pb } from "../api/pocketbase";
 interface UserStore {
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: ({ email, password }: { email: string; password: string }) => void;
+
+  login: ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => Promise<void>;
+
   logout: () => void;
 }
 
@@ -21,7 +29,7 @@ export const useUserStore = create<UserStore>()((set) => ({
     if (response.token) set({ isAuthenticated: true });
     set({ isLoading: false });
   },
-  logout: async () => {
+  logout: () => {
     pb.authStore.clear();
     set({ isAuthenticated: false });
   },

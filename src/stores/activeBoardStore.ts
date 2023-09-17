@@ -13,7 +13,12 @@ interface BoardStore {
   isLoading: boolean;
 
   activeBoard: BoardsResponse | null;
-  getActiveBoard: ({ boardId }: { boardId: string | undefined }) => void;
+  
+  getActiveBoard: ({
+    boardId,
+  }: {
+    boardId: string | undefined;
+  }) => Promise<void>;
 
   cards: CardsResponse[];
   states: StatesResponse[];

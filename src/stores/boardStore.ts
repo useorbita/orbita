@@ -5,8 +5,15 @@ import { BoardsResponse, Collections } from "../api/types";
 interface BoardStore {
   isLoading: boolean;
   allBoards: BoardsResponse[];
-  getAllBoards: () => void;
-  createBoard: ({ title, member }: { title: string; member?: string }) => void;
+  getAllBoards: () => Promise<void>;
+
+  createBoard: ({
+    title,
+    member,
+  }: {
+    title: string;
+    member?: string;
+  }) => Promise<void>;
 }
 
 export const useBoardStore = create<BoardStore>()((set, get) => ({
@@ -25,6 +32,6 @@ export const useBoardStore = create<BoardStore>()((set, get) => ({
       title: title,
       members: [member],
     });
-    get().getAllBoards();
+    await get().getAllBoards();
   },
 }));
