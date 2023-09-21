@@ -19,7 +19,7 @@ export function ViewSwitch({ view, setView }: ViewStateProps) {
           ),
         },
         {
-          value: "column",
+          value: "lane",
           label: (
             <Center>
               <IconLayoutGrid size="1em" />

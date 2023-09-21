@@ -20,19 +20,33 @@ interface CardProps {
 
 export function Card({ card, users, labels }: CardProps) {
   const navigate = useNavigate();
-
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: card.id });
-
-  const style = {
-    transform: CSS.Translate.toString(transform),
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
     transition,
-  };
+    isDragging,
+  } = useSortable({
+    id: card.id,
+    data: {
+      title: card.title,
+      type: "card",
+    },
+  });
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Translate.toString(transform), transition }}
+      {...attributes}
+      {...listeners}
+    >
       <MantineCard shadow="sm" withBorder onClick={() => navigate(card.id)}>
-        <Text fw={500}>{card.title}</Text>
+        <Text fw={500}>
+          {card.title}
+          {isDragging && "..."}
+        </Text>
 
         {card.labels.map((label) => (
           <Badge

@@ -2,16 +2,15 @@ import {
   DndContext,
   KeyboardSensor,
   PointerSensor,
-  closestCenter,
+  closestCorners,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import {
   SortableContext,
   sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Button, Group, Paper, ScrollArea, Stack, Text } from "@mantine/core";
+import { Button, Group, ScrollArea } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 import {
   CardsResponse,
@@ -19,16 +18,18 @@ import {
   StatesResponse,
   UsersResponse,
 } from "../../api/types";
-import { Card } from "../Card/Card";
+import { Lane } from "./Lane";
 
-interface ColumnViewProps {
+interface LaneViewProps {
   states: StatesResponse[];
   cards: CardsResponse[];
   users: UsersResponse[];
   labels: LabelsResponse[];
 }
 
-export function ColumnView({ cards, states, users, labels }: ColumnViewProps) {
+// https://blog.chetanverma.com/how-to-create-an-awesome-kanban-board-using-dnd-kit
+
+export function LaneView({ cards, states, users, labels }: LaneViewProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -69,43 +70,23 @@ export function ColumnView({ cards, states, users, labels }: ColumnViewProps) {
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCenter}
+      collisionDetection={closestCorners}
       onDragEnd={handleDragEnd}
     >
       <ScrollArea>
         <Group style={{ width: states.length * 280 + 150 }} justify="start">
-          {states
-            .sort((a, b) => a.position - b.position)
-            .map((state: StatesResponse) => (
-              <div key={state.id}>
-                <Text>{state.title}</Text>
-
-                <Paper
-                  h={"75vh"}
-                  w={250}
-                  style={{ backgroundColor: "#00000009" }}
-                >
-                  <Stack>
-                    <SortableContext
-                      items={cards}
-                      strategy={verticalListSortingStrategy}
-                    >
-                      {cards
-                        .filter((card) => card.state === state.id)
-                        .sort((a, b) => a.position - b.position)
-                        .map((card: CardsResponse) => (
-                          <Card
-                            key={card.id}
-                            card={card}
-                            users={users}
-                            labels={labels}
-                          />
-                        ))}
-                    </SortableContext>
-                  </Stack>
-                </Paper>
-              </div>
-            ))}
+          <SortableContext items={states.map((i) => i.id)}>
+            {states
+              .sort((a, b) => a.position - b.position)
+              .map((state: StatesResponse) => (
+                <Lane
+                  cards={cards}
+                  state={state}
+                  users={users}
+                  labels={labels}
+                />
+              ))}
+          </SortableContext>
 
           <div style={{ height: "75vh", paddingTop: "1em" }}>
             <Button

@@ -2,7 +2,7 @@ import { ActionIcon, Group, Text, Tooltip } from "@mantine/core";
 import { IconDots } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ColumnView } from "../components/Board/ColumnView";
+import { LaneView } from "../components/Board/LaneView";
 import { ListView } from "../components/Board/ListView";
 import { CardModal } from "../components/Card/CardModal";
 import { FilterMenu } from "../components/UI/FilterMenu";
@@ -86,8 +86,8 @@ export function Board() {
         />
       )}
 
-      {!isLoading && view === "column" && (
-        <ColumnView
+      {!isLoading && view === "lane" && (
+        <LaneView
           states={states}
           cards={cards}
           users={users}
