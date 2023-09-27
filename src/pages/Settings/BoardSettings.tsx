@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Button,
+  Container,
   Grid,
   Group,
   MultiSelect,
@@ -50,7 +51,7 @@ export function BoardSettings() {
     });
 
   return (
-    <>
+    <Container>
       <Group justify="space-between" mb="xl">
         <Group gap={"xs"}>
           <ActionIcon
@@ -139,6 +140,6 @@ export function BoardSettings() {
           />
         </Grid.Col>
       </Grid>
-    </>
+    </Container>
   );
 }

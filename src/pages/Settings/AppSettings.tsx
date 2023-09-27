@@ -1,6 +1,7 @@
 import {
   Box,
   Center,
+  Container,
   SegmentedControl,
   Select,
   Stack,
@@ -13,7 +14,7 @@ export function AppSettings() {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   return (
-    <>
+    <Container>
       <Text>Einstellungen</Text>
       <Stack w={"20em"} mt={"xl"}>
         <Text size="sm">Farbschema</Text>
@@ -62,6 +63,6 @@ export function AppSettings() {
           ]}
         />
       </Stack>
-    </>
+    </Container>
   );
 }

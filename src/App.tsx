@@ -1,7 +1,7 @@
-import { AppShell, Container } from "@mantine/core";
+import { AppShell, LoadingOverlay, Space } from "@mantine/core";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Navigation } from "./components/App/Navigation";
+import { Header } from "./components/App/Header";
 import { Board } from "./pages/Board";
 import { Home } from "./pages/Home";
 import { AppSettings } from "./pages/Settings/AppSettings";
@@ -19,23 +19,23 @@ export function App() {
   }, []);
 
   return (
-    <AppShell padding="md" navbar={{ width: 300, breakpoint: "sm" }}>
-      <AppShell.Navbar p="md">
-        <Navigation loading={isLoading} boards={allBoards} />
-      </AppShell.Navbar>
+    <AppShell p={"md"} header={{ height: 60 }}>
+      <AppShell.Header p={"xs"} pl={"md"}>
+        <Header boards={allBoards} />
+      </AppShell.Header>
 
       <AppShell.Main>
-        <Container pt="xl">
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/:boardId" element={<Board />} />
-            <Route path="/:boardId/:cardId" element={<Board />} />
-            <Route path="/settings" element={<AppSettings />} />
-            <Route path="/settings/me" element={<UserSettings />} />
-            <Route path="/settings/:boardId" element={<BoardSettings />} />
-            <Route path="*" element={<p>Seite nicht gefunden</p>} />
-          </Routes>
-        </Container>
+        <Space h={"sm"} />
+        <LoadingOverlay visible={isLoading} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/:boardId" element={<Board />} />
+          <Route path="/:boardId/:cardId" element={<Board />} />
+          <Route path="/settings" element={<AppSettings />} />
+          <Route path="/settings/me" element={<UserSettings />} />
+          <Route path="/settings/:boardId" element={<BoardSettings />} />
+          <Route path="*" element={<p>Seite nicht gefunden</p>} />
+        </Routes>
       </AppShell.Main>
     </AppShell>
   );

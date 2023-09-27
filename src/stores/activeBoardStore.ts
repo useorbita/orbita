@@ -13,7 +13,7 @@ interface BoardStore {
   isLoading: boolean;
 
   activeBoard: BoardsResponse | null;
-  
+
   getActiveBoard: ({
     boardId,
   }: {

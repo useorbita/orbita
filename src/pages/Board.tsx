@@ -1,15 +1,14 @@
-import { ActionIcon, Group, Text, Tooltip } from "@mantine/core";
-import { IconDots } from "@tabler/icons-react";
+import { ActionIcon, Group, Loader, Text, Tooltip } from "@mantine/core";
+import { IconSettings } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CodeView } from "../components/Board/CodeView";
 import { LaneView } from "../components/Board/LaneView";
 import { ListView } from "../components/Board/ListView";
 import { CardModal } from "../components/Card/CardModal";
 import { FilterMenu } from "../components/UI/FilterMenu";
-import { Search } from "../components/UI/Search";
 import { ViewSwitch } from "../components/UI/ViewSwitch";
 import { useActiveBoardStore } from "../stores/activeBoardStore";
-import { CodeView } from "../components/Board/CodeView";
 
 export function Board() {
   const { boardId, cardId } = useParams();
@@ -29,6 +28,8 @@ export function Board() {
   useEffect(() => {
     getActiveBoard({ boardId });
   }, [boardId]);
+
+  if (isLoading) return <Loader color="gray" size="sm" />;
 
   return (
     <>
@@ -65,34 +66,23 @@ export function Board() {
                 navigate("/settings/" + boardId);
               }}
             >
-              <IconDots size="1em" />
+              <IconSettings size="1em" />
             </ActionIcon>
           </Tooltip>
         </Group>
 
         <Group>
-          <Search />
           <FilterMenu />
           <ViewSwitch view={view} setView={setView} />
         </Group>
       </Group>
 
       {!isLoading && view === "code" && (
-        <CodeView
-          states={states}
-          cards={cards}
-          users={users}
-          labels={labels}
-        />
+        <CodeView states={states} cards={cards} users={users} labels={labels} />
       )}
 
       {!isLoading && view === "lane" && (
-        <LaneView
-          states={states}
-          cards={cards}
-          users={users}
-          labels={labels}
-        />
+        <LaneView states={states} cards={cards} users={users} labels={labels} />
       )}
 
       {!isLoading && view === "list" && (

@@ -1,12 +1,22 @@
-import { Button, Text } from "@mantine/core";
-import { IconLogout } from "@tabler/icons-react";
-import { useUserStore } from "../../stores/userStore";
+import { Avatar, Container, Group, Space, Text } from "@mantine/core";
+import { pb } from "../../api/pocketbase";
 
 export function UserSettings() {
-  const logout = useUserStore((state) => state.logout);
   return (
-    <>
+    <Container>
       <Text>Einstellungen - Profil</Text>
+
+      <Space h={"xl"} />
+
+      <Group>
+        <Avatar radius="xl">{pb.authStore.model?.name.substring(0, 2)}</Avatar>
+        <div>
+          <Text size="sm">{pb.authStore.model?.name}</Text>
+          <Text size="xs" c="dimmed">
+            {pb.authStore.model?.email}
+          </Text>
+        </div>
+      </Group>
 
       <ul>
         <li>Name</li>
@@ -14,15 +24,6 @@ export function UserSettings() {
         <li>Passwort ändern</li>
         <li>Konto löschen</li>
       </ul>
-
-      <Button
-        variant="outline"
-        color="gray"
-        leftSection={<IconLogout size={18} />}
-        onClick={logout}
-      >
-        Logout
-      </Button>
-    </>
+    </Container>
   );
 }
