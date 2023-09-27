@@ -20,7 +20,7 @@ export function Authentication() {
       <Center maw={900} h="70%" mx="auto">
         <Paper withBorder shadow="xl" p="xl" w={"20em"}>
           <Stack>
-            <Title>Mello</Title>
+            <Title>Orbita</Title>
             <TextInput
               placeholder="Email"
               label="Email"

@@ -7,7 +7,7 @@ const states = ["Backlog", "Next", "In Progress", "Waiting", "Done", "Closed"];
 
 await pb
   .collection("users")
-  .authWithPassword("testuser@mello.com", "testpassword");
+  .authWithPassword("testuser@Orbita.com", "testpassword");
 
 const board = await pb.collection("boards").create({
   title: boardName,

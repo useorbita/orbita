@@ -45,7 +45,7 @@ export function Navigation({
       <AppShell.Section>
         <Space h="xl" />
         <Title order={2} ml="sm">
-          Mello
+          Orbita
         </Title>
         <Space h="xl" />
         <NavLink

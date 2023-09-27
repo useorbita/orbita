@@ -40,7 +40,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
           style={{ cursor: "pointer" }}
           mr={"md"}
         >
-          Mello
+          Orbita
         </Title>
 
         <Menu shadow="md" width={250} position="bottom-start" withArrow>

@@ -6,7 +6,7 @@ const boardName = "TestiDummy";
 
 await pb
   .collection("users")
-  .authWithPassword("testuser@mello.com", "testpassword");
+  .authWithPassword("testuser@Orbita.com", "testpassword");
 
 const boards = await pb.collection("boards").getFullList();
 const states = await pb.collection("states").getFullList();
