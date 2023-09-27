@@ -23,7 +23,7 @@ export function Board() {
   const labels = useActiveBoardStore((state) => state.labels);
   const cards = useActiveBoardStore((state) => state.cards);
 
-  const [view, setView] = useState("column");
+  const [view, setView] = useState("lane");
   const navigate = useNavigate();
 
   useEffect(() => {
