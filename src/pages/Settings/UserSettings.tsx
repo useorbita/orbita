@@ -1,10 +1,10 @@
-import { Avatar, Container, Group, Space, Text } from "@mantine/core";
+import { Avatar, Container, Group, Space, Text, Title } from "@mantine/core";
 import { pb } from "../../api/pocketbase";
 
 export function UserSettings() {
   return (
     <Container>
-      <Text>Einstellungen - Profil</Text>
+      <Title order={4}>Profil</Title>
 
       <Space h={"xl"} />
 

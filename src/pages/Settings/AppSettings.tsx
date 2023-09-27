@@ -6,6 +6,7 @@ import {
   Select,
   Stack,
   Text,
+  Title,
   useMantineColorScheme,
 } from "@mantine/core";
 import { IconBrush, IconMoon, IconSun } from "@tabler/icons-react";
@@ -15,7 +16,7 @@ export function AppSettings() {
 
   return (
     <Container>
-      <Text>Einstellungen</Text>
+      <Title order={4}>Einstellungen</Title>
       <Stack w={"20em"} mt={"xl"}>
         <Text size="sm">Farbschema</Text>
         <SegmentedControl

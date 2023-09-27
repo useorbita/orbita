@@ -63,7 +63,7 @@ export function BoardSettings() {
           >
             <IconArrowLeft size="1em" />
           </ActionIcon>
-          <Text>{boardId} Einstellungen</Text>
+          <Text>Zurück zum Board</Text>
         </Group>
 
         <Button

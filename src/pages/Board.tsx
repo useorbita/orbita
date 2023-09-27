@@ -1,13 +1,10 @@
-import { ActionIcon, Group, Loader, Text, Tooltip } from "@mantine/core";
-import { IconSettings } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
+import { Loader } from "@mantine/core";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CodeView } from "../components/Board/CodeView";
 import { LaneView } from "../components/Board/LaneView";
 import { ListView } from "../components/Board/ListView";
 import { CardModal } from "../components/Card/CardModal";
-import { FilterMenu } from "../components/UI/FilterMenu";
-import { ViewSwitch } from "../components/UI/ViewSwitch";
 import { useActiveBoardStore } from "../stores/activeBoardStore";
 
 export function Board() {
@@ -15,14 +12,14 @@ export function Board() {
 
   const isLoading = useActiveBoardStore((state) => state.isLoading);
   const getActiveBoard = useActiveBoardStore((state) => state.getActiveBoard);
-  const activeBoard = useActiveBoardStore((state) => state.activeBoard);
 
   const states = useActiveBoardStore((state) => state.states);
   const users = useActiveBoardStore((state) => state.users);
   const labels = useActiveBoardStore((state) => state.labels);
   const cards = useActiveBoardStore((state) => state.cards);
 
-  const [view, setView] = useState("lane");
+  const view = useActiveBoardStore((state) => state.view);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,51 +38,15 @@ export function Board() {
         />
       )}
 
-      <Group justify="space-between" mb="xl">
-        <Group gap={"xs"}>
-          {/* <Tooltip
-            label="[TODO] Dieses Board ist öffentlich"
-            position="bottom-start"
-            openDelay={500}
-            withArrow
-          >
-            <IconWorld size={"1em"} />
-          </Tooltip> */}
-          <Text>{activeBoard?.title}</Text>
-
-          <Tooltip
-            label="Einstellungen"
-            position="right"
-            openDelay={500}
-            withArrow
-          >
-            <ActionIcon
-              variant="subtle"
-              color="gray"
-              onClick={() => {
-                navigate("/settings/" + boardId);
-              }}
-            >
-              <IconSettings size="1em" />
-            </ActionIcon>
-          </Tooltip>
-        </Group>
-
-        <Group>
-          <FilterMenu />
-          <ViewSwitch view={view} setView={setView} />
-        </Group>
-      </Group>
-
-      {!isLoading && view === "code" && (
+      {view === "code" && (
         <CodeView states={states} cards={cards} users={users} labels={labels} />
       )}
 
-      {!isLoading && view === "lane" && (
+      {view === "lane" && (
         <LaneView states={states} cards={cards} users={users} labels={labels} />
       )}
 
-      {!isLoading && view === "list" && (
+      {view === "list" && (
         <ListView states={states} cards={cards} users={users} labels={labels} />
       )}
     </>

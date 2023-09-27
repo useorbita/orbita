@@ -1,12 +1,11 @@
 import { Center, SegmentedControl } from "@mantine/core";
 import { IconCode, IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
+import { useActiveBoardStore } from "../../stores/activeBoardStore";
 
-interface ViewStateProps {
-  view: string;
-  setView: (view: string) => void;
-}
+export function ViewSwitch() {
+  const view = useActiveBoardStore((state) => state.view);
+  const setView = useActiveBoardStore((state) => state.setView);
 
-export function ViewSwitch({ view, setView }: ViewStateProps) {
   return (
     <SegmentedControl
       data={[

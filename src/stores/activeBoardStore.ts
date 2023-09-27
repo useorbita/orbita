@@ -25,7 +25,8 @@ interface BoardStore {
   users: UsersResponse[];
   labels: LabelsResponse[];
 
-  // cards: Map<StatesResponse, CardsResponse[]>;
+  view: string;
+  setView: (view: string) => void;
 }
 
 export const useActiveBoardStore = create<BoardStore>()((set) => ({
@@ -38,8 +39,18 @@ export const useActiveBoardStore = create<BoardStore>()((set) => ({
   users: [],
   labels: [],
 
+  view: "lane",
+
   getActiveBoard: async ({ boardId }) => {
     set({ isLoading: true });
+
+    set({
+      activeBoard: null,
+      cards: [],
+      states: [],
+      users: [],
+      labels: [],
+    });
 
     const [allCards, allStates, allUsers, allLabels, activeBoard] =
       await Promise.all([
@@ -63,5 +74,9 @@ export const useActiveBoardStore = create<BoardStore>()((set) => ({
     });
 
     set({ isLoading: false });
+  },
+
+  setView(view) {
+    set({ view });
   },
 }));

@@ -19,7 +19,7 @@ export function Home() {
   return (
     <Container>
       <Stack>
-        <Title order={4}>Boards</Title>
+        <Title order={4}>Deine Boards</Title>
 
         <Group>
           {!isLoading &&

@@ -1,4 +1,14 @@
-import { Avatar, Button, Group, Menu, Title, rem } from "@mantine/core";
+import {
+  Avatar,
+  Button,
+  Group,
+  Menu,
+  Title,
+  Text,
+  rem,
+  ActionIcon,
+  Tooltip,
+} from "@mantine/core";
 import {
   IconChevronDown,
   IconCircleDotted,
@@ -6,15 +16,20 @@ import {
   IconSettings,
   IconUser,
 } from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
 import { useUserStore } from "../../stores/userStore";
 import { Search } from "../UI/Search";
+import { useActiveBoardStore } from "../../stores/activeBoardStore";
+import { FilterMenu } from "../UI/FilterMenu";
+import { ViewSwitch } from "../UI/ViewSwitch";
 
 export function Header({ boards }: { boards: BoardsResponse[] }) {
-  const navigate = useNavigate();
+  const activeBoard = useActiveBoardStore((state) => state.activeBoard);
   const logout = useUserStore((state) => state.logout);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <Group justify="space-between">
@@ -50,9 +65,41 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
             ))}
           </Menu.Dropdown>
         </Menu>
+
+        {location.pathname !== "/" &&
+          location.pathname !== "/settings" &&
+          location.pathname !== "/settings/me" && (
+            <>
+              <Tooltip
+                label="Einstellungen"
+                position="right"
+                openDelay={500}
+                withArrow
+              >
+                <ActionIcon
+                  variant="subtle"
+                  color="gray"
+                  onClick={() => {
+                    navigate("/settings/" + activeBoard?.id);
+                  }}
+                >
+                  <IconSettings size="1em" />
+                </ActionIcon>
+              </Tooltip>
+              <Text>{activeBoard?.title}</Text>
+            </>
+          )}
       </Group>
 
       <Group>
+        {location.pathname === "/" ||
+          (!location.pathname.includes("settings") && (
+            <>
+              <FilterMenu />
+              <ViewSwitch />
+            </>
+          ))}
+
         <Search />
 
         <Menu shadow="md" width={200} withArrow>
