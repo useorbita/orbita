@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Avatar,
   Card,
   Container,
@@ -10,6 +11,7 @@ import {
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { useBoardStore } from "../stores/boardStore";
+import { IconSettings } from "@tabler/icons-react";
 
 export function Home() {
   const allBoards = useBoardStore((state) => state.allBoards);
@@ -36,6 +38,16 @@ export function Home() {
               >
                 <Group justify="space-between" mb="xs">
                   <Text fw={500}>{board.title}</Text>
+                  <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("/settings/" + board.id);
+                    }}
+                  >
+                    <IconSettings size="1em" />
+                  </ActionIcon>
                 </Group>
 
                 <Text size="sm" c="dimmed">
