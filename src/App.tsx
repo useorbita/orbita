@@ -3,10 +3,9 @@ import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/App/Header";
 import { Board } from "./pages/Board";
+import { BoardSettings } from "./pages/BoardSettings";
 import { Home } from "./pages/Home";
-import { AppSettings } from "./pages/Settings/AppSettings";
-import { BoardSettings } from "./pages/Settings/BoardSettings";
-import { UserSettings } from "./pages/Settings/UserSettings";
+import { Settings } from "./pages/Settings";
 import { useBoardStore } from "./stores/boardStore";
 
 export function App() {
@@ -31,8 +30,8 @@ export function App() {
           <Route path="/" element={<Home />} />
           <Route path="/:boardId" element={<Board />} />
           <Route path="/:boardId/:cardId" element={<Board />} />
-          <Route path="/settings" element={<AppSettings />} />
-          <Route path="/settings/me" element={<UserSettings />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/settings/me" element={<Settings />} />
           <Route path="/settings/:boardId" element={<BoardSettings />} />
           <Route path="*" element={<p>Seite nicht gefunden</p>} />
         </Routes>

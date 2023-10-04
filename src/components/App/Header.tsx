@@ -87,8 +87,8 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
         {location.pathname === "/" ||
           (!location.pathname.includes("settings") && (
             <>
-              <FilterMenu />
               <ViewSwitch />
+              <FilterMenu />
             </>
           ))}
 
@@ -117,7 +117,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
               }
               onClick={() => navigate("/settings/me")}
             >
-              Profil
+              Dein Profil
             </Menu.Item>
 
             <Menu.Divider />
