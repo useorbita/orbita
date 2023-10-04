@@ -1,16 +1,14 @@
 import {
+  ActionIcon,
   Avatar,
-  Button,
   Group,
   Menu,
-  Title,
   Text,
-  rem,
-  ActionIcon,
+  Title,
   Tooltip,
+  rem,
 } from "@mantine/core";
 import {
-  IconChevronDown,
   IconCircleDotted,
   IconLogout,
   IconSettings,
@@ -19,10 +17,10 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
-import { useUserStore } from "../../stores/userStore";
-import { Search } from "../UI/Search";
 import { useActiveBoardStore } from "../../stores/activeBoardStore";
+import { useUserStore } from "../../stores/userStore";
 import { FilterMenu } from "../UI/FilterMenu";
+import { Search } from "../UI/Search";
 import { ViewSwitch } from "../UI/ViewSwitch";
 
 export function Header({ boards }: { boards: BoardsResponse[] }) {
@@ -43,34 +41,28 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
           Orbita
         </Title>
 
-        <Menu shadow="md" width={250} position="bottom-start" withArrow>
-          <Menu.Target>
-            <Button
-              variant="default"
-              color="gray"
-              rightSection={<IconChevronDown />}
-            >
-              Boards
-            </Button>
-          </Menu.Target>
-
-          <Menu.Dropdown>
-            {boards.map((board) => (
-              <Menu.Item
-                key={board.id}
-                leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
-                onClick={() => navigate("/" + board.id)}
-              >
-                {board.title}
-              </Menu.Item>
-            ))}
-          </Menu.Dropdown>
-        </Menu>
-
         {location.pathname !== "/" &&
           location.pathname !== "/settings" &&
           location.pathname !== "/settings/me" && (
             <>
+              <Menu shadow="md" width={250} position="bottom-start" withArrow>
+                <Menu.Target>
+                  <Text>{activeBoard?.title}</Text>
+                </Menu.Target>
+
+                <Menu.Dropdown>
+                  {boards.map((board) => (
+                    <Menu.Item
+                      key={board.id}
+                      leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
+                      onClick={() => navigate("/" + board.id)}
+                    >
+                      {board.title}
+                    </Menu.Item>
+                  ))}
+                </Menu.Dropdown>
+              </Menu>
+
               <Tooltip
                 label="Einstellungen"
                 position="right"
@@ -78,7 +70,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
                 withArrow
               >
                 <ActionIcon
-                  variant="subtle"
+                  variant="default"
                   color="gray"
                   onClick={() => {
                     navigate("/settings/" + activeBoard?.id);
@@ -87,7 +79,6 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
                   <IconSettings size="1em" />
                 </ActionIcon>
               </Tooltip>
-              <Text>{activeBoard?.title}</Text>
             </>
           )}
       </Group>
