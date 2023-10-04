@@ -36,8 +36,9 @@ export type AuthSystemFields<T = never> = {
 // Record types for each collection
 
 export type BoardsRecord = {
-	title: string
+	description?: string
 	members?: RecordIdString[]
+	title: string
 }
 
 export enum CardsPriorityOptions {
@@ -48,39 +49,39 @@ export enum CardsPriorityOptions {
 	"highest" = "highest",
 }
 export type CardsRecord = {
-	title: string
-	description?: HTMLString
-	members?: RecordIdString[]
-	labels?: RecordIdString[]
-	state: RecordIdString
-	date?: IsoDateString
-	priority?: CardsPriorityOptions
 	author?: RecordIdString
 	board?: RecordIdString
+	date?: IsoDateString
+	description?: HTMLString
+	labels?: RecordIdString[]
+	members?: RecordIdString[]
 	position?: number
+	priority?: CardsPriorityOptions
+	state: RecordIdString
+	title: string
 }
 
 export type CommentsRecord = {
-	content?: HTMLString
-	card?: RecordIdString
 	author?: RecordIdString
+	card?: RecordIdString
+	content?: HTMLString
 }
 
 export type LabelsRecord = {
-	title: string
-	color?: string
 	board?: RecordIdString
+	color?: string
+	title: string
 }
 
 export type StatesRecord = {
-	title: string
 	board?: RecordIdString
 	position?: number
+	title: string
 }
 
 export type UsersRecord = {
-	name?: string
 	avatar?: string
+	name?: string
 }
 
 // Response types include system fields and match responses from the PocketBase API

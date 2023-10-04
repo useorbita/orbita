@@ -51,9 +51,7 @@ export function Home() {
                 </Group>
 
                 <Text size="sm" c="dimmed">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                  aliquyam erat, sed diam voluptua.
+                  {board.description}
                 </Text>
 
                 <Avatar.Group mt="xs">
