@@ -13,13 +13,13 @@
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
-    "@mantine/core": "^7.0.2",
-    "@mantine/dates": "^7.0.2",
-    "@mantine/hooks": "^7.0.2",
-    "@mantine/modals": "^7.0.2",
-    "@mantine/notifications": "^7.0.2",
-    "@mantine/tiptap": "^7.0.2",
-    "@tabler/icons-react": "^2.36.0",
+    "@mantine/core": "^7.1.2",
+    "@mantine/dates": "^7.1.2",
+    "@mantine/hooks": "^7.1.2",
+    "@mantine/modals": "^7.1.2",
+    "@mantine/notifications": "^7.1.2",
+    "@mantine/tiptap": "^7.1.2",
+    "@tabler/icons-react": "^2.38.0",
     "@tiptap/core": "^2.1.11",
     "@tiptap/extension-highlight": "^2.1.11",
     "@tiptap/extension-link": "^2.1.11",
@@ -35,22 +35,22 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
-    "zustand": "^4.4.1"
+    "zustand": "^4.4.2"
   },
   "devDependencies": {
-    "@types/react": "^18.2.23",
-    "@types/react-dom": "^18.2.8",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
+    "@types/react": "^18.2.25",
+    "@types/react-dom": "^18.2.10",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
     "@vitejs/plugin-react-swc": "^3.4.0",
     "eslint": "^8.50.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "pocketbase-typegen": "^1.1.13",
-    "postcss": "^8.4.30",
-    "postcss-preset-mantine": "^1.7.0",
+    "postcss": "^8.4.31",
+    "postcss-preset-mantine": "^1.8.0",
     "postcss-simple-vars": "^7.0.1",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.10"
   }
 }

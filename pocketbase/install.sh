@@ -1,6 +1,6 @@
 #! /bin/bash
 
-VERSION=0.18.8
+VERSION=0.18.9
 
 echo Downloading PocketBase v$VERSION...
 wget --quiet "https://github.com/pocketbase/pocketbase/releases/download/v${VERSION}/pocketbase_${VERSION}_linux_amd64.zip"
