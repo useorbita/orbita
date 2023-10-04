@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "typegen": "pocketbase-typegen --db ./pocketbase/pb_data/data.db --out ./src/api/types.ts"
   },
@@ -40,12 +39,7 @@
   "devDependencies": {
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.10",
-    "@typescript-eslint/eslint-plugin": "^6.7.4",
-    "@typescript-eslint/parser": "^6.7.4",
     "@vitejs/plugin-react-swc": "^3.4.0",
-    "eslint": "^8.50.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
     "pocketbase-typegen": "^1.1.13",
     "postcss": "^8.4.31",
     "postcss-preset-mantine": "^1.8.0",
