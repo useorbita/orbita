@@ -57,6 +57,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
           <Menu.Dropdown>
             {boards.map((board) => (
               <Menu.Item
+                key={board.id}
                 leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
                 onClick={() => navigate("/" + board.id)}
               >
@@ -104,7 +105,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
 
         <Menu shadow="md" width={200} withArrow>
           <Menu.Target>
-            <Avatar radius="xl" style={{ cursor: "pointer" }}>
+            <Avatar radius="xl" mr="xs" style={{ cursor: "pointer" }}>
               {pb.authStore.model?.name.substring(0, 2)}
             </Avatar>
           </Menu.Target>

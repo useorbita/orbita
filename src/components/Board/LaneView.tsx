@@ -80,6 +80,7 @@ export function LaneView({ cards, states, users, labels }: LaneViewProps) {
               .sort((a, b) => a.position - b.position)
               .map((state: StatesResponse) => (
                 <Lane
+                  key={state.id}
                   cards={cards}
                   state={state}
                   users={users}

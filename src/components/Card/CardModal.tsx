@@ -9,7 +9,6 @@ import {
   Space,
   Stack,
   Text,
-  Title,
 } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { modals } from "@mantine/modals";
@@ -76,7 +75,7 @@ export function CardModal({
       <Modal.Content>
         <Modal.Header>
           <Modal.Title>
-            {activeCard && <Title order={4}>{activeCard.title}</Title>}
+            {activeCard && <Text>{activeCard.title}</Text>}
           </Modal.Title>
           <Group justify="start">
             <Button
@@ -124,8 +123,7 @@ export function CardModal({
                   Erstellt am{" "}
                   {activeCard &&
                     new Date(activeCard.created).toLocaleString("de")}{" "}
-                  von{" "}
-                  {activeCard && activeCard.author}
+                  von {activeCard && activeCard.author}
                 </Text>
               </Grid.Col>
 
@@ -170,7 +168,7 @@ export function CardModal({
                   <DatePickerInput
                     label="Datum"
                     placeholder="Datum auswählen"
-                    value={new Date(activeCard.date)}
+                    value={activeCard.date ? new Date(activeCard.date) : null}
                     onChange={() => {}}
                     clearable
                   />

@@ -58,7 +58,7 @@ export function Home() {
 
                 <Avatar.Group mt="xs">
                   {board.members.map((member) => (
-                    <Avatar>{member.substring(0, 2)}</Avatar>
+                    <Avatar key={member}>{member.substring(0, 2)}</Avatar>
                   ))}
                 </Avatar.Group>
               </Card>

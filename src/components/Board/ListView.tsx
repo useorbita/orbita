@@ -1,15 +1,14 @@
 import {
   Avatar,
   Badge,
+  Group,
   ScrollArea,
-  Select,
-  Table,
+  Stack,
   Text,
   Tooltip,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
 import {
-  CardsPriorityOptions,
   CardsResponse,
   LabelsResponse,
   StatesResponse,
@@ -26,135 +25,84 @@ interface ListViewProps {
 export function ListView({ cards, states, users, labels }: ListViewProps) {
   return (
     <ScrollArea>
-      <Table>
-        <thead>
-          <tr>
-            <th>
-              <Text size="sm">Titel</Text>
-            </th>
-            <th>
-              <Text size="sm">Status</Text>
-            </th>
-            <th>
-              <Text size="sm">Label</Text>
-            </th>
-            <th>
-              <Text size="sm">Mitglieder</Text>
-            </th>
-            <th>
-              <Text size="sm">Priorität</Text>
-            </th>
-            <th>
-              <Text size="sm">Datum</Text>
-            </th>
-            <th>
-              <Text size="sm">Erstellt</Text>
-            </th>
-            <th>
-              <Text size="sm">Verändert</Text>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {cards.map((card: CardsResponse) => (
-            <tr key={card.id}>
-              <td>
-                <Link to={card.id}>
-                  <Text size="sm">{card.title}</Text>
-                </Link>
-              </td>
+      <Stack>
+        {cards.map((card: CardsResponse) => (
+          <Group key={card.id} justify="space-between">
+            <Group>
+              <Link to={card.id}>
+                <Text size="sm">{card.title}</Text>
+              </Link>
 
-              <td>
-                {states && (
-                  <Select
-                    value={card.state}
-                    data={states.map((state) => ({
-                      value: state.id,
-                      label: state.title,
-                    }))}
-                  />
-                )}
-              </td>
+              {card.labels.map((label) => (
+                <Badge
+                  key={label}
+                  size="sm"
+                  variant="light"
+                  color={
+                    (
+                      labels.find((l: LabelsResponse) => l.id === label) || {
+                        color: "",
+                      }
+                    ).color
+                  }
+                >
+                  {
+                    (
+                      labels.find((l: LabelsResponse) => l.id === label) || {
+                        title: "Unbekannt",
+                      }
+                    ).title
+                  }
+                </Badge>
+              ))}
+            </Group>
 
-              <td>
-                {card.labels.map((label) => (
-                  <Badge
-                    key={label}
-                    variant="light"
-                    color={
-                      (
-                        labels.find((l: LabelsResponse) => l.id === label) || {
-                          color: "",
-                        }
-                      ).color
-                    }
-                  >
-                    {
-                      (
-                        labels.find((l: LabelsResponse) => l.id === label) || {
-                          title: "Unbekannt",
-                        }
-                      ).title
-                    }
-                  </Badge>
-                ))}
-              </td>
+            <Group>
+              <Text size="sm">
+                {states.find((state) => state.id === card.state)?.title}
+              </Text>
 
-              <td>
-                <Tooltip.Group openDelay={300} closeDelay={100}>
-                  <Avatar.Group spacing="sm">
-                    {card.members.map((member) => (
-                      <Tooltip
-                        key={member}
-                        label={
-                          (
-                            users.find(
-                              (user: UsersResponse) => user.id === member
-                            ) || { name: "Unbekannt" }
-                          ).name
-                        }
-                        withArrow
-                      >
-                        <Avatar radius="xl" />
-                      </Tooltip>
-                    ))}
-                  </Avatar.Group>
-                </Tooltip.Group>
-              </td>
+              <Tooltip.Group openDelay={300} closeDelay={100}>
+                <Avatar.Group spacing="sm">
+                  {card.members.map((member) => (
+                    <Tooltip
+                      key={member}
+                      label={
+                        (
+                          users.find(
+                            (user: UsersResponse) => user.id === member
+                          ) || { name: "Unbekannt" }
+                        ).name
+                      }
+                      withArrow
+                    >
+                      <Avatar size="sm" radius="xl" />
+                    </Tooltip>
+                  ))}
+                </Avatar.Group>
+              </Tooltip.Group>
 
-              <td>
-                <Select
-                  value={card.priority}
-                  data={Object.keys(CardsPriorityOptions).map((priority) => ({
-                    value: priority,
-                    label: priority,
-                  }))}
-                />
-              </td>
-
-              <td>
-                {card.date && (
-                  <Text size="sm">
-                    {new Date(card.date).toLocaleDateString("DE-de")}
-                  </Text>
-                )}
-              </td>
-
-              <td>
-                <Text size="sm">
-                  {new Date(card.created).toLocaleDateString("DE-de")}
+              {card.priority ? (
+                <Text size="sm">{card.priority}</Text>
+              ) : (
+                <Text size="sm" c="dimmed">
+                  Priorität
                 </Text>
-              </td>
+              )}
 
-              <td>
+              {card.date ? (
                 <Text size="sm">
-                  {new Date(card.updated).toLocaleDateString("DE-de")}
+                  {new Date(card.date).toLocaleDateString("DE-de")}
                 </Text>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+              ) : (
+                <Text size="sm" c="dimmed">
+                  Datum
+                </Text>
+              )}
+            </Group>
+          </Group>
+        ))}
+      </Stack>
     </ScrollArea>
   );
 }
