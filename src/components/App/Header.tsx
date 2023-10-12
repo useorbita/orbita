@@ -38,7 +38,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
           style={{ cursor: "pointer" }}
           mr={"md"}
         >
-          Orbita
+          orbita
         </Title>
 
         {location.pathname !== "/" &&

@@ -18,7 +18,7 @@ interface UserStore {
 
 export const useUserStore = create<UserStore>()((set) => ({
   isLoading: false,
-  isAuthenticated: !!pb.authStore.model,
+  isAuthenticated: pb.authStore.isValid,
   login: async ({ email, password }) => {
     set({ isLoading: true });
 
