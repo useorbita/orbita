@@ -3,20 +3,29 @@ import {
   Avatar,
   Card,
   Container,
+  FocusTrap,
   Group,
   List,
   Stack,
   Text,
+  TextInput,
   Title,
 } from "@mantine/core";
+import { IconCheck, IconSettings, IconX } from "@tabler/icons-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { pb } from "../api/pocketbase";
 import { useBoardStore } from "../stores/boardStore";
-import { IconSettings } from "@tabler/icons-react";
 
 export function Home() {
   const allBoards = useBoardStore((state) => state.allBoards);
   const isLoading = useBoardStore((state) => state.isLoading);
   const navigate = useNavigate();
+
+  const [addBoardMode, setAddBoardMode] = useState(false);
+  const [newBoardName, setNewBoardName] = useState("");
+
+  const createBoard = useBoardStore((state) => state.createBoard);
 
   return (
     <Container>
@@ -61,6 +70,59 @@ export function Home() {
                 </Avatar.Group>
               </Card>
             ))}
+
+          <Card
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            w={300}
+            style={{ cursor: "pointer" }}
+          >
+            {addBoardMode ? (
+              <FocusTrap active={addBoardMode}>
+                <TextInput
+                  variant="unstyled"
+                  onChange={(event) =>
+                    setNewBoardName(event.currentTarget.value)
+                  }
+                  rightSection={
+                    <>
+                      <ActionIcon
+                        variant="subtle"
+                        color="gray"
+                        onClick={() => {
+                          createBoard({
+                            title: newBoardName,
+                            member: pb.authStore.model?.id,
+                          });
+
+                          setNewBoardName("");
+                          setAddBoardMode(false);
+                        }}
+                      >
+                        <IconCheck size="1em" />
+                      </ActionIcon>
+                      <ActionIcon
+                        variant="subtle"
+                        color="gray"
+                        onClick={() => {
+                          setAddBoardMode(false);
+                        }}
+                      >
+                        <IconX size="1em" />
+                      </ActionIcon>
+                    </>
+                  }
+                  rightSectionWidth={66}
+                />
+              </FocusTrap>
+            ) : (
+              <Text fw={500} c={"dimmed"} onClick={() => setAddBoardMode(true)}>
+                Neues Board anlegen
+              </Text>
+            )}
+          </Card>
         </Group>
 
         <Title order={4} mt={"xl"}>
