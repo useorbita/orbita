@@ -21,6 +21,13 @@ interface BoardStore {
   }) => Promise<void>;
 
   createState: ({ title }: { title: string }) => Promise<void>;
+  createCard: ({
+    title,
+    stateId,
+  }: {
+    title: string;
+    stateId: string;
+  }) => Promise<void>;
 
   cards: CardsResponse[];
   states: StatesResponse[];
@@ -82,6 +89,15 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
     await pb.collection("states").create({
       title: title,
       board: get().activeBoard?.id,
+    });
+    await get().getActiveBoard({ boardId: get().activeBoard?.id });
+  },
+
+  createCard: async ({ title, stateId }) => {
+    await pb.collection("cards").create({
+      title: title,
+      board: get().activeBoard?.id,
+      state: stateId,
     });
     await get().getActiveBoard({ boardId: get().activeBoard?.id });
   },
