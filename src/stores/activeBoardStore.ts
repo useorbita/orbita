@@ -20,6 +20,8 @@ interface BoardStore {
     boardId: string | undefined;
   }) => Promise<void>;
 
+  createState: ({ title }: { title: string }) => Promise<void>;
+
   cards: CardsResponse[];
   states: StatesResponse[];
   users: UsersResponse[];
@@ -29,7 +31,7 @@ interface BoardStore {
   setView: (view: string) => void;
 }
 
-export const useActiveBoardStore = create<BoardStore>()((set) => ({
+export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
   isLoading: false,
 
   activeBoard: null,
@@ -74,6 +76,14 @@ export const useActiveBoardStore = create<BoardStore>()((set) => ({
     });
 
     set({ isLoading: false });
+  },
+
+  createState: async ({ title }) => {
+    await pb.collection("states").create({
+      title: title,
+      board: get().activeBoard?.id,
+    });
+    await get().getActiveBoard({ boardId: get().activeBoard?.id });
   },
 
   setView(view) {

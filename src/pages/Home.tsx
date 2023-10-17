@@ -11,7 +11,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { IconCheck, IconSettings, IconX } from "@tabler/icons-react";
+import { IconCheck, IconPlus, IconSettings, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { pb } from "../api/pocketbase";
@@ -119,7 +119,7 @@ export function Home() {
               </FocusTrap>
             ) : (
               <Text fw={500} c={"dimmed"} onClick={() => setAddBoardMode(true)}>
-                Neues Board anlegen
+                <IconPlus size={"1em"} /> Neues Board anlegen
               </Text>
             )}
           </Card>
