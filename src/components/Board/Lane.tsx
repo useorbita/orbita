@@ -18,24 +18,24 @@ import { useState } from "react";
 import {
   CardsResponse,
   LabelsResponse,
-  StatesResponse,
+  ListsResponse,
   UsersResponse,
 } from "../../api/types";
 import { useActiveBoardStore } from "../../stores/activeBoardStore";
 import { Card } from "../Card/Card";
 
 interface LaneProps {
-  state: StatesResponse;
+  list: ListsResponse;
   cards: CardsResponse[];
   users: UsersResponse[];
   labels: LabelsResponse[];
 }
 
-export function Lane({ state, cards, users, labels }: LaneProps) {
+export function Lane({ list, cards, users, labels }: LaneProps) {
   const [addCardMode, setAddCardMode] = useState(false);
   const [newCardName, setNewCardName] = useState("");
 
-  const createCard = useActiveBoardStore((state) => state.createCard);
+  const createCard = useActiveBoardStore((list) => list.createCard);
 
   const {
     attributes,
@@ -45,7 +45,7 @@ export function Lane({ state, cards, users, labels }: LaneProps) {
     transition,
     isDragging,
   } = useSortable({
-    id: state.id,
+    id: list.id,
     data: {
       type: "container",
     },
@@ -53,7 +53,7 @@ export function Lane({ state, cards, users, labels }: LaneProps) {
 
   return (
     <div
-      key={state.id}
+      key={list.id}
       {...attributes}
       ref={setNodeRef}
       style={{
@@ -63,7 +63,7 @@ export function Lane({ state, cards, users, labels }: LaneProps) {
       {...listeners}
     >
       <Text>
-        {state.title}
+        {list.title}
         {isDragging && "..."}
       </Text>
 
@@ -75,14 +75,14 @@ export function Lane({ state, cards, users, labels }: LaneProps) {
       >
         <SortableContext
           items={cards
-            .filter((card) => card.state === state.id)
+            .filter((card) => card.list === list.id)
             // .sort((a, b) => a.position - b.position)
             .map((i) => i.id)}
           strategy={verticalListSortingStrategy}
         >
           <Stack>
             {cards
-              .filter((card) => card.state === state.id)
+              .filter((card) => card.list === list.id)
               //   .sort((a, b) => a.position - b.position)
               .map((card: CardsResponse) => (
                 <Card key={card.id} card={card} users={users} labels={labels} />
@@ -104,7 +104,7 @@ export function Lane({ state, cards, users, labels }: LaneProps) {
                           onClick={() => {
                             createCard({
                               title: newCardName,
-                              stateId: state.id,
+                              listId: list.id,
                             });
 
                             setNewCardName("");

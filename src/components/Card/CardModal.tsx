@@ -129,17 +129,17 @@ export function CardModal({
 
               <Grid.Col span={5}>
                 <Stack>
-                  {/* <Text>Status: {activeCard && activeCard.state}</Text> */}
+                  {/* <Text>Liste: {activeCard && activeCard.state}</Text> */}
                   <Select
-                    label="Status"
-                    placeholder="Status wählen"
-                    data={["Status 1", "Status 2", "Status 3"]}
+                    label="Liste"
+                    placeholder="Liste wählen"
+                    data={["Liste 1", "Liste 2", "Liste 3"]}
                   />
 
                   {/* <Text>Labels: {activeCard && activeCard.labels}</Text> */}
                   <MultiSelect
                     label="Label"
-                    placeholder="Status Auswählen"
+                    placeholder="Liste Auswählen"
                     data={["Frontend", "Backend", "Datenbank", "Support"]}
                     searchable
                   />

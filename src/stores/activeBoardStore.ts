@@ -5,7 +5,7 @@ import {
   CardsResponse,
   Collections,
   LabelsResponse,
-  StatesResponse,
+  ListsResponse,
   UsersResponse,
 } from "../api/types";
 
@@ -20,17 +20,17 @@ interface BoardStore {
     boardId: string | undefined;
   }) => Promise<void>;
 
-  createState: ({ title }: { title: string }) => Promise<void>;
+  createList: ({ title }: { title: string }) => Promise<void>;
   createCard: ({
     title,
-    stateId,
+    listId,
   }: {
     title: string;
-    stateId: string;
+    listId: string;
   }) => Promise<void>;
 
   cards: CardsResponse[];
-  states: StatesResponse[];
+  lists: ListsResponse[];
   users: UsersResponse[];
   labels: LabelsResponse[];
 
@@ -44,7 +44,7 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
   activeBoard: null,
 
   cards: [],
-  states: [],
+  lists: [],
   users: [],
   labels: [],
 
@@ -56,19 +56,19 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
     set({
       activeBoard: null,
       cards: [],
-      states: [],
+      lists: [],
       users: [],
       labels: [],
     });
 
-    const [allCards, allStates, allUsers, allLabels, activeBoard] =
+    const [allCards, allLists, allUsers, allLabels, activeBoard] =
       await Promise.all([
         pb.collection(Collections.Cards).getFullList<CardsResponse>({
           filter: `board = "${boardId}"`,
         }),
         pb
-          .collection(Collections.States)
-          .getFullList<StatesResponse>({ filter: `board = "${boardId}"` }),
+          .collection(Collections.Lists)
+          .getFullList<ListsResponse>({ filter: `board = "${boardId}"` }),
         pb.collection(Collections.Users).getFullList<UsersResponse>(),
         pb.collection(Collections.Labels).getFullList<LabelsResponse>(),
         pb.collection(Collections.Boards).getOne<BoardsResponse>(boardId || ""),
@@ -76,7 +76,7 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
 
     set({
       cards: allCards,
-      states: allStates,
+      lists: allLists,
       users: allUsers,
       labels: allLabels,
       activeBoard,
@@ -85,19 +85,19 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
     set({ isLoading: false });
   },
 
-  createState: async ({ title }) => {
-    await pb.collection("states").create({
+  createList: async ({ title }) => {
+    await pb.collection("lists").create({
       title: title,
       board: get().activeBoard?.id,
     });
     await get().getActiveBoard({ boardId: get().activeBoard?.id });
   },
 
-  createCard: async ({ title, stateId }) => {
+  createCard: async ({ title, listId }) => {
     await pb.collection("cards").create({
       title: title,
       board: get().activeBoard?.id,
-      state: stateId,
+      list: listId,
     });
     await get().getActiveBoard({ boardId: get().activeBoard?.id });
   },

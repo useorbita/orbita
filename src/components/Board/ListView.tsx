@@ -11,18 +11,18 @@ import { Link } from "react-router-dom";
 import {
   CardsResponse,
   LabelsResponse,
-  StatesResponse,
+  ListsResponse,
   UsersResponse,
 } from "../../api/types";
 
 interface ListViewProps {
-  states: StatesResponse[];
+  lists: ListsResponse[];
   cards: CardsResponse[];
   users: UsersResponse[];
   labels: LabelsResponse[];
 }
 
-export function ListView({ cards, states, users, labels }: ListViewProps) {
+export function ListView({ cards, lists, users, labels }: ListViewProps) {
   return (
     <ScrollArea>
       <Stack>
@@ -59,7 +59,7 @@ export function ListView({ cards, states, users, labels }: ListViewProps) {
 
             <Group>
               <Text size="sm">
-                {states.find((state) => state.id === card.state)?.title}
+                {lists.find((list) => list.id === card.list)?.title}
               </Text>
 
               <Tooltip.Group openDelay={300} closeDelay={100}>

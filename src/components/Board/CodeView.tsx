@@ -2,21 +2,21 @@ import { ScrollArea } from "@mantine/core";
 import {
   CardsResponse,
   LabelsResponse,
-  StatesResponse,
+  ListsResponse,
   UsersResponse,
 } from "../../api/types";
 
 interface CodeViewProps {
-  states: StatesResponse[];
+  lists: ListsResponse[];
   cards: CardsResponse[];
   users: UsersResponse[];
   labels: LabelsResponse[];
 }
 
-export function CodeView({ cards, states, users, labels }: CodeViewProps) {
+export function CodeView({ cards, lists, users, labels }: CodeViewProps) {
   return (
     <ScrollArea>
-      <pre>{JSON.stringify({ states, users, labels, cards }, null, 2)}</pre>
+      <pre>{JSON.stringify({ lists, users, labels, cards }, null, 2)}</pre>
     </ScrollArea>
   );
 }

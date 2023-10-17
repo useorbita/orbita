@@ -23,14 +23,14 @@ import { useState } from "react";
 import {
   CardsResponse,
   LabelsResponse,
-  StatesResponse,
+  ListsResponse,
   UsersResponse,
 } from "../../api/types";
 import { useActiveBoardStore } from "../../stores/activeBoardStore";
 import { Lane } from "./Lane";
 
 interface LaneViewProps {
-  states: StatesResponse[];
+  lists: ListsResponse[];
   cards: CardsResponse[];
   users: UsersResponse[];
   labels: LabelsResponse[];
@@ -38,11 +38,11 @@ interface LaneViewProps {
 
 // https://blog.chetanverma.com/how-to-create-an-awesome-kanban-board-using-dnd-kit
 
-export function LaneView({ cards, states, users, labels }: LaneViewProps) {
-  const [addStateMode, setAddStateMode] = useState(false);
-  const [newStateName, setNewStateName] = useState("");
+export function LaneView({ cards, lists, users, labels }: LaneViewProps) {
+  const [addListMode, setAddListMode] = useState(false);
+  const [newListName, setNewListName] = useState("");
 
-  const createState = useActiveBoardStore((state) => state.createState);
+  const createList = useActiveBoardStore((state) => state.createList);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -66,8 +66,8 @@ export function LaneView({ cards, states, users, labels }: LaneViewProps) {
       //   const overCard = cards.find((card) => card.id === over.id);
 
       // Disabled for now
-      //   if (activeCard!.state !== overCard!.state) {
-      //     activeCard!.state = overCard!.state;
+      //   if (activeCard!.list !== overCard!.list) {
+      //     activeCard!.list = overCard!.list;
       //     setCards(cards);
       //   }
 
@@ -88,15 +88,15 @@ export function LaneView({ cards, states, users, labels }: LaneViewProps) {
       onDragEnd={handleDragEnd}
     >
       <ScrollArea>
-        <Group style={{ width: states.length * 280 + 250 }} justify="start">
-          <SortableContext items={states.map((i) => i.id)}>
-            {states
+        <Group style={{ width: lists.length * 280 + 250 }} justify="start">
+          <SortableContext items={lists.map((i) => i.id)}>
+            {lists
               .sort((a, b) => a.position - b.position)
-              .map((state: StatesResponse) => (
+              .map((list: ListsResponse) => (
                 <Lane
-                  key={state.id}
+                  key={list.id}
                   cards={cards}
-                  state={state}
+                  list={list}
                   users={users}
                   labels={labels}
                 />
@@ -104,12 +104,12 @@ export function LaneView({ cards, states, users, labels }: LaneViewProps) {
           </SortableContext>
 
           <div style={{ height: "75vh", paddingTop: "1em" }}>
-            {addStateMode ? (
-              <FocusTrap active={addStateMode}>
+            {addListMode ? (
+              <FocusTrap active={addListMode}>
                 <TextInput
                   // variant="unstyled"
                   onChange={(event) =>
-                    setNewStateName(event.currentTarget.value)
+                    setNewListName(event.currentTarget.value)
                   }
                   rightSection={
                     <>
@@ -117,12 +117,12 @@ export function LaneView({ cards, states, users, labels }: LaneViewProps) {
                         variant="subtle"
                         color="gray"
                         onClick={() => {
-                          createState({
-                            title: newStateName,
+                          createList({
+                            title: newListName,
                           });
 
-                          setNewStateName("");
-                          setAddStateMode(false);
+                          setNewListName("");
+                          setAddListMode(false);
                         }}
                       >
                         <IconCheck size="1em" />
@@ -131,7 +131,7 @@ export function LaneView({ cards, states, users, labels }: LaneViewProps) {
                         variant="subtle"
                         color="gray"
                         onClick={() => {
-                          setAddStateMode(false);
+                          setAddListMode(false);
                         }}
                       >
                         <IconX size="1em" />
@@ -145,7 +145,7 @@ export function LaneView({ cards, states, users, labels }: LaneViewProps) {
               <Text
                 size="sm"
                 c={"dimmed"}
-                onClick={() => setAddStateMode(true)}
+                onClick={() => setAddListMode(true)}
               >
                 <IconPlus size={"1em"} /> Neues Board anlegen
               </Text>

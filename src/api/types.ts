@@ -7,7 +7,7 @@ export enum Collections {
 	Cards = "cards",
 	Comments = "comments",
 	Labels = "labels",
-	States = "states",
+	Lists = "lists",
 	Users = "users",
 }
 
@@ -54,10 +54,10 @@ export type CardsRecord = {
 	date?: IsoDateString
 	description?: HTMLString
 	labels?: RecordIdString[]
+	list: RecordIdString
 	members?: RecordIdString[]
 	position?: number
 	priority?: CardsPriorityOptions
-	state: RecordIdString
 	title: string
 }
 
@@ -73,7 +73,7 @@ export type LabelsRecord = {
 	title: string
 }
 
-export type StatesRecord = {
+export type ListsRecord = {
 	board?: RecordIdString
 	position?: number
 	title: string
@@ -89,7 +89,7 @@ export type BoardsResponse<Texpand = unknown> = Required<BoardsRecord> & BaseSys
 export type CardsResponse<Texpand = unknown> = Required<CardsRecord> & BaseSystemFields<Texpand>
 export type CommentsResponse<Texpand = unknown> = Required<CommentsRecord> & BaseSystemFields<Texpand>
 export type LabelsResponse<Texpand = unknown> = Required<LabelsRecord> & BaseSystemFields<Texpand>
-export type StatesResponse<Texpand = unknown> = Required<StatesRecord> & BaseSystemFields<Texpand>
+export type ListsResponse<Texpand = unknown> = Required<ListsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -99,7 +99,7 @@ export type CollectionRecords = {
 	cards: CardsRecord
 	comments: CommentsRecord
 	labels: LabelsRecord
-	states: StatesRecord
+	lists: ListsRecord
 	users: UsersRecord
 }
 
@@ -108,6 +108,6 @@ export type CollectionResponses = {
 	cards: CardsResponse
 	comments: CommentsResponse
 	labels: LabelsResponse
-	states: StatesResponse
+	lists: ListsResponse
 	users: UsersResponse
 }

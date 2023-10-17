@@ -9,7 +9,7 @@ await pb
   .authWithPassword("testuser@orbita.com", "testpassword");
 
 const boards = await pb.collection("boards").getFullList();
-const states = await pb.collection("states").getFullList();
+const lists = await pb.collection("lists").getFullList();
 const cards = await pb.collection("cards").getFullList();
 
 const board = boards.find((board) => board.title === boardName);
@@ -21,10 +21,10 @@ for (const card of cards) {
   }
 }
 
-for (const state of states) {
+for (const state of lists) {
   if (state.board === board.id) {
     console.log("delete state", state.id);
-    await pb.collection("states").delete(state.id);
+    await pb.collection("lists").delete(state.id);
   }
 }
 

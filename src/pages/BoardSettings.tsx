@@ -124,7 +124,7 @@ export function BoardSettings() {
       <Space h={"xl"} />
 
       <Text>- Label</Text>
-      <Text>- States</Text>
+      <Text>- Lists</Text>
 
       <Space h={"xl"} />
 

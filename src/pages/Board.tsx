@@ -13,7 +13,7 @@ export function Board() {
   const isLoading = useActiveBoardStore((state) => state.isLoading);
   const getActiveBoard = useActiveBoardStore((state) => state.getActiveBoard);
 
-  const states = useActiveBoardStore((state) => state.states);
+  const lists = useActiveBoardStore((state) => state.lists);
   const users = useActiveBoardStore((state) => state.users);
   const labels = useActiveBoardStore((state) => state.labels);
   const cards = useActiveBoardStore((state) => state.cards);
@@ -39,15 +39,15 @@ export function Board() {
       )}
 
       {view === "code" && (
-        <CodeView states={states} cards={cards} users={users} labels={labels} />
+        <CodeView lists={lists} cards={cards} users={users} labels={labels} />
       )}
 
       {view === "lane" && (
-        <LaneView states={states} cards={cards} users={users} labels={labels} />
+        <LaneView lists={lists} cards={cards} users={users} labels={labels} />
       )}
 
       {view === "list" && (
-        <ListView states={states} cards={cards} users={users} labels={labels} />
+        <ListView lists={lists} cards={cards} users={users} labels={labels} />
       )}
     </>
   );
