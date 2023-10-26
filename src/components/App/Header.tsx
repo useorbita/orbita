@@ -3,16 +3,16 @@ import {
   Avatar,
   Group,
   Menu,
+  Space,
   Text,
-  Title,
   Tooltip,
-  rem,
 } from "@mantine/core";
 import {
   IconCircleDotted,
+  IconLock,
   IconLogout,
+  IconPlanet,
   IconSettings,
-  IconUser,
 } from "@tabler/icons-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pb } from "../../api/pocketbase";
@@ -31,15 +31,11 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
 
   return (
     <Group justify="space-between">
-      <Group>
-        <Title
-          order={2}
+      <Group gap={"xs"}>
+        <IconPlanet
           onClick={() => navigate("/")}
           style={{ cursor: "pointer" }}
-          mr={"md"}
-        >
-          orbita
-        </Title>
+        />
 
         {location.pathname !== "/" &&
           location.pathname !== "/settings" &&
@@ -47,7 +43,9 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
             <>
               <Menu shadow="md" width={250} position="bottom-start" withArrow>
                 <Menu.Target>
-                  <Text>{activeBoard?.title}</Text>
+                  <Text style={{ cursor: "pointer" }} ml={"xs"}>
+                    {activeBoard?.title}
+                  </Text>
                 </Menu.Target>
 
                 <Menu.Dropdown>
@@ -62,28 +60,39 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
                   ))}
                 </Menu.Dropdown>
               </Menu>
-
               <Tooltip
-                label="Einstellungen"
+                label="Dieses Board ist privat"
                 position="right"
                 openDelay={500}
                 withArrow
               >
-                <ActionIcon
-                  variant="default"
-                  color="gray"
-                  onClick={() => {
-                    navigate("/settings/" + activeBoard?.id);
-                  }}
-                >
-                  <IconSettings size="1em" />
-                </ActionIcon>
+                <IconLock color="gray" size="1em" />
               </Tooltip>
             </>
           )}
       </Group>
-
       <Group>
+        {location.pathname !== "/" &&
+          location.pathname !== "/settings" &&
+          location.pathname !== "/settings/me" && (
+            <Tooltip
+              label="Einstellungen"
+              position="right"
+              openDelay={500}
+              withArrow
+            >
+              <ActionIcon
+                variant="transparent"
+                color="gray"
+                onClick={() => {
+                  navigate("/settings/" + activeBoard?.id);
+                }}
+              >
+                <IconSettings size="1em" />
+              </ActionIcon>
+            </Tooltip>
+          )}
+
         {location.pathname === "/" ||
           (!location.pathname.includes("settings") && (
             <>
@@ -94,7 +103,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
 
         <Search />
 
-        <Menu shadow="md" width={200} withArrow>
+        <Menu shadow="md" width={230} withArrow>
           <Menu.Target>
             <Avatar radius="xl" mr="xs" style={{ cursor: "pointer" }}>
               {pb.authStore.model?.name.substring(0, 2)}
@@ -102,30 +111,36 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
           </Menu.Target>
 
           <Menu.Dropdown>
-            <Menu.Label>Einstellungen</Menu.Label>
+            <Space h={"xs"} />
+
+            <Menu.Item onClick={() => navigate("/settings/me")}>
+              <Group>
+                <Avatar radius="xl">
+                  {pb.authStore.model?.name.substring(0, 2)}
+                </Avatar>
+                <div>
+                  <Text size="sm">{pb.authStore.model?.name}</Text>
+                  <Text size="xs" c="dimmed">
+                    {pb.authStore.model?.email}
+                  </Text>
+                </div>
+              </Group>
+            </Menu.Item>
+
+            <Space h={"xs"} />
+            <Menu.Divider />
+            <Space h={"xs"} />
+
             <Menu.Item
-              leftSection={
-                <IconSettings style={{ width: rem(14), height: rem(14) }} />
-              }
+              leftSection={<IconSettings size={"1em"} />}
               onClick={() => navigate("/settings")}
             >
-              Anwendung
-            </Menu.Item>
-            <Menu.Item
-              leftSection={
-                <IconUser style={{ width: rem(14), height: rem(14) }} />
-              }
-              onClick={() => navigate("/settings/me")}
-            >
-              Dein Profil
+              Einstellungen
             </Menu.Item>
 
-            <Menu.Divider />
-
             <Menu.Item
-              leftSection={
-                <IconLogout style={{ width: rem(14), height: rem(14) }} />
-              }
+              leftSection={<IconLogout size={"1em"} />}
+              color="red"
               onClick={logout}
             >
               Abmelden

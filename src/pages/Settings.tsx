@@ -11,7 +11,6 @@ import {
   Tabs,
   Text,
   Title,
-  rem,
   useMantineColorScheme,
 } from "@mantine/core";
 import {
@@ -43,18 +42,14 @@ export function Settings() {
         <Tabs.List mb={"xl"}>
           <Tabs.Tab
             value="app"
-            leftSection={
-              <IconSettings style={{ width: rem(14), height: rem(14) }} />
-            }
+            leftSection={<IconSettings size={"1em"} />}
             onClick={() => navigate("/settings")}
           >
             Anwendung
           </Tabs.Tab>
           <Tabs.Tab
             value="me"
-            leftSection={
-              <IconUser style={{ width: rem(14), height: rem(14) }} />
-            }
+            leftSection={<IconUser size={"1em"} />}
             onClick={() => navigate("/settings/me")}
           >
             Dein Profil
