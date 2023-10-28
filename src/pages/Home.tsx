@@ -124,13 +124,6 @@ export function Home() {
             )}
           </Card>
         </Group>
-
-        <Title order={4} mt={"xl"}>
-          Aktivität
-        </Title>
-        <List>
-          <List.Item>TODO</List.Item>
-        </List>
       </Stack>
     </Container>
   );
