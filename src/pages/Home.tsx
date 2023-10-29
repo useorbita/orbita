@@ -52,7 +52,7 @@ export function Home() {
                     color="gray"
                     onClick={(e) => {
                       e.stopPropagation();
-                      navigate("/settings/" + board.id);
+                      navigate(board.id + "/settings/");
                     }}
                   >
                     <IconSettings size="1em" />

@@ -85,7 +85,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
                 variant="transparent"
                 color="gray"
                 onClick={() => {
-                  navigate("/settings/" + activeBoard?.id);
+                  navigate(activeBoard?.id + "/settings/");
                 }}
               >
                 <IconSettings size="1em" />

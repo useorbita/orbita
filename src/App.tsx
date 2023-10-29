@@ -29,10 +29,10 @@ export function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:boardId" element={<Board />} />
+          <Route path="/:boardId/settings" element={<BoardSettings />} />
           <Route path="/:boardId/:cardId" element={<Board />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/settings/me" element={<Settings />} />
-          <Route path="/settings/:boardId" element={<BoardSettings />} />
           <Route path="*" element={<p>Seite nicht gefunden</p>} />
         </Routes>
       </AppShell.Main>
