@@ -2,6 +2,9 @@
 * This file was @generated using pocketbase-typegen
 */
 
+import type PocketBase from 'pocketbase'
+import type { RecordService } from 'pocketbase'
+
 export enum Collections {
 	Boards = "boards",
 	Cards = "cards",
@@ -110,4 +113,16 @@ export type CollectionResponses = {
 	labels: LabelsResponse
 	lists: ListsResponse
 	users: UsersResponse
+}
+
+// Type for usage with type asserted PocketBase instance
+// https://github.com/pocketbase/js-sdk#specify-typescript-definitions
+
+export type TypedPocketBase = PocketBase & {
+	collection(idOrName: 'boards'): RecordService<BoardsResponse>
+	collection(idOrName: 'cards'): RecordService<CardsResponse>
+	collection(idOrName: 'comments'): RecordService<CommentsResponse>
+	collection(idOrName: 'labels'): RecordService<LabelsResponse>
+	collection(idOrName: 'lists'): RecordService<ListsResponse>
+	collection(idOrName: 'users'): RecordService<UsersResponse>
 }
