@@ -5,7 +5,6 @@ import {
   Container,
   FocusTrap,
   Group,
-  List,
   Stack,
   Text,
   TextInput,

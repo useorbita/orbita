@@ -89,6 +89,7 @@ export function Settings() {
                   ),
                 },
               ]}
+              //@ts-ignore somehow it is not possible to type the values of the SegmentedControl
               onChange={setColorScheme}
               value={colorScheme}
             />
