@@ -18,8 +18,8 @@ export function App() {
   }, []);
 
   return (
-    <AppShell p={"md"} header={{ height: 60 }}>
-      <AppShell.Header p={"xs"} pl={"md"}>
+    <AppShell padding={"md"} header={{ height: 60 }}>
+      <AppShell.Header p={"xs"} pl={"md"} withBorder={false}>
         <Header boards={allBoards} />
       </AppShell.Header>
 

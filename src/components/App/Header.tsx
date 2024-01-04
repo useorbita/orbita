@@ -1,26 +1,19 @@
 import {
   ActionIcon,
   Avatar,
+  Button,
   Group,
   Menu,
   Space,
   Text,
   Tooltip,
 } from "@mantine/core";
-import {
-  IconCircleDotted,
-  IconLock,
-  IconLogout,
-  IconPlanet,
-  IconSettings,
-} from "@tabler/icons-react";
+import { IconCircle, IconLogout, IconSettings } from "@tabler/icons-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
 import { useActiveBoardStore } from "../../stores/activeBoardStore";
 import { useUserStore } from "../../stores/userStore";
-import { FilterMenu } from "../UI/FilterMenu";
-import { Search } from "../UI/Search";
 import { ViewSwitch } from "../UI/ViewSwitch";
 
 export function Header({ boards }: { boards: BoardsResponse[] }) {
@@ -32,7 +25,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
   return (
     <Group justify="space-between">
       <Group gap={"xs"}>
-        <IconPlanet
+        <IconCircle
           onClick={() => navigate("/")}
           style={{ cursor: "pointer" }}
         />
@@ -40,68 +33,64 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
         {location.pathname !== "/" &&
           location.pathname !== "/settings" &&
           location.pathname !== "/settings/me" && (
-            <>
-              <Menu shadow="md" width={250} position="bottom-start" withArrow>
-                <Menu.Target>
-                  <Text style={{ cursor: "pointer" }} ml={"xs"}>
-                    {activeBoard?.title}
-                  </Text>
-                </Menu.Target>
+          <>
+            <Menu shadow="md" width={250} position="bottom-start" withArrow>
+              <Menu.Target>
+                <Button
+                  variant="default"
+                  size={"xs"}
+                  ml={"xs"}
+                >
+                  {activeBoard?.title}
+                </Button>
+              </Menu.Target>
 
-                <Menu.Dropdown>
-                  {boards.map((board) => (
-                    <Menu.Item
-                      key={board.id}
-                      leftSection={<IconCircleDotted size="1em" stroke={1.5} />}
-                      onClick={() => navigate("/" + board.id)}
-                    >
-                      {board.title}
-                    </Menu.Item>
-                  ))}
-                </Menu.Dropdown>
-              </Menu>
+              <Menu.Dropdown>
+                {boards.map((board) => (
+                  <Menu.Item
+                    key={board.id}
+                    onClick={() => navigate("/" + board.id)}
+                  >
+                    {board.title}
+                  </Menu.Item>
+                ))}
+              </Menu.Dropdown>
+            </Menu>
+
+            {location.pathname !== "/" &&
+              location.pathname !== "/settings" &&
+              location.pathname !== "/settings/me" && (
               <Tooltip
-                label="Dieses Board ist privat"
+                label="Einstellungen"
                 position="right"
                 openDelay={500}
                 withArrow
               >
-                <IconLock color="gray" size="1em" />
+                <ActionIcon
+                  variant="transparent"
+                  color="gray"
+                  onClick={() => {
+                    navigate(activeBoard?.id + "/settings/");
+                  }}
+                >
+                  <IconSettings size="1em" />
+                </ActionIcon>
               </Tooltip>
-            </>
-          )}
+            )}
+          </>
+        )}
       </Group>
-      <Group>
-        {location.pathname !== "/" &&
-          location.pathname !== "/settings" &&
-          location.pathname !== "/settings/me" && (
-            <Tooltip
-              label="Einstellungen"
-              position="right"
-              openDelay={500}
-              withArrow
-            >
-              <ActionIcon
-                variant="transparent"
-                color="gray"
-                onClick={() => {
-                  navigate(activeBoard?.id + "/settings/");
-                }}
-              >
-                <IconSettings size="1em" />
-              </ActionIcon>
-            </Tooltip>
-          )}
 
+      <Group>
         {location.pathname === "/" ||
           (!location.pathname.includes("settings") && (
             <>
               <ViewSwitch />
-              <FilterMenu />
+              {/* <FilterMenu /> */}
             </>
           ))}
 
-        <Search />
+        {/* <Search /> */}
 
         <Menu shadow="md" width={230} withArrow>
           <Menu.Target>

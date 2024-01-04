@@ -147,7 +147,7 @@ export function LaneView({ cards, lists, users, labels }: LaneViewProps) {
                 c={"dimmed"}
                 onClick={() => setAddListMode(true)}
               >
-                <IconPlus size={"1em"} /> Neues Board anlegen
+                <IconPlus size={"1em"} /> Neue Liste anlegen
               </Text>
             )}
           </div>
