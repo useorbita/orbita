@@ -17,6 +17,7 @@ import { IconLink, IconTrash } from "@tabler/icons-react";
 import { useEffect } from "react";
 import { useActiveCardStore } from "../../stores/activeCardStore";
 import { TextEditor } from "../App/TextEditor";
+import { CardsPriorityOptions } from "../../api/types";
 
 export function CardModal({
   open,
@@ -31,6 +32,8 @@ export function CardModal({
   const getActiveCard = useActiveCardStore((state) => state.getActiveCard);
   const activeCard = useActiveCardStore((state) => state.activeCard);
   const comments = useActiveCardStore((state) => state.comments);
+
+  const updateCard = useActiveCardStore((state) => state.updateCard);
 
   useEffect(() => {
     getActiveCard({ cardId });
@@ -97,87 +100,105 @@ export function CardModal({
         </Modal.Header>
 
         <Modal.Body p={"lg"}>
-          {!isLoading && activeCard ? (
-            <Grid>
-              <Grid.Col span={7}>
-                <Text>Beschreibung:</Text>
-                <TextEditor content={activeCard.description} />
-                <Space h={"xl"} />
-                <Text>Aktivität:</Text>
-                <ul>
-                  {comments.map((comment) => (
-                    <li key={comment.id}>
-                      {comment.author}, {comment.created},
-                      <Text
-                        dangerouslySetInnerHTML={{ __html: comment.content }}
-                      />
-                    </li>
-                  ))}
-                </ul>
-                <Text>
-                  Verändert am{" "}
-                  {activeCard &&
-                    new Date(activeCard.updated).toLocaleString("de")}
-                </Text>
-                <Text>
-                  Erstellt am{" "}
-                  {activeCard &&
-                    new Date(activeCard.created).toLocaleString("de")}{" "}
-                  von {activeCard && activeCard.author}
-                </Text>
-              </Grid.Col>
+          {!isLoading && activeCard
+            ? (
+              <Grid>
+                <Grid.Col span={7}>
+                  <Text>Beschreibung:</Text>
+                  <TextEditor content={activeCard.description} />
+                  <Space h={"xl"} />
+                  <Text>Aktivität:</Text>
+                  <ul>
+                    {comments.map((comment) => (
+                      <li key={comment.id}>
+                        {comment.author}, {comment.created},
+                        <Text
+                          dangerouslySetInnerHTML={{ __html: comment.content }}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                  <Text>
+                    Verändert am {activeCard &&
+                      new Date(activeCard.updated).toLocaleString("de")}
+                  </Text>
+                  <Text>
+                    Erstellt am {activeCard &&
+                      new Date(activeCard.created).toLocaleString("de")} von
+                    {" "}
+                    {activeCard && activeCard.author}
+                  </Text>
+                </Grid.Col>
 
-              <Grid.Col span={5}>
-                <Stack>
-                  {/* <Text>Liste: {activeCard && activeCard.state}</Text> */}
-                  <Select
-                    label="Liste"
-                    placeholder="Liste wählen"
-                    data={["Liste 1", "Liste 2", "Liste 3"]}
-                  />
+                <Grid.Col span={5}>
+                  <Stack>
+                    {/* <Text>Liste: {activeCard && activeCard.state}</Text> */}
+                    <Select
+                      label="Liste"
+                      placeholder="Liste wählen"
+                      data={["Liste 1", "Liste 2", "Liste 3"]}
+                    />
 
-                  {/* <Text>Labels: {activeCard && activeCard.labels}</Text> */}
-                  <MultiSelect
-                    label="Label"
-                    placeholder="Liste Auswählen"
-                    data={["Frontend", "Backend", "Datenbank", "Support"]}
-                    searchable
-                  />
+                    {/* <Text>Labels: {activeCard && activeCard.labels}</Text> */}
+                    <MultiSelect
+                      label="Label"
+                      placeholder="Liste Auswählen"
+                      data={["Frontend", "Backend", "Datenbank", "Support"]}
+                      searchable
+                    />
 
-                  {/* <Text>Mitglieder: {activeCard && activeCard.members}</Text> */}
-                  <MultiSelect
-                    label="Mitglieder"
-                    placeholder="Personen Auswählen"
-                    data={["Max", "Erika", "Jane", "John"]}
-                  />
+                    {/* <Text>Mitglieder: {activeCard && activeCard.members}</Text> */}
+                    <MultiSelect
+                      label="Mitglieder"
+                      placeholder="Personen Auswählen"
+                      data={["Max", "Erika", "Jane", "John"]}
+                    />
 
-                  <Select
-                    label="Priorität"
-                    placeholder="Pick value"
-                    data={[
-                      { value: "lowest", label: "Sehr Niedrig" },
-                      { value: "low", label: "Niedrig" },
-                      { value: "medium", label: "Mittel" },
-                      { value: "high", label: "Hoch" },
-                      { value: "highest", label: "Sehr Hoch" },
-                    ]}
-                    value={activeCard.priority}
-                    onChange={(value) => console.log(value)}
-                  />
+                    <Select
+                      label="Priorität"
+                      placeholder="Pick value"
+                      data={[
+                        {
+                          value: CardsPriorityOptions.highest,
+                          label: "Sehr Hoch",
+                        },
+                        { value: CardsPriorityOptions.high, label: "Hoch" },
+                        { value: CardsPriorityOptions.medium, label: "Mittel" },
+                        { value: CardsPriorityOptions.low, label: "Niedrig" },
+                        {
+                          value: CardsPriorityOptions.lowest,
+                          label: "Sehr Niedrig",
+                        },
+                      ]}
+                      value={activeCard.priority}
+                      onChange={(value) => {
+                        updateCard({
+                          cardId: activeCard.id,
+                          data: { priority: value },
+                        });
+                      }}
+                      clearable
+                    />
 
-                  <DatePickerInput
-                    label="Datum"
-                    placeholder="Datum auswählen"
-                    value={activeCard.date ? new Date(activeCard.date) : null}
-                    onChange={() => {}}
-                    clearable
-                  />
-                </Stack>
-              </Grid.Col>
-            </Grid>
-          ) : (
-            <Text>Lade Karte...</Text>
-          )}
+                    <DatePickerInput
+                      label="Datum"
+                      placeholder="Datum auswählen"
+                      value={activeCard.date ? new Date(activeCard.date) : null}
+                      onChange={(value) => {
+                        updateCard({
+                          cardId: activeCard.id,
+                          data: value
+                            ? { date: value.toUTCString() }
+                            : { date: null },
+                        });
+                      }}
+                      clearable
+                    />
+                  </Stack>
+                </Grid.Col>
+              </Grid>
+            )
+            : <Text>Lade Karte...</Text>}
         </Modal.Body>
       </Modal.Content>
     </Modal.Root>

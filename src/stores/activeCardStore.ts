@@ -1,12 +1,20 @@
 import { create } from "zustand";
 import { pb } from "../api/pocketbase";
-import { CardsResponse, Collections, CommentsResponse } from "../api/types";
+import {
+  CardsRecord,
+  CardsResponse,
+  Collections,
+  CommentsResponse,
+} from "../api/types";
 
 interface ActiveCardStore {
   isLoading: boolean;
   activeCard: CardsResponse | null;
   comments: CommentsResponse[];
   getActiveCard: ({ cardId }: { cardId: string }) => Promise<void>;
+  updateCard: (
+    { cardId, data }: { cardId: string; data: Partial<CardsResponse> },
+  ) => Promise<void>;
 }
 
 export const useActiveCardStore = create<ActiveCardStore>()((set) => ({
@@ -24,6 +32,21 @@ export const useActiveCardStore = create<ActiveCardStore>()((set) => ({
     ]);
 
     set({ activeCard, comments });
+    set({ isLoading: false });
+  },
+  updateCard: async (
+    { cardId, data }: {
+      cardId: string;
+      data: Partial<CardsRecord>;
+    },
+  ) => {
+    set({ isLoading: true });
+
+    const updatedCard = await pb.collection<CardsResponse>("cards").update(
+      cardId,
+      data,
+    );
+    set({ activeCard: updatedCard });
     set({ isLoading: false });
   },
 }));

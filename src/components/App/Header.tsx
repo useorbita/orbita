@@ -40,6 +40,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
                   variant="default"
                   size={"xs"}
                   ml={"xs"}
+                  miw={"10em"}
                 >
                   {activeBoard?.title}
                 </Button>

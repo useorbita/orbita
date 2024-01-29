@@ -74,17 +74,17 @@ export function TextEditor({ content }: TextEditorProps) {
       </RichTextEditor>
 
       {isEditable && (
-        <Group>
+        <Group mt={"sm"}>
+          <Button variant="default" onClick={() => setIsEditable(false)}>
+            Speichern
+          </Button>
+
           <Button
             variant="subtle"
             color="gray"
             onClick={() => setIsEditable(false)}
           >
             Abbrechen
-          </Button>
-
-          <Button variant="default" onClick={() => setIsEditable(false)}>
-            Speichern
           </Button>
         </Group>
       )}
