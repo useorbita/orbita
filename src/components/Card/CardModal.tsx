@@ -105,7 +105,17 @@ export function CardModal({
               <Grid>
                 <Grid.Col span={7}>
                   <Text>Beschreibung:</Text>
-                  <TextEditor content={activeCard.description} />
+                  <TextEditor
+                    content={activeCard.description}
+                    onSave={(content) => {
+                      updateCard({
+                        cardId: activeCard.id,
+                        data: {
+                          description: content,
+                        },
+                      });
+                    }}
+                  />
                   <Space h={"xl"} />
                   <Text>Aktivität:</Text>
                   <ul>
@@ -133,11 +143,11 @@ export function CardModal({
                 <Grid.Col span={5}>
                   <Stack>
                     {/* <Text>Liste: {activeCard && activeCard.state}</Text> */}
-                    <Select
+                    {/* <Select
                       label="Liste"
                       placeholder="Liste wählen"
                       data={["Liste 1", "Liste 2", "Liste 3"]}
-                    />
+                    /> */}
 
                     {/* <Text>Labels: {activeCard && activeCard.labels}</Text> */}
                     <MultiSelect

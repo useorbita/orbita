@@ -10,9 +10,10 @@ import { useEffect, useState } from "react";
 
 interface TextEditorProps {
   content: string;
+  onSave: (content: string) => void;
 }
 
-export function TextEditor({ content }: TextEditorProps) {
+export function TextEditor({ content, onSave }: TextEditorProps) {
   const [isEditable, setIsEditable] = useState(false);
 
   const editor = useEditor({
@@ -75,7 +76,13 @@ export function TextEditor({ content }: TextEditorProps) {
 
       {isEditable && (
         <Group mt={"sm"}>
-          <Button variant="default" onClick={() => setIsEditable(false)}>
+          <Button
+            variant="default"
+            onClick={() => {
+              onSave(editor?.getHTML() || "");
+              setIsEditable(false);
+            }}
+          >
             Speichern
           </Button>
 

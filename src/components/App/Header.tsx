@@ -6,9 +6,13 @@ import {
   Menu,
   Space,
   Text,
-  Tooltip,
+  Tooltip
 } from "@mantine/core";
-import { IconCircle, IconLogout, IconSettings } from "@tabler/icons-react";
+import {
+  IconCircle,
+  IconLogout,
+  IconSettings
+} from "@tabler/icons-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
