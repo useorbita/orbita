@@ -15,9 +15,9 @@ import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
 import { useEffect } from "react";
+import { CardsPriorityOptions } from "../../api/types";
 import { useActiveCardStore } from "../../stores/activeCardStore";
 import { TextEditor } from "../App/TextEditor";
-import { CardsPriorityOptions } from "../../api/types";
 
 export function CardModal({
   open,
@@ -142,13 +142,6 @@ export function CardModal({
 
                 <Grid.Col span={5}>
                   <Stack>
-                    {/* <Text>Liste: {activeCard && activeCard.state}</Text> */}
-                    {/* <Select
-                      label="Liste"
-                      placeholder="Liste wählen"
-                      data={["Liste 1", "Liste 2", "Liste 3"]}
-                    /> */}
-
                     {/* <Text>Labels: {activeCard && activeCard.labels}</Text> */}
                     <MultiSelect
                       label="Label"

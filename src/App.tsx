@@ -1,4 +1,4 @@
-import { AppShell, LoadingOverlay, Space } from "@mantine/core";
+import { AppShell, LoadingOverlay } from "@mantine/core";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/App/Header";
@@ -18,13 +18,12 @@ export function App() {
   }, []);
 
   return (
-    <AppShell padding={"md"} header={{ height: 60 }}>
+    <AppShell padding={"md"} header={{ height: 40 }}>
       <AppShell.Header p={"xs"} pl={"md"} withBorder={false}>
         <Header boards={allBoards} />
       </AppShell.Header>
 
       <AppShell.Main>
-        <Space h={"sm"} />
         <LoadingOverlay visible={isLoading} />
         <Routes>
           <Route path="/" element={<Home />} />

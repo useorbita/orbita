@@ -1,27 +1,17 @@
+import { Avatar, Button, Group, Menu, Space, Text } from "@mantine/core";
 import {
-  ActionIcon,
-  Avatar,
-  Button,
-  Group,
-  Menu,
-  Space,
-  Text,
-  Tooltip
-} from "@mantine/core";
-import {
+  IconChevronDown,
   IconCircle,
   IconLogout,
-  IconSettings
+  IconSettings,
 } from "@tabler/icons-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
-import { useActiveBoardStore } from "../../stores/activeBoardStore";
 import { useUserStore } from "../../stores/userStore";
-import { ViewSwitch } from "../UI/ViewSwitch";
+import { Search } from "../UI/Search";
 
 export function Header({ boards }: { boards: BoardsResponse[] }) {
-  const activeBoard = useActiveBoardStore((state) => state.activeBoard);
   const logout = useUserStore((state) => state.logout);
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,15 +28,14 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
           location.pathname !== "/settings" &&
           location.pathname !== "/settings/me" && (
           <>
-            <Menu shadow="md" width={250} position="bottom-start" withArrow>
+            <Menu shadow="md" width={250} position="bottom-start">
               <Menu.Target>
                 <Button
-                  variant="default"
-                  size={"xs"}
-                  ml={"xs"}
-                  miw={"10em"}
+                  variant="subtle"
+                  rightSection={<IconChevronDown />}
+                  color="gray"
                 >
-                  {activeBoard?.title}
+                  Deine Boards
                 </Button>
               </Menu.Target>
 
@@ -61,47 +50,20 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
                 ))}
               </Menu.Dropdown>
             </Menu>
-
-            {location.pathname !== "/" &&
-              location.pathname !== "/settings" &&
-              location.pathname !== "/settings/me" && (
-              <Tooltip
-                label="Einstellungen"
-                position="right"
-                openDelay={500}
-                withArrow
-              >
-                <ActionIcon
-                  variant="transparent"
-                  color="gray"
-                  onClick={() => {
-                    navigate(activeBoard?.id + "/settings/");
-                  }}
-                >
-                  <IconSettings size="1em" />
-                </ActionIcon>
-              </Tooltip>
-            )}
           </>
         )}
       </Group>
 
       <Group>
-        {location.pathname === "/" ||
-          (!location.pathname.includes("settings") && (
-            <>
-              <ViewSwitch />
-              {/* <FilterMenu /> */}
-            </>
-          ))}
-
-        {/* <Search /> */}
+        <Search />
 
         <Menu shadow="md" width={230} withArrow>
           <Menu.Target>
-            <Avatar radius="xl" mr="xs" style={{ cursor: "pointer" }}>
-              {pb.authStore.model?.name.substring(0, 2)}
-            </Avatar>
+            <Group>
+              <Avatar radius="xl" mr="xs" style={{ cursor: "pointer" }}>
+                {pb.authStore.model?.name.substring(0, 2)}
+              </Avatar>
+            </Group>
           </Menu.Target>
 
           <Menu.Dropdown>

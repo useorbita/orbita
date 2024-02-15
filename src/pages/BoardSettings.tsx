@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Button,
+  ColorPicker,
   Container,
   Grid,
   Group,
@@ -123,8 +124,40 @@ export function BoardSettings() {
 
       <Space h={"xl"} />
 
-      <Text>- Label</Text>
-      <Text>- Lists</Text>
+      <Grid align="flex-start">
+        <Grid.Col span={descriptionSpan}>
+          <Stack gap={"xs"}>
+            <Text>Label</Text>
+            <Text size="sm" c="dimmed">
+              TODO: Implement labels with titles and colors
+            </Text>
+          </Stack>
+        </Grid.Col>
+        <Grid.Col span={inputSpan} offset={offset}>
+          <ColorPicker
+            format="hex"
+            // value={value}
+            onChange={(val) => console.log(val)}
+            withPicker={false}
+            swatches={[
+              "#2e2e2e",
+              "#868e96",
+              "#fa5252",
+              "#e64980",
+              "#be4bdb",
+              "#7950f2",
+              "#4c6ef5",
+              "#228be6",
+              "#15aabf",
+              "#12b886",
+              "#40c057",
+              "#82c91e",
+              "#fab005",
+              "#fd7e14",
+            ]}
+          />
+        </Grid.Col>
+      </Grid>
 
       <Space h={"xl"} />
 

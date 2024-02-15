@@ -1,14 +1,15 @@
 import { Button, Checkbox, Menu } from "@mantine/core";
-import { IconFilter } from "@tabler/icons-react";
+import { IconEye } from "@tabler/icons-react";
 
 export function FilterMenu() {
   return (
     <Menu shadow="md" width={200} closeOnItemClick={false}>
       <Menu.Target>
         <Button
-          variant="default"
+          variant="subtle"
+          color="gray"
           size={"xs"}
-          leftSection={<IconFilter size={"1em"} />}
+          leftSection={<IconEye size={"1em"} />}
         >
           Filter
         </Button>
