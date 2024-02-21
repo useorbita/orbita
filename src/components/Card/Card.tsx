@@ -3,8 +3,8 @@ import { CSS } from "@dnd-kit/utilities";
 import {
   Avatar,
   Badge,
-  Group,
   Card as MantineCard,
+  Group,
   Text,
   Tooltip,
 } from "@mantine/core";
@@ -52,21 +52,17 @@ export function Card({ card, users, labels }: CardProps) {
           <Badge
             key={label}
             variant="light"
-            color={
-              (
-                labels.find((l: LabelsResponse) => l.id === label) || {
-                  color: "grey",
-                }
-              ).color
-            }
+            color={(
+              labels.find((l: LabelsResponse) => l.id === label) || {
+                color: "grey",
+              }
+            ).color}
           >
-            {
-              (
-                labels.find((l: LabelsResponse) => l.id === label) || {
-                  title: "Unbekannt",
-                }
-              ).title
-            }
+            {(
+              labels.find((l: LabelsResponse) => l.id === label) || {
+                title: "Unbekannt",
+              }
+            ).title}
           </Badge>
         ))}
 
@@ -76,13 +72,11 @@ export function Card({ card, users, labels }: CardProps) {
               {card.members.map((member) => (
                 <Tooltip
                   key={member}
-                  label={
-                    (
-                      users.find(
-                        (user: UsersResponse) => user.id === member
-                      ) || { name: "Unbekannt" }
-                    ).name
-                  }
+                  label={(
+                    users.find(
+                      (user: UsersResponse) => user.id === member,
+                    ) || { name: "Unbekannt" }
+                  ).name}
                   withArrow
                 >
                   <Avatar radius="xl" />

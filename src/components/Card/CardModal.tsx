@@ -16,6 +16,7 @@ import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
 import { useEffect } from "react";
 import { CardsPriorityOptions } from "../../api/types";
+import { useActiveBoardStore } from "../../stores/activeBoardStore";
 import { useActiveCardStore } from "../../stores/activeCardStore";
 import { TextEditor } from "../App/TextEditor";
 
@@ -34,6 +35,9 @@ export function CardModal({
   const comments = useActiveCardStore((state) => state.comments);
 
   const updateCard = useActiveCardStore((state) => state.updateCard);
+
+  const labels = useActiveBoardStore((state) => state.labels);
+  const users = useActiveBoardStore((state) => state.users);
 
   useEffect(() => {
     getActiveCard({ cardId });
@@ -142,19 +146,36 @@ export function CardModal({
 
                 <Grid.Col span={5}>
                   <Stack>
-                    {/* <Text>Labels: {activeCard && activeCard.labels}</Text> */}
                     <MultiSelect
                       label="Label"
-                      placeholder="Liste Auswählen"
-                      data={["Frontend", "Backend", "Datenbank", "Support"]}
+                      placeholder="Label Auswählen"
+                      data={labels.map((label) => ({
+                        value: label.id,
+                        label: label.title,
+                      }))}
+                      value={activeCard.labels}
+                      onChange={(value) =>
+                        updateCard({
+                          cardId: activeCard.id,
+                          data: { labels: value },
+                        })}
                       searchable
                     />
 
-                    {/* <Text>Mitglieder: {activeCard && activeCard.members}</Text> */}
                     <MultiSelect
                       label="Mitglieder"
                       placeholder="Personen Auswählen"
-                      data={["Max", "Erika", "Jane", "John"]}
+                      data={users.map((user) => ({
+                        value: user.id,
+                        label: user.id,
+                      }))}
+                      value={activeCard.members}
+                      onChange={(value) =>
+                        updateCard({
+                          cardId: activeCard.id,
+                          data: { members: value },
+                        })}
+                      searchable
                     />
 
                     <Select
