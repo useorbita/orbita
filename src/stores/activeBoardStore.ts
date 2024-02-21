@@ -53,6 +53,8 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
   getActiveBoard: async ({ boardId }) => {
     set({ isLoading: true });
 
+    pb.collection("cards").unsubscribe("*");
+
     set({
       activeBoard: null,
       cards: [],
@@ -61,8 +63,8 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
       labels: [],
     });
 
-    const [allCards, allLists, allUsers, allLabels, activeBoard] =
-      await Promise.all([
+    const [allCards, allLists, allUsers, allLabels, activeBoard] = await Promise
+      .all([
         pb.collection(Collections.Cards).getFullList<CardsResponse>({
           filter: `board = "${boardId}"`,
         }),
@@ -81,6 +83,29 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
       labels: allLabels,
       activeBoard,
     });
+
+    // realtime card events need do be handled immutably TODO: Find more efficent way. Maybe immer?
+    pb.collection("cards").subscribe<CardsResponse>("*", (event) => {
+      if (event.action === "create") {
+        set({
+          cards: [...get().cards, event.record],
+        });
+      }
+
+      if (event.action === "update") {
+        set({
+          cards: get().cards.map((c) =>
+            c.id === event.record.id ? event.record : c
+          ),
+        });
+      }
+
+      if (event.action === "delete") {
+        set({
+          cards: get().cards.filter((c) => c.id !== event.record.id),
+        });
+      }
+    }, { filter: `board = "${boardId}"` });
 
     set({ isLoading: false });
   },
