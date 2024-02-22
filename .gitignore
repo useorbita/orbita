@@ -25,6 +25,7 @@ dist-ssr
 
 # PocketBase
 pocketbase/*
+!pocketbase/pb_hooks
 !pocketbase/install.sh
 !pocketbase/collections.json
 
