@@ -9,6 +9,7 @@ export enum Collections {
 	Boards = "boards",
 	Cards = "cards",
 	Comments = "comments",
+	Events = "events",
 	Labels = "labels",
 	Lists = "lists",
 	Users = "users",
@@ -39,6 +40,7 @@ export type AuthSystemFields<T = never> = {
 // Record types for each collection
 
 export type BoardsRecord = {
+	cardCount?: number
 	description?: string
 	members?: RecordIdString[]
 	title: string
@@ -52,13 +54,13 @@ export enum CardsPriorityOptions {
 	"highest" = "highest",
 }
 export type CardsRecord = {
-	author?: RecordIdString
 	board?: RecordIdString
 	date?: IsoDateString
 	description?: HTMLString
 	labels?: RecordIdString[]
 	list: RecordIdString
 	members?: RecordIdString[]
+	number?: number
 	position?: number
 	priority?: CardsPriorityOptions
 	title: string
@@ -68,6 +70,16 @@ export type CommentsRecord = {
 	author?: RecordIdString
 	card?: RecordIdString
 	content?: HTMLString
+}
+
+export enum EventsActionOptions {
+	"CREATE" = "CREATE",
+	"UPDATE" = "UPDATE",
+}
+export type EventsRecord = {
+	action?: EventsActionOptions
+	card?: RecordIdString
+	user?: RecordIdString
 }
 
 export type LabelsRecord = {
@@ -91,6 +103,7 @@ export type UsersRecord = {
 export type BoardsResponse<Texpand = unknown> = Required<BoardsRecord> & BaseSystemFields<Texpand>
 export type CardsResponse<Texpand = unknown> = Required<CardsRecord> & BaseSystemFields<Texpand>
 export type CommentsResponse<Texpand = unknown> = Required<CommentsRecord> & BaseSystemFields<Texpand>
+export type EventsResponse<Texpand = unknown> = Required<EventsRecord> & BaseSystemFields<Texpand>
 export type LabelsResponse<Texpand = unknown> = Required<LabelsRecord> & BaseSystemFields<Texpand>
 export type ListsResponse<Texpand = unknown> = Required<ListsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
@@ -101,6 +114,7 @@ export type CollectionRecords = {
 	boards: BoardsRecord
 	cards: CardsRecord
 	comments: CommentsRecord
+	events: EventsRecord
 	labels: LabelsRecord
 	lists: ListsRecord
 	users: UsersRecord
@@ -110,6 +124,7 @@ export type CollectionResponses = {
 	boards: BoardsResponse
 	cards: CardsResponse
 	comments: CommentsResponse
+	events: EventsResponse
 	labels: LabelsResponse
 	lists: ListsResponse
 	users: UsersResponse
@@ -122,6 +137,7 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: 'boards'): RecordService<BoardsResponse>
 	collection(idOrName: 'cards'): RecordService<CardsResponse>
 	collection(idOrName: 'comments'): RecordService<CommentsResponse>
+	collection(idOrName: 'events'): RecordService<EventsResponse>
 	collection(idOrName: 'labels'): RecordService<LabelsResponse>
 	collection(idOrName: 'lists'): RecordService<ListsResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>

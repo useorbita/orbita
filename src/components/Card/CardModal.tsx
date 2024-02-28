@@ -138,9 +138,7 @@ export function CardModal({
                   </Text>
                   <Text>
                     Erstellt am {activeCard &&
-                      new Date(activeCard.created).toLocaleString("de")} von
-                    {" "}
-                    {activeCard && activeCard.author}
+                      new Date(activeCard.created).toLocaleString("de")}
                   </Text>
                 </Grid.Col>
 
