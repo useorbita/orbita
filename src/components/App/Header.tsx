@@ -2,6 +2,7 @@ import { Avatar, Button, Group, Menu, Space, Text } from "@mantine/core";
 import {
   IconChevronDown,
   IconCircle,
+  IconLoader,
   IconLogout,
   IconSettings,
 } from "@tabler/icons-react";
@@ -10,20 +11,31 @@ import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
 import { useUserStore } from "../../stores/userStore";
 import { Search } from "../UI/Search";
+import { useIsFetching } from "@tanstack/react-query";
 
 export function Header({ boards }: { boards: BoardsResponse[] }) {
   const logout = useUserStore((state) => state.logout);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const isFetching = useIsFetching();
+
   return (
     <Group justify="space-between">
       <Group gap={"xs"}>
-        <IconCircle
-          onClick={() => navigate("/")}
-          style={{ cursor: "pointer" }}
-        />
-
+        {isFetching
+          ? (
+            <IconLoader
+              onClick={() => navigate("/")}
+              style={{ cursor: "pointer" }}
+            />
+          )
+          : (
+            <IconCircle
+              onClick={() => navigate("/")}
+              style={{ cursor: "pointer" }}
+            />
+          )}
         {location.pathname !== "/" &&
           location.pathname !== "/settings" &&
           location.pathname !== "/settings/me" && (

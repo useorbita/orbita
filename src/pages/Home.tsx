@@ -15,10 +15,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { pb } from "../api/pocketbase";
 import { useBoardStore } from "../stores/boardStore";
+import { UseQueryResult } from "@tanstack/react-query";
+import { BoardsResponse } from "../api/types";
 
-export function Home() {
-  const allBoards = useBoardStore((state) => state.allBoards);
-  const isLoading = useBoardStore((state) => state.isLoading);
+interface HomeProps {
+  boardsQuery: UseQueryResult<BoardsResponse[]>;
+}
+
+export function Home({ boardsQuery }: HomeProps) {
   const navigate = useNavigate();
 
   const [addBoardMode, setAddBoardMode] = useState(false);
@@ -32,8 +36,8 @@ export function Home() {
         <Title order={4}>Deine Boards</Title>
 
         <Group>
-          {!isLoading &&
-            allBoards.map((board) => (
+          {!boardsQuery.isLoading &&
+            boardsQuery.data?.map((board) => (
               <Card
                 key={board.id}
                 shadow="sm"
@@ -78,49 +82,54 @@ export function Home() {
             w={300}
             style={{ cursor: "pointer" }}
           >
-            {addBoardMode ? (
-              <FocusTrap active={addBoardMode}>
-                <TextInput
-                  variant="unstyled"
-                  onChange={(event) =>
-                    setNewBoardName(event.currentTarget.value)
-                  }
-                  rightSection={
-                    <>
-                      <ActionIcon
-                        variant="subtle"
-                        color="gray"
-                        onClick={() => {
-                          createBoard({
-                            title: newBoardName,
-                            member: pb.authStore.model?.id,
-                          });
+            {addBoardMode
+              ? (
+                <FocusTrap active={addBoardMode}>
+                  <TextInput
+                    variant="unstyled"
+                    onChange={(event) =>
+                      setNewBoardName(event.currentTarget.value)}
+                    rightSection={
+                      <>
+                        <ActionIcon
+                          variant="subtle"
+                          color="gray"
+                          onClick={() => {
+                            createBoard({
+                              title: newBoardName,
+                              member: pb.authStore.model?.id,
+                            });
 
-                          setNewBoardName("");
-                          setAddBoardMode(false);
-                        }}
-                      >
-                        <IconCheck size="1em" />
-                      </ActionIcon>
-                      <ActionIcon
-                        variant="subtle"
-                        color="gray"
-                        onClick={() => {
-                          setAddBoardMode(false);
-                        }}
-                      >
-                        <IconX size="1em" />
-                      </ActionIcon>
-                    </>
-                  }
-                  rightSectionWidth={66}
-                />
-              </FocusTrap>
-            ) : (
-              <Text fw={500} c={"dimmed"} onClick={() => setAddBoardMode(true)}>
-                <IconPlus size={"1em"} /> Neues Board anlegen
-              </Text>
-            )}
+                            setNewBoardName("");
+                            setAddBoardMode(false);
+                          }}
+                        >
+                          <IconCheck size="1em" />
+                        </ActionIcon>
+                        <ActionIcon
+                          variant="subtle"
+                          color="gray"
+                          onClick={() => {
+                            setAddBoardMode(false);
+                          }}
+                        >
+                          <IconX size="1em" />
+                        </ActionIcon>
+                      </>
+                    }
+                    rightSectionWidth={66}
+                  />
+                </FocusTrap>
+              )
+              : (
+                <Text
+                  fw={500}
+                  c={"dimmed"}
+                  onClick={() => setAddBoardMode(true)}
+                >
+                  <IconPlus size={"1em"} /> Neues Board anlegen
+                </Text>
+              )}
           </Card>
         </Group>
       </Stack>
