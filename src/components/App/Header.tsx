@@ -11,9 +11,13 @@ import { pb } from "../../api/pocketbase";
 import { BoardsResponse } from "../../api/types";
 import { useUserStore } from "../../stores/userStore";
 import { Search } from "../UI/Search";
-import { useIsFetching } from "@tanstack/react-query";
+import { UseQueryResult, useIsFetching } from "@tanstack/react-query";
 
-export function Header({ boards }: { boards: BoardsResponse[] }) {
+interface HeaderProps {
+  boardsQuery: UseQueryResult<BoardsResponse[]>;
+}
+
+export function Header({ boardsQuery }: HeaderProps) {
   const logout = useUserStore((state) => state.logout);
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,7 +56,7 @@ export function Header({ boards }: { boards: BoardsResponse[] }) {
               </Menu.Target>
 
               <Menu.Dropdown>
-                {boards.map((board) => (
+                {boardsQuery.data?.map((board) => (
                   <Menu.Item
                     key={board.id}
                     onClick={() => navigate("/" + board.id)}
