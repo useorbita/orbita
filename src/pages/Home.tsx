@@ -15,7 +15,6 @@ import { IconCheck, IconPlus, IconSettings, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { pb, useBoards, useCreateBoard } from "../api/pocketbase";
-// import { useBoardStore } from "../stores/boardStore";
 
 export function Home() {
   const navigate = useNavigate();
