@@ -6,22 +6,19 @@ import {
   IconLogout,
   IconSettings,
 } from "@tabler/icons-react";
+
+import { useIsFetching } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
-import { pb } from "../../api/pocketbase";
-import { BoardsResponse } from "../../api/types";
+import { pb, useBoards } from "../../api/pocketbase";
 import { useUserStore } from "../../stores/userStore";
 import { Search } from "../UI/Search";
-import { UseQueryResult, useIsFetching } from "@tanstack/react-query";
 
-interface HeaderProps {
-  boardsQuery: UseQueryResult<BoardsResponse[]>;
-}
-
-export function Header({ boardsQuery }: HeaderProps) {
+export function Header() {
   const logout = useUserStore((state) => state.logout);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const boards = useBoards();
   const isFetching = useIsFetching();
 
   return (
@@ -56,7 +53,7 @@ export function Header({ boardsQuery }: HeaderProps) {
               </Menu.Target>
 
               <Menu.Dropdown>
-                {boardsQuery.data?.map((board) => (
+                {boards.data?.map((board) => (
                   <Menu.Item
                     key={board.id}
                     onClick={() => navigate("/" + board.id)}

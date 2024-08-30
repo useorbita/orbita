@@ -5,6 +5,7 @@ import {
   Container,
   FocusTrap,
   Group,
+  Loader,
   Stack,
   Text,
   TextInput,
@@ -13,22 +14,17 @@ import {
 import { IconCheck, IconPlus, IconSettings, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { pb } from "../api/pocketbase";
-import { useBoardStore } from "../stores/boardStore";
-import { UseQueryResult } from "@tanstack/react-query";
-import { BoardsResponse } from "../api/types";
+import { pb, useBoards, useCreateBoard } from "../api/pocketbase";
+// import { useBoardStore } from "../stores/boardStore";
 
-interface HomeProps {
-  boardsQuery: UseQueryResult<BoardsResponse[]>;
-}
-
-export function Home({ boardsQuery }: HomeProps) {
+export function Home() {
   const navigate = useNavigate();
+
+  const boards = useBoards();
+  const createBoard = useCreateBoard();
 
   const [addBoardMode, setAddBoardMode] = useState(false);
   const [newBoardName, setNewBoardName] = useState("");
-
-  const createBoard = useBoardStore((state) => state.createBoard);
 
   return (
     <Container>
@@ -36,8 +32,8 @@ export function Home({ boardsQuery }: HomeProps) {
         <Title order={4}>Deine Boards</Title>
 
         <Group>
-          {!boardsQuery.isLoading &&
-            boardsQuery.data?.map((board) => (
+          {!boards.isLoading &&
+            boards.data?.map((board) => (
               <Card
                 key={board.id}
                 shadow="sm"
@@ -84,42 +80,48 @@ export function Home({ boardsQuery }: HomeProps) {
           >
             {addBoardMode
               ? (
-                <FocusTrap active={addBoardMode}>
-                  <TextInput
-                    variant="unstyled"
-                    onChange={(event) =>
-                      setNewBoardName(event.currentTarget.value)}
-                    rightSection={
-                      <>
-                        <ActionIcon
-                          variant="subtle"
-                          color="gray"
-                          onClick={() => {
-                            createBoard({
-                              title: newBoardName,
-                              member: pb.authStore.model?.id,
-                            });
-
-                            setNewBoardName("");
-                            setAddBoardMode(false);
-                          }}
-                        >
-                          <IconCheck size="1em" />
-                        </ActionIcon>
-                        <ActionIcon
-                          variant="subtle"
-                          color="gray"
-                          onClick={() => {
-                            setAddBoardMode(false);
-                          }}
-                        >
-                          <IconX size="1em" />
-                        </ActionIcon>
-                      </>
-                    }
-                    rightSectionWidth={66}
-                  />
-                </FocusTrap>
+                createBoard.isPending
+                  ? <Loader size="1em" />
+                  : (
+                    <FocusTrap active={addBoardMode}>
+                      <TextInput
+                        variant="unstyled"
+                        onChange={(event) =>
+                          setNewBoardName(event.currentTarget.value)}
+                        rightSection={
+                          <>
+                            <ActionIcon
+                              variant="subtle"
+                              color="gray"
+                              onClick={() => {
+                                createBoard.mutate({
+                                  title: newBoardName,
+                                  member: pb.authStore.model?.id,
+                                }, {
+                                  onSuccess: () => {
+                                    setNewBoardName("");
+                                    setAddBoardMode(false);
+                                  },
+                                });
+                              }}
+                            >
+                              <IconCheck size="1em" />
+                            </ActionIcon>
+                            <ActionIcon
+                              variant="subtle"
+                              color="gray"
+                              onClick={() => {
+                                setAddBoardMode(false);
+                              }}
+                            >
+                              <IconX size="1em" />
+                            </ActionIcon>
+                          </>
+                        }
+                        rightSectionWidth={66}
+                      />
+                    </FocusTrap>
+                  )
               )
               : (
                 <Text

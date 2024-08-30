@@ -1,29 +1,27 @@
 import { AppShell, LoadingOverlay } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import { Route, Routes } from "react-router-dom";
-import { Api } from "./api/pocketbase";
+
 import { Header } from "./components/App/Header";
 import { Board } from "./pages/Board";
 import { BoardSettings } from "./pages/BoardSettings";
 import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
 
+import { Route, Routes } from "react-router-dom";
+import { useBoards } from "./api/pocketbase";
+
 export function App() {
-  const boardsQuery = useQuery({
-    queryKey: ["boards"],
-    queryFn: Api.Boards.getList,
-  });
+  const boards = useBoards();
 
   return (
     <AppShell padding={"md"} header={{ height: 40 }}>
       <AppShell.Header p={"xs"} pl={"md"} withBorder={false}>
-        <Header boardsQuery={boardsQuery} />
+        <Header />
       </AppShell.Header>
 
       <AppShell.Main>
-        <LoadingOverlay visible={boardsQuery.isLoading} />
+        <LoadingOverlay visible={boards.isLoading} />
         <Routes>
-          <Route path="/" element={<Home boardsQuery={boardsQuery} />} />
+          <Route path="/" element={<Home />} />
           <Route path="/:boardId" element={<Board />} />
           <Route path="/:boardId/settings" element={<BoardSettings />} />
           <Route path="/:boardId/:cardId" element={<Board />} />
