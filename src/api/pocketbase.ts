@@ -1,5 +1,12 @@
 import PocketBase from "pocketbase";
-import { BoardsResponse, Collections } from "./types";
+import {
+  BoardsResponse,
+  CardsResponse,
+  Collections,
+  LabelsResponse,
+  ListsResponse,
+  UsersResponse,
+} from "./types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const pb = new PocketBase("http://127.0.0.1:8090");
@@ -33,3 +40,33 @@ export const useCreateBoard = () => {
     },
   });
 };
+
+export const useBoard = (boardId: string | undefined) =>
+  useQuery({
+    queryKey: ["board", boardId],
+    queryFn: async () => {
+      const [allCards, allLists, allUsers, allLabels, board] =
+        await Promise
+          .all([
+            pb.collection(Collections.Cards).getFullList<CardsResponse>({
+              filter: `board = "${boardId}"`,
+            }),
+            pb
+              .collection(Collections.Lists)
+              .getFullList<ListsResponse>({ filter: `board = "${boardId}"` }),
+            pb.collection(Collections.Users).getFullList<UsersResponse>(),
+            pb.collection(Collections.Labels).getFullList<LabelsResponse>(),
+            pb.collection(Collections.Boards).getOne<BoardsResponse>(
+              boardId || "",
+            ),
+          ]);
+
+      return {
+        cards: allCards,
+        lists: allLists,
+        users: allUsers,
+        labels: allLabels,
+        board,
+      };
+    },
+  });

@@ -6,7 +6,7 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core";
-import { useEffect } from "react";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { CodeView } from "../components/Board/CodeView";
 import { LaneView } from "../components/Board/LaneView";
@@ -16,28 +16,17 @@ import { useActiveBoardStore } from "../stores/activeBoardStore";
 import { IconSettings } from "@tabler/icons-react";
 import { ViewSwitch } from "../components/UI/ViewSwitch";
 import { FilterMenu } from "../components/UI/FilterMenu";
+import { useBoard } from "../api/pocketbase";
 
 export function Board() {
   const { boardId, cardId } = useParams();
 
-  const isLoading = useActiveBoardStore((state) => state.isLoading);
-  const getActiveBoard = useActiveBoardStore((state) => state.getActiveBoard);
-  const activeBoard = useActiveBoardStore((state) => state.activeBoard);
-
-  const lists = useActiveBoardStore((state) => state.lists);
-  const users = useActiveBoardStore((state) => state.users);
-  const labels = useActiveBoardStore((state) => state.labels);
-  const cards = useActiveBoardStore((state) => state.cards);
-
+  const board = useBoard(boardId);
   const view = useActiveBoardStore((state) => state.view);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getActiveBoard({ boardId });
-  }, [boardId]);
-
-  if (isLoading) return <Loader color="gray" size="sm" />;
+  if (board.isLoading) return <Loader color="gray" size="sm" />;
 
   return (
     <>
@@ -51,7 +40,7 @@ export function Board() {
 
       <Group justify="space-between">
         <Group>
-          <Title order={4}>{activeBoard?.title}</Title>
+          <Title order={4}>{board.data?.board.title}</Title>
           <Tooltip
             label="Einstellungen"
             position="right"
@@ -79,15 +68,30 @@ export function Board() {
       <Space h="sm" />
 
       {view === "code" && (
-        <CodeView lists={lists} cards={cards} users={users} labels={labels} />
+        <CodeView
+          lists={board.data.lists}
+          cards={board.data.cards}
+          users={board.data.users}
+          labels={board.data.labels}
+        />
       )}
 
       {view === "lane" && (
-        <LaneView lists={lists} cards={cards} users={users} labels={labels} />
+        <LaneView
+          lists={board.data.lists}
+          cards={board.data.cards}
+          users={board.data.users}
+          labels={board.data.labels}
+        />
       )}
 
       {view === "list" && (
-        <ListView lists={lists} cards={cards} users={users} labels={labels} />
+        <ListView
+          lists={board.data.lists}
+          cards={board.data.cards}
+          users={board.data.users}
+          labels={board.data.labels}
+        />
       )}
     </>
   );
