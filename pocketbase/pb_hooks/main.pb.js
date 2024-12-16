@@ -4,8 +4,9 @@
  * this function us run on start and may be used for 
  * some cleanup or setting up things on start
  */
-onAfterBootstrap(() => {
+onBootstrap((e) => {
   console.log("PocketBase was initialized!");
+  e.next()
 });
 
 
