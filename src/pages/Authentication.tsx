@@ -2,11 +2,12 @@ import {
   Box,
   Button,
   Center,
-  Group,
+  Container,
+  Paper,
   PasswordInput,
   Stack,
   TextInput,
-  Title
+  Title,
 } from "@mantine/core";
 import { useUserStore } from "../stores/userStore";
 
@@ -15,24 +16,21 @@ export function Authentication() {
   const login = useUserStore((state) => state.login);
 
   return (
-    <Group style={{ height: "100vh" }}>
-
-      <Box style={{ backgroundColor: "#030303", height: "100vh", width: "33%" }} p={"3em"}>
-        {/* TODO: add something cool */}
-      </Box>
-
-      <Box style={{ width: "65%" }}>
-        <Center>
+    <Container h={"100vh"} fluid>
+      <Title pt="xl" pl="xl" style={{ fontFamily: "Outfit", fontWeight: 400 }}>
+        Orbita
+      </Title>
+      <Center>
+        <Paper radius="md" p="xl" mt={"20vh"}>
           <Box w={"23em"}>
             <Stack>
-              <Title order={3} mb={"md"}>Anmelden</Title>
-
               <TextInput
                 placeholder="Email"
                 label="Email"
                 value={import.meta.env.VITE_PB_USERNAME}
                 readOnly
-              ></TextInput>
+              >
+              </TextInput>
               <PasswordInput
                 placeholder="Password"
                 label="Password"
@@ -55,8 +53,8 @@ export function Authentication() {
               </Button>
             </Stack>
           </Box>
-        </Center>
-      </Box>
-    </Group>
+        </Paper>
+      </Center>
+    </Container>
   );
 }
