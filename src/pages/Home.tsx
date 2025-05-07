@@ -95,7 +95,7 @@ export function Home() {
                               onClick={() => {
                                 createBoard.mutate({
                                   title: newBoardName,
-                                  member: pb.authStore.model?.id,
+                                  member: pb.authStore.model?.id ?? "",
                                 }, {
                                   onSuccess: () => {
                                     setNewBoardName("");

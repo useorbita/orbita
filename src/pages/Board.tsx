@@ -67,7 +67,7 @@ export function Board() {
 
       <Space h="sm" />
 
-      {view === "code" && (
+      {view === "code" && board.data && (
         <CodeView
           lists={board.data.lists}
           cards={board.data.cards}
@@ -76,7 +76,7 @@ export function Board() {
         />
       )}
 
-      {view === "lane" && (
+      {view === "lane" && board.data && (
         <LaneView
           lists={board.data.lists}
           cards={board.data.cards}
@@ -85,7 +85,7 @@ export function Board() {
         />
       )}
 
-      {view === "list" && (
+      {view === "list" && board.data && (
         <ListView
           lists={board.data.lists}
           cards={board.data.cards}
