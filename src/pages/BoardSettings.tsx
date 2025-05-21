@@ -15,21 +15,11 @@ import {
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconArrowLeft, IconTrash } from "@tabler/icons-react";
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useActiveBoardStore } from "../stores/activeBoardStore";
 
 export function BoardSettings() {
   const navigate = useNavigate();
   const { boardId } = useParams();
-
-  // const isLoading = useActiveBoardStore((state) => state.isLoading);
-  const getActiveBoard = useActiveBoardStore((state) => state.getActiveBoard);
-  const activeBoard = useActiveBoardStore((state) => state.activeBoard);
-
-  useEffect(() => {
-    getActiveBoard({ boardId });
-  }, [boardId]);
 
   const descriptionSpan = 4;
   const inputSpan = 6;
@@ -99,7 +89,7 @@ export function BoardSettings() {
           </Stack>
         </Grid.Col>
         <Grid.Col span={inputSpan} offset={offset}>
-          <TextInput placeholder="Name des Boards" value={activeBoard?.title} />
+          <TextInput placeholder="Name des Boards" />
         </Grid.Col>
       </Grid>
 

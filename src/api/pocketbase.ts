@@ -35,7 +35,7 @@ export const useCreateBoard = () => {
     onSuccess: (data: BoardsResponse) => {
       queryClient.setQueryData(
         [Collections.Boards],
-        (oldData: BoardsResponse[]) => [...oldData, data],
+        (oldData: BoardsResponse[]) => [...oldData, data]
       );
     },
   });
@@ -44,22 +44,25 @@ export const useCreateBoard = () => {
 export const useBoard = (boardId: string | undefined) =>
   useQuery({
     queryKey: ["board", boardId],
+    // This is a workaround, because we get the boardId
+    // with useMatch and can't match only for the boardId
+    // TODO: find a better solution, maybe with zustand
+    enabled: !!boardId && boardId !== "settings",
     queryFn: async () => {
       const [allCards, allLists, allUsers, allLabels, board] =
-        await Promise
-          .all([
-            pb.collection(Collections.Cards).getFullList<CardsResponse>({
-              filter: `board = "${boardId}"`,
-            }),
-            pb
-              .collection(Collections.Lists)
-              .getFullList<ListsResponse>({ filter: `board = "${boardId}"` }),
-            pb.collection(Collections.Users).getFullList<UsersResponse>(),
-            pb.collection(Collections.Labels).getFullList<LabelsResponse>(),
-            pb.collection(Collections.Boards).getOne<BoardsResponse>(
-              boardId || "",
-            ),
-          ]);
+        await Promise.all([
+          pb.collection(Collections.Cards).getFullList<CardsResponse>({
+            filter: `board = "${boardId}"`,
+          }),
+          pb
+            .collection(Collections.Lists)
+            .getFullList<ListsResponse>({ filter: `board = "${boardId}"` }),
+          pb.collection(Collections.Users).getFullList<UsersResponse>(),
+          pb.collection(Collections.Labels).getFullList<LabelsResponse>(),
+          pb
+            .collection(Collections.Boards)
+            .getOne<BoardsResponse>(boardId || ""),
+        ]);
 
       return {
         cards: allCards,
