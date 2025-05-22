@@ -1,4 +1,3 @@
-import { Draggable, Droppable } from "@hello-pangea/dnd";
 import {
   ActionIcon,
   Box,
@@ -10,6 +9,8 @@ import {
 } from "@mantine/core";
 import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
 import { useState } from "react";
+import { useDroppable } from "@dnd-kit/react";
+import { CollisionPriority } from "@dnd-kit/abstract";
 import {
   CardsResponse,
   LabelsResponse,
@@ -33,106 +34,79 @@ export function Lane({ index, list, cards, users, labels }: LaneProps) {
 
   const createCard = useActiveBoardStore((list) => list.createCard);
 
+  const { isDropTarget, ref } = useDroppable({
+    id: list.id,
+    type: "column",
+    accept: "item",
+    collisionPriority: CollisionPriority.Low,
+  });
+
   return (
-    <Draggable draggableId={list.id} index={index}>
-      {(provided, snapshot) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          <Text>
-            {list.title}
-          </Text>
-          <Droppable droppableId={list.id} type="CARD">
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                {
-                  // style={{
-                  //   backgroundColor: snapshot.isDraggingOver ? "blue" : "grey",
-                  // }}
-                  ...provided.droppableProps
-                }
-              >
-                <Paper
-                  h={"75vh"}
-                  w={250}
-                  style={{ backgroundColor: "#00000009" }}
-                >
-                  <Stack>
-                    {cards
-                      .filter((card) => card.list === list.id)
-                      //   .sort((a, b) => a.position - b.position)
-                      .map((card: CardsResponse, index) => (
-                        <Card
-                          index={index}
-                          key={card.id}
-                          card={card}
-                          users={users}
-                          labels={labels}
-                        />
-                      ))}
+    <>
+      <Text>{list.title}</Text>
 
-                    {provided.placeholder}
+      <Paper h={"75vh"} w={250} style={{ backgroundColor: "#00000009" }}>
+        <Stack className="Column" ref={ref} style={{ height: "500px" }}>
+          {cards
+            .filter((card) => card.list === list.id)
+            //   .sort((a, b) => a.position - b.position)
+            .map((card: CardsResponse, index) => (
+              <Card
+                index={index}
+                key={card.id}
+                card={card}
+                users={users}
+                labels={labels}
+              />
+            ))}
 
-                    <Box m="md">
-                      {addCardMode
-                        ? (
-                          <FocusTrap active={addCardMode}>
-                            <TextInput
-                              // variant="unstyled"
-                              onChange={(event) =>
-                                setNewCardName(event.currentTarget.value)}
-                              rightSection={
-                                <>
-                                  <ActionIcon
-                                    variant="subtle"
-                                    color="gray"
-                                    onClick={() => {
-                                      createCard({
-                                        title: newCardName,
-                                        listId: list.id,
-                                      });
+          <Box m="md">
+            {addCardMode ? (
+              <FocusTrap active={addCardMode}>
+                <TextInput
+                  // variant="unstyled"
+                  onChange={(event) =>
+                    setNewCardName(event.currentTarget.value)
+                  }
+                  rightSection={
+                    <>
+                      <ActionIcon
+                        variant="subtle"
+                        color="gray"
+                        onClick={() => {
+                          createCard({
+                            title: newCardName,
+                            listId: list.id,
+                          });
 
-                                      setNewCardName("");
-                                      setAddCardMode(false);
-                                    }}
-                                  >
-                                    <IconCheck size="1em" />
-                                  </ActionIcon>
-                                  <ActionIcon
-                                    variant="subtle"
-                                    color="gray"
-                                    onClick={() => {
-                                      setAddCardMode(false);
-                                    }}
-                                  >
-                                    <IconX size="1em" />
-                                  </ActionIcon>
-                                </>
-                              }
-                              rightSectionWidth={66}
-                            />
-                          </FocusTrap>
-                        )
-                        : (
-                          <Text
-                            size="sm"
-                            c={"dimmed"}
-                            onClick={() => setAddCardMode(true)}
-                          >
-                            <IconPlus size={"1em"} /> Neue Karte anlegen
-                          </Text>
-                        )}
-                    </Box>
-                  </Stack>
-                </Paper>
-              </div>
+                          setNewCardName("");
+                          setAddCardMode(false);
+                        }}
+                      >
+                        <IconCheck size="1em" />
+                      </ActionIcon>
+                      <ActionIcon
+                        variant="subtle"
+                        color="gray"
+                        onClick={() => {
+                          setAddCardMode(false);
+                        }}
+                      >
+                        <IconX size="1em" />
+                      </ActionIcon>
+                    </>
+                  }
+                  rightSectionWidth={66}
+                />
+              </FocusTrap>
+            ) : (
+              <Text size="sm" c={"dimmed"} onClick={() => setAddCardMode(true)}>
+                <IconPlus size={"1em"} /> Neue Karte anlegen
+              </Text>
             )}
-          </Droppable>
-        </div>
-      )}
-    </Draggable>
+          </Box>
+        </Stack>
+      </Paper>
+    </>
   );
 }

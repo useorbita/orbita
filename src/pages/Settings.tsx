@@ -110,12 +110,12 @@ export function Settings() {
         <Tabs.Panel value="me">
           <Group>
             <Avatar radius="xl">
-              {pb.authStore.model?.name.substring(0, 2)}
+              {pb.authStore.record?.name.substring(0, 2)}
             </Avatar>
             <div>
-              <Text size="sm">{pb.authStore.model?.name}</Text>
+              <Text size="sm">{pb.authStore.record?.name}</Text>
               <Text size="xs" c="dimmed">
-                {pb.authStore.model?.email}
+                {pb.authStore.record?.email}
               </Text>
             </div>
           </Group>
