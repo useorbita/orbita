@@ -19,6 +19,7 @@ import {
 } from "../../api/types";
 import { useActiveBoardStore } from "../../stores/activeBoardStore";
 import { Card } from "../Card/Card";
+import { useSortable } from "@dnd-kit/react/sortable";
 
 interface LaneProps {
   index: number;
@@ -34,19 +35,27 @@ export function Lane({ index, list, cards, users, labels }: LaneProps) {
 
   const createCard = useActiveBoardStore((list) => list.createCard);
 
-  const { isDropTarget, ref } = useDroppable({
+  const { isDropTarget, ref: columnRef } = useDroppable({
     id: list.id,
     type: "column",
     accept: "item",
     collisionPriority: CollisionPriority.Low,
   });
 
+  const { ref: laneRef } = useSortable({
+    id: index,
+    index,
+    type: "column",
+    collisionPriority: CollisionPriority.Low,
+    accept: ["item", "column"],
+  });
+
   return (
-    <>
+    <Stack className="Lane" ref={laneRef}>
       <Text>{list.title}</Text>
 
       <Paper h={"75vh"} w={250} style={{ backgroundColor: "#00000009" }}>
-        <Stack className="Column" ref={ref} style={{ height: "500px" }}>
+        <Stack className="Column" ref={columnRef} style={{ height: "500px" }}>
           {cards
             .filter((card) => card.list === list.id)
             //   .sort((a, b) => a.position - b.position)
@@ -107,6 +116,6 @@ export function Lane({ index, list, cards, users, labels }: LaneProps) {
           </Box>
         </Stack>
       </Paper>
-    </>
+    </Stack>
   );
 }
