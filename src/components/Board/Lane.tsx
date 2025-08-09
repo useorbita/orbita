@@ -35,7 +35,7 @@ export function Lane({ index, list, cards, users, labels }: LaneProps) {
 
   const createCard = useActiveBoardStore((list) => list.createCard);
 
-  const { isDropTarget, ref: columnRef } = useDroppable({
+  const { ref: columnRef } = useDroppable({
     id: list.id,
     type: "column",
     accept: "item",
