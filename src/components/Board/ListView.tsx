@@ -1,108 +1,113 @@
 import {
-  Avatar,
-  Badge,
+  ActionIcon,
+  FocusTrap,
   Group,
   ScrollArea,
-  Stack,
   Text,
-  Tooltip,
+  TextInput,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
-import {
-  CardsResponse,
-  LabelsResponse,
-  ListsResponse,
-  UsersResponse,
-} from "../../api/types";
+import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
+import { useState } from "react";
+import { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
+import { useActiveBoardStore } from "../../stores/activeBoardStore";
+import { List } from "./List";
+import { DragDropProvider } from "@dnd-kit/react";
+import { isSortable } from "@dnd-kit/react/sortable";
 
 interface ListViewProps {
-  lists: ListsResponse[];
-  cards: CardsResponse[];
+  allData: Record<string, CardsResponse[]>;
   users: UsersResponse[];
   labels: LabelsResponse[];
 }
 
-export function ListView({ cards, lists, users, labels }: ListViewProps) {
+// https://next.dndkit.com/react/guides/multiple-sortable-lists
+
+export function ListView({ allData, users, labels }: ListViewProps) {
+  const [addListMode, setAddListMode] = useState(false);
+  const [newListName, setNewListName] = useState("");
+
+  const createList = useActiveBoardStore((state) => state.createList);
+
   return (
-    <ScrollArea>
-      <Stack>
-        {cards.map((card: CardsResponse) => (
-          <Group key={card.id} justify="space-between">
-            <Group>
-              <Link to={card.id}>
-                <Text size="sm">{card.title}</Text>
-              </Link>
+    <>
+      <ScrollArea>
+        <DragDropProvider
+          onDragEnd={(data) => {
+            if (isSortable(data.operation.source)) {
+              const oldGroup = data.operation.source.sortable.initialGroup;
+              const newGroup = data.operation.source.sortable.group;
+              const oldIndex = data.operation.source.sortable.initialIndex;
+              const newIndex = data.operation.source.sortable.index;
+              console.log(oldGroup, newGroup, oldIndex, newIndex);
+            }
+          }}
+        >
+          <Group
+            style={{ width: Object.keys(allData).length * 280 + 250 }}
+            justify="start"
+          >
+            {Object.entries(allData).map(([listId, cards], index) => (
+              <List
+                key={listId}
+                index={index}
+                cards={cards}
+                listId={listId}
+                users={users}
+                labels={labels}
+              />
+            ))}
 
-              {card.labels.map((label) => (
-                <Badge
-                  key={label}
+            <div style={{ height: "75vh", paddingTop: "1em" }}>
+              {addListMode ? (
+                <FocusTrap active={addListMode}>
+                  <TextInput
+                    // variant="unstyled"
+                    onChange={(event) =>
+                      setNewListName(event.currentTarget.value)
+                    }
+                    rightSection={
+                      <>
+                        <ActionIcon
+                          variant="subtle"
+                          color="gray"
+                          onClick={() => {
+                            createList({
+                              title: newListName,
+                            });
+
+                            setNewListName("");
+                            setAddListMode(false);
+                          }}
+                        >
+                          <IconCheck size="1em" />
+                        </ActionIcon>
+                        <ActionIcon
+                          variant="subtle"
+                          color="gray"
+                          onClick={() => {
+                            setAddListMode(false);
+                          }}
+                        >
+                          <IconX size="1em" />
+                        </ActionIcon>
+                      </>
+                    }
+                    rightSectionWidth={66}
+                  />
+                </FocusTrap>
+              ) : (
+                <Text
                   size="sm"
-                  variant="light"
-                  color={
-                    (
-                      labels.find((l: LabelsResponse) => l.id === label) || {
-                        color: "",
-                      }
-                    ).color
-                  }
+                  c={"dimmed"}
+                  onClick={() => setAddListMode(true)}
                 >
-                  {
-                    (
-                      labels.find((l: LabelsResponse) => l.id === label) || {
-                        title: "Unbekannt",
-                      }
-                    ).title
-                  }
-                </Badge>
-              ))}
-            </Group>
-
-            <Group>
-              <Text size="sm">
-                {lists.find((list) => list.id === card.list)?.title}
-              </Text>
-
-              <Tooltip.Group openDelay={300} closeDelay={100}>
-                <Avatar.Group spacing="sm">
-                  {card.members.map((member) => (
-                    <Tooltip
-                      key={member}
-                      label={
-                        (
-                          users.find(
-                            (user: UsersResponse) => user.id === member
-                          ) || { name: "Unbekannt" }
-                        ).name
-                      }
-                      withArrow
-                    >
-                      <Avatar size="sm" radius="xl" />
-                    </Tooltip>
-                  ))}
-                </Avatar.Group>
-              </Tooltip.Group>
-
-              {card.priority ? (
-                <Text size="sm">{card.priority}</Text>
-              ) : (
-                <Text size="sm" c="dimmed">
-                  Priorität
+                  <IconPlus size={"1em"} /> Neue Liste anlegen
                 </Text>
               )}
-
-              {card.date ? (
-                <Text size="sm">
-                  {new Date(card.date).toLocaleDateString("DE-de")}
-                </Text>
-              ) : (
-                <Text size="sm" c="dimmed">
-                  Datum
-                </Text>
-              )}
-            </Group>
+            </div>
           </Group>
-        ))}
-      </Stack>
-    </ScrollArea>
+        </DragDropProvider>
+      </ScrollArea>
+    </>
   );
 }

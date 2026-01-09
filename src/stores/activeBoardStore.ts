@@ -48,7 +48,7 @@ export const useActiveBoardStore = create<BoardStore>()((set, get) => ({
   users: [],
   labels: [],
 
-  view: "lane",
+  view: "list",
 
   getActiveBoard: async ({ boardId }) => {
     set({ isLoading: true });

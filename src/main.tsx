@@ -1,4 +1,4 @@
-import { scan } from "react-scan";
+// import { scan } from "react-scan";
 import { createTheme, MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
@@ -17,12 +17,12 @@ import "@mantine/tiptap/styles.css";
 import { useUserStore } from "./stores/userStore";
 
 // show react-scan performance widget
-if (typeof window !== "undefined" && import.meta.env.DEV) {
-  scan({
-    enabled: true,
-    log: true,
-  });
-}
+// if (typeof window !== "undefined" && import.meta.env.DEV) {
+//   scan({
+//     enabled: true,
+//     log: true,
+//   });
+// }
 
 const theme = createTheme({
   /** Your theme override here */

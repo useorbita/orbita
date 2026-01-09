@@ -10,7 +10,7 @@ export function ViewSwitch() {
     <SegmentedControl
       data={[
         {
-          value: "list",
+          value: "table",
           label: (
             <Center>
               <IconLayoutList size="1em" />
@@ -18,7 +18,7 @@ export function ViewSwitch() {
           ),
         },
         {
-          value: "lane",
+          value: "list",
           label: (
             <Center>
               <IconLayoutGrid size="1em" />

@@ -64,7 +64,23 @@ export const useBoard = (boardId: string | undefined) =>
             .getOne<BoardsResponse>(boardId || ""),
         ]);
 
+      const allData: Record<string, CardsResponse[]> = {};
+
+      // Initialize an empty array for each list id
+      allLists.forEach((list) => {
+        allData[list.id] = [];
+      });
+
+      // Assign each card to its list bucket
+      allCards.forEach((card) => {
+        const listId = (card as any).list;
+        if (listId && allData[listId]) {
+          allData[listId].push(card);
+        }
+      });
+
       return {
+        allData: allData,
         cards: allCards,
         lists: allLists,
         users: allUsers,

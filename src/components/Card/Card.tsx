@@ -16,9 +16,10 @@ interface CardProps {
   card: CardsResponse;
   users: UsersResponse[];
   labels: LabelsResponse[];
+  listId: string;
 }
 
-export function Card({ index, card, users, labels }: CardProps) {
+export function Card({ index, card, users, labels, listId }: CardProps) {
   const navigate = useNavigate();
 
   const { ref, isDragging } = useSortable({
@@ -26,7 +27,7 @@ export function Card({ index, card, users, labels }: CardProps) {
     index,
     type: "item",
     accept: "item",
-    group: card.list,
+    group: listId,
   });
 
   return (

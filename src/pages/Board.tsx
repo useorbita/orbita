@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useBoard } from "../api/pocketbase";
 
 import { CodeView } from "../components/Board/CodeView";
-import { LaneView } from "../components/Board/LaneView";
 import { ListView } from "../components/Board/ListView";
+import { TableView } from "../components/Board/TableView";
 import { CardModal } from "../components/Card/CardModal";
 
 import { useActiveBoardStore } from "../stores/activeBoardStore";
@@ -32,15 +32,7 @@ export function Board() {
 
       {view === "code" && board.data && (
         <CodeView
-          lists={board.data.lists}
-          cards={board.data.cards}
-          users={board.data.users}
-          labels={board.data.labels}
-        />
-      )}
-
-      {view === "lane" && board.data && (
-        <LaneView
+          allData={board.data.allData}
           lists={board.data.lists}
           cards={board.data.cards}
           users={board.data.users}
@@ -50,12 +42,20 @@ export function Board() {
 
       {view === "list" && board.data && (
         <ListView
+          allData={board.data.allData}
+          users={board.data.users}
+          labels={board.data.labels}
+        />
+      )}
+
+      {/* {view === "table" && board.data && (
+        <TableView
           lists={board.data.lists}
           cards={board.data.cards}
           users={board.data.users}
           labels={board.data.labels}
         />
-      )}
+      )} */}
     </>
   );
 }

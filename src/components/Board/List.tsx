@@ -21,47 +21,41 @@ import { useActiveBoardStore } from "../../stores/activeBoardStore";
 import { Card } from "../Card/Card";
 import { useSortable } from "@dnd-kit/react/sortable";
 
-interface LaneProps {
+interface ListProps {
   index: number;
-  list: ListsResponse;
+  listId: string;
   cards: CardsResponse[];
   users: UsersResponse[];
   labels: LabelsResponse[];
 }
 
-export function Lane({ index, list, cards, users, labels }: LaneProps) {
+export function List({ index, listId, cards, users, labels }: ListProps) {
   const [addCardMode, setAddCardMode] = useState(false);
   const [newCardName, setNewCardName] = useState("");
 
   const createCard = useActiveBoardStore((list) => list.createCard);
 
-  const { ref: columnRef } = useDroppable({
-    id: list.id,
-    type: "column",
-    accept: "item",
-    collisionPriority: CollisionPriority.Low,
-  });
-
-  const { ref: laneRef } = useSortable({
-    id: index,
+  const { ref: listRef } = useSortable({
+    id: listId,
     index,
     type: "column",
     collisionPriority: CollisionPriority.Low,
-    accept: ["item", "column"],
+    accept: ["column"],
   });
 
   return (
-    <Stack className="Lane" ref={laneRef}>
-      <Text>{list.title}</Text>
+    <Stack className="List" ref={listRef}>
+      <Text>{listId}</Text>
 
       <Paper h={"75vh"} w={250} style={{ backgroundColor: "#00000009" }}>
-        <Stack className="Column" ref={columnRef} style={{ height: "500px" }}>
+        <Stack className="Column" ref={listRef} style={{ height: "500px" }}>
           {cards
-            .filter((card) => card.list === list.id)
+            // .filter((card) => card.list === listId)
             //   .sort((a, b) => a.position - b.position)
             .map((card: CardsResponse, index) => (
               <Card
                 index={index}
+                listId={listId}
                 key={card.id}
                 card={card}
                 users={users}
