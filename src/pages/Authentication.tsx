@@ -1,60 +1,134 @@
+import { useState } from "react";
 import {
-  Box,
+  Anchor,
   Button,
   Center,
-  Container,
   Paper,
   PasswordInput,
   Stack,
+  Text,
   TextInput,
   Title,
 } from "@mantine/core";
 import { useUserStore } from "../stores/userStore";
 
-export function Authentication() {
+function SignInForm({ onSwitch }: { onSwitch: () => void }) {
+  const [email, setEmail] = useState(import.meta.env.VITE_PB_USERNAME);
+  const [password, setPassword] = useState(import.meta.env.VITE_PB_PASSWORD);
+
   const isLoading = useUserStore((state) => state.isLoading);
-  const login = useUserStore((state) => state.login);
+  const signin = useUserStore((state) => state.signin);
+
+  const handleSubmit = () => {
+    signin({ email, password });
+  };
 
   return (
-    <Container h={"100vh"} fluid>
-      <Title pt="xl" pl="xl" style={{ fontFamily: "Outfit", fontWeight: 400 }}>
+    <Stack gap="md">
+      <Title
+        ta="center"
+        style={{ fontFamily: "Outfit", fontWeight: 400 }}
+        mb="xl"
+      >
         Orbita
       </Title>
-      <Center>
-        <Paper radius="md" p="xl" mt={"20vh"}>
-          <Box w={"23em"}>
-            <Stack>
-              <TextInput
-                placeholder="Email"
-                label="Email"
-                value={import.meta.env.VITE_PB_USERNAME}
-                readOnly
-              >
-              </TextInput>
-              <PasswordInput
-                placeholder="Password"
-                label="Password"
-                value={import.meta.env.VITE_PB_PASSWORD}
-                readOnly
-              />
+      <TextInput
+        label="Email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.currentTarget.value)}
+      />
+      <PasswordInput
+        label="Password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.currentTarget.value)}
+      />
+      <Button
+        variant="default"
+        loading={isLoading}
+        onClick={handleSubmit}
+        mt="lg"
+      >
+        Anmelden
+      </Button>
+      <Text ta="center" size="sm">
+        Du hast keinen Account? <Anchor onClick={onSwitch}>Registrieren</Anchor>
+      </Text>
+    </Stack>
+  );
+}
 
-              <Button
-                mt={"xl"}
-                variant="default"
-                loading={isLoading}
-                onClick={async () => {
-                  login({
-                    email: import.meta.env.VITE_PB_USERNAME,
-                    password: import.meta.env.VITE_PB_PASSWORD,
-                  });
-                }}
-              >
-                Anmelden
-              </Button>
-            </Stack>
-          </Box>
-        </Paper>
-      </Center>
-    </Container>
+function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const isLoading = useUserStore((state) => state.isLoading);
+  const signup = useUserStore((state) => state.signup);
+
+  const handleSubmit = () => {
+    signup({ email, password, name });
+  };
+
+  return (
+    <Stack gap="md">
+      <Title
+        ta="center"
+        style={{ fontFamily: "Outfit", fontWeight: 400 }}
+        mb="xl"
+      >
+        Orbita
+      </Title>
+      <TextInput
+        label="Dein Name"
+        placeholder="Name"
+        description="Diesen Name sehen deine Teammitglieder"
+        value={name}
+        onChange={(e) => setName(e.currentTarget.value)}
+      />
+      <TextInput
+        label="Email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.currentTarget.value)}
+      />
+      <PasswordInput
+        label="Password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.currentTarget.value)}
+      />
+      <Button
+        variant="default"
+        loading={isLoading}
+        onClick={handleSubmit}
+        mt="lg"
+      >
+        Registrieren
+      </Button>
+      <Text ta="center" size="sm">
+        Du hast bereits einen Account?{" "}
+        <Anchor onClick={onSwitch}>Anmelden</Anchor>
+      </Text>
+    </Stack>
+  );
+}
+
+export function Authentication() {
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
+
+  return (
+    <Center h="100vh" pos="relative">
+      <Paper radius="md" p="xl" w="23em">
+        {mode === "signin" ? (
+          <SignInForm onSwitch={() => setMode("signup")} />
+        ) : (
+          <SignUpForm onSwitch={() => setMode("signin")} />
+        )}
+      </Paper>
+      <Text pos="absolute" bottom={16} right={16} size="sm" c="dimmed">
+        Orbita
+      </Text>
+    </Center>
   );
 }

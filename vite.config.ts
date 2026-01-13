@@ -12,11 +12,4 @@ export default defineConfig({
       },
     }),
   ],
-  resolve: {
-    alias: {
-      // TODO: remove this, when the performance/loading issue
-      // in tabler-icons is fixed: https://github.com/tabler/tabler-icons/issues/1233
-      "@tabler/icons-react": "@tabler/icons-react/dist/esm/icons/index.mjs",
-    },
-  },
 });
