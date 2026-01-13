@@ -10,14 +10,14 @@ import { useIsFetching } from "@tanstack/react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 
 import { pb, useBoard } from "../../api/pocketbase";
-import { useUserStore } from "../../stores/userStore";
+import { useLogout } from "../../api/auth";
 
 import { FilterMenu } from "../UI/FilterMenu";
 import { Search } from "../UI/Search";
 import { ViewSwitch } from "../UI/ViewSwitch";
 
 export function Header() {
-  const logout = useUserStore((state) => state.logout);
+  const logout = useLogout();
   const navigate = useNavigate();
 
   const isFetching = useIsFetching();
@@ -73,7 +73,7 @@ export function Header() {
           <Menu.Target>
             <Group>
               <Avatar radius="xl" mr="xs" style={{ cursor: "pointer" }}>
-                {pb.authStore.model?.name.substring(0, 2)}
+                {pb.authStore.record?.name.substring(0, 2)}
               </Avatar>
             </Group>
           </Menu.Target>
@@ -84,12 +84,12 @@ export function Header() {
             <Menu.Item onClick={() => navigate("/settings/me")}>
               <Group>
                 <Avatar radius="xl">
-                  {pb.authStore.model?.name.substring(0, 2)}
+                  {pb.authStore.record?.name.substring(0, 2)}
                 </Avatar>
                 <div>
-                  <Text size="sm">{pb.authStore.model?.name}</Text>
+                  <Text size="sm">{pb.authStore.record?.name}</Text>
                   <Text size="xs" c="dimmed">
-                    {pb.authStore.model?.email}
+                    {pb.authStore.record?.email}
                   </Text>
                 </div>
               </Group>
@@ -109,7 +109,7 @@ export function Header() {
             <Menu.Item
               leftSection={<IconLogout size={"1em"} />}
               color="red"
-              onClick={logout}
+              onClick={() => logout.mutate()}
             >
               Abmelden
             </Menu.Item>

@@ -14,7 +14,7 @@ import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/tiptap/styles.css";
 
-import { useUserStore } from "./stores/userStore";
+import { useAuth } from "./api/auth";
 
 // show react-scan performance widget
 // if (typeof window !== "undefined" && import.meta.env.DEV) {
@@ -29,7 +29,7 @@ const theme = createTheme({
 });
 
 function Application() {
-  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+  const { isAuthenticated } = useAuth();
   return isAuthenticated ? <App /> : <Authentication />;
 }
 

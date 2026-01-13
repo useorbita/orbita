@@ -10,17 +10,16 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useUserStore } from "../stores/userStore";
+import { useSignIn, useSignUp } from "../api/auth";
 
 function SignInForm({ onSwitch }: { onSwitch: () => void }) {
   const [email, setEmail] = useState(import.meta.env.VITE_PB_USERNAME);
   const [password, setPassword] = useState(import.meta.env.VITE_PB_PASSWORD);
 
-  const isLoading = useUserStore((state) => state.isLoading);
-  const signin = useUserStore((state) => state.signin);
+  const signIn = useSignIn();
 
   const handleSubmit = () => {
-    signin({ email, password });
+    signIn.mutate({ email, password });
   };
 
   return (
@@ -46,7 +45,7 @@ function SignInForm({ onSwitch }: { onSwitch: () => void }) {
       />
       <Button
         variant="default"
-        loading={isLoading}
+        loading={signIn.isPending}
         onClick={handleSubmit}
         mt="lg"
       >
@@ -63,11 +62,10 @@ function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isLoading = useUserStore((state) => state.isLoading);
-  const signup = useUserStore((state) => state.signup);
+  const signUp = useSignUp();
 
   const handleSubmit = () => {
-    signup({ email, password, name });
+    signUp.mutate({ email, password, name });
   };
 
   return (
@@ -100,7 +98,7 @@ function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
       />
       <Button
         variant="default"
-        loading={isLoading}
+        loading={signUp.isPending}
         onClick={handleSubmit}
         mt="lg"
       >
