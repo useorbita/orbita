@@ -1,4 +1,4 @@
-import { Loader } from "@mantine/core";
+import { Box, Loader } from "@mantine/core";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useBoard } from "../api/pocketbase";
@@ -21,7 +21,7 @@ export function Board() {
   if (board.isLoading) return <Loader color="gray" size="sm" />;
 
   return (
-    <>
+    <Box h="100%">
       {cardId && (
         <CardModal
           open={!!cardId}
@@ -56,6 +56,6 @@ export function Board() {
           labels={board.data.labels}
         />
       )} */}
-    </>
+    </Box>
   );
 }

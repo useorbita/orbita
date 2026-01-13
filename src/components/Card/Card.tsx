@@ -22,86 +22,88 @@ interface CardProps {
 export function Card({ index, card, users, labels, listId }: CardProps) {
   const navigate = useNavigate();
 
-  const { ref, isDragging } = useSortable({
+  const { ref } = useSortable({
     id: card.id,
     index,
     type: "item",
-    accept: "item",
+    accept: ["item"],
     group: listId,
   });
 
   return (
-    <MantineCard
-      shadow="sm"
-      withBorder
-      ref={ref}
-      data-dragging={isDragging}
-      className="Item"
-      onClick={() => navigate(card.id)}
-    >
-      <Text fw={500}>{card.title}</Text>
+    <div ref={ref} className="Item">
+      <MantineCard
+        shadow="sm"
+        withBorder
+        // data-dragging={isDragging}
+        onClick={() => navigate(card.id)}
+      >
+        <Text fw={500}>{card.title}</Text>
 
-      {card.labels.map((label) => (
-        <Badge
-          key={label}
-          variant="light"
-          color={
-            (
-              labels.find((l: LabelsResponse) => l.id === label) || {
-                color: "grey",
-              }
-            ).color
-          }
-        >
-          {
-            (
-              labels.find((l: LabelsResponse) => l.id === label) || {
-                title: "Unbekannt",
-              }
-            ).title
-          }
-        </Badge>
-      ))}
-
-      {card.members.length > 0 && (
-        <Tooltip.Group openDelay={100} closeDelay={100}>
-          <Avatar.Group spacing="sm">
-            {card.members.map((member) => (
-              <Tooltip
-                key={member}
-                label={
-                  (
-                    users.find((user: UsersResponse) => user.id === member) || {
-                      name: "Unbekannt",
-                    }
-                  ).name
+        {card.labels.map((label) => (
+          <Badge
+            key={label}
+            variant="light"
+            color={
+              (
+                labels.find((l: LabelsResponse) => l.id === label) || {
+                  color: "grey",
                 }
-                withArrow
-              >
-                <Avatar radius="xl" />
-              </Tooltip>
-            ))}
-          </Avatar.Group>
-        </Tooltip.Group>
-      )}
+              ).color
+            }
+          >
+            {
+              (
+                labels.find((l: LabelsResponse) => l.id === label) || {
+                  title: "Unbekannt",
+                }
+              ).title
+            }
+          </Badge>
+        ))}
 
-      {card.date && (
-        <Group>
-          <IconCalendar color="gray" size={"1em"} />
-          <Text c="dimmed" size="sm">
-            {new Date(card.date).toLocaleDateString("DE-de")}
-          </Text>
-        </Group>
-      )}
+        {card.members.length > 0 && (
+          <Tooltip.Group openDelay={100} closeDelay={100}>
+            <Avatar.Group spacing="sm">
+              {card.members.map((member) => (
+                <Tooltip
+                  key={member}
+                  label={
+                    (
+                      users.find(
+                        (user: UsersResponse) => user.id === member
+                      ) || {
+                        name: "Unbekannt",
+                      }
+                    ).name
+                  }
+                  withArrow
+                >
+                  <Avatar radius="xl" />
+                </Tooltip>
+              ))}
+            </Avatar.Group>
+          </Tooltip.Group>
+        )}
 
-      {card.priority && (
-        <Group>
-          <IconTriangle color="gray" size={"1em"} />
-          <Text c="dimmed" size="sm">
-            {card.priority}
-          </Text>
-        </Group>
-      )}
-    </MantineCard>
+        {card.date && (
+          <Group>
+            <IconCalendar color="gray" size={"1em"} />
+            <Text c="dimmed" size="sm">
+              {new Date(card.date).toLocaleDateString("DE-de")}
+            </Text>
+          </Group>
+        )}
+
+        {card.priority && (
+          <Group>
+            <IconTriangle color="gray" size={"1em"} />
+            <Text c="dimmed" size="sm">
+              {card.priority}
+            </Text>
+          </Group>
+        )}
+      </MantineCard>
+    </div>
   );
 }

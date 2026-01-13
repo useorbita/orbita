@@ -18,7 +18,7 @@ export function App() {
         <Header />
       </AppShell.Header>
 
-      <AppShell.Main>
+      <AppShell.Main h="100vh">
         <LoadingOverlay visible={boards.isLoading} />
         <Routes>
           <Route path="/" element={<Home />} />
