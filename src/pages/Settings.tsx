@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Center,
   Container,
@@ -13,6 +12,7 @@ import {
   Title,
   useMantineColorScheme,
 } from "@mantine/core";
+import { UserAvatar } from "../components/UI/UserAvatar";
 import {
   IconBrush,
   IconMoon,
@@ -109,9 +109,7 @@ export function Settings() {
 
         <Tabs.Panel value="me">
           <Group>
-            <Avatar radius="xl">
-              {pb.authStore.record?.name.substring(0, 2)}
-            </Avatar>
+            <UserAvatar name={pb.authStore.record?.name} radius="xl" />
             <div>
               <Text size="sm">{pb.authStore.record?.name}</Text>
               <Text size="xs" c="dimmed">

@@ -1,4 +1,4 @@
-import { Avatar, Button, Group, Menu, Space, Text, Title } from "@mantine/core";
+import { Button, Group, Menu, Space, Text, Title } from "@mantine/core";
 import {
   IconCircle,
   IconLoader,
@@ -12,6 +12,7 @@ import { useMatch, useNavigate } from "react-router-dom";
 import { pb, useBoard } from "../../api/pocketbase";
 import { useLogout } from "../../api/auth";
 
+import { UserAvatar } from "../UI/UserAvatar";
 import { FilterMenu } from "../UI/FilterMenu";
 import { Search } from "../UI/Search";
 import { ViewSwitch } from "../UI/ViewSwitch";
@@ -72,9 +73,12 @@ export function Header() {
         <Menu shadow="md" width={230} withArrow>
           <Menu.Target>
             <Group>
-              <Avatar radius="xl" mr="xs" style={{ cursor: "pointer" }}>
-                {pb.authStore.record?.name.substring(0, 2)}
-              </Avatar>
+              <UserAvatar
+                  name={pb.authStore.record?.name}
+                  radius="xl"
+                  mr="xs"
+                  style={{ cursor: "pointer" }}
+                />
             </Group>
           </Menu.Target>
 
@@ -83,9 +87,7 @@ export function Header() {
 
             <Menu.Item onClick={() => navigate("/settings/me")}>
               <Group>
-                <Avatar radius="xl">
-                  {pb.authStore.record?.name.substring(0, 2)}
-                </Avatar>
+                <UserAvatar name={pb.authStore.record?.name} radius="xl" />
                 <div>
                   <Text size="sm">{pb.authStore.record?.name}</Text>
                   <Text size="xs" c="dimmed">
