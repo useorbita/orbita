@@ -1,4 +1,4 @@
-import { Container, Loader, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Container, Loader, Stack, Text, Title } from "@mantine/core";
 import { useMemo } from "react";
 import { useBoards } from "../api/boards";
 import { useDocs } from "../api/docs";
@@ -64,9 +64,9 @@ export function Home() {
                             Boards:
                           </Text>
                           {project.boards.map((board) => (
-                            <Text key={board.id} size="sm" pl="md">
+                            <Anchor key={board.id} size="sm" pl="md" href={`/${board.id}`}>
                               {board.title}
-                            </Text>
+                            </Anchor>
                           ))}
                         </Stack>
                       )}

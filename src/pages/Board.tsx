@@ -1,7 +1,12 @@
 import { Box, Loader } from "@mantine/core";
-
+import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useBoard } from "../api/pocketbase";
+
+import { useCardsByBoard } from "../api/cards";
+import { useListsByBoard } from "../api/lists";
+import { useUsers } from "../api/users";
+import { useLabels } from "../api/labels";
+import { CardsResponse } from "../api/types";
 
 import { CodeView } from "../components/Board/CodeView";
 import { ListView } from "../components/Board/ListView";
@@ -13,15 +18,45 @@ import { useActiveBoardStore } from "../stores/activeBoardStore";
 export function Board() {
   const { boardId, cardId } = useParams();
 
-  const board = useBoard(boardId);
-  const view = useActiveBoardStore((state) => state.view);
+  const cards = useCardsByBoard(boardId);
+  const lists = useListsByBoard(boardId);
+  const users = useUsers();
+  const labels = useLabels();
 
+  const view = useActiveBoardStore((state) => state.view);
   const navigate = useNavigate();
 
-  if (board.isLoading) return <Loader color="gray" size="sm" />;
+  // Group cards by list
+  const allData = useMemo(() => {
+    if (!cards.data || !lists.data) return {};
+
+    const data: Record<string, CardsResponse[]> = {};
+
+    // Initialize an empty array for each list id
+    lists.data.forEach((list) => {
+      data[list.id] = [];
+    });
+
+    // Assign each card to its list bucket
+    cards.data.forEach((card) => {
+      const listId = (card as any).list;
+      if (listId && data[listId]) {
+        data[listId].push(card);
+      }
+    });
+
+    return data;
+  }, [cards.data, lists.data]);
+
+  const isLoading =
+    cards.isLoading || lists.isLoading || users.isLoading || labels.isLoading;
+
+  if (isLoading) return <Loader color="gray" size="sm" />;
 
   return (
     <Box h="100%">
+      <pre>{JSON.stringify([cards, lists, users, labels], null, 2)}</pre>
+      {/* 
       {cardId && (
         <CardModal
           open={!!cardId}
@@ -30,30 +65,30 @@ export function Board() {
         />
       )}
 
-      {view === "code" && board.data && (
-        <CodeView
-          allData={board.data.allData}
-          lists={board.data.lists}
-          cards={board.data.cards}
-          users={board.data.users}
-          labels={board.data.labels}
-        />
-      )}
+      {view === "code" &&
+        lists.data &&
+        cards.data &&
+        users.data &&
+        labels.data && (
+          <CodeView
+            allData={allData}
+            lists={lists.data}
+            cards={cards.data}
+            users={users.data}
+            labels={labels.data}
+          />
+        )}
 
-      {view === "list" && board.data && (
-        <ListView
-          allData={board.data.allData}
-          users={board.data.users}
-          labels={board.data.labels}
-        />
-      )}
+      {view === "list" && users.data && labels.data && (
+        <ListView allData={allData} users={users.data} labels={labels.data} />
+      )} */}
 
-      {/* {view === "table" && board.data && (
+      {/* {view === "table" && lists.data && cards.data && users.data && labels.data && (
         <TableView
-          lists={board.data.lists}
-          cards={board.data.cards}
-          users={board.data.users}
-          labels={board.data.labels}
+          lists={lists.data}
+          cards={cards.data}
+          users={users.data}
+          labels={labels.data}
         />
       )} */}
     </Box>

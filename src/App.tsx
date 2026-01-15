@@ -7,10 +7,10 @@ import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
 
 import { Route, Routes } from "react-router-dom";
-import { useBoards } from "./api/pocketbase";
+import { useIsFetching } from "@tanstack/react-query";
 
 export function App() {
-  const boards = useBoards();
+  const isFetching = useIsFetching();
 
   return (
     <AppShell padding={"md"} header={{ height: 40 }}>
@@ -19,7 +19,7 @@ export function App() {
       </AppShell.Header>
 
       <AppShell.Main h="100vh">
-        <LoadingOverlay visible={boards.isLoading} />
+        <LoadingOverlay visible={isFetching > 0} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:boardId" element={<Board />} />

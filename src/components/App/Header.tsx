@@ -9,12 +9,12 @@ import {
 import { useIsFetching } from "@tanstack/react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 
-import { pb, useBoard } from "../../api/pocketbase";
+import { pb } from "../../api/pocketbase";
 import { useLogout } from "../../api/auth";
+import { useBoard } from "../../api/boards";
 
 import { UserAvatar } from "../UI/UserAvatar";
 import { FilterMenu } from "../UI/FilterMenu";
-import { Search } from "../UI/Search";
 import { ViewSwitch } from "../UI/ViewSwitch";
 
 export function Header() {
@@ -45,7 +45,7 @@ export function Header() {
           />
         )}
 
-        <Title order={4}>{board?.data?.board.title}</Title>
+        <Title order={4}>{board?.data?.title}</Title>
       </Group>
 
       <Group gap={"xs"}>
