@@ -68,7 +68,7 @@ export function Header() {
           </>
         )}
 
-        <Search />
+        {/* <Search /> */}
 
         <Menu shadow="md" width={230} withArrow>
           <Menu.Target>

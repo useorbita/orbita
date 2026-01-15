@@ -1,138 +1,99 @@
-import {
-  ActionIcon,
-  Avatar,
-  Card,
-  Container,
-  FocusTrap,
-  Group,
-  Loader,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
-import { IconCheck, IconPlus, IconSettings, IconX } from "@tabler/icons-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { pb, useBoards, useCreateBoard } from "../api/pocketbase";
+import { Container, Loader, Stack, Text, Title } from "@mantine/core";
+import { useMemo } from "react";
+import { useBoards } from "../api/boards";
+import { useDocs } from "../api/docs";
+import { useOrganizations } from "../api/organizations";
+import { useProjects } from "../api/projects";
 
 export function Home() {
-  const navigate = useNavigate();
-
+  const organizations = useOrganizations();
+  const projects = useProjects();
   const boards = useBoards();
-  const createBoard = useCreateBoard();
+  const docs = useDocs();
 
-  const [addBoardMode, setAddBoardMode] = useState(false);
-  const [newBoardName, setNewBoardName] = useState("");
+  // Combine organizations with their projects, boards, and docs
+  const organizationsWithProjects = useMemo(() => {
+    if (!organizations.data || !projects.data || !boards.data || !docs.data)
+      return [];
+
+    return organizations.data
+      .map((org) => ({
+        ...org,
+        projects: projects.data
+          .filter((project) => project.organization === org.id)
+          .map((project) => ({
+            ...project,
+            boards: boards.data.filter((board) => board.project === project.id),
+            docs: docs.data.filter((doc) => doc.project === project.id),
+          })),
+      }))
+      .sort((a, b) => {
+        // Personal organizations first
+        if (a.is_personal && !b.is_personal) return -1;
+        if (!a.is_personal && b.is_personal) return 1;
+        return 0;
+      });
+  }, [organizations.data, projects.data, boards.data, docs.data]);
 
   return (
     <Container>
-      <Stack>
-        <Title order={4}>Deine Boards</Title>
+      <Stack gap="xl">
+        <Stack gap="md">
+          {organizations.isLoading ||
+          projects.isLoading ||
+          boards.isLoading ||
+          docs.isLoading ? (
+            <Loader size="sm" />
+          ) : organizationsWithProjects.length === 0 ? (
+            <Text c="dimmed">Keine Organisationen vorhanden</Text>
+          ) : (
+            organizationsWithProjects.map((org) => (
+              <Stack key={org.id} gap="xs">
+                <Title order={5}>
+                  {org.is_personal ? "Deine Projekte" : org.name}
+                </Title>
 
-        <Group>
-          {!boards.isLoading &&
-            boards.data?.map((board) => (
-              <Card
-                key={board.id}
-                shadow="sm"
-                padding="lg"
-                radius="md"
-                withBorder
-                w={300}
-                onClick={() => navigate("/" + board.id)}
-                style={{ cursor: "pointer" }}
-              >
-                <Group justify="space-between" mb="xs">
-                  <Text fw={500}>{board.title}</Text>
-                  <ActionIcon
-                    variant="subtle"
-                    color="gray"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(board.id + "/settings/");
-                    }}
-                  >
-                    <IconSettings size="1em" />
-                  </ActionIcon>
-                </Group>
+                {org.projects.length > 0 ? (
+                  org.projects.map((project) => (
+                    <Stack key={project.id} gap="xs" pl="md">
+                      <Text fw={500}>{project.name}</Text>
 
-                <Text size="sm" c="dimmed">
-                  {board.description}
-                </Text>
+                      {project.boards.length > 0 && (
+                        <Stack gap="xs" pl="md">
+                          <Text size="sm" c="dimmed">
+                            Boards:
+                          </Text>
+                          {project.boards.map((board) => (
+                            <Text key={board.id} size="sm" pl="md">
+                              {board.title}
+                            </Text>
+                          ))}
+                        </Stack>
+                      )}
 
-                <Avatar.Group mt="xs">
-                  {board.members.map((member) => (
-                    <Avatar key={member}>{member.substring(0, 2)}</Avatar>
-                  ))}
-                </Avatar.Group>
-              </Card>
-            ))}
-
-          <Card
-            shadow="sm"
-            padding="lg"
-            radius="md"
-            withBorder
-            w={300}
-            style={{ cursor: "pointer" }}
-          >
-            {addBoardMode
-              ? (
-                createBoard.isPending
-                  ? <Loader size="1em" />
-                  : (
-                    <FocusTrap active={addBoardMode}>
-                      <TextInput
-                        variant="unstyled"
-                        onChange={(event) =>
-                          setNewBoardName(event.currentTarget.value)}
-                        rightSection={
-                          <>
-                            <ActionIcon
-                              variant="subtle"
-                              color="gray"
-                              onClick={() => {
-                                createBoard.mutate({
-                                  title: newBoardName,
-                                  member: pb.authStore.record?.id ?? "",
-                                }, {
-                                  onSuccess: () => {
-                                    setNewBoardName("");
-                                    setAddBoardMode(false);
-                                  },
-                                });
-                              }}
-                            >
-                              <IconCheck size="1em" />
-                            </ActionIcon>
-                            <ActionIcon
-                              variant="subtle"
-                              color="gray"
-                              onClick={() => {
-                                setAddBoardMode(false);
-                              }}
-                            >
-                              <IconX size="1em" />
-                            </ActionIcon>
-                          </>
-                        }
-                        rightSectionWidth={66}
-                      />
-                    </FocusTrap>
-                  )
-              )
-              : (
-                <Text
-                  fw={500}
-                  c={"dimmed"}
-                  onClick={() => setAddBoardMode(true)}
-                >
-                  <IconPlus size={"1em"} /> Neues Board anlegen
-                </Text>
-              )}
-          </Card>
-        </Group>
+                      {project.docs.length > 0 && (
+                        <Stack gap="xs" pl="md">
+                          <Text size="sm" c="dimmed">
+                            Docs:
+                          </Text>
+                          {project.docs.map((doc) => (
+                            <Text key={doc.id} size="sm" pl="md">
+                              {doc.title || "Untitled"}
+                            </Text>
+                          ))}
+                        </Stack>
+                      )}
+                    </Stack>
+                  ))
+                ) : (
+                  <Text c="dimmed" pl="md" size="sm">
+                    Keine Projekte
+                  </Text>
+                )}
+              </Stack>
+            ))
+          )}
+        </Stack>
       </Stack>
     </Container>
   );
