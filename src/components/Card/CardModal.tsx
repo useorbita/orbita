@@ -14,10 +14,11 @@ import { DatePickerInput } from "@mantine/dates";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
-import { useEffect } from "react";
 import { CardsPriorityOptions } from "../../api/types";
-import { useActiveBoardStore } from "../../stores/activeBoardStore";
-import { useActiveCardStore } from "../../stores/activeCardStore";
+import { useCard, useUpdateCard } from "../../api/cards";
+import { useCommentsByCard } from "../../api/comments";
+import { useLabels } from "../../api/labels";
+import { useUsers } from "../../api/users";
 import { TextEditor } from "../App/TextEditor";
 
 export function CardModal({
@@ -29,19 +30,14 @@ export function CardModal({
   close: () => void;
   cardId: string;
 }) {
-  const isLoading = useActiveCardStore((state) => state.isLoading);
-  const getActiveCard = useActiveCardStore((state) => state.getActiveCard);
-  const activeCard = useActiveCardStore((state) => state.activeCard);
-  const comments = useActiveCardStore((state) => state.comments);
+  const card = useCard(cardId);
+  const comments = useCommentsByCard(cardId);
+  const updateCardMutation = useUpdateCard();
+  const labels = useLabels();
+  const users = useUsers();
 
-  const updateCard = useActiveCardStore((state) => state.updateCard);
-
-  const labels = useActiveBoardStore((state) => state.labels);
-  const users = useActiveBoardStore((state) => state.users);
-
-  useEffect(() => {
-    getActiveCard({ cardId });
-  }, [cardId]);
+  const activeCard = card.data;
+  const isLoading = card.isLoading || comments.isLoading;
 
   const confirmDelete = () =>
     modals.openConfirmModal({
@@ -112,8 +108,8 @@ export function CardModal({
                   <TextEditor
                     content={activeCard.description}
                     onSave={(content) => {
-                      updateCard({
-                        cardId: activeCard.id,
+                      updateCardMutation.mutate({
+                        id: activeCard.id,
                         data: {
                           description: content,
                         },
@@ -123,7 +119,7 @@ export function CardModal({
                   <Space h={"xl"} />
                   <Text>Aktivität:</Text>
                   <ul>
-                    {comments.map((comment) => (
+                    {comments.data?.map((comment) => (
                       <li key={comment.id}>
                         {comment.author}, {comment.created},
                         <Text
@@ -147,14 +143,14 @@ export function CardModal({
                     <MultiSelect
                       label="Label"
                       placeholder="Label Auswählen"
-                      data={labels.map((label) => ({
+                      data={labels.data?.map((label) => ({
                         value: label.id,
-                        label: label.title,
-                      }))}
+                        label: label.name,
+                      })) || []}
                       value={activeCard.labels}
                       onChange={(value) =>
-                        updateCard({
-                          cardId: activeCard.id,
+                        updateCardMutation.mutate({
+                          id: activeCard.id,
                           data: { labels: value },
                         })}
                       searchable
@@ -163,14 +159,14 @@ export function CardModal({
                     <MultiSelect
                       label="Mitglieder"
                       placeholder="Personen Auswählen"
-                      data={users.map((user) => ({
+                      data={users.data?.map((user) => ({
                         value: user.id,
-                        label: user.id,
-                      }))}
+                        label: user.name || user.username,
+                      })) || []}
                       value={activeCard.members}
                       onChange={(value) =>
-                        updateCard({
-                          cardId: activeCard.id,
+                        updateCardMutation.mutate({
+                          id: activeCard.id,
                           data: { members: value },
                         })}
                       searchable
@@ -194,9 +190,9 @@ export function CardModal({
                       ]}
                       value={activeCard.priority}
                       onChange={(value) => {
-                        updateCard({
-                          cardId: activeCard.id,
-                          data: { priority: value },
+                        updateCardMutation.mutate({
+                          id: activeCard.id,
+                          data: { priority: value as CardsPriorityOptions },
                         });
                       }}
                       clearable
@@ -207,11 +203,11 @@ export function CardModal({
                       placeholder="Datum auswählen"
                       value={activeCard.date ? new Date(activeCard.date) : null}
                       onChange={(value) => {
-                        updateCard({
-                          cardId: activeCard.id,
+                        updateCardMutation.mutate({
+                          id: activeCard.id,
                           data: value
-                            ? { date: value.toUTCString() }
-                            : { date: null },
+                            ? { date: value.toISOString() }
+                            : { date: undefined },
                         });
                       }}
                       clearable

@@ -13,8 +13,6 @@ import { ListView } from "../components/Board/ListView";
 import { TableView } from "../components/Board/TableView";
 import { CardModal } from "../components/Card/CardModal";
 
-import { useActiveBoardStore } from "../stores/activeBoardStore";
-
 export function Board() {
   const { boardId, cardId } = useParams();
 
@@ -23,7 +21,7 @@ export function Board() {
   const users = useUsers();
   const labels = useLabels();
 
-  const view = useActiveBoardStore((state) => state.view);
+  const view = "table"; // Default view
   const navigate = useNavigate();
 
   // Group cards by list
@@ -55,8 +53,6 @@ export function Board() {
 
   return (
     <Box h="100%">
-      <pre>{JSON.stringify([cards, lists, users, labels], null, 2)}</pre>
-      {/* 
       {cardId && (
         <CardModal
           open={!!cardId}
@@ -64,7 +60,7 @@ export function Board() {
           cardId={cardId}
         />
       )}
-
+      {/*
       {view === "code" &&
         lists.data &&
         cards.data &&
@@ -83,14 +79,18 @@ export function Board() {
         <ListView allData={allData} users={users.data} labels={labels.data} />
       )} */}
 
-      {/* {view === "table" && lists.data && cards.data && users.data && labels.data && (
-        <TableView
-          lists={lists.data}
-          cards={cards.data}
-          users={users.data}
-          labels={labels.data}
-        />
-      )} */}
+      {view === "table" &&
+        lists.data &&
+        cards.data &&
+        users.data &&
+        labels.data && (
+          <TableView
+            lists={lists.data}
+            cards={cards.data}
+            users={users.data}
+            labels={labels.data}
+          />
+        )}
     </Box>
   );
 }

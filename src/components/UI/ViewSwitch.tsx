@@ -1,10 +1,8 @@
 import { Center, SegmentedControl } from "@mantine/core";
 import { IconCode, IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
-import { useActiveBoardStore } from "../../stores/activeBoardStore";
 
 export function ViewSwitch() {
-  const view = useActiveBoardStore((state) => state.view);
-  const setView = useActiveBoardStore((state) => state.setView);
+  const view = "table"; // Default view - TODO: implement view switching
 
   return (
     <SegmentedControl
@@ -35,7 +33,7 @@ export function ViewSwitch() {
         },
       ]}
       value={view}
-      onChange={setView}
+      onChange={() => {}} // Disabled for now
     />
   );
 }
