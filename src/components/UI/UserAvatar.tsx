@@ -1,4 +1,6 @@
-import { Avatar as MantineAvatar, AvatarProps } from "@mantine/core";
+import { Group, Avatar as MantineAvatar, Text } from "@mantine/core";
+import { IconChevronRight } from "@tabler/icons-react";
+import { pb } from "../../api/pocketbase";
 
 function getInitials(name: string | undefined): string {
   if (!name) return "";
@@ -9,10 +11,22 @@ function getInitials(name: string | undefined): string {
   return name.substring(0, 2).toUpperCase();
 }
 
-interface UserAvatarProps extends AvatarProps {
-  name: string | undefined;
-}
+export function UserAvatar() {
+  const name = pb.authStore.record?.name;
+  const email = pb.authStore.record?.email;
 
-export function UserAvatar({ name, ...props }: UserAvatarProps) {
-  return <MantineAvatar {...props}>{getInitials(name)}</MantineAvatar>;
+  return (
+    <Group>
+      <MantineAvatar radius="xl">{getInitials(name)}</MantineAvatar>
+      <div style={{ flex: 1 }}>
+        <Text size="sm" fw={500}>
+          {name}
+        </Text>
+        <Text c="dimmed" size="xs">
+          {email}
+        </Text>
+      </div>
+      <IconChevronRight size={14} stroke={1.5} />
+    </Group>
+  );
 }
