@@ -1,131 +1,128 @@
 import {
   Box,
+  Button,
   Center,
   Container,
   Group,
+  ScrollArea,
   SegmentedControl,
   Select,
   Space,
   Stack,
-  Tabs,
   Text,
+  TextInput,
   Title,
   useMantineColorScheme,
 } from "@mantine/core";
-import { UserAvatar } from "../components/UI/UserAvatar";
-import {
-  IconBrush,
-  IconMoon,
-  IconSettings,
-  IconSun,
-  IconUser,
-} from "@tabler/icons-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { IconBrush, IconLogout, IconMoon, IconSun } from "@tabler/icons-react";
+import { useLogout } from "../api/auth";
 import { pb } from "../api/pocketbase";
+import { UserAvatar } from "../components/UI/UserAvatar";
 
 export function Settings() {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
-
-  const navigate = useNavigate();
-  const location = useLocation();
+  const logout = useLogout();
 
   return (
-    <Container>
+    <ScrollArea>
+
+      <Stack w="600">
+
+      <Title order={4}>Einstellungen</Title>
+
+      <Group>
+        <UserAvatar name={pb.authStore.record?.name} radius="xl" />
+        <div>
+          <Text size="sm">{pb.authStore.record?.name}</Text>
+          <Text size="xs" c="dimmed">
+            {pb.authStore.record?.email}
+          </Text>
+        </div>
+      </Group>
+
+      <Button
+        leftSection={<IconLogout size={"1em"} />}
+        color="red"
+        onClick={() => logout.mutate()}
+      >
+        Abmelden
+      </Button>
+
+      <Stack w={"20em"} mt="md">
+        <TextInput
+          label="Name"
+          description="Dein Anzeigename"
+          value={pb.authStore.record?.name ?? ""}
+          readOnly
+        />
+        <TextInput
+          label="E-Mail"
+          description="Deine E-Mail-Adresse"
+          value={pb.authStore.record?.email ?? ""}
+          readOnly
+        />
+      </Stack>
+
+      <ul>
+        <li>Name</li>
+        <li>Avatar</li>
+        <li>Passwort ändern</li>
+        <li>Konto löschen</li>
+      </ul>
+
       <Title order={4}>Einstellungen</Title>
 
       <Space h="xl" />
 
-      <Tabs
-        variant="outline"
-        value={location.pathname === "/settings" ? "app" : "me"}
-      >
-        <Tabs.List mb={"xl"}>
-          <Tabs.Tab
-            value="app"
-            leftSection={<IconSettings size={"1em"} />}
-            onClick={() => navigate("/settings")}
-          >
-            Anwendung
-          </Tabs.Tab>
-          <Tabs.Tab
-            value="me"
-            leftSection={<IconUser size={"1em"} />}
-            onClick={() => navigate("/settings/me")}
-          >
-            Dein Profil
-          </Tabs.Tab>
-        </Tabs.List>
+      <Stack w={"20em"}>
+        <Text size="sm">Farbschema</Text>
+        <SegmentedControl
+          data={[
+            {
+              value: "light",
+              label: (
+                <Center>
+                  <IconSun size="1em" />
+                  <Box ml={10}>Hell</Box>
+                </Center>
+              ),
+            },
+            {
+              value: "dark",
+              label: (
+                <Center>
+                  <IconMoon size="1em" />
+                  <Box ml={10}>Dunkel</Box>
+                </Center>
+              ),
+            },
+            {
+              value: "auto",
+              label: (
+                <Center>
+                  <IconBrush size="1em" />
+                  <Box ml={10}>System</Box>
+                </Center>
+              ),
+            },
+            ]}
+          //@ts-ignore somehow it is not possible to type the values of the SegmentedControl
+          onChange={setColorScheme}
+          value={colorScheme}
+        />
 
-        <Tabs.Panel value="app">
-          <Stack w={"20em"}>
-            <Text size="sm">Farbschema</Text>
-            <SegmentedControl
-              data={[
-                {
-                  value: "light",
-                  label: (
-                    <Center>
-                      <IconSun size="1em" />
-                      <Box ml={10}>Hell</Box>
-                    </Center>
-                  ),
-                },
-                {
-                  value: "dark",
-                  label: (
-                    <Center>
-                      <IconMoon size="1em" />
-                      <Box ml={10}>Dunkel</Box>
-                    </Center>
-                  ),
-                },
-                {
-                  value: "auto",
-                  label: (
-                    <Center>
-                      <IconBrush size="1em" />
-                      <Box ml={10}>System</Box>
-                    </Center>
-                  ),
-                },
-              ]}
-              //@ts-ignore somehow it is not possible to type the values of the SegmentedControl
-              onChange={setColorScheme}
-              value={colorScheme}
-            />
-
-            <Select
-              label="Sprache"
-              value={"de"}
-              placeholder="Sprache auswählen"
-              data={[
-                { value: "de", label: "Deutsch" },
-                { value: "en", label: "English" },
-                { value: "fr", label: "Francais" },
-              ]}
-            />
+        <Select
+          label="Sprache"
+          value={"de"}
+          placeholder="Sprache auswählen"
+          data={[
+            { value: "de", label: "Deutsch" },
+            { value: "en", label: "English" },
+            { value: "fr", label: "Francais" },
+          ]}
+        />
+      </Stack>
           </Stack>
-        </Tabs.Panel>
-
-        <Tabs.Panel value="me">
-          <Group>
-            <UserAvatar name={pb.authStore.record?.name} radius="xl" />
-            <div>
-              <Text size="sm">{pb.authStore.record?.name}</Text>
-              <Text size="xs" c="dimmed">
-                {pb.authStore.record?.email}
-              </Text>
-            </div>
-          </Group>
-
-          <ul>
-            <li>Name</li>
-            <li>Avatar</li>
-            <li>Passwort ändern</li>
-            <li>Konto löschen</li>
-          </ul>
-        </Tabs.Panel>
-      </Tabs>
-    </Container>
+    </ScrollArea>
   );
 }

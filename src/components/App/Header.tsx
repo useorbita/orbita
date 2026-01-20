@@ -1,34 +1,24 @@
-import { Button, Group, Menu, Space, Text, Title } from "@mantine/core";
-import {
-  IconCircle,
-  IconLoader,
-  IconLogout,
-  IconSettings,
-} from "@tabler/icons-react";
+import { Button, Group, Title } from "@mantine/core";
+import { IconCircle, IconLoader, IconSettings } from "@tabler/icons-react";
 
 import { useIsFetching } from "@tanstack/react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 
-import { pb } from "../../api/pocketbase";
-import { useLogout } from "../../api/auth";
 import { useBoard } from "../../api/boards";
 
-import { UserAvatar } from "../UI/UserAvatar";
 import { FilterMenu } from "../UI/FilterMenu";
 import { ViewSwitch } from "../UI/ViewSwitch";
 
 export function Header() {
-  const logout = useLogout();
-  const navigate = useNavigate();
-
   const isFetching = useIsFetching();
+  const navigate = useNavigate();
 
   // This is a workaround to get the boardId from the URL
   // because useParams is not working in the header
-  // TODO: find a better solution, maybe with zustand
   const match = useMatch("/:boardId/*");
   const boardId = match?.params.boardId;
-  const board = useBoard(boardId);
+  const isActualBoard = boardId && boardId !== "settings";
+  const board = useBoard(isActualBoard ? boardId : undefined);
 
   return (
     <Group justify="space-between">
@@ -45,11 +35,13 @@ export function Header() {
           />
         )}
 
-        <Title order={4}>{board?.data?.title}</Title>
+        <Title order={4}>
+          {isActualBoard ? board?.data?.title : "Einstellungen"}
+        </Title>
       </Group>
 
       <Group gap={"xs"}>
-        {boardId && boardId !== "settings" && (
+        {isActualBoard && (
           <>
             <Button
               variant="subtle"
@@ -69,54 +61,6 @@ export function Header() {
         )}
 
         {/* <Search /> */}
-
-        <Menu shadow="md" width={230} withArrow>
-          <Menu.Target>
-            <Group>
-              <UserAvatar
-                  name={pb.authStore.record?.name}
-                  radius="xl"
-                  mr="xs"
-                  style={{ cursor: "pointer" }}
-                />
-            </Group>
-          </Menu.Target>
-
-          <Menu.Dropdown>
-            <Space h={"xs"} />
-
-            <Menu.Item onClick={() => navigate("/settings/me")}>
-              <Group>
-                <UserAvatar name={pb.authStore.record?.name} radius="xl" />
-                <div>
-                  <Text size="sm">{pb.authStore.record?.name}</Text>
-                  <Text size="xs" c="dimmed">
-                    {pb.authStore.record?.email}
-                  </Text>
-                </div>
-              </Group>
-            </Menu.Item>
-
-            <Space h={"xs"} />
-            <Menu.Divider />
-            <Space h={"xs"} />
-
-            <Menu.Item
-              leftSection={<IconSettings size={"1em"} />}
-              onClick={() => navigate("/settings")}
-            >
-              Einstellungen
-            </Menu.Item>
-
-            <Menu.Item
-              leftSection={<IconLogout size={"1em"} />}
-              color="red"
-              onClick={() => logout.mutate()}
-            >
-              Abmelden
-            </Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
       </Group>
     </Group>
   );
