@@ -49,7 +49,7 @@ export function Board() {
   const isLoading =
     cards.isLoading || lists.isLoading || users.isLoading || labels.isLoading;
 
-  if (isLoading) return <Loader color="gray" size="sm" />;
+  if (isLoading) return <Loader color="gray" />;
 
   return (
     <Box h="100%">

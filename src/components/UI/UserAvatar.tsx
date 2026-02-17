@@ -26,7 +26,7 @@ export function UserAvatar() {
           {email}
         </Text>
       </div>
-      <IconChevronRight size={14} stroke={1.5} />
+      {/* <IconChevronRight size={14} stroke={1.5} /> */}
     </Group>
   );
 }

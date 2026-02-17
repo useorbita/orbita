@@ -1,18 +1,12 @@
-import { Button, Group, Title } from "@mantine/core";
-import { IconCircle, IconLoader, IconSettings } from "@tabler/icons-react";
+import { Group, Title } from "@mantine/core";
 
-import { useIsFetching } from "@tanstack/react-query";
-import { useMatch, useNavigate } from "react-router-dom";
-
+import { useMatch } from "react-router-dom";
 import { useBoard } from "../../api/boards";
 
 import { FilterMenu } from "../UI/FilterMenu";
 import { ViewSwitch } from "../UI/ViewSwitch";
 
 export function Header() {
-  const isFetching = useIsFetching();
-  const navigate = useNavigate();
-
   // This is a workaround to get the boardId from the URL
   // because useParams is not working in the header
   const match = useMatch("/:boardId/*");
@@ -22,39 +16,11 @@ export function Header() {
 
   return (
     <Group justify="space-between">
-      <Group>
-        {isFetching ? (
-          <IconLoader
-            onClick={() => navigate("/")}
-            style={{ cursor: "pointer" }}
-          />
-        ) : (
-          <IconCircle
-            onClick={() => navigate("/")}
-            style={{ cursor: "pointer" }}
-          />
-        )}
-
-        <Title order={4}>
-          {isActualBoard ? board?.data?.title : "Einstellungen"}
-        </Title>
-      </Group>
+      <Title order={4}>{isActualBoard && board?.data?.title}</Title>
 
       <Group gap={"xs"}>
         {isActualBoard && (
           <>
-            <Button
-              variant="subtle"
-              color="gray"
-              size="xs"
-              leftSection={<IconSettings size="1.2em" />}
-              onClick={() => {
-                navigate(`${boardId}/settings/`);
-              }}
-            >
-              Einstellungen
-            </Button>
-
             <FilterMenu />
             <ViewSwitch />
           </>

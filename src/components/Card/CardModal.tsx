@@ -19,7 +19,7 @@ import { useCard, useUpdateCard } from "../../api/cards";
 import { useCommentsByCard } from "../../api/comments";
 import { useLabels } from "../../api/labels";
 import { useUsers } from "../../api/users";
-import { TextEditor } from "../App/TextEditor";
+import { TextEditor } from "../UI/TextEditor";
 
 export function CardModal({
   open,
@@ -206,7 +206,7 @@ export function CardModal({
                         updateCardMutation.mutate({
                           id: activeCard.id,
                           data: value
-                            ? { date: value.toISOString() }
+                            ? { date: value.toString() }
                             : { date: undefined },
                         });
                       }}

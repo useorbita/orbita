@@ -2,3 +2,88 @@
     font-family: "Outfit";
     src: url('./Outfit/Outfit_variable.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-weight: 100;
+  src: local("IBM Plex Serif Thin"), local("IBMPlexSerif-Thin"), url("./IBMPlexSerif/IBMPlexSerif-Thin.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: italic;
+  font-weight: 100;
+  src: local("IBM Plex Serif Thin Italic"), local("IBMPlexSerif-ThinItalic"), url("./IBMPlexSerif/IBMPlexSerif-ThinItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-weight: 200;
+  src: local("IBM Plex Serif ExtraLight"), local("IBMPlexSerif-ExtraLight"), url("./IBMPlexSerif/IBMPlexSerif-ExtraLight.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: italic;
+  font-weight: 200;
+  src: local("IBM Plex Serif ExtraLight Italic"), local("IBMPlexSerif-ExtraLightItalic"), url("./IBMPlexSerif/IBMPlexSerif-ExtraLightItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-weight: 300;
+  src: local("IBM Plex Serif Light"), local("IBMPlexSerif-Light"), url("./IBMPlexSerif/IBMPlexSerif-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: italic;
+  font-weight: 300;
+  src: local("IBM Plex Serif Light Italic"), local("IBMPlexSerif-LightItalic"), url("./IBMPlexSerif/IBMPlexSerif-LightItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-weight: 400;
+  src: local("IBM Plex Serif"), local("IBMPlexSerif"), url("./IBMPlexSerif/IBMPlexSerif-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: italic;
+  font-weight: 400;
+  src: local("IBM Plex Serif Italic"), local("IBMPlexSerif-Italic"), url("./IBMPlexSerif/IBMPlexSerif-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-weight: 500;
+  src: local("IBM Plex Serif Medium"), local("IBMPlexSerif-Medium"), url("./IBMPlexSerif/IBMPlexSerif-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: italic;
+  font-weight: 500;
+  src: local("IBM Plex Serif Medium Italic"), local("IBMPlexSerif-MediumItalic"), url("./IBMPlexSerif/IBMPlexSerif-MediumItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-weight: 600;
+  src: local("IBM Plex Serif SemiBold"), local("IBMPlexSerif-SemiBold"), url("./IBMPlexSerif/IBMPlexSerif-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: italic;
+  font-weight: 600;
+  src: local("IBM Plex Serif SemiBold Italic"), local("IBMPlexSerif-SemiBoldItalic"), url("./IBMPlexSerif/IBMPlexSerif-SemiBoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-weight: 700;
+  src: local("IBM Plex Serif Bold"), local("IBMPlexSerif-Bold"), url("./IBMPlexSerif/IBMPlexSerif-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: italic;
+  font-weight: 700;
+  src: local("IBM Plex Serif Bold Italic"), local("IBMPlexSerif-BoldItalic"), url("./IBMPlexSerif/IBMPlexSerif-BoldItalic.ttf") format("truetype");
+}
