@@ -1,20 +1,23 @@
-import { Box, Loader } from "@mantine/core";
+import { Box, Group, Loader, Title } from "@mantine/core";
 import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useCardsByBoard } from "../api/cards";
-import { useListsByBoard } from "../api/lists";
-import { useUsers } from "../api/users";
 import { useLabels } from "../api/labels";
+import { useListsByBoard } from "../api/lists";
 import { CardsResponse } from "../api/types";
+import { useUsers } from "../api/users";
 
-import { CodeView } from "../components/Board/CodeView";
-import { ListView } from "../components/Board/ListView";
+import { useBoard } from "../api/boards";
 import { TableView } from "../components/Board/TableView";
 import { CardModal } from "../components/Card/CardModal";
+import { FilterMenu } from "../components/UI/FilterMenu";
+import { ViewSwitch } from "../components/UI/ViewSwitch";
 
 export function Board() {
   const { boardId, cardId } = useParams();
+
+  const board = useBoard(boardId);
 
   const cards = useCardsByBoard(boardId);
   const lists = useListsByBoard(boardId);
@@ -53,6 +56,15 @@ export function Board() {
 
   return (
     <Box h="100%">
+      <Group justify="space-between">
+        <Title order={4}>{board?.data?.title}</Title>
+
+        <Group gap={"xs"}>
+          <FilterMenu />
+          <ViewSwitch />
+        </Group>
+      </Group>
+
       {cardId && (
         <CardModal
           open={!!cardId}

@@ -1,7 +1,6 @@
 import { AppShell } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
 
-import { Header } from "./components/App/Header";
 import { Navbar } from "./components/App/Navbar";
 import { Board } from "./pages/Board";
 import { BoardSettings } from "./pages/BoardSettings";
@@ -12,14 +11,9 @@ export function App() {
   return (
     <AppShell
       layout="alt"
-      header={{ height: 60 }}
       navbar={{ width: 250, breakpoint: "sm" }}
       padding="md"
     >
-      <AppShell.Header p="sm" withBorder={false}>
-        <Header />
-      </AppShell.Header>
-
       <AppShell.Navbar withBorder={true}>
         <Navbar />
       </AppShell.Navbar>

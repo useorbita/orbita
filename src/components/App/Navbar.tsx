@@ -1,30 +1,44 @@
 import {
   ActionIcon,
   AppShell,
+  Button,
   Divider,
+  Group,
   Loader,
+  Modal,
   NavLink,
   Select,
   Space,
   Text,
-  UnstyledButton,
+  TextInput,
+  Avatar as MantineAvatar,
 } from "@mantine/core";
 import {
+  IconCalendar,
+  IconCheck,
   IconCircleDotted,
   IconDots,
   IconFile,
   IconHome,
   IconLayout,
+  IconPlus,
   IconSearch,
   IconSettings,
+  IconX,
 } from "@tabler/icons-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBoards } from "../../api/boards";
+import { useCreateBoard } from "../../api/boards";
+import { useCreateDoc } from "../../api/docs";
 import { useDocs } from "../../api/docs";
-import { useOrganizations } from "../../api/organizations";
-import { useProjects } from "../../api/projects";
-import { UserAvatar } from "../UI/UserAvatar";
+import {
+  useCreateOrganization,
+  useOrganizations,
+} from "../../api/organizations";
+import { pb } from "../../api/pocketbase";
+import { useCreateProject, useProjects } from "../../api/projects";
+import { getInitials } from "../../shared/nameUtils";
 
 export function Navbar() {
   const organizations = useOrganizations();
@@ -32,9 +46,33 @@ export function Navbar() {
   const boards = useBoards();
   const docs = useDocs();
 
+  const createOrganization = useCreateOrganization();
+  const createProject = useCreateProject();
+  const createBoard = useCreateBoard();
+  const createDoc = useCreateDoc();
+
   const navigate = useNavigate();
 
   const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
+
+  // Modal state for org/project creation
+  const [orgModalOpen, setOrgModalOpen] = useState(false);
+  const [orgName, setOrgName] = useState("");
+  const [projectModalOpen, setProjectModalOpen] = useState(false);
+  const [projectName, setProjectName] = useState("");
+
+  // Inline creation state for boards/docs
+  const [creatingBoardForProject, setCreatingBoardForProject] = useState<
+    string | null
+  >(null);
+  const [newBoardTitle, setNewBoardTitle] = useState("");
+  const [creatingDocForProject, setCreatingDocForProject] = useState<
+    string | null
+  >(null);
+  const [newDocTitle, setNewDocTitle] = useState("");
+
+  const boardInputRef = useRef<HTMLInputElement>(null);
+  const docInputRef = useRef<HTMLInputElement>(null);
 
   const isLoading =
     organizations.isLoading ||
@@ -45,7 +83,7 @@ export function Navbar() {
   // Build select data for organizations
   const orgSelectData = useMemo(() => {
     if (!organizations.data) return [];
-    return [...organizations.data]
+    const items = [...organizations.data]
       .sort((a, b) => {
         if (a.is_personal && !b.is_personal) return -1;
         if (!a.is_personal && b.is_personal) return 1;
@@ -53,8 +91,10 @@ export function Navbar() {
       })
       .map((org) => ({
         value: org.id,
-        label: org.is_personal ? "Private Projekte" : org.name || org.id,
+        label: org.is_personal ? "Dein Bereich" : org.name || org.id,
       }));
+    items.push({ value: "__create__", label: "+ Neue Organisation" });
+    return items;
   }, [organizations.data]);
 
   // Auto-select the first org when data loads
@@ -63,6 +103,15 @@ export function Navbar() {
       setSelectedOrgId(orgSelectData[0].value);
     }
   }, [selectedOrgId, orgSelectData]);
+
+  // Focus inline inputs when they appear
+  useEffect(() => {
+    if (creatingBoardForProject) boardInputRef.current?.focus();
+  }, [creatingBoardForProject]);
+
+  useEffect(() => {
+    if (creatingDocForProject) docInputRef.current?.focus();
+  }, [creatingDocForProject]);
 
   // Compute projects with their boards and docs for the selected org
   const orgProjects = useMemo(() => {
@@ -77,6 +126,68 @@ export function Navbar() {
       }));
   }, [selectedOrgId, projects.data, boards.data, docs.data]);
 
+  // Handlers
+  const handleOrgSelectChange = (value: string | null) => {
+    if (value === "__create__") {
+      setOrgModalOpen(true);
+    } else {
+      setSelectedOrgId(value);
+    }
+  };
+
+  const handleCreateOrg = () => {
+    if (!orgName.trim()) return;
+    createOrganization.mutate(
+      { name: orgName.trim() },
+      {
+        onSuccess: (data) => {
+          setSelectedOrgId(data.id);
+          setOrgModalOpen(false);
+          setOrgName("");
+        },
+      },
+    );
+  };
+
+  const handleCreateProject = () => {
+    if (!projectName.trim() || !selectedOrgId) return;
+    createProject.mutate(
+      { name: projectName.trim(), organization: selectedOrgId },
+      {
+        onSuccess: () => {
+          setProjectModalOpen(false);
+          setProjectName("");
+        },
+      },
+    );
+  };
+
+  const handleCreateBoard = (projectId: string) => {
+    if (!newBoardTitle.trim()) return;
+    createBoard.mutate(
+      { title: newBoardTitle.trim(), project: projectId },
+      {
+        onSuccess: () => {
+          setCreatingBoardForProject(null);
+          setNewBoardTitle("");
+        },
+      },
+    );
+  };
+
+  const handleCreateDoc = (projectId: string) => {
+    if (!newDocTitle.trim()) return;
+    createDoc.mutate(
+      { title: newDocTitle.trim(), project: projectId },
+      {
+        onSuccess: () => {
+          setCreatingDocForProject(null);
+          setNewDocTitle("");
+        },
+      },
+    );
+  };
+
   return (
     <>
       <AppShell.Section>
@@ -88,7 +199,6 @@ export function Navbar() {
           Orbita
         </Text>
 
-        <Divider />
         <NavLink
           label="Übersicht"
           leftSection={<IconHome size={"1.2em"} stroke={1.5} />}
@@ -97,30 +207,43 @@ export function Navbar() {
         <NavLink
           label="Suchen"
           leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/search")}
         />
-        <NavLink
-          label="Einstellungen"
-          leftSection={<IconSettings size={"1.2em"} stroke={1.5} />}
-          onClick={() => navigate("/settings")}
-        />
+        <Space h="md" />
+        <Divider />
+        <Space h="lg" />
       </AppShell.Section>
-
-      <Space h="lg" />
 
       <AppShell.Section grow>
         {isLoading ? (
           <Loader color="gray" m="md" />
         ) : (
           <>
-            <Select
-              px="sm"
-              value={selectedOrgId}
-              onChange={setSelectedOrgId}
-              data={orgSelectData}
-            />
+            <Group px="sm" gap="xs" wrap="nowrap">
+              <Select
+                value={selectedOrgId}
+                onChange={handleOrgSelectChange}
+                data={orgSelectData}
+                style={{ flex: 1 }}
+              />
+              {selectedOrgId && selectedOrgId !== "__create__" && (
+                <ActionIcon
+                  variant="subtle"
+                  color="gray"
+                  onClick={() => navigate(`/org/${selectedOrgId}/settings`)}
+                >
+                  <IconSettings size="1.2em" stroke={1.5} />
+                </ActionIcon>
+              )}
+            </Group>
 
             <Space h="md" />
+
+            {orgProjects.length === 0 && (
+              <Text size="sm" c="dimmed" px="sm" py="xs">
+                Keine Projekte vorhanden
+              </Text>
+            )}
 
             {orgProjects.map((project) => (
               <NavLink
@@ -130,16 +253,44 @@ export function Navbar() {
                 childrenOffset={0}
                 defaultOpened
               >
-                <Text
-                  size="xs"
-                  fw={700}
-                  c="dimmed"
-                  tt="uppercase"
-                  px="sm"
-                  py="sm"
-                >
-                  Boards
-                </Text>
+                {/* Calendar section */}
+                <NavLink
+                  label={"Kalender"}
+                  leftSection={<IconCalendar size="1.2em" stroke={1.5} />}
+                  onClick={() => navigate(`/${project.id}/calendar`)}
+                />
+
+                {/* Settings section */}
+                <NavLink
+                  label={"Projekteinstellungen"}
+                  leftSection={<IconSettings size="1.2em" stroke={1.5} />}
+                  onClick={() => navigate(`/${project.id}/settings`)}
+                />
+
+                {/* Boards section */}
+                <Group justify="space-between" px="sm" mt="sm">
+                  <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                    Boards
+                  </Text>
+                  <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    size="xs"
+                    onClick={() => {
+                      setCreatingBoardForProject(project.id);
+                      setNewBoardTitle("");
+                    }}
+                  >
+                    <IconPlus size="0.9em" stroke={1.5} />
+                  </ActionIcon>
+                </Group>
+
+                {project.boards.length === 0 &&
+                  creatingBoardForProject !== project.id && (
+                    <Text size="xs" c="dimmed" px="sm" py={4}>
+                      Keine Boards vorhanden
+                    </Text>
+                  )}
 
                 {project.boards.map((board) => (
                   <NavLink
@@ -150,27 +301,88 @@ export function Navbar() {
                       <ActionIcon
                         variant="subtle"
                         color="gray"
+                        size="sm"
                         aria-label="Settings"
                         onClick={(e) => {
                           navigate(`/${board.id}/settings`);
                           e.stopPropagation();
                         }}
                       >
-                        <IconDots
-                          style={{ width: "70%", height: "70%" }}
-                          stroke={1.5}
-                        />
+                        <IconDots size="0.9em" stroke={1.5} />
                       </ActionIcon>
                     }
                     onClick={() => navigate(`/${board.id}`)}
                   />
                 ))}
 
+                {/* Inline board creation */}
+                {creatingBoardForProject === project.id && (
+                  <Group gap="xs" px="sm" py={4}>
+                    <TextInput
+                      ref={boardInputRef}
+                      size="xs"
+                      placeholder="Board Name"
+                      value={newBoardTitle}
+                      onChange={(e) => setNewBoardTitle(e.currentTarget.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleCreateBoard(project.id);
+                        if (e.key === "Escape") {
+                          setCreatingBoardForProject(null);
+                          setNewBoardTitle("");
+                        }
+                      }}
+                      style={{ flex: 1 }}
+                    />
+                    <ActionIcon
+                      variant="subtle"
+                      color="green"
+                      size="sm"
+                      onClick={() => handleCreateBoard(project.id)}
+                      disabled={!newBoardTitle.trim()}
+                    >
+                      <IconCheck size="0.9em" stroke={1.5} />
+                    </ActionIcon>
+                    <ActionIcon
+                      variant="subtle"
+                      color="red"
+                      size="sm"
+                      onClick={() => {
+                        setCreatingBoardForProject(null);
+                        setNewBoardTitle("");
+                      }}
+                    >
+                      <IconX size="0.9em" stroke={1.5} />
+                    </ActionIcon>
+                  </Group>
+                )}
+
                 <Space h="xs" />
 
-                <Text size="xs" fw={700} c="dimmed" tt="uppercase" px="sm">
-                  Dokumente
-                </Text>
+                {/* Documents section */}
+                <Group justify="space-between" px="sm">
+                  <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                    Dokumente
+                  </Text>
+                  <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    size="xs"
+                    onClick={() => {
+                      setCreatingDocForProject(project.id);
+                      setNewDocTitle("");
+                    }}
+                  >
+                    <IconPlus size="0.9em" stroke={1.5} />
+                  </ActionIcon>
+                </Group>
+
+                {project.docs.length === 0 &&
+                  creatingDocForProject !== project.id && (
+                    <Text size="xs" c="dimmed" px="sm" py={4}>
+                      Keine Dokumente vorhanden
+                    </Text>
+                  )}
+
                 {project.docs.map((doc) => (
                   <NavLink
                     key={doc.id}
@@ -179,8 +391,61 @@ export function Navbar() {
                     onClick={() => navigate(`/docs/${doc.id}`)}
                   />
                 ))}
+
+                {/* Inline doc creation */}
+                {creatingDocForProject === project.id && (
+                  <Group gap="xs" px="sm" py={4}>
+                    <TextInput
+                      ref={docInputRef}
+                      size="xs"
+                      placeholder="Dokument Name"
+                      value={newDocTitle}
+                      onChange={(e) => setNewDocTitle(e.currentTarget.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleCreateDoc(project.id);
+                        if (e.key === "Escape") {
+                          setCreatingDocForProject(null);
+                          setNewDocTitle("");
+                        }
+                      }}
+                      style={{ flex: 1 }}
+                    />
+                    <ActionIcon
+                      variant="subtle"
+                      color="green"
+                      size="sm"
+                      onClick={() => handleCreateDoc(project.id)}
+                      disabled={!newDocTitle.trim()}
+                    >
+                      <IconCheck size="0.9em" stroke={1.5} />
+                    </ActionIcon>
+                    <ActionIcon
+                      variant="subtle"
+                      color="red"
+                      size="sm"
+                      onClick={() => {
+                        setCreatingDocForProject(null);
+                        setNewDocTitle("");
+                      }}
+                    >
+                      <IconX size="0.9em" stroke={1.5} />
+                    </ActionIcon>
+                  </Group>
+                )}
               </NavLink>
             ))}
+
+            {/* Create new project button */}
+            <NavLink
+              my="md"
+              label="Neues Projekt"
+              leftSection={<IconPlus size="1.2em" stroke={1.5} />}
+              c="dimmed"
+              onClick={() => {
+                setProjectName("");
+                setProjectModalOpen(true);
+              }}
+            />
           </>
         )}
       </AppShell.Section>
@@ -188,14 +453,77 @@ export function Navbar() {
       <AppShell.Section>
         <Divider />
 
-        <UnstyledButton
-          p="md"
-          style={{ width: "100%" }}
+        <NavLink
+          label={pb.authStore.record?.name}
+          description={pb.authStore.record?.email}
+          leftSection={
+            <MantineAvatar radius="xl">
+              {getInitials(pb.authStore.record?.name)}
+            </MantineAvatar>
+          }
           onClick={() => navigate("/settings")}
-        >
-          <UserAvatar />
-        </UnstyledButton>
+        />
       </AppShell.Section>
+
+      {/* Organization creation modal */}
+      <Modal
+        opened={orgModalOpen}
+        onClose={() => {
+          setOrgModalOpen(false);
+          setOrgName("");
+        }}
+        title="Neue Organisation"
+        size="sm"
+        centered
+      >
+        <TextInput
+          label="Name"
+          placeholder="Organisation Name"
+          value={orgName}
+          onChange={(e) => setOrgName(e.currentTarget.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleCreateOrg();
+          }}
+        />
+        <Space h="md" />
+        <Button
+          onClick={handleCreateOrg}
+          loading={createOrganization.isPending}
+          disabled={!orgName.trim()}
+        >
+          Erstellen
+        </Button>
+      </Modal>
+
+      {/* Project creation modal */}
+      <Modal
+        opened={projectModalOpen}
+        onClose={() => {
+          setProjectModalOpen(false);
+          setProjectName("");
+        }}
+        title="Neues Projekt"
+        size="sm"
+        centered
+      >
+        <TextInput
+          label="Name"
+          placeholder="Projekt Name"
+          value={projectName}
+          onChange={(e) => setProjectName(e.currentTarget.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleCreateProject();
+          }}
+        />
+        <Space h="md" />
+        <Button
+          onClick={handleCreateProject}
+          loading={createProject.isPending}
+          disabled={!projectName.trim()}
+        >
+          Erstellen
+        </Button>
+      </Modal>
     </>
   );
 }

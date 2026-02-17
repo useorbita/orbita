@@ -76,7 +76,7 @@ export const useCreateProject = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: { name: string; ticket_counter?: number }) =>
+    mutationFn: (data: { name: string; organization?: string; ticket_counter?: number }) =>
       pb.collection(Collections.Projects).create<ProjectsResponse>(data),
     onSuccess: (data) => {
       queryClient.setQueryData(
