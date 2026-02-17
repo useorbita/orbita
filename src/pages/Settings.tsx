@@ -21,7 +21,7 @@ export function Settings() {
   const logout = useLogout();
 
   return (
-    <ScrollArea>
+    <ScrollArea p="xl">
       <Stack w={"20em"}>
         <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
           Einstellungen

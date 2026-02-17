@@ -6,10 +6,12 @@ import {
   Grid,
   Group,
   MultiSelect,
+  ScrollArea,
   Space,
   Stack,
   Switch,
   Text,
+  Title,
   TextInput,
 } from "@mantine/core";
 import { modals } from "@mantine/modals";
@@ -51,7 +53,7 @@ export function BoardSettings() {
     });
 
   return (
-    <Container>
+    <ScrollArea p="xl">
       <Group justify="space-between" mb="xl">
         <Group gap={"xs"}>
           <ActionIcon
@@ -76,6 +78,10 @@ export function BoardSettings() {
           Board löschen
         </Button>
       </Group>
+
+      <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
+        Einstellungen des Boards
+      </Title>
 
       <Space h={"xl"} />
 
@@ -172,6 +178,6 @@ export function BoardSettings() {
           />
         </Grid.Col>
       </Grid>
-    </Container>
+    </ScrollArea>
   );
 }

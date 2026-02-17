@@ -6,6 +6,7 @@ import { Board } from "./pages/Board";
 import { BoardSettings } from "./pages/BoardSettings";
 import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
+import { Search } from "./pages/Search";
 
 export function App() {
   return (
@@ -24,6 +25,7 @@ export function App() {
           <Route path="/:boardId" element={<Board />} />
           <Route path="/:boardId/settings" element={<BoardSettings />} />
           <Route path="/:boardId/:cardId" element={<Board />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<p>Seite nicht gefunden</p>} />
         </Routes>
