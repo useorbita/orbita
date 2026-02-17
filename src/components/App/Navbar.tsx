@@ -1,24 +1,24 @@
 import {
   ActionIcon,
   AppShell,
-  Button,
   Divider,
-  Group,
   Loader,
   NavLink,
+  Select,
   Space,
-  Stack,
   Text,
-  Title,
   UnstyledButton,
 } from "@mantine/core";
 import {
-  IconCircle,
+  IconCircleDotted,
+  IconDots,
+  IconFile,
   IconHome,
+  IconLayout,
   IconSearch,
   IconSettings,
 } from "@tabler/icons-react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBoards } from "../../api/boards";
 import { useDocs } from "../../api/docs";
@@ -34,40 +34,59 @@ export function Navbar() {
 
   const navigate = useNavigate();
 
-  // Combine organizations with their projects, boards, and docs
-  const organizationsWithProjects = useMemo(() => {
-    if (!organizations.data || !projects.data || !boards.data || !docs.data)
-      return [];
+  const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
 
-    return organizations.data
-      .map((org) => ({
-        ...org,
-        projects: projects.data
-          .filter((project) => project.organization === org.id)
-          .map((project) => ({
-            ...project,
-            boards: boards.data.filter((board) => board.project === project.id),
-            docs: docs.data.filter((doc) => doc.project === project.id),
-          })),
-      }))
+  const isLoading =
+    organizations.isLoading ||
+    projects.isLoading ||
+    boards.isLoading ||
+    docs.isLoading;
+
+  // Build select data for organizations
+  const orgSelectData = useMemo(() => {
+    if (!organizations.data) return [];
+    return [...organizations.data]
       .sort((a, b) => {
-        // Personal organizations first
         if (a.is_personal && !b.is_personal) return -1;
         if (!a.is_personal && b.is_personal) return 1;
         return 0;
-      });
-  }, [organizations.data, projects.data, boards.data, docs.data]);
+      })
+      .map((org) => ({
+        value: org.id,
+        label: org.is_personal ? "Private Projekte" : org.name || org.id,
+      }));
+  }, [organizations.data]);
+
+  // Auto-select the first org when data loads
+  useEffect(() => {
+    if (!selectedOrgId && orgSelectData.length > 0) {
+      setSelectedOrgId(orgSelectData[0].value);
+    }
+  }, [selectedOrgId, orgSelectData]);
+
+  // Compute projects with their boards and docs for the selected org
+  const orgProjects = useMemo(() => {
+    if (!selectedOrgId || !projects.data || !boards.data || !docs.data)
+      return [];
+    return projects.data
+      .filter((p) => p.organization === selectedOrgId)
+      .map((project) => ({
+        ...project,
+        boards: boards.data.filter((b) => b.project === project.id),
+        docs: docs.data.filter((d) => d.project === project.id),
+      }));
+  }, [selectedOrgId, projects.data, boards.data, docs.data]);
 
   return (
     <>
       <AppShell.Section>
-        <Group p="md">
-          <IconCircle />
-
-          <Text size="xl" style={{ fontFamily: "Outfit", fontWeight: 400 }}>
-            Orbita
-          </Text>
-        </Group>
+        <Text
+          p="md"
+          size="xl"
+          style={{ fontFamily: "Outfit", fontWeight: 400 }}
+        >
+          Orbita
+        </Text>
 
         <Divider />
         <NavLink
@@ -87,85 +106,83 @@ export function Navbar() {
         />
       </AppShell.Section>
 
-      <Space h="md" />
+      <Space h="lg" />
 
-      <AppShell.Section grow p="sm">
-        <Stack gap="xl">
-          {organizations.isLoading ||
-          projects.isLoading ||
-          boards.isLoading ||
-          docs.isLoading ? (
-            <Loader color="gray" />
-          ) : organizationsWithProjects.length === 0 ? (
-            <Text c="dimmed">Keine Organisationen vorhanden</Text>
-          ) : (
-            organizationsWithProjects.map((org) => (
-              <Stack key={org.id} gap="xs">
-                <Title order={5}>
-                  {org.is_personal ? "Deine Projekte" : org.name}
-                </Title>
+      <AppShell.Section grow>
+        {isLoading ? (
+          <Loader color="gray" m="md" />
+        ) : (
+          <>
+            <Select
+              px="sm"
+              value={selectedOrgId}
+              onChange={setSelectedOrgId}
+              data={orgSelectData}
+            />
 
-                {org.projects.length > 0 ? (
-                  org.projects.map((project) => (
-                    <Stack key={project.id} gap="xs" pl="md">
-                      <Text fw={500}>{project.name}</Text>
+            <Space h="md" />
 
-                      {project.boards.length > 0 && (
-                        <Stack gap="xs" pl="md">
-                          <Text size="sm" c="dimmed">
-                            Boards:
-                          </Text>
-                          {project.boards.map((board) => (
-                            <Group>
-                              <Button
-                                variant="subtle"
-                                color="gray"
-                                size="sm"
-                                onClick={() => {
-                                  navigate(`/${board.id}`);
-                                }}
-                              >
-                                {board.title}
-                              </Button>
+            {orgProjects.map((project) => (
+              <NavLink
+                key={project.id}
+                label={project.name}
+                leftSection={<IconCircleDotted size="1.2em" stroke={1.5} />}
+                childrenOffset={0}
+                defaultOpened
+              >
+                <Text
+                  size="xs"
+                  fw={700}
+                  c="dimmed"
+                  tt="uppercase"
+                  px="sm"
+                  py="sm"
+                >
+                  Boards
+                </Text>
 
-                              <ActionIcon
-                                variant="transparent"
-                                color="gray"
-                                aria-label="Settings"
-                                onClick={() => {
-                                  navigate(`${board.id}/settings/`);
-                                }}
-                              >
-                                <IconSettings size="1.2em" />
-                              </ActionIcon>
-                            </Group>
-                          ))}
-                        </Stack>
-                      )}
+                {project.boards.map((board) => (
+                  <NavLink
+                    key={board.id}
+                    label={board.title}
+                    leftSection={<IconLayout size="1.2em" stroke={1.5} />}
+                    rightSection={
+                      <ActionIcon
+                        variant="subtle"
+                        color="gray"
+                        aria-label="Settings"
+                        onClick={(e) => {
+                          navigate(`/${board.id}/settings`);
+                          e.stopPropagation();
+                        }}
+                      >
+                        <IconDots
+                          style={{ width: "70%", height: "70%" }}
+                          stroke={1.5}
+                        />
+                      </ActionIcon>
+                    }
+                    onClick={() => navigate(`/${board.id}`)}
+                  />
+                ))}
 
-                      {project.docs.length > 0 && (
-                        <Stack gap="xs" pl="md">
-                          <Text size="sm" c="dimmed">
-                            Docs:
-                          </Text>
-                          {project.docs.map((doc) => (
-                            <Text key={doc.id} size="sm" pl="md">
-                              {doc.title || "Untitled"}
-                            </Text>
-                          ))}
-                        </Stack>
-                      )}
-                    </Stack>
-                  ))
-                ) : (
-                  <Text c="dimmed" pl="md" size="sm">
-                    Keine Projekte
-                  </Text>
-                )}
-              </Stack>
-            ))
-          )}
-        </Stack>
+                <Space h="xs" />
+
+                <Text size="xs" fw={700} c="dimmed" tt="uppercase" px="sm">
+                  Dokumente
+                </Text>
+                {project.docs.map((doc) => (
+                  <NavLink
+                    key={doc.id}
+                    label={doc.title || "Untitled"}
+                    leftSection={<IconFile size="1.2em" stroke={1.5} />}
+                    onClick={() => navigate(`/docs/${doc.id}`)}
+                  />
+                ))}
+              </NavLink>
+            ))}
+          </>
+        )}
       </AppShell.Section>
 
       <AppShell.Section>
