@@ -1,4 +1,5 @@
 import { AppShell } from "@mantine/core";
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Navbar } from "./components/App/Navbar";
@@ -8,15 +9,26 @@ import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
 import { Search } from "./pages/Search";
 
+const NAVBAR_WIDTH = 250;
+const NAVBAR_COLLAPSED_WIDTH = 46;
+
 export function App() {
+  const [navCollapsed, setNavCollapsed] = useState(false);
+
   return (
     <AppShell
       layout="alt"
-      navbar={{ width: 250, breakpoint: "sm" }}
+      navbar={{
+        width: navCollapsed ? NAVBAR_COLLAPSED_WIDTH : NAVBAR_WIDTH,
+        breakpoint: 0,
+      }}
       padding="md"
     >
       <AppShell.Navbar withBorder={true}>
-        <Navbar />
+        <Navbar
+          collapsed={navCollapsed}
+          onToggleCollapse={() => setNavCollapsed((c) => !c)}
+        />
       </AppShell.Navbar>
 
       <AppShell.Main h="100vh">

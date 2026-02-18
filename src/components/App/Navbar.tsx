@@ -11,7 +11,10 @@ import {
   Space,
   Text,
   TextInput,
+  Tooltip,
   Avatar as MantineAvatar,
+  Box,
+  ScrollArea,
 } from "@mantine/core";
 import {
   IconCalendar,
@@ -21,9 +24,12 @@ import {
   IconFile,
   IconHome,
   IconLayout,
+  IconLayoutSidebarLeftCollapse,
+  IconLayoutSidebarLeftExpand,
   IconPlus,
   IconSearch,
   IconSettings,
+  IconUser,
   IconX,
 } from "@tabler/icons-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -40,7 +46,12 @@ import { pb } from "../../api/pocketbase";
 import { useCreateProject, useProjects } from "../../api/projects";
 import { getInitials } from "../../shared/nameUtils";
 
-export function Navbar() {
+interface NavbarProps {
+  collapsed: boolean;
+  onToggleCollapse: () => void;
+}
+
+export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
   const organizations = useOrganizations();
   const projects = useProjects();
   const boards = useBoards();
@@ -188,17 +199,73 @@ export function Navbar() {
     );
   };
 
+  if (collapsed) {
+    return (
+      <>
+        <AppShell.Section>
+          {/* not ideal, but compensate positions */}
+          <Box pt={19}>
+            <Tooltip label="Aufklappen" position="right" withArrow>
+              <NavLink
+                leftSection={
+                  <IconLayoutSidebarLeftExpand size="1.2em" color="grey" />
+                }
+                onClick={onToggleCollapse}
+              />
+            </Tooltip>
+          </Box>
+
+          {/* not ideal, but compensate positions */}
+          <Box pt={18}>
+            <Tooltip label="Übersicht" position="right" withArrow>
+              <NavLink
+                leftSection={<IconHome size={"1.2em"} stroke={1.5} />}
+                onClick={() => navigate("/")}
+              />
+            </Tooltip>
+          </Box>
+
+          {/* not ideal, but compensate positions */}
+          <Box pt={5}>
+            <Tooltip label="Suche" position="right" withArrow>
+              <NavLink
+                leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
+                onClick={() => navigate("/search")}
+              />
+            </Tooltip>
+          </Box>
+
+          <Space h="md" />
+          <Divider />
+        </AppShell.Section>
+
+        <AppShell.Section grow />
+
+        <AppShell.Section>
+          <Divider />
+          <Tooltip label="Account & Einstellungen" position="right" withArrow>
+            <NavLink
+              leftSection={<IconUser size="1.2em" stroke={1.5} />}
+              onClick={() => navigate("/settings")}
+            />
+          </Tooltip>
+        </AppShell.Section>
+      </>
+    );
+  }
+
   return (
     <>
       <AppShell.Section>
-        <Text
-          p="md"
-          size="xl"
-          style={{ fontFamily: "Outfit", fontWeight: 400 }}
-        >
-          Orbita
-        </Text>
+        <Group justify="space-between" pl="md" pt="lg" pb="md" pr="xs">
+          <Text size="xl" style={{ fontFamily: "Outfit", fontWeight: 400 }}>
+            Orbita
+          </Text>
 
+          <ActionIcon variant="subtle" onClick={onToggleCollapse}>
+            <IconLayoutSidebarLeftCollapse size={"1.2em"} color="grey" />
+          </ActionIcon>
+        </Group>
         <NavLink
           label="Übersicht"
           leftSection={<IconHome size={"1.2em"} stroke={1.5} />}
@@ -214,7 +281,7 @@ export function Navbar() {
         <Space h="lg" />
       </AppShell.Section>
 
-      <AppShell.Section grow>
+      <AppShell.Section grow component={ScrollArea}>
         {isLoading ? (
           <Loader color="gray" m="md" />
         ) : (
