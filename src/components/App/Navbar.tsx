@@ -231,7 +231,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
               value={selectedOrgId}
               onChange={handleOrgSelectChange}
               data={orgSelectData}
-              style={{ flex: 1 }}
+              allowDeselect={false}
               p={"xs"}
               pt={"md"}
             />
