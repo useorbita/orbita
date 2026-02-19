@@ -65,28 +65,18 @@ export function OrgOverview() {
 
       <Stack gap="xl">
         <Box>
-          <Group justify="space-between" mb="sm">
-            <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-              Projekte
-            </Text>
-            <Button
-              size="xs"
-              variant="subtle"
-              color="gray"
-              leftSection={<IconPlus size="0.9em" stroke={1.5} />}
-              onClick={() => {
-                setProjectName("");
-                setProjectModalOpen(true);
-              }}
-            >
-              Neues Projekt
-            </Button>
-          </Group>
+          <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+            Projekte
+          </Text>
+
           {projects?.length === 0 && (
             <Text size="sm" c="dimmed">
               Keine Projekte vorhanden
             </Text>
           )}
+          
+          <Space h="md"/>
+
           <SimpleGrid cols={3} spacing="sm">
             {projects?.map((project) => (
               <Box
@@ -105,6 +95,18 @@ export function OrgOverview() {
                 </Group>
               </Box>
             ))}
+
+            <Button
+              variant="default"
+              color="gray"
+              leftSection={<IconPlus size="0.9em" stroke={1.5} />}
+              onClick={() => {
+                setProjectName("");
+                setProjectModalOpen(true);
+              }}
+            >
+              Neues Projekt
+            </Button>
           </SimpleGrid>
         </Box>
       </Stack>

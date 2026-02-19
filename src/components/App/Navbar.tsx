@@ -294,12 +294,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
 
             <Space h="md" />
 
-            {orgProjects.length === 0 && (
-              <Text size="sm" c="dimmed" px="sm" py="xs">
-                Keine Projekte vorhanden
-              </Text>
-            )}
-
             {orgProjects.map((project) => (
               <NavLink
                 key={project.id}
@@ -308,16 +302,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                 childrenOffset={0}
                 onClick={() => navigate(`/projects/${project.id}`)}
               >
-                {/* Settings section */}
-                {/* <NavLink
-                  label={"Projekteinstellungen"}
-                  leftSection={<IconSettings size="1.2em" stroke={1.5} />}
-                  onClick={(e) => {
-                    navigate(`/projects/${project.id}/settings`);
-                    e.stopPropagation();
-                  }}
-                /> */}
-
                 {/* Boards section */}
                 <Group justify="space-between" px="sm" mt="sm">
                   <Text size="xs" fw={700} c="dimmed" tt="uppercase">
@@ -485,7 +469,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                 )}
               </NavLink>
             ))}
-
           </>
         )}
       </AppShell.Section>
@@ -534,7 +517,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           Erstellen
         </Button>
       </Modal>
-
     </>
   );
 }
