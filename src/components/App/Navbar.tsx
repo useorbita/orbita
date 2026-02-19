@@ -1,42 +1,35 @@
 import {
   ActionIcon,
   AppShell,
+  Box,
   Button,
   Divider,
   Group,
   Loader,
+  Avatar as MantineAvatar,
   Modal,
   NavLink,
+  ScrollArea,
   Select,
   Space,
   Text,
   TextInput,
   Tooltip,
-  Avatar as MantineAvatar,
-  Box,
-  ScrollArea,
 } from "@mantine/core";
 import {
   IconCalendar,
-  IconCheck,
   IconCircleDotted,
-  IconDots,
   IconFile,
   IconHome,
   IconLayout,
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
-  IconPlus,
   IconSearch,
-  IconSettings,
   IconUser,
-  IconX,
 } from "@tabler/icons-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBoards } from "../../api/boards";
-import { useCreateBoard } from "../../api/boards";
-import { useCreateDoc } from "../../api/docs";
 import { useDocs } from "../../api/docs";
 import {
   useCreateOrganization,
@@ -58,28 +51,14 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
   const docs = useDocs();
 
   const createOrganization = useCreateOrganization();
-  const createBoard = useCreateBoard();
-  const createDoc = useCreateDoc();
 
   const navigate = useNavigate();
 
   const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
 
-  // Modal state for org/project creation
+  // Modal state for org creation
   const [orgModalOpen, setOrgModalOpen] = useState(false);
   const [orgName, setOrgName] = useState("");
-  // Inline creation state for boards/docs
-  const [creatingBoardForProject, setCreatingBoardForProject] = useState<
-    string | null
-  >(null);
-  const [newBoardTitle, setNewBoardTitle] = useState("");
-  const [creatingDocForProject, setCreatingDocForProject] = useState<
-    string | null
-  >(null);
-  const [newDocTitle, setNewDocTitle] = useState("");
-
-  const boardInputRef = useRef<HTMLInputElement>(null);
-  const docInputRef = useRef<HTMLInputElement>(null);
 
   const isLoading =
     organizations.isLoading ||
@@ -110,15 +89,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
       setSelectedOrgId(orgSelectData[0].value);
     }
   }, [selectedOrgId, orgSelectData]);
-
-  // Focus inline inputs when they appear
-  useEffect(() => {
-    if (creatingBoardForProject) boardInputRef.current?.focus();
-  }, [creatingBoardForProject]);
-
-  useEffect(() => {
-    if (creatingDocForProject) docInputRef.current?.focus();
-  }, [creatingDocForProject]);
 
   // Compute projects with their boards and docs for the selected org
   const orgProjects = useMemo(() => {
@@ -152,32 +122,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           setSelectedOrgId(data.id);
           setOrgModalOpen(false);
           setOrgName("");
-        },
-      },
-    );
-  };
-
-  const handleCreateBoard = (projectId: string) => {
-    if (!newBoardTitle.trim()) return;
-    createBoard.mutate(
-      { title: newBoardTitle.trim(), project: projectId },
-      {
-        onSuccess: () => {
-          setCreatingBoardForProject(null);
-          setNewBoardTitle("");
-        },
-      },
-    );
-  };
-
-  const handleCreateDoc = (projectId: string) => {
-    if (!newDocTitle.trim()) return;
-    createDoc.mutate(
-      { title: newDocTitle.trim(), project: projectId },
-      {
-        onSuccess: () => {
-          setCreatingDocForProject(null);
-          setNewDocTitle("");
         },
       },
     );
@@ -299,124 +243,17 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                 key={project.id}
                 label={project.name}
                 leftSection={<IconCircleDotted size="1.2em" stroke={1.5} />}
-                childrenOffset={0}
+                childrenOffset={16}
                 onClick={() => navigate(`/projects/${project.id}`)}
               >
-                {/* Boards section */}
-                <Group justify="space-between" px="sm" mt="sm">
-                  <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-                    Boards
-                  </Text>
-                  <ActionIcon
-                    variant="subtle"
-                    color="gray"
-                    size="xs"
-                    onClick={() => {
-                      setCreatingBoardForProject(project.id);
-                      setNewBoardTitle("");
-                    }}
-                  >
-                    <IconPlus size="0.9em" stroke={1.5} />
-                  </ActionIcon>
-                </Group>
-
-                {project.boards.length === 0 &&
-                  creatingBoardForProject !== project.id && (
-                    <Text size="xs" c="dimmed" px="sm" py={4}>
-                      Keine Boards vorhanden
-                    </Text>
-                  )}
-
                 {project.boards.map((board) => (
                   <NavLink
                     key={board.id}
                     label={board.title}
                     leftSection={<IconLayout size="1.2em" stroke={1.5} />}
-                    rightSection={
-                      <ActionIcon
-                        variant="subtle"
-                        color="gray"
-                        size="sm"
-                        aria-label="Settings"
-                        onClick={(e) => {
-                          navigate(`/boards/${board.id}/settings`);
-                          e.stopPropagation();
-                        }}
-                      >
-                        <IconDots size="0.9em" stroke={1.5} />
-                      </ActionIcon>
-                    }
                     onClick={() => navigate(`/boards/${board.id}`)}
                   />
                 ))}
-
-                {/* Inline board creation */}
-                {creatingBoardForProject === project.id && (
-                  <Group gap="xs" px="sm" py={4}>
-                    <TextInput
-                      ref={boardInputRef}
-                      size="xs"
-                      placeholder="Board Name"
-                      value={newBoardTitle}
-                      onChange={(e) => setNewBoardTitle(e.currentTarget.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") handleCreateBoard(project.id);
-                        if (e.key === "Escape") {
-                          setCreatingBoardForProject(null);
-                          setNewBoardTitle("");
-                        }
-                      }}
-                      style={{ flex: 1 }}
-                    />
-                    <ActionIcon
-                      variant="subtle"
-                      color="green"
-                      size="sm"
-                      onClick={() => handleCreateBoard(project.id)}
-                      disabled={!newBoardTitle.trim()}
-                    >
-                      <IconCheck size="0.9em" stroke={1.5} />
-                    </ActionIcon>
-                    <ActionIcon
-                      variant="subtle"
-                      color="red"
-                      size="sm"
-                      onClick={() => {
-                        setCreatingBoardForProject(null);
-                        setNewBoardTitle("");
-                      }}
-                    >
-                      <IconX size="0.9em" stroke={1.5} />
-                    </ActionIcon>
-                  </Group>
-                )}
-
-                <Space h="xs" />
-
-                {/* Documents section */}
-                <Group justify="space-between" px="sm">
-                  <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-                    Dokumente
-                  </Text>
-                  <ActionIcon
-                    variant="subtle"
-                    color="gray"
-                    size="xs"
-                    onClick={() => {
-                      setCreatingDocForProject(project.id);
-                      setNewDocTitle("");
-                    }}
-                  >
-                    <IconPlus size="0.9em" stroke={1.5} />
-                  </ActionIcon>
-                </Group>
-
-                {project.docs.length === 0 &&
-                  creatingDocForProject !== project.id && (
-                    <Text size="xs" c="dimmed" px="sm" py={4}>
-                      Keine Dokumente vorhanden
-                    </Text>
-                  )}
 
                 {project.docs.map((doc) => (
                   <NavLink
@@ -426,47 +263,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                     onClick={() => navigate(`/docs/${doc.id}`)}
                   />
                 ))}
-
-                {/* Inline doc creation */}
-                {creatingDocForProject === project.id && (
-                  <Group gap="xs" px="sm" py={4}>
-                    <TextInput
-                      ref={docInputRef}
-                      size="xs"
-                      placeholder="Dokument Name"
-                      value={newDocTitle}
-                      onChange={(e) => setNewDocTitle(e.currentTarget.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") handleCreateDoc(project.id);
-                        if (e.key === "Escape") {
-                          setCreatingDocForProject(null);
-                          setNewDocTitle("");
-                        }
-                      }}
-                      style={{ flex: 1 }}
-                    />
-                    <ActionIcon
-                      variant="subtle"
-                      color="green"
-                      size="sm"
-                      onClick={() => handleCreateDoc(project.id)}
-                      disabled={!newDocTitle.trim()}
-                    >
-                      <IconCheck size="0.9em" stroke={1.5} />
-                    </ActionIcon>
-                    <ActionIcon
-                      variant="subtle"
-                      color="red"
-                      size="sm"
-                      onClick={() => {
-                        setCreatingDocForProject(null);
-                        setNewDocTitle("");
-                      }}
-                    >
-                      <IconX size="0.9em" stroke={1.5} />
-                    </ActionIcon>
-                  </Group>
-                )}
               </NavLink>
             ))}
           </>

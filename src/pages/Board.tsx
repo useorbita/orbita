@@ -1,4 +1,4 @@
-import { Box, Group, Loader, Title } from "@mantine/core";
+import { Box, Button, Group, Loader, Title } from "@mantine/core";
 import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -13,6 +13,7 @@ import { TableView } from "../components/Board/TableView";
 import { CardModal } from "../components/Card/CardModal";
 import { FilterMenu } from "../components/UI/FilterMenu";
 import { ViewSwitch } from "../components/UI/ViewSwitch";
+import { IconSettings } from "@tabler/icons-react";
 
 export function Board() {
   const { boardId, cardId } = useParams();
@@ -62,6 +63,16 @@ export function Board() {
         <Group gap={"xs"}>
           <FilterMenu />
           <ViewSwitch />
+
+          <Button
+            variant="subtle"
+            color="gray"
+            leftSection={<IconSettings size="1.2em" stroke={1.5} />}
+            size="xs"
+            onClick={() => navigate(`/boards/${boardId}/settings`)}
+          >
+            Einstellungen
+          </Button>
         </Group>
       </Group>
 

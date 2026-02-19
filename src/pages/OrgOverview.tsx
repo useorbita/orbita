@@ -2,9 +2,9 @@ import {
   ActionIcon,
   Box,
   Button,
+  Card,
   Group,
   Loader,
-  Modal,
   SimpleGrid,
   Space,
   Stack,
@@ -12,8 +12,14 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { IconCircleDotted, IconPlus, IconSettings } from "@tabler/icons-react";
-import { useState } from "react";
+import {
+  IconCheck,
+  IconCircleDotted,
+  IconPlus,
+  IconSettings,
+  IconX,
+} from "@tabler/icons-react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useOrganization } from "../api/organizations";
 import { useCreateProject, useProjects } from "../api/projects";
@@ -26,12 +32,18 @@ export function OrgOverview() {
   const allProjects = useProjects();
   const createProject = useCreateProject();
 
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
+  const [creatingProject, setCreatingProject] = useState(false);
   const [projectName, setProjectName] = useState("");
+
+  const projectInputRef = useRef<HTMLInputElement>(null);
 
   const projects = allProjects.data?.filter((p) => p.organization === orgId);
 
   const isLoading = org.isLoading || allProjects.isLoading;
+
+  useEffect(() => {
+    if (creatingProject) projectInputRef.current?.focus();
+  }, [creatingProject]);
 
   const handleCreateProject = () => {
     if (!projectName.trim() || !orgId) return;
@@ -39,7 +51,7 @@ export function OrgOverview() {
       { name: projectName.trim(), organization: orgId },
       {
         onSuccess: () => {
-          setProjectModalOpen(false);
+          setCreatingProject(false);
           setProjectName("");
         },
       },
@@ -54,13 +66,14 @@ export function OrgOverview() {
         <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
           {org.data?.is_personal ? "Dein Bereich" : org.data?.name}
         </Title>
-        <ActionIcon
+        <Button
           variant="subtle"
           color="gray"
+          leftSection={<IconSettings size="1.2em" stroke={1.5} />}
           onClick={() => navigate(`/orgs/${orgId}/settings`)}
         >
-          <IconSettings size="1.2em" stroke={1.5} />
-        </ActionIcon>
+          Einstellungen
+        </Button>
       </Group>
 
       <Stack gap="xl">
@@ -74,71 +87,82 @@ export function OrgOverview() {
               Keine Projekte vorhanden
             </Text>
           )}
-          
-          <Space h="md"/>
+
+          <Space h="md" />
 
           <SimpleGrid cols={3} spacing="sm">
             {projects?.map((project) => (
-              <Box
+              <Card
                 key={project.id}
-                p="md"
-                style={(theme) => ({
-                  border: `1px solid ${theme.colors.gray[3]}`,
-                  borderRadius: theme.radius.md,
-                  cursor: "pointer",
-                })}
+                withBorder
+                shadow="sm"
+                padding="md"
+                style={{ cursor: "pointer" }}
                 onClick={() => navigate(`/projects/${project.id}`)}
               >
                 <Group gap="xs">
                   <IconCircleDotted size="1em" stroke={1.5} />
                   <Text size="sm">{project.name}</Text>
                 </Group>
-              </Box>
+              </Card>
             ))}
+          </SimpleGrid>
 
+          <Space h="sm" />
+
+          {creatingProject ? (
+            <Group gap="xs" maw={400}>
+              <TextInput
+                ref={projectInputRef}
+                size="sm"
+                placeholder="Projekt Name"
+                value={projectName}
+                onChange={(e) => setProjectName(e.currentTarget.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleCreateProject();
+                  if (e.key === "Escape") {
+                    setCreatingProject(false);
+                    setProjectName("");
+                  }
+                }}
+                style={{ flex: 1 }}
+              />
+              <ActionIcon
+                variant="subtle"
+                color="green"
+                size="sm"
+                onClick={handleCreateProject}
+                disabled={!projectName.trim()}
+              >
+                <IconCheck size="0.9em" stroke={1.5} />
+              </ActionIcon>
+              <ActionIcon
+                variant="subtle"
+                color="red"
+                size="sm"
+                onClick={() => {
+                  setCreatingProject(false);
+                  setProjectName("");
+                }}
+              >
+                <IconX size="0.9em" stroke={1.5} />
+              </ActionIcon>
+            </Group>
+          ) : (
             <Button
-              variant="default"
+              variant="subtle"
               color="gray"
               leftSection={<IconPlus size="0.9em" stroke={1.5} />}
               onClick={() => {
                 setProjectName("");
-                setProjectModalOpen(true);
+                setCreatingProject(true);
               }}
             >
               Neues Projekt
             </Button>
-          </SimpleGrid>
+          )}
         </Box>
       </Stack>
-
-      <Modal
-        opened={projectModalOpen}
-        onClose={() => {
-          setProjectModalOpen(false);
-          setProjectName("");
-        }}
-        title="Neues Projekt"
-        size="sm"
-        centered
-      >
-        <TextInput
-          label="Name"
-          placeholder="Projekt Name"
-          value={projectName}
-          onChange={(e) => setProjectName(e.currentTarget.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleCreateProject();
-          }}
-        />
-        <Space h="md" />
-        <Button
-          onClick={handleCreateProject}
-          loading={createProject.isPending}
-          disabled={!projectName.trim()}
-        >
-          Erstellen
-        </Button>
-      </Modal>
     </Box>
   );
 }
