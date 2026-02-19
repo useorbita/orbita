@@ -43,7 +43,7 @@ import {
   useOrganizations,
 } from "../../api/organizations";
 import { pb } from "../../api/pocketbase";
-import { useCreateProject, useProjects } from "../../api/projects";
+import { useProjects } from "../../api/projects";
 import { getInitials } from "../../shared/nameUtils";
 
 interface NavbarProps {
@@ -58,7 +58,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
   const docs = useDocs();
 
   const createOrganization = useCreateOrganization();
-  const createProject = useCreateProject();
   const createBoard = useCreateBoard();
   const createDoc = useCreateDoc();
 
@@ -69,9 +68,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
   // Modal state for org/project creation
   const [orgModalOpen, setOrgModalOpen] = useState(false);
   const [orgName, setOrgName] = useState("");
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
-  const [projectName, setProjectName] = useState("");
-
   // Inline creation state for boards/docs
   const [creatingBoardForProject, setCreatingBoardForProject] = useState<
     string | null
@@ -143,6 +139,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
       setOrgModalOpen(true);
     } else {
       setSelectedOrgId(value);
+      if (value) navigate(`/orgs/${value}`);
     }
   };
 
@@ -155,19 +152,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           setSelectedOrgId(data.id);
           setOrgModalOpen(false);
           setOrgName("");
-        },
-      },
-    );
-  };
-
-  const handleCreateProject = () => {
-    if (!projectName.trim() || !selectedOrgId) return;
-    createProject.mutate(
-      { name: projectName.trim(), organization: selectedOrgId },
-      {
-        onSuccess: () => {
-          setProjectModalOpen(false);
-          setProjectName("");
         },
       },
     );
@@ -235,6 +219,15 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
             </Tooltip>
           </Box>
 
+          <Box pt={5}>
+            <Tooltip label="Kalender" position="right" withArrow>
+              <NavLink
+                leftSection={<IconCalendar size={"1.2em"} stroke={1.5} />}
+                onClick={() => navigate("/calendar")}
+              />
+            </Tooltip>
+          </Box>
+
           <Space h="md" />
           <Divider />
         </AppShell.Section>
@@ -276,9 +269,13 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
           onClick={() => navigate("/search")}
         />
+        <NavLink
+          label="Kalender"
+          leftSection={<IconCalendar size={"1.2em"} stroke={1.5} />}
+          onClick={() => navigate("/calendar")}
+        />
         <Space h="md" />
         <Divider />
-        <Space h="lg" />
       </AppShell.Section>
 
       <AppShell.Section grow component={ScrollArea}>
@@ -286,23 +283,14 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           <Loader color="gray" m="md" />
         ) : (
           <>
-            <Group px="sm" gap="xs" wrap="nowrap">
-              <Select
-                value={selectedOrgId}
-                onChange={handleOrgSelectChange}
-                data={orgSelectData}
-                style={{ flex: 1 }}
-              />
-              {selectedOrgId && selectedOrgId !== "__create__" && (
-                <ActionIcon
-                  variant="subtle"
-                  color="gray"
-                  onClick={() => navigate(`/org/${selectedOrgId}/settings`)}
-                >
-                  <IconSettings size="1.2em" stroke={1.5} />
-                </ActionIcon>
-              )}
-            </Group>
+            <Select
+              value={selectedOrgId}
+              onChange={handleOrgSelectChange}
+              data={orgSelectData}
+              style={{ flex: 1 }}
+              p={"xs"}
+              pt={"md"}
+            />
 
             <Space h="md" />
 
@@ -318,21 +306,17 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                 label={project.name}
                 leftSection={<IconCircleDotted size="1.2em" stroke={1.5} />}
                 childrenOffset={0}
-                defaultOpened
+                onClick={() => navigate(`/projects/${project.id}`)}
               >
-                {/* Calendar section */}
-                <NavLink
-                  label={"Kalender"}
-                  leftSection={<IconCalendar size="1.2em" stroke={1.5} />}
-                  onClick={() => navigate(`/${project.id}/calendar`)}
-                />
-
                 {/* Settings section */}
-                <NavLink
+                {/* <NavLink
                   label={"Projekteinstellungen"}
                   leftSection={<IconSettings size="1.2em" stroke={1.5} />}
-                  onClick={() => navigate(`/${project.id}/settings`)}
-                />
+                  onClick={(e) => {
+                    navigate(`/projects/${project.id}/settings`);
+                    e.stopPropagation();
+                  }}
+                /> */}
 
                 {/* Boards section */}
                 <Group justify="space-between" px="sm" mt="sm">
@@ -371,14 +355,14 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                         size="sm"
                         aria-label="Settings"
                         onClick={(e) => {
-                          navigate(`/${board.id}/settings`);
+                          navigate(`/boards/${board.id}/settings`);
                           e.stopPropagation();
                         }}
                       >
                         <IconDots size="0.9em" stroke={1.5} />
                       </ActionIcon>
                     }
-                    onClick={() => navigate(`/${board.id}`)}
+                    onClick={() => navigate(`/boards/${board.id}`)}
                   />
                 ))}
 
@@ -502,17 +486,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
               </NavLink>
             ))}
 
-            {/* Create new project button */}
-            <NavLink
-              my="md"
-              label="Neues Projekt"
-              leftSection={<IconPlus size="1.2em" stroke={1.5} />}
-              c="dimmed"
-              onClick={() => {
-                setProjectName("");
-                setProjectModalOpen(true);
-              }}
-            />
           </>
         )}
       </AppShell.Section>
@@ -562,35 +535,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
         </Button>
       </Modal>
 
-      {/* Project creation modal */}
-      <Modal
-        opened={projectModalOpen}
-        onClose={() => {
-          setProjectModalOpen(false);
-          setProjectName("");
-        }}
-        title="Neues Projekt"
-        size="sm"
-        centered
-      >
-        <TextInput
-          label="Name"
-          placeholder="Projekt Name"
-          value={projectName}
-          onChange={(e) => setProjectName(e.currentTarget.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleCreateProject();
-          }}
-        />
-        <Space h="md" />
-        <Button
-          onClick={handleCreateProject}
-          loading={createProject.isPending}
-          disabled={!projectName.trim()}
-        >
-          Erstellen
-        </Button>
-      </Modal>
     </>
   );
 }

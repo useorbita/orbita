@@ -60,7 +60,7 @@ export function BoardSettings() {
             variant="subtle"
             color="gray"
             onClick={() => {
-              navigate("/" + boardId);
+              navigate("/boards/" + boardId);
             }}
           >
             <IconArrowLeft size="1em" />

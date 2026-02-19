@@ -68,7 +68,7 @@ export function Board() {
       {cardId && (
         <CardModal
           open={!!cardId}
-          close={() => navigate("/" + boardId)}
+          close={() => navigate("/boards/" + boardId)}
           cardId={cardId}
         />
       )}
