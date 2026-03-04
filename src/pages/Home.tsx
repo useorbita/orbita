@@ -32,12 +32,12 @@ export function Home() {
 
   return (
     <ScrollArea p={"xl"}>
-      <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
+      <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
         {getGreeting(pb.authStore.record?.name)}
       </Title>
       <Space h={"md"} />
       <Text>„Richte Deine Aufmerksamkeit auf das, was vor Dir liegt."</Text>
-      <Text fs="italic">Marcus Aurelius</Text>
+      <Text fs="italic">&ndash; Marcus Aurelius</Text>
 
       <Box mt="xl">
         <Text size="xs" fw={700} c="dimmed" tt="uppercase" mb="md">

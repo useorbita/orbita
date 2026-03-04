@@ -40,7 +40,7 @@ export function ProjectSettings() {
         <Text>Zurück zum Projekt</Text>
       </Group>
 
-      <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
+      <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
         Einstellungen des Projekts
       </Title>
 

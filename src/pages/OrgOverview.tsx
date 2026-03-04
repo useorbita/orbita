@@ -63,7 +63,7 @@ export function OrgOverview() {
   return (
     <Box p="xl">
       <Group justify="space-between" mb="xl">
-        <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
+        <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
           {org.data?.is_personal ? "Dein Bereich" : org.data?.name}
         </Title>
         <Button

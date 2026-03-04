@@ -23,7 +23,7 @@ export function Settings() {
   return (
     <ScrollArea p="xl">
       <Stack w={"20em"}>
-        <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
+        <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
           Einstellungen
         </Title>
 

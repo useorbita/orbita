@@ -34,11 +34,11 @@ export function DocView() {
               e.currentTarget.blur();
             }
           }}
-          styles={{ input: { fontFamily: "IBM Plex Serif", fontWeight: 400, fontSize: "2rem", border: "none" } }}
+          styles={{ input: { fontFamily: "Outfit", fontWeight: 400, fontSize: "2rem", border: "none" } }}
         />
       ) : (
         <Title
-          style={{ fontFamily: "IBM Plex Serif", fontWeight: 400, cursor: "text" }}
+          style={{ fontFamily: "Outfit", fontWeight: 400, cursor: "text" }}
           mb="md"
           onClick={() => {
             setTitleValue(doc.data?.title ?? "");

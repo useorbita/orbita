@@ -40,7 +40,7 @@ export function OrgSettings() {
         <Text>Zurück zur Organisation</Text>
       </Group>
 
-      <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
+      <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
         Einstellungen der Organisation
       </Title>
 

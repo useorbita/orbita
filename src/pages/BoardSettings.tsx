@@ -79,7 +79,7 @@ export function BoardSettings() {
         </Button>
       </Group>
 
-      <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
+      <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
         Einstellungen des Boards
       </Title>
 

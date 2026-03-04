@@ -33,7 +33,7 @@ export function Calendar() {
 
   return (
     <Box p="xl">
-      <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }} mb="xl">
+      <Title style={{ fontFamily: "Outfit", fontWeight: 400 }} mb="xl">
         Kalender
       </Title>
 

@@ -90,7 +90,7 @@ export function ProjectOverview() {
   return (
     <Box p="xl">
       <Group justify="space-between" mb="xl">
-        <Title style={{ fontFamily: "IBM Plex Serif", fontWeight: 400 }}>
+        <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
           {project.data?.name}
         </Title>
         <Button
