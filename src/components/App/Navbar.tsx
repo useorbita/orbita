@@ -18,6 +18,7 @@ import {
 } from "@mantine/core";
 import {
   IconCalendar,
+  IconChevronRight,
   IconCircleDotted,
   IconFile,
   IconHome,
@@ -25,7 +26,7 @@ import {
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
   IconSearch,
-  IconUser,
+  IconUser
 } from "@tabler/icons-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -232,6 +233,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
               onChange={handleOrgSelectChange}
               data={orgSelectData}
               allowDeselect={false}
+              onClick={() => navigate(`/orgs/${selectedOrgId}`)}
               p={"xs"}
               pt={"md"}
             />
@@ -245,6 +247,10 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                 leftSection={<IconCircleDotted size="1.2em" stroke={1.5} />}
                 childrenOffset={16}
                 onClick={() => navigate(`/projects/${project.id}`)}
+                rightSection={(project.boards.length != 0 || project.docs.length != 0)
+                  ? <IconChevronRight size="1em" stroke={1.5} />
+                  : <></>
+                }
               >
                 {project.boards.map((board) => (
                   <NavLink

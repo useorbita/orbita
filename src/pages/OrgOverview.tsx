@@ -66,14 +66,15 @@ export function OrgOverview() {
         <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
           {org.data?.is_personal ? "Dein Bereich" : org.data?.name}
         </Title>
-        <Button
-          variant="subtle"
-          color="gray"
-          leftSection={<IconSettings size="1.2em" stroke={1.5} />}
-          onClick={() => navigate(`/orgs/${orgId}/settings`)}
-        >
-          Einstellungen
-        </Button>
+        {!org.data?.is_personal &&
+          <Button
+            variant="subtle"
+            color="gray"
+            leftSection={<IconSettings size="1.2em" stroke={1.5} />}
+            onClick={() => navigate(`/orgs/${orgId}/settings`)}
+          >
+            Einstellungen
+          </Button>}
       </Group>
 
       <Stack gap="xl">
