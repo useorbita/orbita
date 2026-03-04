@@ -267,7 +267,7 @@
             },
             {
                 "hidden": false,
-                "id": "users_avatar",
+                "id": "file376926767",
                 "maxSelect": 1,
                 "maxSize": 5242880,
                 "mimeTypes": [
@@ -288,7 +288,7 @@
             {
                 "autogeneratePattern": "",
                 "hidden": false,
-                "id": "users_name",
+                "id": "text1579384326",
                 "max": 0,
                 "min": 0,
                 "name": "name",
@@ -1052,11 +1052,11 @@
     },
     {
         "id": "tkpkgund127xiyi",
-        "listRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
-        "viewRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
-        "createRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
-        "updateRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
-        "deleteRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
+        "listRule": "",
+        "viewRule": "",
+        "createRule": "",
+        "updateRule": "",
+        "deleteRule": "",
         "name": "cards",
         "type": "base",
         "fields": [
@@ -1231,9 +1231,9 @@
         "id": "pbc_3945946014",
         "listRule": "",
         "viewRule": "",
-        "createRule": null,
-        "updateRule": null,
-        "deleteRule": null,
+        "createRule": "",
+        "updateRule": "",
+        "deleteRule": "",
         "name": "docs",
         "type": "base",
         "fields": [
@@ -1530,7 +1530,7 @@
     },
     {
         "id": "d00dy4a9lm5burv",
-        "listRule": "@request.auth.id != \"\" && board.members.id ?= @request.auth.id",
+        "listRule": "",
         "viewRule": null,
         "createRule": "@request.auth.id != \"\"",
         "updateRule": null,
@@ -1707,9 +1707,9 @@
         "id": "pbc_2873630990",
         "listRule": "",
         "viewRule": "",
-        "createRule": null,
-        "updateRule": null,
-        "deleteRule": null,
+        "createRule": "",
+        "updateRule": "",
+        "deleteRule": "",
         "name": "organizations",
         "type": "base",
         "fields": [
@@ -1866,9 +1866,9 @@
         "id": "pbc_484305853",
         "listRule": "",
         "viewRule": "",
-        "createRule": null,
-        "updateRule": null,
-        "deleteRule": null,
+        "createRule": "",
+        "updateRule": "",
+        "deleteRule": "",
         "name": "projects",
         "type": "base",
         "fields": [
