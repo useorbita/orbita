@@ -11,8 +11,6 @@
     "typegen": "pocketbase-typegen --db ./pocketbase/pb_data/data.db --out ./src/api/types.ts"
   },
   "dependencies": {
-    "@dnd-kit/helpers": "^0.3.2",
-    "@dnd-kit/react": "^0.3.2",
     "@mantine/core": "^9.0.0-alpha.3",
     "@mantine/dates": "^9.0.0-alpha.3",
     "@mantine/hooks": "^9.0.0-alpha.3",

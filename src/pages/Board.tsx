@@ -1,5 +1,5 @@
 import { Box, Button, Group, Loader, Title } from "@mantine/core";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useCardsByBoard } from "../api/cards";
@@ -11,9 +11,9 @@ import { useUsers } from "../api/users";
 import { useBoard } from "../api/boards";
 import { TableView } from "../components/Board/TableView";
 import { CardModal } from "../components/Card/CardModal";
-import { FilterMenu } from "../components/UI/FilterMenu";
 import { ViewSwitch } from "../components/UI/ViewSwitch";
 import { IconSettings } from "@tabler/icons-react";
+import { ListView } from "../components/Board/ListView";
 
 export function Board() {
   const { boardId, cardId } = useParams();
@@ -25,7 +25,8 @@ export function Board() {
   const users = useUsers();
   const labels = useLabels();
 
-  const view = "table"; // Default view
+  const [view, setView] = useState("list"); // Default view
+
   const navigate = useNavigate();
 
   // Group cards by list
@@ -61,8 +62,7 @@ export function Board() {
         <Title order={4}>{board?.data?.title}</Title>
 
         <Group gap={"xs"}>
-          <FilterMenu />
-          <ViewSwitch />
+          <ViewSwitch view={view} onChange={setView} />
 
           <Button
             variant="subtle"
@@ -83,24 +83,17 @@ export function Board() {
           cardId={cardId}
         />
       )}
-      {/*
-      {view === "code" &&
-        lists.data &&
-        cards.data &&
-        users.data &&
-        labels.data && (
-          <CodeView
-            allData={allData}
-            lists={lists.data}
-            cards={cards.data}
-            users={users.data}
-            labels={labels.data}
-          />
-        )}
 
-      {view === "list" && users.data && labels.data && (
-        <ListView allData={allData} users={users.data} labels={labels.data} />
-      )} */}
+
+      {view === "list" && users.data && labels.data && boardId && lists.data && (
+        <ListView
+          allData={allData}
+          lists={lists.data}
+          boardId={boardId}
+          users={users.data}
+          labels={labels.data}
+        />
+      )}
 
       {view === "table" &&
         lists.data &&

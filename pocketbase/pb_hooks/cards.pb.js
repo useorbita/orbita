@@ -5,35 +5,31 @@
  * and generate a card number e.g. PB-23, also track the event
  */
 onRecordCreateRequest((e) => {
-  const userId = e.httpContext.get("authRecord").id;
   const boardId = e.record.get("board");
-
-  // set a card number based on card count
   const board = $app.findRecordById("boards", boardId);
-  const counter = board.get("cardCount") + 1;
+  const project = $app.findRecordById("projects", board.get("project"));
+
+  // increment the project-level ticket counter and use it as the card number
+  const counter = project.get("ticket_counter") + 1;
+  project.set("ticket_counter", counter);
+  $app.save(project);
+
   e.record.set("number", counter);
 
   e.next();
 }, "cards");
 
 /**
- * this function will be used to update the card counter for
- * the board and track the creation event
+ * this function will be used to track the creation event
  */
 onRecordCreateRequest((e) => {
-  const userId = e.httpContext.get("authRecord").id;
-  const boardId = e.record.get("board");
-
-  // update the card counter on the board
-  const board = $app.findRecordById("boards", boardId);
-  const counter = board.get("cardCount") + 1;
-  board.set("cardCount", counter);
-  $app.save(board);
+  const userId = e.auth?.id;
+  const cardId = e.record.get("id");
 
   // track the creation event in events table
-  const events = $app.findCollectionByNameOrId("events");
-  const event = new Record(events, {
-    card: e.record.get("id"),
+  const eventsCollection = $app.findCollectionByNameOrId("card_events");
+  const event = new Record(eventsCollection, {
+    card: cardId,
     user: userId,
     action: "CREATE",
   });
@@ -47,11 +43,11 @@ onRecordCreateRequest((e) => {
  * notifications
  */
 onRecordUpdateRequest((e) => {
-  const userId = e.httpContext.get("authRecord").id;
+  const userId = e.auth?.id;
 
   // track the update event in events table
-  const events = $app.findCollectionByNameOrId("events");
-  const event = new Record(events, {
+  const eventsCollection = $app.findCollectionByNameOrId("card_events");
+  const event = new Record(eventsCollection, {
     card: e.record.get("id"),
     user: userId,
     action: "UPDATE",

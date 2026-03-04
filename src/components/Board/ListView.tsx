@@ -1,85 +1,102 @@
-import { DragDropProvider } from "@dnd-kit/react";
-import { isSortable } from "@dnd-kit/react/sortable";
-import { Box, Group } from "@mantine/core";
-import { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
-import { List } from "./List";
-import { move } from "@dnd-kit/helpers";
+import { ActionIcon, Box, Button, Group, Stack, TextInput } from "@mantine/core";
 import { useState } from "react";
+import { useCreateList } from "../../api/lists";
+import { CardsResponse, LabelsResponse, ListsResponse, UsersResponse } from "../../api/types";
+import { List } from "./List";
+import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
 
 interface ListViewProps {
   allData: Record<string, CardsResponse[]>;
+  lists: ListsResponse[];
+  boardId: string;
   users: UsersResponse[];
   labels: LabelsResponse[];
 }
 
-// https://next.dndkit.com/react/guides/multiple-sortable-lists
+export function ListView({ allData, lists, boardId, users, labels }: ListViewProps) {
+  const [addingList, setAddingList] = useState(false);
+  const [newListTitle, setNewListTitle] = useState("");
 
-export function ListView({ allData, users, labels }: ListViewProps) {
-  const [items, setItems] = useState();
-  
-  const [columnOrder, setColumnOrder] = useState(() => Object.keys(items));
+  const createList = useCreateList();
+
+  const listMap = Object.fromEntries(lists.map((l) => [l.id, l]));
+  const columnOrder = Object.keys(allData);
+
+  function handleAddList() {
+    if (!newListTitle.trim()) return;
+    createList.mutate(
+      { title: newListTitle.trim(), board: boardId },
+      {
+        onSuccess: () => {
+          setNewListTitle("");
+          setAddingList(false);
+        },
+      }
+    );
+  }
 
   return (
     <Box h="100%" style={{ overflow: "auto hidden" }}>
-      <DragDropProvider
-        // onCollision={(data) => console.log(data)}
-        onDragOver={(event) => {
-          const { source, target } = event.operation;
-
-          if (source?.type === "column") return;
-
-          setItems((items) => move(items, event));
-        }}
-        onDragEnd={(event) => {
-          const { source, target } = event.operation;
-
-          if (event.canceled || source.type !== "column") return;
-
-          setColumnOrder((columns) => move(columns, event));
-
-          if (isSortable(event.operation.source)) {
-            const oldGroup = event.operation.source.sortable.initialGroup;
-            const newGroup = event.operation.source.sortable.group;
-            const oldIndex = event.operation.source.sortable.initialIndex;
-            const newIndex = event.operation.source.sortable.index;
-            console.log(oldGroup, newGroup, oldIndex, newIndex);
-          }
-        }}
+      <Group
+        style={{ height: "100%" }}
+        justify="start"
+        align="start"
+        wrap="nowrap"
       >
-        <Group
-          style={{
-            height: "100%",
-          }}
-          justify="start"
-          align="start"
-          wrap="nowrap"
-          // gap={0}
-        >
-          {columnOrder.map((listId, index) => (
-            <List
-              key={listId}
-              index={index}
-              cards={items[listId] as CardsResponse[]}
-              listId={listId}
-              users={users}
-              labels={labels}
-            />
-          ))}
+        {columnOrder.map((listId, index) => (
+          <List
+            key={listId}
+            index={index}
+            listId={listId}
+            listTitle={listMap[listId]?.title ?? listId}
+            boardId={boardId}
+            cards={allData[listId]}
+            users={users}
+            labels={labels}
+          />
+        ))}
 
-          {
-            //   Object.entries(items).map(([listId, cards], index) => (
-            //   <List
-            //     key={listId}
-            //     index={index}
-            //     cards={cards as CardsResponse[]}
-            //     listId={listId}
-            //     users={users}
-            //     labels={labels}
-            //   />
-            // ))
-          }
-        </Group>
-      </DragDropProvider>
+        <div style={{ minWidth: 250, flexShrink: 0 }}>
+          {addingList ? (
+            <Stack gap="xs" p="xs">
+              <TextInput
+                placeholder="List title"
+                value={newListTitle}
+                onChange={(e) => setNewListTitle(e.currentTarget.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleAddList();
+                  if (e.key === "Escape") setAddingList(false);
+                }}
+                autoFocus
+                size="xs"
+              />
+              <Group gap="xs">
+                <ActionIcon
+                  size="sm"
+                  variant="filled"
+                  onClick={handleAddList}
+                  loading={createList.isPending}
+                >
+                  <IconCheck size="0.9em" />
+                </ActionIcon>
+                <ActionIcon size="sm" variant="subtle" color="gray" onClick={() => setAddingList(false)}>
+                  <IconX size="0.9em" />
+                </ActionIcon>
+              </Group>
+            </Stack>
+          ) : (
+            <Button
+              variant="subtle"
+              color="gray"
+              leftSection={<IconPlus size="1em" />}
+              size="xs"
+              onClick={() => setAddingList(true)}
+            >
+              Add list
+            </Button>
+          )}
+        </div>
+      </Group>
     </Box>
   );
 }

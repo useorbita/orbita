@@ -29,7 +29,7 @@ export function TableView({ cards, lists, users, labels }: TableViewProps) {
         {cards.map((card: CardsResponse) => (
           <Group key={card.id} justify="space-between">
             <Group>
-              <Link to={card.id}>
+              <Link to={`cards/${card.id}`}>
                 <Text size="sm">{card.title}</Text>
               </Link>
 

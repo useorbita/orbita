@@ -1,12 +1,18 @@
 import { Center, SegmentedControl } from "@mantine/core";
-import { IconCode, IconLayoutGrid, IconLayoutList } from "@tabler/icons-react";
+import { IconLayout, IconLayoutList } from "@tabler/icons-react";
 
-export function ViewSwitch() {
-  const view = "table"; // Default view - TODO: implement view switching
-
+export function ViewSwitch({ view, onChange }: { view: string; onChange: (value: string) => void }) {
   return (
     <SegmentedControl
       data={[
+        {
+          value: "list",
+          label: (
+            <Center>
+              <IconLayout size="1em" />
+            </Center>
+          ),
+        },
         {
           value: "table",
           label: (
@@ -15,25 +21,9 @@ export function ViewSwitch() {
             </Center>
           ),
         },
-        {
-          value: "list",
-          label: (
-            <Center>
-              <IconLayoutGrid size="1em" />
-            </Center>
-          ),
-        },
-        {
-          value: "code",
-          label: (
-            <Center>
-              <IconCode size="1em" />
-            </Center>
-          ),
-        },
       ]}
       value={view}
-      onChange={() => {}} // Disabled for now
+      onChange={onChange}
     />
   );
 }
