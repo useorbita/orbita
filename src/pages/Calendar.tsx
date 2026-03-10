@@ -1,19 +1,30 @@
-import { Box, Group, Loader, Stack, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Center,
+  Group,
+  Loader,
+  SegmentedControl,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
+import { Schedule } from "@mantine/schedule";
+import { IconCalendar, IconLayoutList } from "@tabler/icons-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCards } from "../api/cards";
 import { useBoards } from "../api/boards";
+import { useCards } from "../api/cards";
 
 export function Calendar() {
   const navigate = useNavigate();
 
   const cards = useCards();
   const boards = useBoards();
+  const [view, setView] = useState("calendar");
 
   const isLoading = cards.isLoading || boards.isLoading;
 
-  const boardMap = Object.fromEntries(
-    boards.data?.map((b) => [b.id, b]) ?? []
-  );
+  const boardMap = Object.fromEntries(boards.data?.map((b) => [b.id, b]) ?? []);
 
   const cardsWithDate = cards.data
     ?.filter((c) => !!c.date)
@@ -33,53 +44,78 @@ export function Calendar() {
 
   return (
     <Box p="xl">
-      <Title style={{ fontFamily: "Outfit", fontWeight: 400 }} mb="xl">
-        Kalender
-      </Title>
+      <Group justify="space-between" mb={"lg"}>
+        <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
+          Kalender
+        </Title>
 
-      {sortedDays.length === 0 && (
-        <Text c="dimmed">Keine Karten mit Fälligkeitsdatum vorhanden</Text>
+        <SegmentedControl
+          data={[
+            {
+              value: "calendar",
+              label: (
+                <Center>
+                  <IconCalendar size="1em" />
+                </Center>
+              ),
+            },
+            {
+              value: "list",
+              label: (
+                <Center>
+                  <IconLayoutList size="1em" />
+                </Center>
+              ),
+            },
+          ]}
+          value={view}
+          onChange={setView}
+        />
+      </Group>
+
+      {view == "calendar" ? (
+        <Schedule defaultView="month" locale="DE-de" />
+      ) : (
+        <Stack gap="xl">
+          {sortedDays.map((day) => (
+            <Box key={day}>
+              <Text size="sm" fw={700} c="dimmed" mb="xs">
+                {new Date(day + "T00:00:00").toLocaleDateString("de-DE", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Text>
+              <Stack gap="xs">
+                {grouped[day]!.map((card) => (
+                  <Group
+                    key={card.id}
+                    p="xs"
+                    style={(theme) => ({
+                      border: `1px solid ${theme.colors.gray[3]}`,
+                      borderRadius: theme.radius.sm,
+                      cursor: "pointer",
+                    })}
+                    onClick={() =>
+                      navigate(`/boards/${card.board}/cards/${card.id}`)
+                    }
+                  >
+                    <Box style={{ flex: 1 }}>
+                      <Text size="sm">{card.title}</Text>
+                      {boardMap[card.board] && (
+                        <Text size="xs" c="dimmed">
+                          {boardMap[card.board].title}
+                        </Text>
+                      )}
+                    </Box>
+                  </Group>
+                ))}
+              </Stack>
+            </Box>
+          ))}
+        </Stack>
       )}
-
-      <Stack gap="xl">
-        {sortedDays.map((day) => (
-          <Box key={day}>
-            <Text size="sm" fw={700} c="dimmed" mb="xs">
-              {new Date(day + "T00:00:00").toLocaleDateString("de-DE", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </Text>
-            <Stack gap="xs">
-              {grouped[day]!.map((card) => (
-                <Group
-                  key={card.id}
-                  p="xs"
-                  style={(theme) => ({
-                    border: `1px solid ${theme.colors.gray[3]}`,
-                    borderRadius: theme.radius.sm,
-                    cursor: "pointer",
-                  })}
-                  onClick={() =>
-                    navigate(`/boards/${card.board}/cards/${card.id}`)
-                  }
-                >
-                  <Box style={{ flex: 1 }}>
-                    <Text size="sm">{card.title}</Text>
-                    {boardMap[card.board] && (
-                      <Text size="xs" c="dimmed">
-                        {boardMap[card.board].title}
-                      </Text>
-                    )}
-                  </Box>
-                </Group>
-              ))}
-            </Stack>
-          </Box>
-        ))}
-      </Stack>
     </Box>
   );
 }

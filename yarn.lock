@@ -570,9 +570,9 @@
     type-fest "^4.41.0"
 
 "@mantine/dates@^9.0.0-alpha.3":
-  version "9.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-9.0.0-alpha.3.tgz#5963ac966fae98c503b0c5b13effd036161808a0"
-  integrity sha512-85PVEonwqNHUyNabgy7D+P1XKriYgESOwTL0f5X67ANKz05KnpAp86YRVk6QY4H2zzXdnNdrzoKJFdjcch2WHQ==
+  version "9.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-9.0.0-alpha.4.tgz#3917ebbb090d9f1bc63f70121af1a2f113e57680"
+  integrity sha512-GWiKX0lkN4L+ExKCtbyOF3Vig7k3FscRYF1Hc+kWqaZY9Yn2NeGZNap5bSK0mjQRLcKEiLXTYe/qvGH/d0w/qg==
   dependencies:
     clsx "^2.1.1"
 
@@ -593,6 +593,11 @@
   dependencies:
     "@mantine/store" "9.0.0-alpha.3"
     react-transition-group "4.4.5"
+
+"@mantine/schedule@^9.0.0-alpha.0":
+  version "9.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@mantine/schedule/-/schedule-9.0.0-alpha.0.tgz#618ea1b7651c868c7aea98e7b20cc410c2121476"
+  integrity sha512-NCF0KTAQ3h58smUw8e/T6Zc2VYlgL74iZIcfKAy9lak05h9G36MpPOQ5tIo1ibPii0Ddtrg0y4SujXs27QF/8g==
 
 "@mantine/store@9.0.0-alpha.3":
   version "9.0.0-alpha.3"
