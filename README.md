@@ -1,14 +1,28 @@
 # Orbita
 
-A self-hosted project management and knowledge base tool — a kanban board combined with a lightweight wiki. Built as a personal/team workspace for organizing work across organizations, projects, boards, and documents.
+A lightweight project management tool for small teams 
 
-> **Status:** Work in progress. Core features are functional; several areas are still being built out.
+> **Status:** Work in progress. Core features are functional; several areas are still being built out. Not yet ready for use.
+
+## Features & Goals
+
+**Organize Tasks in Cards and Lists** Use kanban boards to manage your tasks, assign members, and track progress.
+
+**Keep Your Knowledge in One Place** Manage your meeting notes, documentation, and thoughts for every project.
+
+**Keep Track of the Timeline** See all your tasks and deadlines in a single calendar.
+
+**Free & Open-Source** MIT licensed. Change what you want. No freemium model, no paywalled features.
+
+**Built upon PocketBase** Easy to self-host, easy to extend, easy to migrate.
+
+**Privacy First** No advertising, no tracking, no data sharing, GDPR compliant, deployable in air-gapped environments.
+
+**AI Opt-In** Connect a local LLM via llama.cpp or Jan to enhance search and automate tasks.
 
 ---
 
-## Features
-
-### Implemented
+### In Progress
 - **Organizations** — Create organizations, invite members, manage roles
 - **Projects** — Group boards and documents under a project within an organization
 - **Boards** — Kanban-style boards with lists (columns) and cards
@@ -21,7 +35,7 @@ A self-hosted project management and knowledge base tool — a kanban board comb
 - **Settings** — User account info, color scheme (light / dark / system)
 - **Collapsible sidebar** — Navigation across orgs, projects, boards, docs
 
-### Planned / In Progress
+### Planned / Work started
 - Card deletion
 - Board deletion
 - Drag-and-drop card reordering
@@ -37,16 +51,15 @@ A self-hosted project management and knowledge base tool — a kanban board comb
 
 | Layer | Technology |
 |---|---|
-| Framework | React 19 |
-| Language | TypeScript 5 (strict) |
-| Build | Vite 7 + SWC |
-| UI | Mantine 9 |
-| Data fetching | TanStack React Query v5 |
-| Rich text | TipTap 3 |
-| Router | React Router v7 |
-| Backend | PocketBase 0.26 (self-hosted) |
+| Backend | PocketBase |
+| Language | TypeScript |
+| Framework | React |
+| UI | Mantine |
+| Build | Vite + SWC |
+| Data fetching | TanStack React Query |
+| Rich text | TipTap |
+| Router | React Router |
 | Icons | Tabler Icons |
-| Dates | dayjs |
 
 ---
 
@@ -54,8 +67,8 @@ A self-hosted project management and knowledge base tool — a kanban board comb
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18+) and a package manager (`pnpm` recommended)
-- [PocketBase](https://pocketbase.io/) binary (v0.26+)
+- [Node.js](https://nodejs.org/) and a package manager (`pnpm` recommended)
+- [PocketBase](https://pocketbase.io/) binary
 
 ### 1. Start PocketBase
 
@@ -100,45 +113,6 @@ This generates `src/api/types.ts` from the live PocketBase schema.
 
 ---
 
-## Project Structure
-
-```
-src/
-├── api/              # React Query hooks + PocketBase calls
-│   ├── pocketbase.ts # PocketBase client singleton
-│   ├── types.ts      # Auto-generated types from schema
-│   ├── auth.ts
-│   ├── boards.ts
-│   ├── cards.ts
-│   ├── lists.ts
-│   ├── organizations.ts
-│   ├── projects.ts
-│   ├── docs.ts
-│   ├── labels.ts
-│   ├── comments.ts
-│   └── users.ts
-├── components/
-│   ├── App/          # App shell (Navbar)
-│   ├── Board/        # ListView, List, TableView
-│   ├── Card/         # Card, CardModal
-│   └── UI/           # Shared components (TextEditor, UserAvatar, etc.)
-├── pages/            # Route-level page components
-├── shared/           # Utility functions (nameUtils, etc.)
-├── App.tsx           # Route definitions
-└── main.tsx          # Entry point
-
-pocketbase/
-├── pb_schema.json    # Database schema (import to PocketBase)
-├── pb_hooks/         # Server-side PocketBase JS hooks
-└── CHANGELOG.md
-
-scripts/
-├── addDummyData.ts   # Seed script for development
-└── deleteDummyData.ts
-```
-
----
-
 ## License
 
-See [LICENSE](LICENSE).
+MIT License. See [LICENSE](LICENSE).
