@@ -31,7 +31,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBoards } from "../../api/boards";
-import { useDocs } from "../../api/docs";
+import { useDocuments } from "../../api/documents";
 import {
   useCreateOrganization,
   useOrganizations,
@@ -49,7 +49,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
   const organizations = useOrganizations();
   const projects = useProjects();
   const boards = useBoards();
-  const docs = useDocs();
+  const documents = useDocuments();
 
   const createOrganization = useCreateOrganization();
 
@@ -65,7 +65,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
     organizations.isLoading ||
     projects.isLoading ||
     boards.isLoading ||
-    docs.isLoading;
+    documents.isLoading;
 
   // Build select data for organizations
   const orgSelectData = useMemo(() => {
@@ -91,18 +91,18 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
     }
   }, [selectedOrgId, orgSelectData]);
 
-  // Compute projects with their boards and docs for the selected org
+  // Compute projects with their boards and documents for the selected org
   const orgProjects = useMemo(() => {
-    if (!selectedOrgId || !projects.data || !boards.data || !docs.data)
+    if (!selectedOrgId || !projects.data || !boards.data || !documents.data)
       return [];
     return projects.data
       .filter((p) => p.organization === selectedOrgId)
       .map((project) => ({
         ...project,
         boards: boards.data.filter((b) => b.project === project.id),
-        docs: docs.data.filter((d) => d.project === project.id),
+        documents: documents.data.filter((d) => d.project === project.id),
       }));
-  }, [selectedOrgId, projects.data, boards.data, docs.data]);
+  }, [selectedOrgId, projects.data, boards.data, documents.data]);
 
   // Handlers
   const handleOrgSelectChange = (value: string | null) => {
@@ -247,7 +247,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                 leftSection={<IconCircleDotted size="1.2em" stroke={1.5} />}
                 childrenOffset={16}
                 onClick={() => navigate(`/projects/${project.id}`)}
-                rightSection={(project.boards.length != 0 || project.docs.length != 0)
+                rightSection={(project.boards.length != 0 || project.documents.length != 0)
                   ? <IconChevronRight size="1em" stroke={1.5} />
                   : <></>
                 }
@@ -261,12 +261,12 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                   />
                 ))}
 
-                {project.docs.map((doc) => (
+                {project.documents.map((doc) => (
                   <NavLink
                     key={doc.id}
                     label={doc.title || "Untitled"}
                     leftSection={<IconFile size="1.2em" stroke={1.5} />}
-                    onClick={() => navigate(`/docs/${doc.id}`)}
+                    onClick={() => navigate(`/documents/${doc.id}`)}
                   />
                 ))}
               </NavLink>

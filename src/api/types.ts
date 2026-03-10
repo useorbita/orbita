@@ -15,7 +15,7 @@ export enum Collections {
 	CardComments = "card_comments",
 	CardEvents = "card_events",
 	Cards = "cards",
-	Docs = "docs",
+	Documents = "documents",
 	Invitations = "invitations",
 	Labels = "labels",
 	Lists = "lists",
@@ -158,7 +158,7 @@ export type CardsRecord = {
 	updated: IsoAutoDateString
 }
 
-export type DocsRecord = {
+export type DocumentsRecord = {
 	content?: HTMLString
 	created: IsoAutoDateString
 	id: string
@@ -268,7 +268,7 @@ export type BoardsResponse<Texpand = unknown> = Required<BoardsRecord> & BaseSys
 export type CardCommentsResponse<Texpand = unknown> = Required<CardCommentsRecord> & BaseSystemFields<Texpand>
 export type CardEventsResponse<Texpand = unknown> = Required<CardEventsRecord> & BaseSystemFields<Texpand>
 export type CardsResponse<Texpand = unknown> = Required<CardsRecord> & BaseSystemFields<Texpand>
-export type DocsResponse<Texpand = unknown> = Required<DocsRecord> & BaseSystemFields<Texpand>
+export type DocumentsResponse<Texpand = unknown> = Required<DocumentsRecord> & BaseSystemFields<Texpand>
 export type InvitationsResponse<Texpand = unknown> = Required<InvitationsRecord> & BaseSystemFields<Texpand>
 export type LabelsResponse<Texpand = unknown> = Required<LabelsRecord> & BaseSystemFields<Texpand>
 export type ListsResponse<Texpand = unknown> = Required<ListsRecord> & BaseSystemFields<Texpand>
@@ -290,7 +290,7 @@ export type CollectionRecords = {
 	card_comments: CardCommentsRecord
 	card_events: CardEventsRecord
 	cards: CardsRecord
-	docs: DocsRecord
+	documents: DocumentsRecord
 	invitations: InvitationsRecord
 	labels: LabelsRecord
 	lists: ListsRecord
@@ -311,7 +311,7 @@ export type CollectionResponses = {
 	card_comments: CardCommentsResponse
 	card_events: CardEventsResponse
 	cards: CardsResponse
-	docs: DocsResponse
+	documents: DocumentsResponse
 	invitations: InvitationsResponse
 	labels: LabelsResponse
 	lists: ListsResponse

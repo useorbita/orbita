@@ -28,7 +28,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useBoardsByProject, useCreateBoard } from "../api/boards";
-import { useCreateDoc, useDocsByProject } from "../api/docs";
+import { useCreateDocument, useDocumentsByProject } from "../api/documents";
 import { useProject } from "../api/projects";
 
 export function ProjectOverview() {
@@ -37,9 +37,9 @@ export function ProjectOverview() {
 
   const project = useProject(projectId);
   const boards = useBoardsByProject(projectId);
-  const docs = useDocsByProject(projectId);
+  const documents = useDocumentsByProject(projectId);
   const createBoard = useCreateBoard();
-  const createDoc = useCreateDoc();
+  const createDoc = useCreateDocument();
 
   const [creatingBoard, setCreatingBoard] = useState(false);
   const [newBoardTitle, setNewBoardTitle] = useState("");
@@ -49,7 +49,7 @@ export function ProjectOverview() {
   const boardInputRef = useRef<HTMLInputElement>(null);
   const docInputRef = useRef<HTMLInputElement>(null);
 
-  const isLoading = project.isLoading || boards.isLoading || docs.isLoading;
+  const isLoading = project.isLoading || boards.isLoading || documents.isLoading;
 
   useEffect(() => {
     if (creatingBoard) boardInputRef.current?.focus();
@@ -198,7 +198,7 @@ export function ProjectOverview() {
             Dokumente
           </Text>
 
-          {docs.data?.length === 0 && (
+          {documents.data?.length === 0 && (
             <Text size="sm" c="dimmed">
               Keine Dokumente vorhanden
             </Text>
@@ -207,14 +207,14 @@ export function ProjectOverview() {
           <Space h="md" />
 
           <SimpleGrid cols={3} spacing="sm">
-            {docs.data?.map((doc) => (
+            {documents.data?.map((doc) => (
               <Card
                 key={doc.id}
                 withBorder
                 shadow="sm"
                 padding="md"
                 style={{ cursor: "pointer" }}
-                onClick={() => navigate(`/docs/${doc.id}`)}
+                onClick={() => navigate(`/documents/${doc.id}`)}
               >
                 <Group gap="xs">
                   <IconFile size="1em" stroke={1.5} />

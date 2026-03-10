@@ -6,7 +6,7 @@ import { Navbar } from "./components/App/Navbar";
 import { Board } from "./pages/Board";
 import { BoardSettings } from "./pages/BoardSettings";
 import { Calendar } from "./pages/Calendar";
-import { DocView } from "./pages/DocView";
+import { DocumentView } from "./pages/DocumentView";
 import { Home } from "./pages/Home";
 import { OrgOverview } from "./pages/OrgOverview";
 import { OrgSettings } from "./pages/OrgSettings";
@@ -43,14 +43,14 @@ export function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/orgs/:orgId" element={<OrgOverview />} />
+          <Route path="/orgs/:orgId/settings" element={<OrgSettings />} />
+          <Route path="/projects/:projectId" element={<ProjectOverview />} />
+          <Route path="/projects/:projectId/settings" element={<ProjectSettings />} />
           <Route path="/boards/:boardId" element={<Board />} />
           <Route path="/boards/:boardId/settings" element={<BoardSettings />} />
           <Route path="/boards/:boardId/cards/:cardId" element={<Board />} />
-          <Route path="/projects/:projectId" element={<ProjectOverview />} />
-          <Route path="/projects/:projectId/settings" element={<ProjectSettings />} />
-          <Route path="/orgs/:orgId" element={<OrgOverview />} />
-          <Route path="/orgs/:orgId/settings" element={<OrgSettings />} />
-          <Route path="/docs/:docId" element={<DocView />} />
+          <Route path="/documents/:documentId" element={<DocumentView />} />
           <Route path="*" element={<p>Seite nicht gefunden</p>} />
         </Routes>
       </AppShell.Main>

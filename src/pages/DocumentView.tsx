@@ -1,14 +1,14 @@
 import { Box, Loader, TextInput, Title } from "@mantine/core";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDoc, useUpdateDoc } from "../api/docs";
+import { useDocument, useUpdateDocument } from "../api/documents";
 import { TextEditor } from "../components/UI/TextEditor";
 
-export function DocView() {
-  const { docId } = useParams();
+export function DocumentView() {
+  const { documentId } = useParams();
 
-  const doc = useDoc(docId);
-  const updateDoc = useUpdateDoc();
+  const doc = useDocument(documentId);
+  const updateDocument = useUpdateDocument();
 
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleValue, setTitleValue] = useState("");
@@ -25,7 +25,7 @@ export function DocView() {
           onChange={(e) => setTitleValue(e.currentTarget.value)}
           onBlur={() => {
             if (titleValue.trim()) {
-              updateDoc.mutate({ id: docId!, data: { title: titleValue.trim() } });
+              updateDocument.mutate({ id: documentId!, data: { title: titleValue.trim() } });
             }
             setEditingTitle(false);
           }}
@@ -51,7 +51,7 @@ export function DocView() {
 
       <TextEditor
         content={doc.data?.content ?? ""}
-        onSave={(content) => updateDoc.mutate({ id: docId!, data: { content } })}
+        onSave={(content) => updateDocument.mutate({ id: documentId!, data: { content } })}
       />
     </Box>
   );
