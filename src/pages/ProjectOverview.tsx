@@ -88,7 +88,7 @@ export function ProjectOverview() {
   if (isLoading) return <Loader color="gray" />;
 
   return (
-    <Box p="xl">
+    <Box key={projectId} p="xl">
       <Group justify="space-between" mb="xl">
         <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
           {project.data?.name}

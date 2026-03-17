@@ -57,7 +57,7 @@ export function Board() {
   if (isLoading) return <Loader color="gray" />;
 
   return (
-    <Box h="100%">
+    <Box key={boardId} h="100%">
       <Group justify="space-between">
         <Title order={4}>{board?.data?.title}</Title>
 

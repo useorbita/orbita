@@ -61,7 +61,7 @@ export function OrgOverview() {
   if (isLoading) return <Loader color="gray" />;
 
   return (
-    <Box p="xl">
+    <Box key={orgId} p="xl">
       <Group justify="space-between" mb="xl">
         <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>
           {org.data?.is_personal ? "Dein Bereich" : org.data?.name}
