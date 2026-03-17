@@ -35,7 +35,7 @@ export function DocumentView() {
   if (doc.isLoading) return <Loader color="gray" />;
 
   return (
-    <Container pt="md">
+    <Container key={documentId} pt="md">
       <Group justify="space-between" p="md">
         <Stack gap={0}>
           {editingTitle ? (
