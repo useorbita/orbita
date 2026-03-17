@@ -17,25 +17,15 @@ onRecordCreateRequest((e) => {
   e.record.set("number", counter);
 
   e.next();
-}, "cards");
-
-/**
- * this function will be used to track the creation event
- */
-onRecordCreateRequest((e) => {
-  const userId = e.auth?.id;
-  const cardId = e.record.get("id");
 
   // track the creation event in events table
   const eventsCollection = $app.findCollectionByNameOrId("card_events");
   const event = new Record(eventsCollection, {
-    card: cardId,
-    user: userId,
+    card: e.record.get("id"),
+    user: e.auth?.id,
     action: "CREATE",
   });
   $app.save(event);
-
-  e.next();
 }, "cards");
 
 /**
