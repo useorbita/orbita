@@ -2,7 +2,6 @@ import {
   ActionIcon,
   Button,
   ColorPicker,
-  Container,
   Grid,
   Group,
   MultiSelect,

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useCardsByBoard } from "../api/cards";
 import { useLabels } from "../api/labels";
 import { useListsByBoard } from "../api/lists";
-import { CardsResponse } from "../api/types";
+import type { CardsResponse } from "../api/types";
 import { useUsers } from "../api/users";
 
 import { useBoard } from "../api/boards";

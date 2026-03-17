@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { pb } from "./pocketbase";
-import { Collections, ListsResponse } from "./types";
+import { Collections, type ListsResponse } from "./types";
 
 // ============================================================================
 // Query Keys

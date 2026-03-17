@@ -1,11 +1,11 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { pb } from "./pocketbase";
 import {
   Collections,
-  ProjectsResponse,
-  ProjectMembersResponse,
+  type ProjectMembersResponse,
   ProjectMembersRoleOptions,
-  UsersResponse,
+  type ProjectsResponse,
+  type UsersResponse,
 } from "./types";
 
 // ============================================================================
@@ -172,7 +172,6 @@ export const useRemoveProjectMember = () => {
   return useMutation({
     mutationFn: ({
       memberId,
-      projectId,
     }: {
       memberId: string;
       projectId: string;

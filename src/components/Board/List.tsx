@@ -1,7 +1,7 @@
 import { ActionIcon, Group, Paper, ScrollArea, Stack, Text, TextInput } from "@mantine/core";
 import { useState } from "react";
 import { useCreateCard } from "../../api/cards";
-import { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
+import type { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
 import { Card } from "../Card/Card";
 import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
 

@@ -1,5 +1,4 @@
 import { Group, Avatar as MantineAvatar, Text } from "@mantine/core";
-import { IconChevronRight } from "@tabler/icons-react";
 import { pb } from "../../api/pocketbase";
 
 function getInitials(name: string | undefined): string {

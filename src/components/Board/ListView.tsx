@@ -1,9 +1,9 @@
 import { ActionIcon, Box, Button, Group, Stack, TextInput } from "@mantine/core";
+import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { useCreateList } from "../../api/lists";
-import { CardsResponse, LabelsResponse, ListsResponse, UsersResponse } from "../../api/types";
+import type { CardsResponse, LabelsResponse, ListsResponse, UsersResponse } from "../../api/types";
 import { List } from "./List";
-import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
 
 interface ListViewProps {
   allData: Record<string, CardsResponse[]>;

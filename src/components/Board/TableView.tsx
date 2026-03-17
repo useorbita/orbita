@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-import {
+import type {
   CardsResponse,
   LabelsResponse,
   ListsResponse,

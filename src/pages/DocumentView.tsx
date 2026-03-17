@@ -12,7 +12,7 @@ import {
 import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDocument, useUpdateDocument } from "../api/documents";
-import { DocumentEditor, DocumentEditorHandle } from "../components/UI/DocumentEditor";
+import { DocumentEditor, type DocumentEditorHandle } from "../components/UI/DocumentEditor";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";

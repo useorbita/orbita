@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import { IconCalendar, IconTriangle } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
+import type { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
 
 interface CardProps {
   index: number;

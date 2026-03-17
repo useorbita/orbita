@@ -2,10 +2,10 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { pb } from "./pocketbase";
 import {
   Collections,
-  OrganizationsResponse,
-  OrganizationMembersResponse,
+  type OrganizationsResponse,
+  type OrganizationMembersResponse,
   OrganizationMembersRoleOptions,
-  UsersResponse,
+  type UsersResponse,
 } from "./types";
 
 // ============================================================================
