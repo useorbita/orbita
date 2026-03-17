@@ -1,8 +1,24 @@
-import { Box, Loader, TextInput, Title } from "@mantine/core";
+import {
+  Text,
+  Container,
+  Loader,
+  TextInput,
+  Title,
+  Space,
+  Group,
+  Button,
+  Stack,
+} from "@mantine/core";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDocument, useUpdateDocument } from "../api/documents";
-import { TextEditor } from "../components/UI/TextEditor";
+import { DocumentEditor } from "../components/UI/DocumentEditor";
+
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/de";
+dayjs.extend(relativeTime);
+dayjs.locale("de");
 
 export function DocumentView() {
   const { documentId } = useParams();
@@ -13,46 +29,73 @@ export function DocumentView() {
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleValue, setTitleValue] = useState("");
 
+  const [editingContent, setEditingContent] = useState(false);
+
   if (doc.isLoading) return <Loader color="gray" />;
 
   return (
-    <Box p="xl" maw={860}>
-      {editingTitle ? (
-        <TextInput
-          size="xl"
-          value={titleValue}
-          autoFocus
-          onChange={(e) => setTitleValue(e.currentTarget.value)}
-          onBlur={() => {
-            if (titleValue.trim()) {
-              updateDocument.mutate({ id: documentId!, data: { title: titleValue.trim() } });
-            }
-            setEditingTitle(false);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === "Escape") {
-              e.currentTarget.blur();
-            }
-          }}
-          styles={{ input: { fontFamily: "Outfit", fontWeight: 400, fontSize: "2rem", border: "none" } }}
-        />
-      ) : (
-        <Title
-          style={{ fontFamily: "Outfit", fontWeight: 400, cursor: "text" }}
-          mb="md"
-          onClick={() => {
-            setTitleValue(doc.data?.title ?? "");
-            setEditingTitle(true);
-          }}
-        >
-          {doc.data?.title || "Untitled"}
-        </Title>
-      )}
+    <Container pt="md">
+      <Group justify="space-between" p="md">
+        <Stack gap={0}>
+          {editingTitle ? (
+            <TextInput
+              size="xl"
+              value={titleValue}
+              autoFocus
+              onChange={(e) => setTitleValue(e.currentTarget.value)}
+              onBlur={() => {
+                if (titleValue.trim()) {
+                  updateDocument.mutate({
+                    id: documentId!,
+                    data: { title: titleValue.trim() },
+                  });
+                }
+                setEditingTitle(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === "Escape") {
+                  e.currentTarget.blur();
+                }
+              }}
+              styles={{
+                input: {
+                  fontFamily: "Outfit",
+                  fontWeight: 400,
+                  fontSize: "2rem",
+                  border: "none",
+                },
+              }}
+            />
+          ) : (
+            <Title
+              style={{ fontFamily: "Outfit", fontWeight: 400, cursor: "text" }}
+              onClick={() => {
+                setTitleValue(doc.data?.title ?? "");
+                setEditingTitle(true);
+              }}
+            >
+              {doc.data?.title || "Untitled"}
+            </Title>
+          )}
 
-      <TextEditor
+          <Text c={"dimmed"}>
+            Zuletzt geändert {dayjs(doc.data?.updated).fromNow()}{" "}
+          </Text>
+        </Stack>
+
+        <Button
+          variant="default"
+          onClick={() => setEditingContent(!editingContent)}
+        >
+          {editingContent ? "Speichern" :  "Bearbeiten" }
+        </Button>
+      </Group>
+      <Space h={"lg"} />
+
+      <DocumentEditor
         content={doc.data?.content ?? ""}
-        onSave={(content) => updateDocument.mutate({ id: documentId!, data: { content } })}
+        isEditable={editingContent}
       />
-    </Box>
+    </Container>
   );
 }
