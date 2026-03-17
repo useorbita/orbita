@@ -9,10 +9,10 @@ import {
   Button,
   Stack,
 } from "@mantine/core";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDocument, useUpdateDocument } from "../api/documents";
-import { DocumentEditor } from "../components/UI/DocumentEditor";
+import { DocumentEditor, DocumentEditorHandle } from "../components/UI/DocumentEditor";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -30,6 +30,7 @@ export function DocumentView() {
   const [titleValue, setTitleValue] = useState("");
 
   const [editingContent, setEditingContent] = useState(false);
+  const editorRef = useRef<DocumentEditorHandle>(null);
 
   if (doc.isLoading) return <Loader color="gray" />;
 
@@ -84,15 +85,23 @@ export function DocumentView() {
         </Stack>
 
         <Button
-          variant="default"
-          onClick={() => setEditingContent(!editingContent)}
+          variant={"default"}
+          color="gray"
+          onClick={() => {
+            if (editingContent) {
+              const html = editorRef.current?.getHTML() ?? "";
+              updateDocument.mutate({ id: documentId!, data: { content: html } });
+            }
+            setEditingContent(!editingContent);
+          }}
         >
-          {editingContent ? "Speichern" :  "Bearbeiten" }
+          {editingContent ? "Speichern" : "Bearbeiten"}
         </Button>
       </Group>
       <Space h={"lg"} />
 
       <DocumentEditor
+        ref={editorRef}
         content={doc.data?.content ?? ""}
         isEditable={editingContent}
       />

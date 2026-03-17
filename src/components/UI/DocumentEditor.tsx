@@ -2,39 +2,58 @@ import { Link, RichTextEditor } from "@mantine/tiptap";
 import Highlight from "@tiptap/extension-highlight";
 import SubScript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
-import Underline from "@tiptap/extension-underline";
-import { useEditor } from "@tiptap/react";
+import TextAlign from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
+
+// import { UndoRedo } from '@tiptap/extensions'
+
+import { useEditor } from "@tiptap/react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 
 interface DocumentEditorProps {
   content: string;
-  // onSave: (content: string) => void;
   isEditable: boolean;
 }
 
-export function DocumentEditor({
-  content,
-  // onSave,
-  isEditable,
-}: DocumentEditorProps) {
+export interface DocumentEditorHandle {
+  getHTML: () => string;
+}
+
+export const DocumentEditor = forwardRef<
+  DocumentEditorHandle,
+  DocumentEditorProps
+>(({ content, isEditable }, ref) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
-      Underline,
+      StarterKit.configure({ link: false }),
       Link,
       Superscript,
       SubScript,
       Highlight,
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      // UndoRedo // TODO: fix duplicate import
     ],
     content,
     editable: isEditable,
   });
 
+  useEffect(() => {
+    editor?.setEditable(isEditable);
+  }, [editor, isEditable]);
+
+  useImperativeHandle(ref, () => ({
+    getHTML: () => editor?.getHTML() ?? "",
+  }));
+
   return (
     <>
       <RichTextEditor
+        variant="subtle"
         editor={editor}
-        styles={{ root: { border: "none" }, toolbar: { border: "none" } }}
+        styles={{
+          root: { border: "none" },
+          toolbar: { border: "none" },
+        }}
       >
         {isEditable && (
           <RichTextEditor.Toolbar sticky>
@@ -46,6 +65,13 @@ export function DocumentEditor({
               <RichTextEditor.ClearFormatting />
               <RichTextEditor.Highlight />
               <RichTextEditor.Code />
+            </RichTextEditor.ControlsGroup>
+
+            <RichTextEditor.ControlsGroup>
+              <RichTextEditor.H1 />
+              <RichTextEditor.H2 />
+              <RichTextEditor.H3 />
+              <RichTextEditor.H4 />
             </RichTextEditor.ControlsGroup>
 
             <RichTextEditor.ControlsGroup>
@@ -61,6 +87,18 @@ export function DocumentEditor({
               <RichTextEditor.Link />
               <RichTextEditor.Unlink />
             </RichTextEditor.ControlsGroup>
+
+            <RichTextEditor.ControlsGroup>
+              <RichTextEditor.AlignLeft />
+              <RichTextEditor.AlignCenter />
+              <RichTextEditor.AlignJustify />
+              <RichTextEditor.AlignRight />
+            </RichTextEditor.ControlsGroup>
+
+            {/* <RichTextEditor.ControlsGroup>
+              <RichTextEditor.Undo />
+              <RichTextEditor.Redo />
+            </RichTextEditor.ControlsGroup> */}
           </RichTextEditor.Toolbar>
         )}
 
@@ -68,4 +106,4 @@ export function DocumentEditor({
       </RichTextEditor>
     </>
   );
-}
+});
