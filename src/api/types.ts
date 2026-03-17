@@ -15,6 +15,7 @@ export enum Collections {
 	CardComments = "card_comments",
 	CardEvents = "card_events",
 	Cards = "cards",
+	DocumentEvents = "document_events",
 	Documents = "documents",
 	Invitations = "invitations",
 	Labels = "labels",
@@ -158,6 +159,19 @@ export type CardsRecord = {
 	updated: IsoAutoDateString
 }
 
+export enum DocumentEventsActionOptions {
+	"CREATE" = "CREATE",
+	"UPDATE" = "UPDATE",
+}
+export type DocumentEventsRecord = {
+	action?: DocumentEventsActionOptions
+	created: IsoAutoDateString
+	document?: RecordIdString
+	id: string
+	updated: IsoAutoDateString
+	user?: RecordIdString
+}
+
 export type DocumentsRecord = {
 	content?: HTMLString
 	created: IsoAutoDateString
@@ -268,6 +282,7 @@ export type BoardsResponse<Texpand = unknown> = Required<BoardsRecord> & BaseSys
 export type CardCommentsResponse<Texpand = unknown> = Required<CardCommentsRecord> & BaseSystemFields<Texpand>
 export type CardEventsResponse<Texpand = unknown> = Required<CardEventsRecord> & BaseSystemFields<Texpand>
 export type CardsResponse<Texpand = unknown> = Required<CardsRecord> & BaseSystemFields<Texpand>
+export type DocumentEventsResponse<Texpand = unknown> = Required<DocumentEventsRecord> & BaseSystemFields<Texpand>
 export type DocumentsResponse<Texpand = unknown> = Required<DocumentsRecord> & BaseSystemFields<Texpand>
 export type InvitationsResponse<Texpand = unknown> = Required<InvitationsRecord> & BaseSystemFields<Texpand>
 export type LabelsResponse<Texpand = unknown> = Required<LabelsRecord> & BaseSystemFields<Texpand>
@@ -290,6 +305,7 @@ export type CollectionRecords = {
 	card_comments: CardCommentsRecord
 	card_events: CardEventsRecord
 	cards: CardsRecord
+	document_events: DocumentEventsRecord
 	documents: DocumentsRecord
 	invitations: InvitationsRecord
 	labels: LabelsRecord
@@ -311,6 +327,7 @@ export type CollectionResponses = {
 	card_comments: CardCommentsResponse
 	card_events: CardEventsResponse
 	cards: CardsResponse
+	document_events: DocumentEventsResponse
 	documents: DocumentsResponse
 	invitations: InvitationsResponse
 	labels: LabelsResponse
