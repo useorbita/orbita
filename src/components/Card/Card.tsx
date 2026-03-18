@@ -5,10 +5,17 @@ import {
   Group,
   Text,
   Tooltip,
+  Stack,
+  Grid,
 } from "@mantine/core";
-import { IconCalendar, IconTriangle } from "@tabler/icons-react";
+import { IconCalendar } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import type { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
+import {
+  CardsPriorityOptions,
+  type CardsResponse,
+  type LabelsResponse,
+  type UsersResponse,
+} from "../../api/types";
 
 interface CardProps {
   index: number;
@@ -19,82 +26,128 @@ interface CardProps {
   boardId: string;
 }
 
-export function Card({ index, card, users, labels, listId, boardId }: CardProps) {
+const PRIORITY_COLOR: Record<string, string> = {
+  [CardsPriorityOptions.lowest]: "gray",
+  [CardsPriorityOptions.low]: "blue",
+  [CardsPriorityOptions.medium]: "yellow",
+  [CardsPriorityOptions.high]: "orange",
+  [CardsPriorityOptions.highest]: "red",
+};
+
+export function Card({
+  index,
+  card,
+  users,
+  labels,
+  listId,
+  boardId,
+}: CardProps) {
   const navigate = useNavigate();
   return (
-
     <MantineCard
       shadow="sm"
+      p="sm"
       withBorder
-      // data-dragging={isDragging}
       onClick={() => navigate(`/boards/${boardId}/cards/${card.id}`)}
     >
-      <Text fw={500}>{card.title}</Text>
+      <Stack gap="xs">
+        <Grid>
+          <Grid.Col span="content">
+            <Text size="xs" c="dimmed">
+              PR-{card.number}
+            </Text>
+          </Grid.Col>
 
-      {card.labels.map((label) => (
-        <Badge
-          key={label}
-          variant="light"
-          color={
-            (
-              labels.find((l: LabelsResponse) => l.id === label) || {
-                color: "grey",
-              }
-            ).color
-          }
-        >
-          {
-            (
-              labels.find((l: LabelsResponse) => l.id === label) || {
-                title: "Unbekannt",
-              }
-            ).title
-          }
-        </Badge>
-      ))}
+          <Grid.Col span="auto" align="end">
+            <Group justify="end" gap={3}>
+              {card.labels.map((label) => (
+                <Badge
+                  key={label}
+                  variant="dot"
+                  size="xs"
+                  color={
+                    (
+                      labels.find((l: LabelsResponse) => l.id === label) || {
+                        color: "grey",
+                      }
+                    ).color
+                  }
+                >
+                  {
+                    (
+                      labels.find((l: LabelsResponse) => l.id === label) || {
+                        title: "Unbekannt",
+                      }
+                    ).name
+                  }
+                </Badge>
+              ))}
+            </Group>
+          </Grid.Col>
+        </Grid>
 
-      {card.members.length > 0 && (
-        <Tooltip.Group openDelay={100} closeDelay={100}>
-          <Avatar.Group spacing="sm">
-            {card.members.map((member) => (
-              <Tooltip
-                key={member}
-                label={
-                  (
-                    users.find(
-                      (user: UsersResponse) => user.id === member
-                    ) || {
-                      name: "Unbekannt",
-                    }
-                  ).name
-                }
-                withArrow
-              >
-                <Avatar radius="xl" />
-              </Tooltip>
-            ))}
-          </Avatar.Group>
-        </Tooltip.Group>
-      )}
+        <Text>{card.title}</Text>
 
-      {card.date && (
-        <Group>
-          <IconCalendar color="gray" size={"1em"} />
-          <Text c="dimmed" size="sm">
-            {new Date(card.date).toLocaleDateString("DE-de")}
-          </Text>
+        <Group justify="space-between" align="end">
+          <Stack gap="xs">
+            {card.date && (
+              <Group gap="xs">
+                <IconCalendar color="gray" size={"1em"} />
+                <Text c="dimmed" size="sm">
+                  {new Date(card.date).toLocaleDateString("DE-de")}
+                </Text>
+              </Group>
+            )}
+
+            {card.members.length > 0 && (
+              <Tooltip.Group openDelay={100} closeDelay={100}>
+                <Avatar.Group spacing="sm">
+                  {card.members.map((member) => (
+                    <Tooltip
+                      key={member}
+                      label={
+                        (
+                          users.find(
+                            (user: UsersResponse) => user.id === member,
+                          ) || {
+                            name: "Unbekannt",
+                          }
+                        ).name
+                      }
+                      withArrow
+                    >
+                      <Avatar
+                        radius="xl"
+                        size="sm"
+                        name={
+                          (
+                            users.find(
+                              (user: UsersResponse) => user.id === member,
+                            ) || {
+                              name: "Unbekannt",
+                            }
+                          ).name
+                        }
+                        color="initials"
+                      />
+                    </Tooltip>
+                  ))}
+                </Avatar.Group>
+              </Tooltip.Group>
+            )}
+          </Stack>
+
+          {card.priority && (
+            <Badge
+              variant="light"
+              color={PRIORITY_COLOR[card.priority ?? ""] ?? "blue"}
+              size="xs"
+            >
+              {card.priority}
+            </Badge>
+          )}
         </Group>
-      )}
-
-      {card.priority && (
-        <Group>
-          <IconTriangle color="gray" size={"1em"} />
-          <Text c="dimmed" size="sm">
-            {card.priority}
-          </Text>
-        </Group>
-      )}
+      </Stack>
     </MantineCard>
-
   );
 }

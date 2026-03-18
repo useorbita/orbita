@@ -48,7 +48,7 @@ export function List({ index, listId, listTitle, boardId, cards, users, labels }
       <Text fw={500} size="sm">{listTitle}</Text>
 
       <Paper
-        w={250}
+        w={300}
         style={{
           flex: 1,
           display: "flex",

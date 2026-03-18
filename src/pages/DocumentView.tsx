@@ -4,7 +4,6 @@ import {
   Loader,
   TextInput,
   Title,
-  Space,
   Group,
   Button,
   Stack,
@@ -98,7 +97,6 @@ export function DocumentView() {
           {editingContent ? "Speichern" : "Bearbeiten"}
         </Button>
       </Group>
-      <Space h={"lg"} />
 
       <DocumentEditor
         ref={editorRef}
