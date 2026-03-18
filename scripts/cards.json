@@ -1,0 +1,2621 @@
+[
+  {
+    "id": "4zklookep7y6wkt",
+    "title": "Product image zoom not working on mobile",
+    "description": "<p>When users try to pinch-zoom on product images on iOS devices, the zoom gesture is intercepted by the browser instead of the custom zoom component. This causes a janky experience where the whole page zooms instead of just the image.</p><p></p><p>Steps to reproduce:</p><p>1. Open any product detail page on iPhone Safari</p><p>2. Try to pinch-zoom on the product image</p><p>3. The entire page zooms instead of the image component</p><p></p><p>Expected: Only the image zooms within its container.</p>",
+    "members": [
+      "REPLACE_USER_06"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "3j2d54i3qk2iagl"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-07-25 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 1000,
+    "number": 1,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "vlpys280xkxwd8i",
+    "title": "Add product comparison feature",
+    "description": "<p>Users should be able to select up to 4 products and compare them side by side. The comparison view should show:</p><p>- Price</p><p>- Key specifications</p><p>- Ratings</p><p>- Availability</p><p>- Shipping options</p><p></p><p>This was requested by 23 users in the last feedback survey.</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-07-15 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 2000,
+    "number": 2,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "9w1q5uznofy6452",
+    "title": "Product variant selector shows wrong stock",
+    "description": "<p>When selecting a color/size variant, the stock indicator still shows the stock of the previously selected variant. The API returns correct data but the frontend caches the old value.</p><p></p><p>This is causing customers to add out-of-stock items to their cart.</p>",
+    "members": [
+      "REPLACE_USER_03",
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "0y9dom5igqpki7p"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 3000,
+    "number": 3,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "4q2y9v86wzs3t60",
+    "title": "Implement product recommendations engine",
+    "description": "<p>Build a recommendation engine based on:</p><p>- Purchase history</p><p>- Browsing behavior</p><p>- Similar product attributes</p><p>- Collaborative filtering</p><p></p><p>Phase 1: Rule-based recommendations</p><p>Phase 2: ML-based approach</p>",
+    "members": [
+      "REPLACE_USER_08",
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "5tb94874frhocn9"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-27 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 4000,
+    "number": 4,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "w1swjckjlteiyzc",
+    "title": "Product search returns irrelevant results for compound terms",
+    "description": "<p>Searching for 'red running shoes' returns results for 'red dress' and 'running shorts' with higher ranking than actual red running shoes. The search tokenizer splits compound queries incorrectly.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "3kx7eedtjvzhwjr",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 5000,
+    "number": 5,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "3o18a5ur7ko64t0",
+    "title": "Add bulk product import via CSV",
+    "description": "<p>Merchants need to import products in bulk via CSV upload. Required fields:</p><p>- SKU, Title, Description, Price, Stock, Category, Images (URLs)</p><p></p><p>Should support up to 10,000 products per import with progress indicator and error report.</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "5tb94874frhocn9"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 6000,
+    "number": 6,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "rny20479t6vxdp5",
+    "title": "Product category tree performance issues",
+    "description": "<p>The category navigation tree takes 3-4 seconds to render when there are more than 200 categories. Need to implement virtual scrolling or lazy loading for subcategories.</p>",
+    "members": [
+      "REPLACE_USER_08",
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "64dpja1wj0tpac5",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 7000,
+    "number": 7,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "qm5k8p4q0b8ic8b",
+    "title": "Add 360° product view",
+    "description": "<p>Allow merchants to upload multiple angle photos that create a 360° spin view of products. Similar to what Amazon does for some products.</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 8000,
+    "number": 8,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "feyuhz1gv0e38da",
+    "title": "Product description editor loses formatting on save",
+    "description": "<p>Rich text formatting (bold, lists, links) is stripped when saving product descriptions. The sanitizer is too aggressive and removes valid HTML tags.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-07-20 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 9000,
+    "number": 9,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "zcywd14ve92mpns",
+    "title": "Implement product bundles",
+    "description": "<p>Merchants want to create product bundles (e.g., 'Summer Starter Kit') that combine multiple products at a discounted price. Needs:</p><p>- Bundle creation UI</p><p>- Automatic stock management</p><p>- Bundle-specific pricing rules</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "5tb94874frhocn9"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 10000,
+    "number": 10,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "w3zp08j3trp0j43",
+    "title": "Product image CDN migration",
+    "description": "<p>Migrate product images from S3 direct serving to CloudFront CDN. This should reduce image load times by ~60% for international customers. Need to:</p><p>1. Set up CloudFront distribution</p><p>2. Configure cache invalidation</p><p>3. Update image URL generation</p><p>4. Migrate existing URLs</p>",
+    "members": [
+      "REPLACE_USER_08",
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "0lvsnujza7tz0yn",
+      "64dpja1wj0tpac5"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-06-17 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 11000,
+    "number": 11,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ymrlrmjkv5usgio",
+    "title": "Product reviews not showing star ratings",
+    "description": "<p>Star rating component renders as empty squares in Firefox. The SVG icon set doesn't load correctly due to a CORS issue with the icon font CDN.</p>",
+    "members": [
+      "REPLACE_USER_04",
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-07-19 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 12000,
+    "number": 12,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "r2dhylurtp0lzjj",
+    "title": "Add product availability notifications",
+    "description": "<p>Allow customers to subscribe to back-in-stock notifications for out-of-stock products. Send email and/or push notification when the product is restocked.</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "9xpseimvihcwi64"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-08-01 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 13000,
+    "number": 13,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "t1ghr09skdgigat",
+    "title": "SEO: Product pages missing structured data",
+    "description": "<p>Product pages need JSON-LD structured data for:</p><p>- Product schema (price, availability, reviews)</p><p>- BreadcrumbList</p><p>- Organization</p><p></p><p>This will improve search engine visibility significantly.</p>",
+    "members": [],
+    "labels": [
+      "xepq85jsg65kxvf",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 14000,
+    "number": 14,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "5r5uqpgb7r3ocwb",
+    "title": "Cart total doesn't update after removing item",
+    "description": "<p>After removing an item from the cart, the total price doesn't recalculate until the page is refreshed. The state management doesn't trigger a re-render of the cart summary component.</p>",
+    "members": [
+      "REPLACE_USER_05",
+      "REPLACE_USER_06"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-07-22 00:00:00.000Z",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 15000,
+    "number": 15,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "iuovw1n6kvpuc8d",
+    "title": "Implement persistent cart across devices",
+    "description": "<p>Logged-in users should see their cart on any device. Currently the cart is stored in localStorage only. Need to:</p><p>- Sync cart to server on login</p><p>- Merge anonymous cart with user cart</p><p>- Handle conflict resolution for duplicate items</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "9chj755nf4zw9xa"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 16000,
+    "number": 16,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "itfoyqbkk4cij2v",
+    "title": "Cart quantity input allows negative numbers",
+    "description": "<p>The quantity input field in the cart accepts negative values and zero. This causes errors in the checkout process. Add proper validation: min=1, max=stock_available.</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-05-22 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 17000,
+    "number": 17,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ifjfc2v37pqkojt",
+    "title": "Add 'Save for Later' functionality",
+    "description": "<p>Users want to move items from their cart to a 'Save for Later' list without losing them. Items in this list should show price change notifications.</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 18000,
+    "number": 18,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "jd84u89yjb1qx6g",
+    "title": "Cart coupon code field not accessible",
+    "description": "<p>The coupon code input field is not reachable via keyboard navigation. Screen readers also don't announce the discount after applying a coupon. Needs ARIA labels and focus management.</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-07-18 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 19000,
+    "number": 19,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "mly4lyk83tqll8o",
+    "title": "Mini cart flyout closes unexpectedly",
+    "description": "<p>The mini cart dropdown in the header closes when the user moves the mouse to the scrollbar area. The mouseout event triggers on the scrollbar gap. Need to adjust the hover zone.</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-07-01 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 20000,
+    "number": 20,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "swrpbjek5rbw2zl",
+    "title": "Implement cart abandonment recovery",
+    "description": "<p>Send automated emails to users who added items to cart but didn't checkout within 24 hours. Include:</p><p>- Items in cart with images</p><p>- Dynamic discount code (optional)</p><p>- Direct link to checkout</p><p>- Unsubscribe option</p>",
+    "members": [
+      "REPLACE_USER_08",
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 21000,
+    "number": 21,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "e8xf7kzorqqfgv0",
+    "title": "Checkout crashes on address validation",
+    "description": "<p>The Google Address Validation API throws an unhandled exception for addresses in Puerto Rico and other US territories. The postal code format check is too strict.</p><p></p><p>Error: `InvalidPostalCode: PR-00901 does not match pattern ^[0-9]{5}$`</p>",
+    "members": [
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "5tb94874frhocn9"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-26 00:00:00.000Z",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 22000,
+    "number": 22,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "o7s3kkv9rftmttq",
+    "title": "Add Apple Pay and Google Pay",
+    "description": "<p>Integrate Apple Pay and Google Pay as express checkout options. Should appear:</p><p>- On product pages (buy now)</p><p>- In cart</p><p>- In checkout</p><p></p><p>Use Stripe's Payment Request API for unified implementation.</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "vs4f8cgvyie6ivw",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-19 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 23000,
+    "number": 23,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "n4olr6n92xf8e8l",
+    "title": "Guest checkout flow broken after last deploy",
+    "description": "<p>Guest checkout redirects to login page since the deployment on March 12. The auth middleware now requires a session token for the /checkout endpoint, but guest users don't have one.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "9chj755nf4zw9xa"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-07-14 00:00:00.000Z",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 24000,
+    "number": 24,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "0oxfq8myx444nlz",
+    "title": "Implement multi-step checkout progress indicator",
+    "description": "<p>Replace the current single-page checkout with a clear step indicator:</p><p>1. Shipping Address</p><p>2. Shipping Method</p><p>3. Payment</p><p>4. Review & Confirm</p><p></p><p>Each step should validate before allowing the next.</p>",
+    "members": [
+      "REPLACE_USER_02",
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "xepq85jsg65kxvf",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-05-03 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 25000,
+    "number": 25,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "w790pdw5py6b2kn",
+    "title": "Checkout tax calculation wrong for EU customers",
+    "description": "<p>VAT is calculated based on the store's country instead of the customer's delivery address. EU tax regulations require VAT to be charged based on the destination country for B2C transactions above the threshold.</p>",
+    "members": [
+      "REPLACE_USER_01",
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "vs4f8cgvyie6ivw"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 26000,
+    "number": 26,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "c5wi6fqjja26yfp",
+    "title": "Add order notes field to checkout",
+    "description": "<p>Customers want to add delivery instructions or gift messages during checkout. Add an optional text field that gets stored with the order and displayed in the merchant's order view.</p>",
+    "members": [
+      "REPLACE_USER_03"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "lowest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 27000,
+    "number": 27,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "4hnriuu9k9xjuy0",
+    "title": "Payment processing timeout not handled gracefully",
+    "description": "<p>When the payment provider takes more than 10 seconds to respond, the user sees a generic error page. Instead, we should:</p><p>- Show a loading state</p><p>- Implement idempotency keys to prevent double charges</p><p>- Offer retry with the same payment intent</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "vs4f8cgvyie6ivw",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-06-29 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 28000,
+    "number": 28,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "k2vmwwyzx4w6xlp",
+    "title": "SSL certificate warning on checkout page",
+    "description": "<p>Some customers report seeing SSL certificate warnings on the checkout page. The intermediate certificate in the chain seems to have expired. This is blocking purchases for ~15% of users.</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "6t4ufel6246hid2",
+      "0lvsnujza7tz0yn"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-25 00:00:00.000Z",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 29000,
+    "number": 29,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "0get8t63j3r30me",
+    "title": "Implement address autocomplete",
+    "description": "<p>Use Google Places Autocomplete API for the shipping and billing address forms. This reduces checkout friction and improves address data quality. Estimated conversion improvement: 5-8%.</p>",
+    "members": [
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "xepq85jsg65kxvf",
+      "9xpseimvihcwi64",
+      "5tb94874frhocn9"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-06-12 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 30000,
+    "number": 30,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "yyo4udojen0jnwn",
+    "title": "Stripe webhook fails silently for subscription renewals",
+    "description": "<p>The webhook handler for `invoice.payment_succeeded` events doesn't process subscription renewal payments. It only handles one-time payments. Subscriptions are not being activated after renewal.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "vs4f8cgvyie6ivw",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-08-20 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 31000,
+    "number": 31,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "xwqzxebb9eitnn8",
+    "title": "Add Klarna pay-later option",
+    "description": "<p>Integrate Klarna's 'Pay in 3' installments option. Show Klarna messaging on:</p><p>- Product pages (from X/month)</p><p>- Cart summary</p><p>- Checkout payment selection</p><p></p><p>Requires Klarna merchant onboarding first.</p>",
+    "members": [
+      "REPLACE_USER_06"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "vs4f8cgvyie6ivw"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-05-30 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 32000,
+    "number": 32,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "dro8bnp84dyt9mo",
+    "title": "Refund process takes too long",
+    "description": "<p>Currently refunds require manual approval and take 3-5 business days. Automate refunds under 50€ and provide instant refund confirmation. Implement Stripe's instant refund feature.</p>",
+    "members": [
+      "REPLACE_USER_03"
+    ],
+    "labels": [
+      "xepq85jsg65kxvf",
+      "vs4f8cgvyie6ivw",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-07-24 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 33000,
+    "number": 33,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "dhx8bm92h3tv3i1",
+    "title": "Invoice PDF generation fails for special characters",
+    "description": "<p>Invoice PDF generation crashes when customer names contain special characters like ö, ü, é, ñ. The PDF library doesn't handle UTF-8 encoding correctly for the font subset.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-29 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 34000,
+    "number": 34,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "9t2d5em2vajepec",
+    "title": "Add PayPal as payment option",
+    "description": "<p>Integrate PayPal Checkout SDK. Support:</p><p>- PayPal balance</p><p>- PayPal Credit</p><p>- Venmo (US only)</p><p></p><p>PayPal is the #1 requested payment method in our customer surveys.</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "vs4f8cgvyie6ivw",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-05-20 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 35000,
+    "number": 35,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "8b25sq8croyr6cc",
+    "title": "Currency conversion rounding errors",
+    "description": "<p>Multi-currency orders sometimes show 1-2 cent discrepancies between the displayed price and the charged amount. The issue is in the rounding logic when converting between currencies with different decimal places (e.g., JPY has 0 decimals).</p>",
+    "members": [
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "vs4f8cgvyie6ivw",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-05-30 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 36000,
+    "number": 36,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "wtl9tqvdz4x1zhq",
+    "title": "Real-time shipping rates not loading",
+    "description": "<p>The shipping rate calculator times out when fetching rates from DHL and UPS APIs. Response times went from ~500ms to 5+ seconds after their API update. Need to implement caching and parallel requests.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "pvs7hzioykl1cq9",
+      "5tb94874frhocn9"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 37000,
+    "number": 37,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "0llj8yrddp0nec8",
+    "title": "Add order tracking page",
+    "description": "<p>Customers need a dedicated tracking page showing:</p><p>- Current shipment status with timeline</p><p>- Estimated delivery date</p><p>- Carrier info and tracking number</p><p>- Map visualization of package location</p><p></p><p>Integrate with AfterShip API for multi-carrier tracking.</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "pvs7hzioykl1cq9",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 38000,
+    "number": 38,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "x15z8vmuhxid4n1",
+    "title": "Shipping cost shows 0 for heavy items",
+    "description": "<p>Products weighing more than 30kg show free shipping even though they shouldn't qualify. The weight-based shipping rule has an off-by-one error in the weight tier calculation.</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "pvs7hzioykl1cq9",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 39000,
+    "number": 39,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ybj17mgfxc08dtn",
+    "title": "Implement free shipping threshold progress bar",
+    "description": "<p>Show a progress bar in the cart: 'Add 12.50€ more for free shipping!' This incentivizes higher order values. Should update dynamically as items are added/removed.</p>",
+    "members": [
+      "REPLACE_USER_01",
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-08-16 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 40000,
+    "number": 40,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "l7v5f1bcppvohsm",
+    "title": "International shipping zones need restructuring",
+    "description": "<p>Current shipping zones are too broad (e.g., all of Europe as one zone). Need to split into:</p><p>- EU Zone 1 (DE, AT, NL, BE)</p><p>- EU Zone 2 (FR, ES, IT, PT)</p><p>- EU Zone 3 (Nordics, Eastern Europe)</p><p>- Non-EU Europe</p><p>- Rest of World</p>",
+    "members": [],
+    "labels": [
+      "1t2tala753lc58d",
+      "pvs7hzioykl1cq9",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 41000,
+    "number": 41,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "bovakhejla0gnzs",
+    "title": "Return shipping labels not generating",
+    "description": "<p>The return label generation endpoint returns 500 since the DHL API migration. The new API requires a different authentication flow and label format. Customers cannot return products.</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "pvs7hzioykl1cq9",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-10 00:00:00.000Z",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 42000,
+    "number": 42,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "pqclpoxko8g8qyn",
+    "title": "Add click & collect option",
+    "description": "<p>Allow customers to pick up orders at partner locations. Requires:</p><p>- Store locator integration</p><p>- Availability check per location</p><p>- Pickup notification emails</p><p>- QR code for pickup verification</p>",
+    "members": [
+      "REPLACE_USER_02",
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "pvs7hzioykl1cq9",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-05-07 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 43000,
+    "number": 43,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "solmlgses6m033i",
+    "title": "Password reset email not arriving",
+    "description": "<p>Password reset emails are not being delivered since we switched to the new email provider. The DKIM configuration is incorrect for the transactional email domain. Customers cannot regain access to their accounts.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9chj755nf4zw9xa",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-06-22 00:00:00.000Z",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 44000,
+    "number": 44,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "1c8wquuy5x9l8lp",
+    "title": "Add social login (Google, Apple)",
+    "description": "<p>Implement OAuth2 social login for:</p><p>- Google Sign-In</p><p>- Apple Sign-In</p><p></p><p>Should handle account linking when email already exists. Include consent screen and privacy policy links.</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9chj755nf4zw9xa",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-07 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 45000,
+    "number": 45,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "slqc3c54wsqt26q",
+    "title": "User profile page loads slowly",
+    "description": "<p>The profile/account page takes 6+ seconds to load because it fetches the entire order history upfront. Implement pagination and lazy loading for order history. Load only last 5 orders initially.</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "64dpja1wj0tpac5",
+      "9xpseimvihcwi64"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-06-16 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 46000,
+    "number": 46,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "fcd6mzsgippsfnk",
+    "title": "Implement two-factor authentication",
+    "description": "<p>Add optional 2FA via:</p><p>- TOTP (Google Authenticator, Authy)</p><p>- SMS (as fallback)</p><p></p><p>Include recovery codes and trusted device management.</p>",
+    "members": [
+      "REPLACE_USER_06"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9chj755nf4zw9xa",
+      "6t4ufel6246hid2"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-07-05 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 47000,
+    "number": 47,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "mlunj48vfcx7lxx",
+    "title": "Account deletion doesn't remove all data",
+    "description": "<p>GDPR compliance issue: When users request account deletion, their order data, reviews, and wishlist items remain in the database. Need to implement proper cascade deletion or anonymization.</p>",
+    "members": [
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "6t4ufel6246hid2"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-07-23 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 48000,
+    "number": 48,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "n23y30ysxpnngh8",
+    "title": "Add wishlist sharing functionality",
+    "description": "<p>Users want to share wishlists via link or directly with other users. Useful for gift registries and holiday wish lists. Include privacy controls (public/private/shared with specific people).</p>",
+    "members": [
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 49000,
+    "number": 49,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "c4d145bm1enf313",
+    "title": "Session expires too quickly on mobile",
+    "description": "<p>Mobile users report being logged out after just 15 minutes of inactivity. The session timeout should be 7 days for mobile with refresh tokens. Currently the mobile app uses the same 30-minute web session timeout.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9chj755nf4zw9xa",
+      "3j2d54i3qk2iagl"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 50000,
+    "number": 50,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "z8v12ii826gyup1",
+    "title": "Customer address book limited to 3 entries",
+    "description": "<p>Users can only save 3 addresses in their address book. The limit was a placeholder during development but was never increased. Change to 10 maximum addresses.</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 51000,
+    "number": 51,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "hv5brn7zsedfqs3",
+    "title": "Dashboard sales chart shows wrong timezone",
+    "description": "<p>The sales dashboard chart uses UTC timestamps but displays them as local time labels. This shifts the daily sales data by several hours, making daily reports inaccurate for non-UTC merchants.</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-08-14 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 52000,
+    "number": 52,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "bsi9nb74x2ek3ze",
+    "title": "Add inventory low-stock alerts",
+    "description": "<p>Send email/webhook notifications when product stock falls below a configurable threshold. Include:</p><p>- Product name, SKU, current stock</p><p>- Link to restock</p><p>- Predicted stockout date based on sales velocity</p>",
+    "members": [
+      "REPLACE_USER_08",
+      "REPLACE_USER_03"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-24 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 53000,
+    "number": 53,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "j4t0sekkbp2qd6v",
+    "title": "Order list filter doesn't persist after navigation",
+    "description": "<p>When filtering orders by status in the admin panel, navigating to an order detail and pressing back resets all filters. Store filter state in URL params.</p>",
+    "members": [
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-05-04 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 54000,
+    "number": 54,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "pwioxd9css9toqw",
+    "title": "Implement bulk order processing",
+    "description": "<p>Admin users need to process multiple orders at once:</p><p>- Bulk status update</p><p>- Bulk shipping label generation</p><p>- Bulk invoice generation</p><p>- Export selected orders as CSV</p>",
+    "members": [
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-08 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 55000,
+    "number": 55,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "2m0w10lbt3g2qzw",
+    "title": "Admin panel not responsive on tablets",
+    "description": "<p>The admin panel layout breaks on tablet-sized screens (768-1024px). Sidebar overlaps content area and tables overflow horizontally. Need responsive breakpoints.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 56000,
+    "number": 56,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "bh25llo3rbxk5bx",
+    "title": "Add customer segmentation tools",
+    "description": "<p>Build customer segments based on:</p><p>- Purchase frequency</p><p>- Average order value</p><p>- Last purchase date</p><p>- Product categories purchased</p><p>- Geographic location</p><p></p><p>Segments should be usable for targeted email campaigns.</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-06-29 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 57000,
+    "number": 57,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "p8mgyn2jcpp9gkd",
+    "title": "Export reports fail for large date ranges",
+    "description": "<p>Exporting sales reports for periods longer than 3 months causes a timeout. The query loads all orders into memory. Need to implement streaming CSV generation and background job processing.</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "64dpja1wj0tpac5"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-05 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 58000,
+    "number": 58,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "pymb5m9j98cwn2y",
+    "title": "Add real-time dashboard with WebSocket updates",
+    "description": "<p>Replace the polling-based dashboard updates with WebSocket connections. Show real-time:</p><p>- New orders</p><p>- Revenue counter</p><p>- Active visitors</p><p>- Low stock alerts</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-08-01 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 59000,
+    "number": 59,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "peixn8bfqnpcenl",
+    "title": "Search autocomplete shows discontinued products",
+    "description": "<p>The search autocomplete dropdown shows products that have been marked as discontinued. The search index is not being updated when product status changes.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "3kx7eedtjvzhwjr",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-08-10 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 60000,
+    "number": 60,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "s6e1zhwy9hecgz9",
+    "title": "Implement faceted search with filters",
+    "description": "<p>Add dynamic filter sidebar to search results:</p><p>- Price range slider</p><p>- Brand checkboxes</p><p>- Size/color selectors</p><p>- Rating filter</p><p>- Availability toggle</p><p></p><p>Filters should update result counts in real-time.</p>",
+    "members": [
+      "REPLACE_USER_01",
+      "REPLACE_USER_06"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "3kx7eedtjvzhwjr",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 61000,
+    "number": 61,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ct64z7w2sehe2at",
+    "title": "Search results page blank for queries with special chars",
+    "description": "<p>Searching for terms with &, +, or / characters returns a blank page. The query string is not properly URL-encoded before being sent to the search API.</p>",
+    "members": [
+      "REPLACE_USER_06",
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "3kx7eedtjvzhwjr",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 62000,
+    "number": 62,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "l9zs13c9xqym52x",
+    "title": "Add voice search for mobile",
+    "description": "<p>Implement voice search using the Web Speech API. Show a microphone icon in the search bar on mobile devices. Convert speech to text and trigger search.</p>",
+    "members": [
+      "REPLACE_USER_03",
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "3kx7eedtjvzhwjr",
+      "3j2d54i3qk2iagl"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-05-10 00:00:00.000Z",
+    "priority": "lowest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 63000,
+    "number": 63,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "3skf7i8skch8jww",
+    "title": "Breadcrumb navigation breaks for products in multiple categories",
+    "description": "<p>Products assigned to multiple categories show an incorrect breadcrumb trail. The breadcrumb always shows the first category instead of the one the user navigated from.</p>",
+    "members": [
+      "REPLACE_USER_07",
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-05-09 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 64000,
+    "number": 64,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "w6m7b5c81jhuwb6",
+    "title": "Category page sort options not working",
+    "description": "<p>Sorting by 'Price: Low to High' on category pages doesn't account for sale prices. It sorts by the original price instead of the effective/current price.</p>",
+    "members": [
+      "REPLACE_USER_03"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 65000,
+    "number": 65,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "3oqyfoqmf5l9mo1",
+    "title": "Implement product quick view modal",
+    "description": "<p>Add a 'Quick View' button on product cards in listings. Opens a modal with:</p><p>- Image gallery</p><p>- Price and key details</p><p>- Size/color selector</p><p>- Add to cart button</p><p></p><p>Reduces navigation friction for browsing customers.</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-08-13 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 66000,
+    "number": 66,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "eqfb85p8637zgf9",
+    "title": "Discount code stacking not prevented",
+    "description": "<p>Customers can apply multiple percentage discount codes on the same order. The system should enforce:</p><p>- Only one percentage discount per order</p><p>- Fixed amount discounts can stack</p><p>- Maximum discount cap per order</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "vs4f8cgvyie6ivw",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 67000,
+    "number": 67,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "oqivbkv4ykadejn",
+    "title": "Implement flash sale countdown timer",
+    "description": "<p>Add a configurable countdown timer component for flash sales. Should show:</p><p>- Days, hours, minutes, seconds</p><p>- Product-level or category-level timers</p><p>- Automatic price revert when timer expires</p>",
+    "members": [
+      "REPLACE_USER_08",
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 68000,
+    "number": 68,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "unknqt3wvedn9un",
+    "title": "Newsletter signup double-opt-in broken",
+    "description": "<p>The confirmation email for newsletter signup contains a broken confirmation link. The token parameter is missing from the URL. Users cannot complete the double-opt-in process required by GDPR.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 69000,
+    "number": 69,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "bz2sf6f7low4vss",
+    "title": "Add abandoned browse email campaigns",
+    "description": "<p>Similar to cart abandonment, trigger emails for users who viewed products but didn't add to cart. Requires:</p><p>- Browse event tracking</p><p>- Email template with viewed products</p><p>- Frequency capping (max 1/week)</p><p>- Product recommendation integration</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-05-07 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 70000,
+    "number": 70,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ldol65wvjx8uibr",
+    "title": "Referral program link tracking not accurate",
+    "description": "<p>Referral links lose their tracking parameter after redirect through the CDN. The UTM parameters are stripped by the caching layer. Referrers are not getting credit for referred purchases.</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-06-18 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 71000,
+    "number": 71,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "yb8dalfyo1750ce",
+    "title": "Implement loyalty points system",
+    "description": "<p>Create a points-based loyalty program:</p><p>- Earn points per purchase (1€ = 1 point)</p><p>- Bonus points for reviews, referrals</p><p>- Redeem points as discount at checkout</p><p>- Tier system (Bronze, Silver, Gold)</p><p>- Points expiry after 12 months</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "9xpseimvihcwi64"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 72000,
+    "number": 72,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "8qtty5y2jr8kk79",
+    "title": "Banner management system for homepage",
+    "description": "<p>Build a CMS-like system for managing promotional banners:</p><p>- Upload images with links</p><p>- Schedule start/end dates</p><p>- A/B testing support</p><p>- Responsive image variants</p><p>- Analytics (impressions, clicks, CTR)</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-11 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 73000,
+    "number": 73,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "m72jeyn9382kkzm",
+    "title": "Order confirmation email missing items",
+    "description": "<p>Order confirmation emails sometimes list fewer items than were actually ordered. The email template iterates over a paginated result set but only includes the first page (10 items). Orders with 11+ unique products are affected.</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 74000,
+    "number": 74,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "3jujd0ib6iidlry",
+    "title": "Email templates not rendering on Outlook",
+    "description": "<p>Outlook 2016/2019 renders our email templates with broken layouts. The CSS grid fallback for MSO is missing. Need to add conditional comments and table-based layout fallbacks.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-05-27 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 75000,
+    "number": 75,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "5rh8lx6dut076g5",
+    "title": "Implement push notifications for order updates",
+    "description": "<p>Add web push notifications using the Push API for:</p><p>- Order confirmation</p><p>- Shipping updates</p><p>- Delivery confirmation</p><p>- Price drops on wishlist items</p><p></p><p>Include notification preferences in user settings.</p>",
+    "members": [
+      "REPLACE_USER_03",
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-22 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 76000,
+    "number": 76,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "05kbkv7mqxs6esj",
+    "title": "Transactional emails going to spam",
+    "description": "<p>Order confirmation and shipping notification emails are landing in spam folders for Gmail users. Need to:</p><p>- Set up SPF record</p><p>- Configure DKIM signing</p><p>- Add DMARC policy</p><p>- Warm up the sending IP</p>",
+    "members": [
+      "REPLACE_USER_07",
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "0lvsnujza7tz0yn"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-29 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 77000,
+    "number": 77,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "g02u1g463sdygfl",
+    "title": "SMS notification for delivery arriving today",
+    "description": "<p>Send an SMS to customers on the day their package is out for delivery. Integrate with Twilio for SMS delivery. Include opt-in during checkout.</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "pvs7hzioykl1cq9"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-08-01 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 78000,
+    "number": 78,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "18k0axycelos6zl",
+    "title": "REST API rate limiting not enforced",
+    "description": "<p>The public API has no rate limiting in place. A single client can make unlimited requests. Implement:</p><p>- 100 requests/minute for authenticated users</p><p>- 20 requests/minute for anonymous</p><p>- 429 Too Many Requests response</p><p>- X-RateLimit headers</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "5tb94874frhocn9",
+      "6t4ufel6246hid2"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 79000,
+    "number": 79,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "8rq9nz61231yv2s",
+    "title": "Webhook delivery retries not working",
+    "description": "<p>Failed webhook deliveries are not being retried. The retry queue processor crashed and wasn't monitored. Need to:</p><p>- Fix the queue processor</p><p>- Add exponential backoff (1min, 5min, 30min, 2h)</p><p>- Add webhook delivery dashboard</p><p>- Alert on repeated failures</p>",
+    "members": [
+      "REPLACE_USER_05",
+      "REPLACE_USER_03"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "5tb94874frhocn9",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-05-30 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 80000,
+    "number": 80,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "tsuflsehuds3qsq",
+    "title": "Add GraphQL API endpoint",
+    "description": "<p>Build a GraphQL API alongside the existing REST API. Priority schemas:</p><p>- Products (with variants, images)</p><p>- Orders (with line items)</p><p>- Customers</p><p>- Inventory</p><p></p><p>This enables mobile apps and SPAs to fetch exactly the data they need.</p>",
+    "members": [
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "5tb94874frhocn9",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 81000,
+    "number": 81,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "jahcpztc69qkgex",
+    "title": "ERP integration sync failing daily",
+    "description": "<p>The nightly inventory sync with the SAP ERP system fails at 3 AM every night. The SFTP connection times out because the ERP's batch export takes longer than the configured 60-second timeout. Increase timeout and add retry logic.</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "5tb94874frhocn9",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-21 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 82000,
+    "number": 82,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "6nyxtxmgtt0iaak",
+    "title": "Implement Zapier integration",
+    "description": "<p>Create Zapier triggers and actions for:</p><p>- Triggers: New order, new customer, product stock low</p><p>- Actions: Create product, update stock, create discount code</p><p></p><p>This enables non-technical merchants to build automations.</p>",
+    "members": [
+      "REPLACE_USER_06",
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "5tb94874frhocn9"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-08-27 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 83000,
+    "number": 83,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "qfg51bxw76icvqy",
+    "title": "Homepage takes 8+ seconds to load on 3G",
+    "description": "<p>Lighthouse performance score is 23/100 on mobile. Main issues:</p><p>- 4.2MB JavaScript bundle</p><p>- No image lazy loading</p><p>- Render-blocking CSS</p><p>- No service worker caching</p><p></p><p>Target: Score above 70 on mobile.</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "64dpja1wj0tpac5",
+      "9xpseimvihcwi64"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-06-02 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 84000,
+    "number": 84,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "pt11f9i6uu13i59",
+    "title": "Database connection pool exhausted during peak",
+    "description": "<p>During the last sale event, the database connection pool (max 20) was exhausted within minutes. Queries started timing out and the site became unresponsive. Need to:</p><p>- Increase pool size to 50</p><p>- Add connection pooling with PgBouncer</p><p>- Optimize slow queries</p><p>- Add read replicas</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "64dpja1wj0tpac5",
+      "0y9dom5igqpki7p",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 85000,
+    "number": 85,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "856wpr97y2lofn1",
+    "title": "Implement CDN for static assets",
+    "description": "<p>All static assets (JS, CSS, fonts, icons) are served from the application server. Migrate to CDN with:</p><p>- Cache-busting via content hashing</p><p>- Gzip/Brotli compression</p><p>- Edge locations for global users</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "64dpja1wj0tpac5",
+      "0lvsnujza7tz0yn"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 86000,
+    "number": 86,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "qcootnjlcqnt3bn",
+    "title": "Add server-side caching layer",
+    "description": "<p>Implement Redis caching for:</p><p>- Product catalog pages (5 min TTL)</p><p>- Category trees (10 min TTL)</p><p>- User sessions</p><p>- Shopping cart data</p><p></p><p>Estimated reduction of database load: 60%.</p>",
+    "members": [
+      "REPLACE_USER_05",
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "xepq85jsg65kxvf",
+      "64dpja1wj0tpac5",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-08-13 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 87000,
+    "number": 87,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "2vyhh6k6hg0016z",
+    "title": "Memory leak in the order processing worker",
+    "description": "<p>The background worker for order processing leaks ~50MB/hour. After 12 hours it consumes 600MB+ and gets OOM killed by the container orchestrator. Need to profile with heap snapshots and fix the leak.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "64dpja1wj0tpac5"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 88000,
+    "number": 88,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "kqxlm5q201lhlb5",
+    "title": "Set up automated database backups",
+    "description": "<p>Currently we have no automated database backup strategy. Set up:</p><p>- Daily full backups</p><p>- Hourly WAL archiving</p><p>- 30-day retention</p><p>- Cross-region backup replication</p><p>- Monthly restore test</p>",
+    "members": [
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "0lvsnujza7tz0yn",
+      "0y9dom5igqpki7p"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-08-09 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 89000,
+    "number": 89,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "upfln4rxyj38xrg",
+    "title": "Implement CI/CD pipeline for staging",
+    "description": "<p>Set up automated deployment pipeline:</p><p>- Run tests on PR</p><p>- Deploy to staging on merge to develop</p><p>- Run E2E tests on staging</p><p>- One-click deploy to production</p><p>- Automatic rollback on health check failure</p>",
+    "members": [],
+    "labels": [
+      "1t2tala753lc58d",
+      "0lvsnujza7tz0yn"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-07-15 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 90000,
+    "number": 90,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "g698s4c3baewcfh",
+    "title": "Container images too large (2.3GB)",
+    "description": "<p>Docker images for the app are 2.3GB due to unnecessary build dependencies in the final image. Implement multi-stage builds to bring this down to ~200MB. This will speed up deployments significantly.</p>",
+    "members": [],
+    "labels": [
+      "xepq85jsg65kxvf",
+      "0lvsnujza7tz0yn"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-07-03 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 91000,
+    "number": 91,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "wrratatj9a3y36d",
+    "title": "XSS vulnerability in product reviews",
+    "description": "<p>User-submitted product reviews are not sanitized before rendering. Script tags in review content execute on product pages. This allows stored XSS attacks. Need to implement DOMPurify sanitization on both input and output.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "6t4ufel6246hid2",
+      "9xpseimvihcwi64"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-08-29 00:00:00.000Z",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 92000,
+    "number": 92,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "s3jonou9iy4x41d",
+    "title": "API keys exposed in frontend bundle",
+    "description": "<p>The Stripe secret key and internal API keys are bundled into the frontend JavaScript. These need to be moved to server-side environment variables immediately. The exposed keys need to be rotated.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "6t4ufel6246hid2",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 93000,
+    "number": 93,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "grp2u4dtbh55rbc",
+    "title": "Implement Content Security Policy headers",
+    "description": "<p>Add CSP headers to prevent XSS and data injection attacks:</p><p>- script-src: self and trusted CDNs</p><p>- style-src: self and inline (for critical CSS)</p><p>- img-src: self, CDN, and product image domains</p><p>- connect-src: API domains</p><p></p><p>Start in report-only mode.</p>",
+    "members": [
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "6t4ufel6246hid2",
+      "0lvsnujza7tz0yn"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-07-30 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 94000,
+    "number": 94,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ahf337kuu4ytn02",
+    "title": "CSRF protection missing on checkout endpoints",
+    "description": "<p>The checkout API endpoints don't validate CSRF tokens. An attacker could craft a page that submits an order on behalf of a logged-in user. Add CSRF token validation to all state-changing endpoints.</p>",
+    "members": [
+      "REPLACE_USER_01",
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "6t4ufel6246hid2",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-06-11 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 95000,
+    "number": 95,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "bp4m18o1bj9rm7p",
+    "title": "SQL injection in product search endpoint",
+    "description": "<p>The search API concatenates user input directly into SQL queries instead of using parameterized queries. This is a critical vulnerability allowing data exfiltration. Fix immediately and audit all other endpoints.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "6t4ufel6246hid2",
+      "ciyhe7ur23gdppq",
+      "3kx7eedtjvzhwjr"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-06-15 00:00:00.000Z",
+    "priority": "highest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 96000,
+    "number": 96,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "2zcfzw0ldalmjeg",
+    "title": "Upgrade dependencies with known vulnerabilities",
+    "description": "<p>npm audit shows 12 high-severity vulnerabilities in dependencies. Critical ones:</p><p>- lodash < 4.17.21 (prototype pollution)</p><p>- axios < 0.21.1 (SSRF)</p><p>- jsonwebtoken < 9.0.0 (algorithm confusion)</p><p></p><p>Update all vulnerable packages and test.</p>",
+    "members": [
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "6t4ufel6246hid2"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "2025-06-08 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 97000,
+    "number": 97,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "dtv25ao20u9isyg",
+    "title": "Add E2E tests for checkout flow",
+    "description": "<p>Write Playwright E2E tests covering:</p><p>- Add to cart → checkout → payment → confirmation</p><p>- Guest checkout</p><p>- Logged-in checkout with saved address</p><p>- Apply discount code</p><p>- Multi-item order with different shipping options</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "58kxo9t7e8g8jdp",
+      "9xpseimvihcwi64"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 98000,
+    "number": 98,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "gjk2n7zrwqeao4n",
+    "title": "Fix flaky integration tests in CI",
+    "description": "<p>3 integration tests randomly fail in CI (~20% of runs). The tests depend on specific timing of async operations. Need to:</p><p>- Replace sleep() with proper wait conditions</p><p>- Use test databases with fixed seed data</p><p>- Isolate tests from each other</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "58kxo9t7e8g8jdp",
+      "0lvsnujza7tz0yn"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 99000,
+    "number": 99,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "xvkvzrgol0w82lk",
+    "title": "Set up visual regression testing",
+    "description": "<p>Implement visual regression testing with Percy or Chromatic to catch unintended UI changes. Cover:</p><p>- Product detail page</p><p>- Cart and checkout</p><p>- Category listings</p><p>- Email templates</p><p>- Admin dashboard</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "58kxo9t7e8g8jdp",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-08-20 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 100000,
+    "number": 100,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "g1a07h23c42yfkj",
+    "title": "API documentation outdated",
+    "description": "<p>The OpenAPI/Swagger docs haven't been updated since v2. Missing endpoints:</p><p>- Subscription management</p><p>- Webhook configuration</p><p>- Inventory API</p><p>- Customer segments</p><p></p><p>Generate docs from code annotations and add examples.</p>",
+    "members": [
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "5owf75935a0l725",
+      "5tb94874frhocn9"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-07-10 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 101000,
+    "number": 101,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "9ros7yt2m6twd1x",
+    "title": "Add load testing for Black Friday preparation",
+    "description": "<p>Create load testing scenarios with k6 simulating:</p><p>- 10,000 concurrent users</p><p>- 500 orders/minute</p><p>- Product browsing patterns</p><p>- Search spikes</p><p>- Cart and checkout flow</p><p></p><p>Identify bottlenecks before the event.</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "58kxo9t7e8g8jdp",
+      "64dpja1wj0tpac5"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 102000,
+    "number": 102,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "yo18pajssuuqo1v",
+    "title": "Touch targets too small on mobile product pages",
+    "description": "<p>Size and color selector buttons on mobile are 24x24px. Minimum accessible touch target is 44x44px per WCAG guidelines. Users frequently tap the wrong variant.</p>",
+    "members": [
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "3j2d54i3qk2iagl",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-07-23 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 103000,
+    "number": 103,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "o8e7flqhrrpzlk3",
+    "title": "Implement progressive web app (PWA)",
+    "description": "<p>Turn the web app into a PWA with:</p><p>- Service worker for offline product browsing</p><p>- Add to home screen prompt</p><p>- Background sync for cart updates</p><p>- App-like navigation transitions</p><p></p><p>This is a lower-cost alternative to native apps.</p>",
+    "members": [
+      "REPLACE_USER_01"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "3j2d54i3qk2iagl",
+      "9xpseimvihcwi64"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-06-08 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 104000,
+    "number": 104,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "9igfu8iogxpbwhv",
+    "title": "Mobile navigation menu animation janky",
+    "description": "<p>The hamburger menu slide-in animation drops frames on mid-range Android devices. The animation triggers layout recalculation. Switch from animating width/left to transform: translateX.</p>",
+    "members": [
+      "REPLACE_USER_02",
+      "REPLACE_USER_06"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "3j2d54i3qk2iagl",
+      "9xpseimvihcwi64",
+      "64dpja1wj0tpac5"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-08-29 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 105000,
+    "number": 105,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "z2u2tnheyr8lnoe",
+    "title": "Swipe gestures conflict with browser gestures",
+    "description": "<p>The product image carousel swipe gesture conflicts with the browser's back/forward swipe on iOS Safari. Need to detect and differentiate horizontal vs. angled swipes.</p>",
+    "members": [
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "3j2d54i3qk2iagl",
+      "9xpseimvihcwi64"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 106000,
+    "number": 106,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "27vylienfnvuprt",
+    "title": "Google Analytics 4 migration incomplete",
+    "description": "<p>UA tracking will stop working soon. Remaining GA4 migration tasks:</p><p>- Ecommerce event tracking (purchase, add_to_cart, view_item)</p><p>- Custom dimensions (user type, membership tier)</p><p>- Conversion goal setup</p><p>- Dashboard recreation</p>",
+    "members": [
+      "REPLACE_USER_03"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "9xpseimvihcwi64"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-07-31 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 107000,
+    "number": 107,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "kg4w58rhnuxorzp",
+    "title": "Implement A/B testing framework",
+    "description": "<p>Build or integrate an A/B testing framework for:</p><p>- UI variations (button colors, layouts)</p><p>- Pricing experiments</p><p>- Checkout flow variations</p><p>- Feature flags</p><p></p><p>Evaluate: LaunchDarkly vs. custom solution with feature flags.</p>",
+    "members": [
+      "REPLACE_USER_03",
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 108000,
+    "number": 108,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "jtgq01tee13n3bz",
+    "title": "Customer data export for GDPR request taking 48h+",
+    "description": "<p>GDPR data export requests take 48+ hours because the export job collects data from 12 different tables sequentially. Parallelize the data collection and implement incremental export caching.</p>",
+    "members": [
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "ciyhe7ur23gdppq",
+      "6t4ufel6246hid2"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 109000,
+    "number": 109,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "i5bj5d5e3h0y4vp",
+    "title": "Analytics events not tracking on Safari",
+    "description": "<p>Safari's Intelligent Tracking Prevention blocks our analytics events. The tracking pixel is treated as a third-party request. Need to implement server-side event collection as fallback.</p>",
+    "members": [
+      "REPLACE_USER_02",
+      "REPLACE_USER_06"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-08-06 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 110000,
+    "number": 110,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "mktlzkj49yd8279",
+    "title": "German translations incomplete",
+    "description": "<p>The German locale is missing translations for:</p><p>- Checkout step labels</p><p>- Error messages</p><p>- Email templates</p><p>- Return policy page</p><p></p><p>Currently showing English fallback for ~40 strings.</p>",
+    "members": [
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-07-13 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 111000,
+    "number": 111,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "fli4ofwwnc21o0z",
+    "title": "RTL layout broken for Arabic locale",
+    "description": "<p>The Arabic version shows LTR layout instead of RTL. CSS logical properties are not used consistently. Product images, navigation, and checkout form are all mirrored incorrectly.</p>",
+    "members": [],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-06-02 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 112000,
+    "number": 112,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "a100qxmcthphj3m",
+    "title": "Add multi-currency support",
+    "description": "<p>Display prices in the customer's local currency with:</p><p>- Real-time exchange rates (updated daily)</p><p>- Currency selector in header</p><p>- Persist preference per user</p><p>- Settle in merchant's base currency</p><p></p><p>Priority currencies: EUR, USD, GBP, CHF, SEK</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "vs4f8cgvyie6ivw",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 113000,
+    "number": 113,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ybd2qe4pa8hyexf",
+    "title": "Date formats inconsistent across the app",
+    "description": "<p>Some pages show dates as MM/DD/YYYY (US format) while others use DD.MM.YYYY. Use the Intl.DateTimeFormat API to format dates consistently based on the user's locale.</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-08-24 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 114000,
+    "number": 114,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "cxxbw01pddhcvsq",
+    "title": "Implement automatic language detection",
+    "description": "<p>Detect the user's preferred language from:</p><p>1. URL prefix (/de/, /fr/)</p><p>2. Browser Accept-Language header</p><p>3. GeoIP lookup</p><p></p><p>Redirect to the appropriate locale on first visit with an option to change.</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "2025-06-03 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 115000,
+    "number": 115,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "yrid3dnkn35xycu",
+    "title": "Cookie consent banner not GDPR compliant",
+    "description": "<p>The cookie banner pre-checks all consent categories and uses dark patterns (small 'decline' button). This violates GDPR requirements. Need:</p><p>- All optional categories unchecked by default</p><p>- Equal button prominence</p><p>- Granular consent options</p><p>- Consent logging</p>",
+    "members": [
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "o6qjiujv6oh9sdb",
+      "9xpseimvihcwi64",
+      "6t4ufel6246hid2"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-25 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 116000,
+    "number": 116,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "h07wph6fe0mp2ix",
+    "title": "Implement sitemap.xml auto-generation",
+    "description": "<p>Generate sitemap.xml automatically including:</p><p>- All active product pages</p><p>- Category pages</p><p>- CMS/blog pages</p><p>- Hreflang tags for multi-language</p><p></p><p>Update daily via cron job. Submit to Google Search Console.</p>",
+    "members": [],
+    "labels": [
+      "1t2tala753lc58d",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 117000,
+    "number": 117,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "a45hvgox22iniwc",
+    "title": "404 page not helpful",
+    "description": "<p>The 404 page just shows 'Page not found'. Improve with:</p><p>- Search bar</p><p>- Popular products</p><p>- Category links</p><p>- Back to homepage button</p><p></p><p>Make it visually consistent with the rest of the site.</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "xepq85jsg65kxvf",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-07-29 00:00:00.000Z",
+    "priority": "lowest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 118000,
+    "number": 118,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ln4ptgq9cvah78o",
+    "title": "Implement customer chat widget",
+    "description": "<p>Integrate a live chat widget (Intercom or Crisp) for customer support. Features:</p><p>- Automated responses for FAQs</p><p>- Handoff to human agent</p><p>- Chat history for logged-in users</p><p>- Proactive chat triggers (e.g., user on checkout for 5+ min)</p>",
+    "members": [],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64"
+    ],
+    "list": "9xuy41ibljh75lx",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 119000,
+    "number": 119,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ctwjlsh3tow4ycz",
+    "title": "Blog/Content section for SEO",
+    "description": "<p>Build a simple blog/content section for SEO-driven content marketing:</p><p>- Rich text editor for articles</p><p>- Categories and tags</p><p>- Author profiles</p><p>- Related products sidebar</p><p>- Social sharing buttons</p>",
+    "members": [
+      "REPLACE_USER_07"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-22 00:00:00.000Z",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 120000,
+    "number": 120,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "pqvl00ezzf8s2zg",
+    "title": "Accessibility audit findings - 34 issues",
+    "description": "<p>Latest WCAG 2.1 AA audit found 34 issues:</p><p>- Missing alt texts on 120+ images</p><p>- Color contrast failures on 8 components</p><p>- Missing form labels</p><p>- No skip navigation link</p><p>- Focus indicators removed by CSS reset</p><p></p><p>Create individual tickets for each category.</p>",
+    "members": [
+      "REPLACE_USER_01",
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "idkwnnhj7xvg0fn",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 121000,
+    "number": 121,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "1b3jczucqmrunjd",
+    "title": "Implement dark mode",
+    "description": "<p>Add a dark mode theme toggle. Respect the user's system preference via prefers-color-scheme. Store preference in user settings for logged-in users, localStorage for guests.</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "j2qp89uzfk8ut0c"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-05-17 00:00:00.000Z",
+    "priority": "lowest",
+    "board": "REPLACE_BOARD_ID",
+    "position": 122000,
+    "number": 122,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "b5iqnf74t60ploz",
+    "title": "Legal pages need terms of service update",
+    "description": "<p>Our Terms of Service and Privacy Policy need updating for:</p><p>- New payment providers (Klarna, Apple Pay)</p><p>- Updated data processing agreements</p><p>- Cookie policy changes</p><p>- Return policy modifications</p><p></p><p>Legal team has provided the draft, needs to be implemented on the website.</p>",
+    "members": [
+      "REPLACE_USER_04"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "5owf75935a0l725"
+    ],
+    "list": "30t9nt3w5uzbikc",
+    "date": "2025-05-02 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 123000,
+    "number": 123,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "s6g298cqk4ltahu",
+    "title": "Setup error monitoring with Sentry",
+    "description": "<p>Currently we have no error monitoring. Set up Sentry for:</p><p>- Frontend JS errors with source maps</p><p>- Backend unhandled exceptions</p><p>- Performance tracing</p><p>- Release tracking</p><p>- Slack alert integration</p>",
+    "members": [],
+    "labels": [
+      "1t2tala753lc58d",
+      "0lvsnujza7tz0yn",
+      "ciyhe7ur23gdppq",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 124000,
+    "number": 124,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "8910t2f7atwyam1",
+    "title": "Optimize product image upload pipeline",
+    "description": "<p>Product image uploads are processed synchronously, blocking the UI for 10+ seconds per image. Move to async processing:</p><p>- Upload to temporary storage</p><p>- Return immediately with placeholder</p><p>- Process in background (resize, compress, WebP conversion)</p><p>- Replace placeholder when ready</p>",
+    "members": [
+      "REPLACE_USER_08"
+    ],
+    "labels": [
+      "xepq85jsg65kxvf",
+      "ciyhe7ur23gdppq",
+      "64dpja1wj0tpac5"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 125000,
+    "number": 125,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "tirc9zd76szn9dd",
+    "title": "Add product video support",
+    "description": "<p>Allow merchants to add product videos alongside images. Support:</p><p>- Direct MP4 upload</p><p>- YouTube/Vimeo embed</p><p>- Video thumbnail generation</p><p>- Autoplay on hover in listings (muted)</p><p>- Mobile-optimized streaming</p>",
+    "members": [
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "9xpseimvihcwi64",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "",
+    "priority": "low",
+    "board": "REPLACE_BOARD_ID",
+    "position": 126000,
+    "number": 126,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "xek47o3lqi7e1dd",
+    "title": "Customer support ticket system",
+    "description": "<p>Build an internal ticketing system for customer support:</p><p>- Ticket creation from contact form and email</p><p>- Status tracking (Open, In Progress, Resolved)</p><p>- Assignment to support agents</p><p>- Canned responses</p><p>- Link tickets to orders</p>",
+    "members": [
+      "REPLACE_USER_02",
+      "REPLACE_USER_05"
+    ],
+    "labels": [
+      "dw2pcn9t84azytj",
+      "ciyhe7ur23gdppq",
+      "9xpseimvihcwi64"
+    ],
+    "list": "xaji0y6dpbhsahx",
+    "date": "2025-06-26 00:00:00.000Z",
+    "priority": "medium",
+    "board": "REPLACE_BOARD_ID",
+    "position": 127000,
+    "number": 127,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "hljefy3zb4ldims",
+    "title": "Database migration from MySQL to PostgreSQL",
+    "description": "<p>Migrate from MySQL 5.7 to PostgreSQL 15 for:</p><p>- Better JSON support</p><p>- Full-text search capabilities</p><p>- Better concurrent write performance</p><p>- Cost savings on managed DB</p><p></p><p>Need migration script, schema conversion, and data validation plan.</p>",
+    "members": [
+      "REPLACE_USER_02"
+    ],
+    "labels": [
+      "1t2tala753lc58d",
+      "0y9dom5igqpki7p",
+      "ciyhe7ur23gdppq"
+    ],
+    "list": "thv3a3zmf8mdd4v",
+    "date": "2025-08-08 00:00:00.000Z",
+    "priority": "high",
+    "board": "REPLACE_BOARD_ID",
+    "position": 128000,
+    "number": 128,
+    "created": "",
+    "updated": ""
+  }
+]

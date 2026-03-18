@@ -1,0 +1,42 @@
+[
+  {
+    "id": "xaji0y6dpbhsahx",
+    "title": "Backlog",
+    "board": "REPLACE_BOARD_ID",
+    "position": 1000,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "thv3a3zmf8mdd4v",
+    "title": "To Do",
+    "board": "REPLACE_BOARD_ID",
+    "position": 2000,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "30t9nt3w5uzbikc",
+    "title": "In Progress",
+    "board": "REPLACE_BOARD_ID",
+    "position": 3000,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "idkwnnhj7xvg0fn",
+    "title": "Review",
+    "board": "REPLACE_BOARD_ID",
+    "position": 4000,
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "9xuy41ibljh75lx",
+    "title": "Done",
+    "board": "REPLACE_BOARD_ID",
+    "position": 5000,
+    "created": "",
+    "updated": ""
+  }
+]

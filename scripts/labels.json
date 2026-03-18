@@ -1,0 +1,162 @@
+[
+  {
+    "id": "o6qjiujv6oh9sdb",
+    "name": "Bug",
+    "color": "#ef4444",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "dw2pcn9t84azytj",
+    "name": "Feature",
+    "color": "#3b82f6",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "xepq85jsg65kxvf",
+    "name": "Improvement",
+    "color": "#8b5cf6",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "1t2tala753lc58d",
+    "name": "Task",
+    "color": "#6b7280",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "rc11ertj5pht0hl",
+    "name": "Urgent",
+    "color": "#dc2626",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "9xpseimvihcwi64",
+    "name": "Frontend",
+    "color": "#f59e0b",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "ciyhe7ur23gdppq",
+    "name": "Backend",
+    "color": "#10b981",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "0y9dom5igqpki7p",
+    "name": "Database",
+    "color": "#06b6d4",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "5tb94874frhocn9",
+    "name": "API",
+    "color": "#6366f1",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "j2qp89uzfk8ut0c",
+    "name": "UI/UX",
+    "color": "#ec4899",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "vs4f8cgvyie6ivw",
+    "name": "Payment",
+    "color": "#84cc16",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "pvs7hzioykl1cq9",
+    "name": "Shipping",
+    "color": "#f97316",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "9chj755nf4zw9xa",
+    "name": "Auth",
+    "color": "#14b8a6",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "3kx7eedtjvzhwjr",
+    "name": "Search",
+    "color": "#a855f7",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "64dpja1wj0tpac5",
+    "name": "Performance",
+    "color": "#eab308",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "6t4ufel6246hid2",
+    "name": "Security",
+    "color": "#e11d48",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "5owf75935a0l725",
+    "name": "Documentation",
+    "color": "#64748b",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "3j2d54i3qk2iagl",
+    "name": "Mobile",
+    "color": "#0ea5e9",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "58kxo9t7e8g8jdp",
+    "name": "Testing",
+    "color": "#22d3ee",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  },
+  {
+    "id": "0lvsnujza7tz0yn",
+    "name": "DevOps",
+    "color": "#78716c",
+    "project": "REPLACE_PROJECT",
+    "created": "",
+    "updated": ""
+  }
+]
