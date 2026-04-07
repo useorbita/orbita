@@ -17,7 +17,7 @@ import { IconBrush, IconLogout, IconMoon, IconSun } from "@tabler/icons-react";
 import { useLogout } from "../api/auth";
 import { pb } from "../api/pocketbase";
 
-export function Settings() {
+export default function Settings() {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
   const logout = useLogout();
 

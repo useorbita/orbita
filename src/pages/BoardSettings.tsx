@@ -19,7 +19,7 @@ import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconArrowLeft, IconTrash } from "@tabler/icons-react";
 
-export function BoardSettings() {
+export default function BoardSettings() {
   const navigate = useNavigate();
   const { boardId } = useParams();
 

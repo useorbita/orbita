@@ -166,7 +166,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
             </Tooltip>
           </Box>
 
-          <Box pt={5}>
+          <Box pt={6}>
             <Tooltip label="Kalender" position="right" withArrow>
               <NavLink
                 leftSection={<IconCalendar size={"1.2em"} stroke={1.5} />}
@@ -175,14 +175,11 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
             </Tooltip>
           </Box>
 
-          <Space h="md" />
-          <Divider />
         </AppShell.Section>
 
         <AppShell.Section grow />
 
         <AppShell.Section>
-          <Divider />
           <Tooltip label="Account & Einstellungen" position="right" withArrow>
             <NavLink
               leftSection={<IconUser size="1.2em" stroke={1.5} />}

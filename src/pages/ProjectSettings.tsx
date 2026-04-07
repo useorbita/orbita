@@ -16,7 +16,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 
 import { useProject, useProjectMembers } from "../api/projects";
 
-export function ProjectSettings() {
+export default function ProjectSettings() {
   const navigate = useNavigate();
   const { projectId } = useParams();
 

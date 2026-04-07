@@ -23,7 +23,7 @@ function getGreeting(name: string): string {
   return `Noch wach, ${name}?`;
 }
 
-export function Home() {
+export default function Home() {
   const navigate = useNavigate();
   const organizations = useOrganizations();
   const sortedOrgs = [...(organizations.data ?? [])].sort((a, b) => {

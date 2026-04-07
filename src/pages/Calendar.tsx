@@ -30,7 +30,7 @@ const PRIORITY_COLOR: Record<string, string> = {
   [CardsPriorityOptions.highest]: "red",
 };
 
-export function Calendar() {
+export default function Calendar() {
   const navigate = useNavigate();
 
   const cards = useCards();

@@ -16,7 +16,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 
 import { useOrganization, useOrganizationMembers } from "../api/organizations";
 
-export function OrgSettings() {
+export default function OrgSettings() {
   const navigate = useNavigate();
   const { orgId } = useParams();
 

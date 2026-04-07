@@ -35,7 +35,7 @@ import { useBoardsByProject, useCreateBoard } from "../api/boards";
 import { useCreateDocument, useDocumentsByProject } from "../api/documents";
 import { useProject } from "../api/projects";
 
-export function ProjectOverview() {
+export default function ProjectOverview() {
   const { projectId } = useParams();
   const navigate = useNavigate();
 

@@ -1,21 +1,23 @@
-// import { scan } from "react-scan";
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+import { BrowserRouter } from "react-router-dom";
+
 import { createTheme, MantineProvider } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { App } from "./App";
-import { Authentication } from "./pages/Authentication";
 
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
-import '@mantine/schedule/styles.css';
+import "@mantine/schedule/styles.css";
 import "@mantine/tiptap/styles.css";
 
 import { useAuth } from "./api/auth";
+
+import { App } from "./App";
+import Authentication from "./pages/Authentication";
 
 // show react-scan performance widget
 // if (typeof window !== "undefined" && import.meta.env.DEV) {

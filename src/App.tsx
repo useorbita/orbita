@@ -6,28 +6,19 @@ import { AppShell, Center, Loader } from "@mantine/core";
 
 import { Navbar } from "./components/App/Navbar";
 
-// prettier-ignore
-const Home = lazy(() => import("./pages/Home").then((m) => ({ default: m.Home })));
-// prettier-ignore
-const Search = lazy(() => import("./pages/Search").then((m) => ({ default: m.Search })));
-// prettier-ignore
-const Settings = lazy(() => import("./pages/Settings").then((m) => ({ default: m.Settings })));
-// prettier-ignore
-const Calendar = lazy(() => import("./pages/Calendar").then((m) => ({ default: m.Calendar })));
-// prettier-ignore
-const OrgOverview = lazy(() => import("./pages/OrgOverview").then((m) => ({ default: m.OrgOverview })));
-// prettier-ignore
-const OrgSettings = lazy(() => import("./pages/OrgSettings").then((m) => ({ default: m.OrgSettings })));
-// prettier-ignore
-const ProjectOverview = lazy(() => import("./pages/ProjectOverview").then((m) => ({ default: m.ProjectOverview })));
-// prettier-ignore
-const ProjectSettings = lazy(() => import("./pages/ProjectSettings").then((m) => ({ default: m.ProjectSettings })));
-// prettier-ignore
-const Board = lazy(() => import("./pages/Board").then((m) => ({ default: m.Board })));
-// prettier-ignore
-const BoardSettings = lazy(() => import("./pages/BoardSettings").then((m) => ({ default: m.BoardSettings })));
-// prettier-ignore
-const DocumentView = lazy(() => import("./pages/DocumentView").then((m) => ({ default: m.DocumentView })));
+const Home = lazy(() => import("./pages/Home"));
+const Search = lazy(() => import("./pages/Search"));
+const Settings = lazy(() => import("./pages/Settings"));
+const Calendar = lazy(() => import("./pages/Calendar"));
+const OrgOverview = lazy(() => import("./pages/OrgOverview"));
+const OrgSettings = lazy(() => import("./pages/OrgSettings"));
+const ProjectOverview = lazy(() => import("./pages/ProjectOverview"));
+const ProjectSettings = lazy(() => import("./pages/ProjectSettings"));
+const Board = lazy(() => import("./pages/Board"));
+const BoardSettings = lazy(() => import("./pages/BoardSettings"));
+const DocumentView = lazy(() => import("./pages/DocumentView"));
+
+const FallbackLoader = () => <Loader color="gray" />;
 
 const NAVBAR_WIDTH = 250;
 const NAVBAR_COLLAPSED_WIDTH = 46;
@@ -52,13 +43,7 @@ export function App() {
       </AppShell.Navbar>
 
       <AppShell.Main h="100vh">
-        <Suspense
-          fallback={
-            <Center h="100vh">
-              <Loader color="gray" />
-            </Center>
-          }
-        >
+        <Suspense fallback={<FallbackLoader />}>
           {/* prettier-ignore */}
           <Routes>
             <Route path="/" element={<Home />} />

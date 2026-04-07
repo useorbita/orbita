@@ -23,7 +23,7 @@ import { useDocument, useUpdateDocument } from "../api/documents";
 
 import { DocumentEditor, type DocumentEditorHandle } from "../components/UI/DocumentEditor";
 
-export function DocumentView() {
+export default function DocumentView() {
   const { documentId } = useParams();
 
   const doc = useDocument(documentId);

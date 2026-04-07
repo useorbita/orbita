@@ -17,7 +17,7 @@ import { ListView } from "../components/Board/ListView";
 import { TableView } from "../components/Board/TableView";
 import { ViewSwitch } from "../components/UI/ViewSwitch";
 
-export function Board() {
+export default function Board() {
   const { boardId, cardId } = useParams();
 
   const board = useBoard(boardId);

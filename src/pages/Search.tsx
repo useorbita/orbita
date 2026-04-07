@@ -1,7 +1,7 @@
 import { ScrollArea, Space, TextInput, Title } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
-export function Search() {
+export default function Search() {
   return (
     <ScrollArea p={"xl"}>
       <Title style={{ fontFamily: "Outfit", fontWeight: 400 }}>

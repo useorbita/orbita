@@ -27,7 +27,7 @@ import {
 import { useOrganization } from "../api/organizations";
 import { useCreateProject, useProjects } from "../api/projects";
 
-export function OrgOverview() {
+export default function OrgOverview() {
   const { orgId } = useParams();
   const navigate = useNavigate();
 

@@ -114,7 +114,7 @@ function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
   );
 }
 
-export function Authentication() {
+export default function Authentication() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
 
   return (
