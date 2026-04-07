@@ -1,19 +1,21 @@
-import { Box, Button, Group, Loader, Title } from "@mantine/core";
 import { useMemo, useState } from "react";
+
 import { useNavigate, useParams } from "react-router-dom";
 
+import { Box, Button, Group, Loader, Title } from "@mantine/core";
+import { IconSettings } from "@tabler/icons-react";
+
+import { useBoard } from "../api/boards";
 import { useCardsByBoard } from "../api/cards";
 import { useLabels } from "../api/labels";
 import { useListsByBoard } from "../api/lists";
 import type { CardsResponse } from "../api/types";
 import { useUsers } from "../api/users";
 
-import { useBoard } from "../api/boards";
-import { TableView } from "../components/Board/TableView";
 import { CardModal } from "../components/Card/CardModal";
-import { ViewSwitch } from "../components/UI/ViewSwitch";
-import { IconSettings } from "@tabler/icons-react";
 import { ListView } from "../components/Board/ListView";
+import { TableView } from "../components/Board/TableView";
+import { ViewSwitch } from "../components/UI/ViewSwitch";
 
 export function Board() {
   const { boardId, cardId } = useParams();

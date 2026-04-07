@@ -1,3 +1,7 @@
+import { useEffect, useRef, useState } from "react";
+
+import { useNavigate, useParams } from "react-router-dom";
+
 import {
   ActionIcon,
   Box,
@@ -12,11 +16,6 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import "dayjs/locale/de";
-dayjs.extend(relativeTime);
-dayjs.locale("de");
 import {
   IconCheck,
   IconFile,
@@ -25,8 +24,13 @@ import {
   IconSettings,
   IconX,
 } from "@tabler/icons-react";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+
+import dayjs from "dayjs";
+import "dayjs/locale/de";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+dayjs.locale("de");
+
 import { useBoardsByProject, useCreateBoard } from "../api/boards";
 import { useCreateDocument, useDocumentsByProject } from "../api/documents";
 import { useProject } from "../api/projects";

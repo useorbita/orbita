@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from "react-router-dom";
+
 import {
   ActionIcon,
   Grid,
@@ -11,7 +13,7 @@ import {
   Title,
 } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { useNavigate, useParams } from "react-router-dom";
+
 import { useProject, useProjectMembers } from "../api/projects";
 
 export function ProjectSettings() {

@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Card,
@@ -9,7 +11,7 @@ import {
   Title,
 } from "@mantine/core";
 import { IconBuilding } from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
+
 import { useOrganizations } from "../api/organizations";
 import { pb } from "../api/pocketbase";
 

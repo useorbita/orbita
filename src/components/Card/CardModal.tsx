@@ -14,11 +14,13 @@ import { DatePickerInput } from "@mantine/dates";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
-import { CardsPriorityOptions } from "../../api/types";
+
 import { useCard, useUpdateCard } from "../../api/cards";
 import { useCommentsByCard } from "../../api/comments";
 import { useLabels } from "../../api/labels";
+import { CardsPriorityOptions } from "../../api/types";
 import { useUsers } from "../../api/users";
+
 import { TextEditor } from "../UI/TextEditor";
 
 export function CardModal({

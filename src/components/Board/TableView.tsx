@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import {
   Avatar,
   Badge,
@@ -7,7 +9,7 @@ import {
   Text,
   Tooltip,
 } from "@mantine/core";
-import { Link } from "react-router-dom";
+
 import type {
   CardsResponse,
   LabelsResponse,

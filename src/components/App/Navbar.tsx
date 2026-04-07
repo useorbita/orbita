@@ -1,3 +1,7 @@
+import { useEffect, useMemo, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import {
   ActionIcon,
   AppShell,
@@ -28,8 +32,7 @@ import {
   IconSearch,
   IconUser,
 } from "@tabler/icons-react";
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { useBoards } from "../../api/boards";
 import { useDocuments } from "../../api/documents";
 import {
@@ -38,7 +41,6 @@ import {
 } from "../../api/organizations";
 import { pb } from "../../api/pocketbase";
 import { useProjects } from "../../api/projects";
-import { getInitials } from "../../shared/nameUtils";
 
 interface NavbarProps {
   collapsed: boolean;

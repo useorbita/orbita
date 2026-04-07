@@ -1,4 +1,5 @@
-import { Group, Avatar as MantineAvatar, Text } from "@mantine/core";
+import { Avatar as MantineAvatar, Group, Text } from "@mantine/core";
+
 import { pb } from "../../api/pocketbase";
 
 function getInitials(name: string | undefined): string {

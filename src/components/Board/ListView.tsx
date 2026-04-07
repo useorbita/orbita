@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   ActionIcon,
   Box,
@@ -7,7 +9,7 @@ import {
   TextInput,
 } from "@mantine/core";
 import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
-import { useState } from "react";
+
 import { useCreateList } from "../../api/lists";
 import type {
   CardsResponse,
@@ -15,6 +17,7 @@ import type {
   ListsResponse,
   UsersResponse,
 } from "../../api/types";
+
 import { List } from "./List";
 
 interface ListViewProps {

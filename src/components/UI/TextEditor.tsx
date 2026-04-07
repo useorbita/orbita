@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { Button, Group } from "@mantine/core";
 import { Link, RichTextEditor } from "@mantine/tiptap";
 import Highlight from "@tiptap/extension-highlight";
@@ -6,7 +8,6 @@ import Superscript from "@tiptap/extension-superscript";
 import Underline from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useEffect, useState } from "react";
 
 interface TextEditorProps {
   content: string;

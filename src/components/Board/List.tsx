@@ -1,9 +1,20 @@
-import { ActionIcon, Group, Paper, ScrollArea, Stack, Text, TextInput } from "@mantine/core";
 import { useState } from "react";
+
+import {
+  ActionIcon,
+  Group,
+  Paper,
+  ScrollArea,
+  Stack,
+  Text,
+  TextInput,
+} from "@mantine/core";
+import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
+
 import { useCreateCard } from "../../api/cards";
 import type { CardsResponse, LabelsResponse, UsersResponse } from "../../api/types";
+
 import { Card } from "../Card/Card";
-import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
 
 interface ListProps {
   index: number;

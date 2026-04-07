@@ -1,3 +1,7 @@
+import { useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Center,
@@ -10,13 +14,13 @@ import {
 } from "@mantine/core";
 import { Schedule } from "@mantine/schedule";
 import { IconCalendar, IconLayoutList } from "@tabler/icons-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import dayjs from "dayjs";
+
 import { useBoards } from "../api/boards";
 import { useCards } from "../api/cards";
 import { CardsPriorityOptions } from "../api/types";
 import type { CardsResponse } from "../api/types";
-import dayjs from "dayjs";
 
 const PRIORITY_COLOR: Record<string, string> = {
   [CardsPriorityOptions.lowest]: "gray",

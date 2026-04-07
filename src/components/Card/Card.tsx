@@ -1,15 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 import {
   Avatar,
   Badge,
   Card as MantineCard,
+  Grid,
   Group,
+  Stack,
   Text,
   Tooltip,
-  Stack,
-  Grid,
 } from "@mantine/core";
 import { IconCalendar } from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
+
 import {
   CardsPriorityOptions,
   type CardsResponse,

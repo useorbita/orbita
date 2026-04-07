@@ -1,3 +1,5 @@
+import { useNavigate, useParams } from "react-router-dom";
+
 import {
   ActionIcon,
   Button,
@@ -10,13 +12,12 @@ import {
   Stack,
   Switch,
   Text,
-  Title,
   TextInput,
+  Title,
 } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconArrowLeft, IconTrash } from "@tabler/icons-react";
-import { useNavigate, useParams } from "react-router-dom";
 
 export function BoardSettings() {
   const navigate = useNavigate();

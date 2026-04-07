@@ -1,23 +1,27 @@
+import { useRef, useState } from "react";
+
+import { useParams } from "react-router-dom";
+
 import {
-  Text,
+  Button,
   Container,
+  Group,
   Loader,
+  Stack,
+  Text,
   TextInput,
   Title,
-  Group,
-  Button,
-  Stack,
 } from "@mantine/core";
-import { useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDocument, useUpdateDocument } from "../api/documents";
-import { DocumentEditor, type DocumentEditorHandle } from "../components/UI/DocumentEditor";
 
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/de";
+import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 dayjs.locale("de");
+
+import { useDocument, useUpdateDocument } from "../api/documents";
+
+import { DocumentEditor, type DocumentEditorHandle } from "../components/UI/DocumentEditor";
 
 export function DocumentView() {
   const { documentId } = useParams();

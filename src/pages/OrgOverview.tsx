@@ -1,3 +1,7 @@
+import { useEffect, useRef, useState } from "react";
+
+import { useNavigate, useParams } from "react-router-dom";
+
 import {
   ActionIcon,
   Box,
@@ -19,8 +23,7 @@ import {
   IconSettings,
   IconX,
 } from "@tabler/icons-react";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+
 import { useOrganization } from "../api/organizations";
 import { useCreateProject, useProjects } from "../api/projects";
 

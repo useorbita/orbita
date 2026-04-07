@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   Anchor,
   Button,
@@ -10,6 +11,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+
 import { useSignIn, useSignUp } from "../api/auth";
 
 function SignInForm({ onSwitch }: { onSwitch: () => void }) {
