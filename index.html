@@ -7,17 +7,57 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <link href="./fonts/fonts.css" rel="stylesheet" />
   <title>Orbita</title>
+  <style>
+    /* hide everything, until react is initialized */
+    #root {
+      opacity: 0;
+      transition: opacity 0.1s ease;
+    }
+
+    /* add a splash screen while loading */
+    #splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.1s ease;
+      animation: splash-fadein 2s ease 2s forwards;
+    }
+
+    #splash-content {
+      font-family: sans-serif;
+      font-size: 0.875rem;
+      color: var(--splash-color);
+      animation: splash-pulse 2s ease-in-out 2s infinite;
+    }
+
+    @keyframes splash-fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes splash-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
   <script>
     // this is a workaround to prevent the inital white flash, while the page/react/mantine is loading
     (function () {
       const theme = localStorage.getItem("mantine-color-scheme-value");
       const isDark = theme === "dark" || (theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
-      document.documentElement.style.background = isDark ? "#242424" : "#fffff";
+      document.documentElement.style.background = isDark ? "#242424" : "#ffffff";
+      document.documentElement.style.color = isDark ? "#ffffff" : "#242424";
+      document.documentElement.style.setProperty("--splash-color", isDark ? "#828282" : "#b0b0b0");
     })();
   </script>
 </head>
 
 <body>
+  <div id="splash"><span id="splash-content">Orbita</span></div>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>

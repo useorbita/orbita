@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect } from "react";
+
 import ReactDOM from "react-dom/client";
 
 import { BrowserRouter } from "react-router-dom";
@@ -33,6 +35,16 @@ const theme = createTheme({
 
 function Application() {
   const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    // fade in app and remove splash screen
+    document.getElementById("root")!.style.opacity = "1";
+    const splash = document.getElementById("splash")!;
+    splash.style.animation = "none";
+    splash.style.opacity = "0";
+    splash.addEventListener("transitionend", () => splash.remove(), { once: true });
+  }, []);
+
   return isAuthenticated ? <App /> : <Authentication />;
 }
 
