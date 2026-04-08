@@ -2,7 +2,7 @@ import { lazy, Suspense, useState } from "react";
 
 import { Route, Routes } from "react-router-dom";
 
-import { AppShell, Center, Loader } from "@mantine/core";
+import { AppShell, Loader } from "@mantine/core";
 
 import { Navbar } from "./components/App/Navbar";
 

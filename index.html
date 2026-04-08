@@ -7,6 +7,14 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <link href="./fonts/fonts.css" rel="stylesheet" />
   <title>Orbita</title>
+  <script>
+    // this is a workaround to prevent the inital white flash, while the page/react/mantine is loading
+    (function () {
+      const theme = localStorage.getItem("mantine-color-scheme-value");
+      const isDark = theme === "dark" || (theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.style.background = isDark ? "#242424" : "#fffff";
+    })();
+  </script>
 </head>
 
 <body>
