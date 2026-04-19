@@ -5,27 +5,28 @@
 import type PocketBase from 'pocketbase'
 import type { RecordService } from 'pocketbase'
 
-export enum Collections {
-	Authorigins = "_authOrigins",
-	Externalauths = "_externalAuths",
-	Mfas = "_mfas",
-	Otps = "_otps",
-	Superusers = "_superusers",
-	Boards = "boards",
-	CardComments = "card_comments",
-	CardEvents = "card_events",
-	Cards = "cards",
-	DocumentEvents = "document_events",
-	Documents = "documents",
-	Invitations = "invitations",
-	Labels = "labels",
-	Lists = "lists",
-	OrganizationMembers = "organization_members",
-	Organizations = "organizations",
-	ProjectMembers = "project_members",
-	Projects = "projects",
-	Users = "users",
-}
+export const Collections = {
+	Authorigins: "_authOrigins",
+	Externalauths: "_externalAuths",
+	Mfas: "_mfas",
+	Otps: "_otps",
+	Superusers: "_superusers",
+	Boards: "boards",
+	CardComments: "card_comments",
+	CardEvents: "card_events",
+	Cards: "cards",
+	DocumentEvents: "document_events",
+	Documents: "documents",
+	Invitations: "invitations",
+	Labels: "labels",
+	Lists: "lists",
+	OrganizationMembers: "organization_members",
+	Organizations: "organizations",
+	ProjectMembers: "project_members",
+	Projects: "projects",
+	Users: "users",
+} as const
+export type Collections = typeof Collections[keyof typeof Collections]
 
 // Alias types for improved usability
 export type IsoDateString = string
@@ -123,10 +124,11 @@ export type CardCommentsRecord = {
 	updated: IsoAutoDateString
 }
 
-export enum CardEventsActionOptions {
-	"CREATE" = "CREATE",
-	"UPDATE" = "UPDATE",
-}
+export const CardEventsActionOptions = {
+	"CREATE": "CREATE",
+	"UPDATE": "UPDATE",
+} as const
+export type CardEventsActionOptions = typeof CardEventsActionOptions[keyof typeof CardEventsActionOptions]
 export type CardEventsRecord = {
 	action?: CardEventsActionOptions
 	card?: RecordIdString
@@ -136,13 +138,14 @@ export type CardEventsRecord = {
 	user?: RecordIdString
 }
 
-export enum CardsPriorityOptions {
-	"lowest" = "lowest",
-	"low" = "low",
-	"medium" = "medium",
-	"high" = "high",
-	"highest" = "highest",
-}
+export const CardsPriorityOptions = {
+	"lowest": "lowest",
+	"low": "low",
+	"medium": "medium",
+	"high": "high",
+	"highest": "highest",
+} as const
+export type CardsPriorityOptions = typeof CardsPriorityOptions[keyof typeof CardsPriorityOptions]
 export type CardsRecord = {
 	board?: RecordIdString
 	created: IsoAutoDateString
@@ -159,10 +162,11 @@ export type CardsRecord = {
 	updated: IsoAutoDateString
 }
 
-export enum DocumentEventsActionOptions {
-	"CREATE" = "CREATE",
-	"UPDATE" = "UPDATE",
-}
+export const DocumentEventsActionOptions = {
+	"CREATE": "CREATE",
+	"UPDATE": "UPDATE",
+} as const
+export type DocumentEventsActionOptions = typeof DocumentEventsActionOptions[keyof typeof DocumentEventsActionOptions]
 export type DocumentEventsRecord = {
 	action?: DocumentEventsActionOptions
 	created: IsoAutoDateString
@@ -183,10 +187,11 @@ export type DocumentsRecord = {
 	updated: IsoAutoDateString
 }
 
-export enum InvitationsRoleOptions {
-	"member" = "member",
-	"owner" = "owner",
-}
+export const InvitationsRoleOptions = {
+	"member": "member",
+	"owner": "owner",
+} as const
+export type InvitationsRoleOptions = typeof InvitationsRoleOptions[keyof typeof InvitationsRoleOptions]
 export type InvitationsRecord = {
 	created: IsoAutoDateString
 	id: string
@@ -215,10 +220,11 @@ export type ListsRecord = {
 	updated: IsoAutoDateString
 }
 
-export enum OrganizationMembersRoleOptions {
-	"member" = "member",
-	"owner" = "owner",
-}
+export const OrganizationMembersRoleOptions = {
+	"member": "member",
+	"owner": "owner",
+} as const
+export type OrganizationMembersRoleOptions = typeof OrganizationMembersRoleOptions[keyof typeof OrganizationMembersRoleOptions]
 export type OrganizationMembersRecord = {
 	created: IsoAutoDateString
 	id: string
@@ -236,10 +242,11 @@ export type OrganizationsRecord = {
 	updated: IsoAutoDateString
 }
 
-export enum ProjectMembersRoleOptions {
-	"admin" = "admin",
-	"member" = "member",
-}
+export const ProjectMembersRoleOptions = {
+	"admin": "admin",
+	"member": "member",
+} as const
+export type ProjectMembersRoleOptions = typeof ProjectMembersRoleOptions[keyof typeof ProjectMembersRoleOptions]
 export type ProjectMembersRecord = {
 	created: IsoAutoDateString
 	id: string
