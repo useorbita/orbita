@@ -6,6 +6,10 @@ import { AppShell, Loader } from "@mantine/core";
 
 import { Navbar } from "./components/App/Navbar";
 
+import { useAuth } from "./api/auth";
+
+import Authentication from "./pages/Authentication";
+
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
 const Settings = lazy(() => import("./pages/Settings"));
@@ -25,8 +29,11 @@ const NAVBAR_COLLAPSED_WIDTH = 46;
 
 export function App() {
   const [navCollapsed, setNavCollapsed] = useState(false);
+  const { isAuthenticated } = useAuth();
 
-  return (
+  return !isAuthenticated ? (
+    <Authentication />
+  ) : (
     <AppShell
       layout="alt"
       navbar={{

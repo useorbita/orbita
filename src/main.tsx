@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 
 import ReactDOM from "react-dom/client";
 
@@ -16,10 +15,7 @@ import "@mantine/notifications/styles.css";
 import "@mantine/schedule/styles.css";
 import "@mantine/tiptap/styles.css";
 
-import { useAuth } from "./api/auth";
-
 import { App } from "./App";
-import Authentication from "./pages/Authentication";
 
 // show react-scan performance widget
 // if (typeof window !== "undefined" && import.meta.env.DEV) {
@@ -33,34 +29,23 @@ const theme = createTheme({
   /** Your theme override here */
 });
 
-function Application() {
-  const { isAuthenticated } = useAuth();
-
-  useEffect(() => {
-    // fade in app and remove splash screen
-    document.getElementById("root")!.style.opacity = "1";
-    const splash = document.getElementById("splash")!;
-    splash.style.animation = "none";
-    splash.style.opacity = "0";
-    splash.addEventListener("transitionend", () => splash.remove(), { once: true });
-  }, []);
-
-  return isAuthenticated ? <App /> : <Authentication />;
-}
-
 const queryClient = new QueryClient();
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+const root = document.getElementById("root")!
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <MantineProvider theme={theme} defaultColorScheme="auto">
         <Notifications />
         <BrowserRouter>
           <ModalsProvider>
-            <Application />
+            <App />
           </ModalsProvider>
         </BrowserRouter>
       </MantineProvider>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
+
+// fade in the app, the opacity is set to 0 initially in index.html
+root.style.opacity = "1";
