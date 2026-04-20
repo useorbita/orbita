@@ -9,6 +9,7 @@ import {
   Card,
   Group,
   Loader,
+  Paper,
   SimpleGrid,
   Space,
   Stack,
@@ -17,11 +18,14 @@ import {
   Title,
 } from "@mantine/core";
 import {
+  IconActivity,
   IconCheck,
   IconFile,
   IconLayout,
   IconPlus,
   IconSettings,
+  IconTargetArrow,
+  IconUsers,
   IconX,
 } from "@tabler/icons-react";
 
@@ -285,6 +289,63 @@ export default function ProjectOverview() {
             </Button>
           )}
         </Box>
+
+        <SimpleGrid cols={2} spacing="sm">
+          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+            <Group gap="xs" mb="xs">
+              <IconActivity size="1.2em" stroke={1.5} />
+              <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                Aktivitaet (Activity Feed)
+              </Text>
+            </Group>
+            <Text size="xs" c="dimmed">
+              Recent card/doc changes within this project.
+              From card_events/document_events filtered by project.
+              Great for seeing what changed since your last visit.
+            </Text>
+          </Paper>
+
+          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+            <Group gap="xs" mb="xs">
+              <IconTargetArrow size="1.2em" stroke={1.5} />
+              <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                Anstehende Fristen (Due Dates)
+              </Text>
+            </Group>
+            <Text size="xs" c="dimmed">
+              Cards with due dates from this project, sorted by date.
+              Show priority color, card title, board, days remaining.
+              Basically a project-scoped version of the Home deadlines widget.
+            </Text>
+          </Paper>
+
+          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+            <Group gap="xs" mb="xs">
+              <IconUsers size="1.2em" stroke={1.5} />
+              <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                Team (Project Members)
+              </Text>
+            </Group>
+            <Text size="xs" c="dimmed">
+              List of project_members with avatars.
+              Show role (admin/member), card count per member, last active.
+              Maybe "cards assigned to each member" breakdown.
+            </Text>
+          </Paper>
+
+          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+            <Group gap="xs" mb="xs">
+              <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                Kartenstatus (Card Stats)
+              </Text>
+            </Group>
+            <Text size="xs" c="dimmed">
+              Total cards, by priority (high/medium/low), by label.
+              Progress bar: cards done vs total (needs "done" concept).
+              Priority distribution chart or simple counts.
+            </Text>
+          </Paper>
+        </SimpleGrid>
       </Stack>
     </Box>
   );

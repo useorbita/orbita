@@ -9,6 +9,7 @@ import {
   Card,
   Group,
   Loader,
+  Paper,
   SimpleGrid,
   Space,
   Stack,
@@ -17,10 +18,12 @@ import {
   Title,
 } from "@mantine/core";
 import {
+  IconActivity,
   IconCheck,
   IconCircleDotted,
   IconPlus,
   IconSettings,
+  IconUsers,
   IconX,
 } from "@tabler/icons-react";
 
@@ -166,6 +169,36 @@ export default function OrgOverview() {
             </Button>
           )}
         </Box>
+
+        <SimpleGrid cols={2} spacing="sm">
+          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+            <Group gap="xs" mb="xs">
+              <IconActivity size="1.2em" stroke={1.5} />
+              <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                Aktivitaet (Activity Feed)
+              </Text>
+            </Group>
+            <Text size="xs" c="dimmed">
+              Recent card/document changes within this org's projects.
+              Filter from the global card_events/document_events by org projects.
+              Show timestamp, user, action, entity name.
+            </Text>
+          </Paper>
+
+          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+            <Group gap="xs" mb="xs">
+              <IconUsers size="1.2em" stroke={1.5} />
+              <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                Mitglieder (Members)
+              </Text>
+            </Group>
+            <Text size="xs" c="dimmed">
+              List of org members with avatars (from organization_members).
+              Show role (owner/member), maybe link to their activity.
+              Hide for personal org.
+            </Text>
+          </Paper>
+        </SimpleGrid>
       </Stack>
     </Box>
   );

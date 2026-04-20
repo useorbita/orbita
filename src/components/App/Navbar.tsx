@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
   ActionIcon,
   AppShell,
+  Badge,
   Box,
   Button,
   Divider,
   Group,
+  Indicator,
   Loader,
   Avatar as MantineAvatar,
   Modal,
@@ -21,12 +23,15 @@ import {
   Tooltip,
 } from "@mantine/core";
 import {
+  IconBuilding,
   IconCalendar,
+  IconChecklist,
   IconChevronRight,
   IconCircleDotted,
   IconFile,
-  IconHome,
+  IconInbox,
   IconLayout,
+  IconLayoutDashboard,
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
   IconSearch,
@@ -56,6 +61,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
   const createOrganization = useCreateOrganization();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
 
@@ -134,10 +140,11 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
     return (
       <>
         <AppShell.Section>
-          {/* not ideal, but compensate positions */}
-          <Box pt={19}>
+          <Box mt={20} mb={12}>
             <Tooltip label="Aufklappen" position="right" withArrow>
               <NavLink
+                h={41}
+                variant="subtle"
                 leftSection={
                   <IconLayoutSidebarLeftExpand size="1.2em" color="grey" />
                 }
@@ -146,35 +153,66 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
             </Tooltip>
           </Box>
 
-          {/* not ideal, but compensate positions */}
-          <Box pt={18}>
-            <Tooltip label="Übersicht" position="right" withArrow>
+          <Box>
+            <Tooltip label="Dein Dashboard" position="right" withArrow>
               <NavLink
-                leftSection={<IconHome size={"1.2em"} stroke={1.5} />}
+                h={41}
+                leftSection={
+                  <IconLayoutDashboard size={"1.2em"} stroke={1.5} />
+                }
                 onClick={() => navigate("/")}
+                active={location.pathname === "/"}
               />
             </Tooltip>
           </Box>
 
-          {/* not ideal, but compensate positions */}
-          <Box pt={5}>
+          <Box>
+            <Tooltip label="Eingang" position="right" withArrow>
+              <NavLink
+                h={41}
+                leftSection={
+                  <Indicator size={6}>
+                    <IconInbox size={"1.2em"} stroke={1.5} />
+                  </Indicator>
+                }
+                onClick={() => navigate("/inbox")}
+                active={location.pathname === "/inbox"}
+              />
+            </Tooltip>
+          </Box>
+
+          <Box>
             <Tooltip label="Suche" position="right" withArrow>
               <NavLink
+                h={41}
                 leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
                 onClick={() => navigate("/search")}
+                active={location.pathname === "/search"}
               />
             </Tooltip>
           </Box>
 
-          <Box pt={6}>
+          <Box>
             <Tooltip label="Kalender" position="right" withArrow>
               <NavLink
+                h={41}
                 leftSection={<IconCalendar size={"1.2em"} stroke={1.5} />}
                 onClick={() => navigate("/calendar")}
+                active={location.pathname === "/calendar"}
               />
             </Tooltip>
           </Box>
 
+          <Box>
+            <Tooltip label="Mir zugewiesen" position="right" withArrow>
+              <NavLink
+                h={41}
+                leftSection={<IconChecklist size={"1.2em"} stroke={1.5} />}
+                onClick={() => navigate("/assigned")}
+                active={location.pathname === "/assigned"}
+              />
+            </Tooltip>
+          </Box>
         </AppShell.Section>
 
         <AppShell.Section grow />
@@ -204,19 +242,35 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           </ActionIcon>
         </Group>
         <NavLink
-          label="Übersicht"
-          leftSection={<IconHome size={"1.2em"} stroke={1.5} />}
+          label="Dein Dashboard"
+          leftSection={<IconLayoutDashboard size={"1.2em"} stroke={1.5} />}
           onClick={() => navigate("/")}
+          active={location.pathname === "/"}
+        />
+        <NavLink
+          label="Eingang"
+          leftSection={<IconInbox size={"1.2em"} stroke={1.5} />}
+          rightSection={<Badge variant="default">42</Badge>}
+          onClick={() => navigate("/inbox")}
+          active={location.pathname === "/inbox"}
         />
         <NavLink
           label="Suchen"
           leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
           onClick={() => navigate("/search")}
+          active={location.pathname === "/search"}
         />
         <NavLink
           label="Kalender"
           leftSection={<IconCalendar size={"1.2em"} stroke={1.5} />}
           onClick={() => navigate("/calendar")}
+          active={location.pathname === "/calendar"}
+        />
+        <NavLink
+          label="Mir zugewiesen"
+          leftSection={<IconChecklist size={"1.2em"} stroke={1.5} />}
+          onClick={() => navigate("/assigned")}
+          active={location.pathname === "/assigned"}
         />
         <Space h="md" />
         <Divider />
@@ -232,12 +286,23 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
               onChange={handleOrgSelectChange}
               data={orgSelectData}
               allowDeselect={false}
-              onClick={() => navigate(`/orgs/${selectedOrgId}`)}
               p={"xs"}
               pt={"md"}
             />
 
-            <Space h="md" />
+            <NavLink
+              label={"Organisation"}
+              leftSection={<IconBuilding size={"1.2em"} stroke={1.5} />}
+              onClick={() => navigate(`/orgs/${selectedOrgId}`)}
+              active={
+                location.pathname.startsWith(`/orgs/${selectedOrgId}`) &&
+                !location.pathname.startsWith(`/orgs/${selectedOrgId}/settings`)
+              }
+            />
+
+            <Text size="xs" fw={500} c="dimmed" p={"xs"}>
+              Projekte
+            </Text>
 
             {orgProjects.map((project) => (
               <NavLink
@@ -246,6 +311,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                 leftSection={<IconCircleDotted size="1.2em" stroke={1.5} />}
                 childrenOffset={16}
                 onClick={() => navigate(`/projects/${project.id}`)}
+                active={location.pathname === `/projects/${project.id}`}
                 rightSection={
                   project.boards.length != 0 ||
                   project.documents.length != 0 ? (
@@ -261,6 +327,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                     label={board.title}
                     leftSection={<IconLayout size="1.2em" stroke={1.5} />}
                     onClick={() => navigate(`/boards/${board.id}`)}
+                    active={location.pathname === `/boards/${board.id}`}
                   />
                 ))}
 
@@ -270,6 +337,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                     label={doc.title || "Untitled"}
                     leftSection={<IconFile size="1.2em" stroke={1.5} />}
                     onClick={() => navigate(`/documents/${doc.id}`)}
+                    active={location.pathname === `/documents/${doc.id}`}
                   />
                 ))}
               </NavLink>
