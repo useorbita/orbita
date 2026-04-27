@@ -29,6 +29,7 @@ import {
   IconChevronRight,
   IconCircleDotted,
   IconFile,
+  IconHome,
   IconInbox,
   IconLayout,
   IconLayoutDashboard,
@@ -46,6 +47,66 @@ import {
 } from "../../api/organizations";
 import { pb } from "../../api/pocketbase";
 import { useProjects } from "../../api/projects";
+
+interface ProjectNavItemProps {
+  project: {
+    id: string;
+    name: string;
+    boards: Array<{ id: string; title: string }>;
+    documents: Array<{ id: string; title: string }>;
+  };
+}
+
+function ProjectNavItem({ project }: ProjectNavItemProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [opened, setOpened] = useState(true);
+
+  const hasChildren = project.boards.length > 0 || project.documents.length > 0;
+
+  return (
+    <NavLink
+      label={project.name}
+      leftSection={<IconCircleDotted size="1.2em" stroke={1.5} />}
+      childrenOffset={16}
+      onClick={() => navigate(`/projects/${project.id}`)}
+      active={location.pathname === `/projects/${project.id}`}
+      opened={hasChildren ? opened : undefined}
+      rightSection={
+        hasChildren ? (
+          <ActionIcon
+            variant="subtle"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpened((o) => !o);
+            }}
+          >
+            <IconChevronRight size="1em" stroke={1.5} />
+          </ActionIcon>
+        ) : null
+      }
+    >
+      {project.boards.map((board) => (
+        <NavLink
+          key={board.id}
+          label={board.title}
+          leftSection={<IconLayout size="1.2em" stroke={1.5} />}
+          onClick={() => navigate(`/boards/${board.id}`)}
+          active={location.pathname === `/boards/${board.id}`}
+        />
+      ))}
+      {project.documents.map((doc) => (
+        <NavLink
+          key={doc.id}
+          label={doc.title || "Untitled"}
+          leftSection={<IconFile size="1.2em" stroke={1.5} />}
+          onClick={() => navigate(`/documents/${doc.id}`)}
+          active={location.pathname === `/documents/${doc.id}`}
+        />
+      ))}
+    </NavLink>
+  );
+}
 
 interface NavbarProps {
   collapsed: boolean;
@@ -98,6 +159,11 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
       setSelectedOrgId(orgSelectData[0].value);
     }
   }, [selectedOrgId, orgSelectData]);
+
+  const selectedOrg = useMemo(
+    () => organizations.data?.find((org) => org.id === selectedOrgId),
+    [organizations.data, selectedOrgId],
+  );
 
   // Compute projects with their boards and documents for the selected org
   const orgProjects = useMemo(() => {
@@ -167,6 +233,17 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           </Box>
 
           <Box>
+            <Tooltip label="Suche" position="right" withArrow>
+              <NavLink
+                h={41}
+                leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
+                onClick={() => navigate("/search")}
+                active={location.pathname === "/search"}
+              />
+            </Tooltip>
+          </Box>
+
+          <Box>
             <Tooltip label="Eingang" position="right" withArrow>
               <NavLink
                 h={41}
@@ -177,17 +254,6 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                 }
                 onClick={() => navigate("/inbox")}
                 active={location.pathname === "/inbox"}
-              />
-            </Tooltip>
-          </Box>
-
-          <Box>
-            <Tooltip label="Suche" position="right" withArrow>
-              <NavLink
-                h={41}
-                leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
-                onClick={() => navigate("/search")}
-                active={location.pathname === "/search"}
               />
             </Tooltip>
           </Box>
@@ -248,17 +314,17 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           active={location.pathname === "/"}
         />
         <NavLink
+          label="Suchen"
+          leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
+          onClick={() => navigate("/search")}
+          active={location.pathname === "/search"}
+        />
+        <NavLink
           label="Eingang"
           leftSection={<IconInbox size={"1.2em"} stroke={1.5} />}
           rightSection={<Badge variant="default">42</Badge>}
           onClick={() => navigate("/inbox")}
           active={location.pathname === "/inbox"}
-        />
-        <NavLink
-          label="Suchen"
-          leftSection={<IconSearch size={"1.2em"} stroke={1.5} />}
-          onClick={() => navigate("/search")}
-          active={location.pathname === "/search"}
         />
         <NavLink
           label="Kalender"
@@ -291,8 +357,14 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
             />
 
             <NavLink
-              label={"Organisation"}
-              leftSection={<IconBuilding size={"1.2em"} stroke={1.5} />}
+              label={selectedOrg?.is_personal ? "Übersicht" : "Organisation"}
+              leftSection={
+                selectedOrg?.is_personal ? (
+                  <IconHome size={"1.2em"} stroke={1.5} />
+                ) : (
+                  <IconBuilding size={"1.2em"} stroke={1.5} />
+                )
+              }
               onClick={() => navigate(`/orgs/${selectedOrgId}`)}
               active={
                 location.pathname.startsWith(`/orgs/${selectedOrgId}`) &&
@@ -305,42 +377,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
             </Text>
 
             {orgProjects.map((project) => (
-              <NavLink
-                key={project.id}
-                label={project.name}
-                leftSection={<IconCircleDotted size="1.2em" stroke={1.5} />}
-                childrenOffset={16}
-                onClick={() => navigate(`/projects/${project.id}`)}
-                active={location.pathname === `/projects/${project.id}`}
-                rightSection={
-                  project.boards.length != 0 ||
-                  project.documents.length != 0 ? (
-                    <IconChevronRight size="1em" stroke={1.5} />
-                  ) : (
-                    <></>
-                  )
-                }
-              >
-                {project.boards.map((board) => (
-                  <NavLink
-                    key={board.id}
-                    label={board.title}
-                    leftSection={<IconLayout size="1.2em" stroke={1.5} />}
-                    onClick={() => navigate(`/boards/${board.id}`)}
-                    active={location.pathname === `/boards/${board.id}`}
-                  />
-                ))}
-
-                {project.documents.map((doc) => (
-                  <NavLink
-                    key={doc.id}
-                    label={doc.title || "Untitled"}
-                    leftSection={<IconFile size="1.2em" stroke={1.5} />}
-                    onClick={() => navigate(`/documents/${doc.id}`)}
-                    active={location.pathname === `/documents/${doc.id}`}
-                  />
-                ))}
-              </NavLink>
+              <ProjectNavItem key={project.id} project={project} />
             ))}
           </>
         )}
