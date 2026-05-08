@@ -10,8 +10,6 @@ import { useAuth } from "./api/auth";
 
 import Authentication from "./pages/Authentication";
 
-const Assigned = lazy(() => import("./pages/Assigned"));
-const Inbox = lazy(() => import("./pages/Inbox"));
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
 const Settings = lazy(() => import("./pages/Settings"));
@@ -56,8 +54,6 @@ export function App() {
           {/* prettier-ignore */}
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/inbox" element={<Inbox />} />
-            <Route path="/assigned" element={<Assigned />} />
             <Route path="/search" element={<Search />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/calendar" element={<Calendar />} />

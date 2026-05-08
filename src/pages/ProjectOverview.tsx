@@ -299,23 +299,10 @@ export default function ProjectOverview() {
               </Text>
             </Group>
             <Text size="xs" c="dimmed">
-              Recent card/doc changes within this project.
-              From card_events/document_events filtered by project.
-              Great for seeing what changed since your last visit.
-            </Text>
-          </Paper>
-
-          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
-            <Group gap="xs" mb="xs">
-              <IconTargetArrow size="1.2em" stroke={1.5} />
-              <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-                Anstehende Fristen (Due Dates)
-              </Text>
-            </Group>
-            <Text size="xs" c="dimmed">
-              Cards with due dates from this project, sorted by date.
-              Show priority color, card title, board, days remaining.
-              Basically a project-scoped version of the Home deadlines widget.
+              Recent changes within this project: cards moved, documents edited, new cards created.
+              Format: "[Avatar] [Name] [action] [entity]".
+              Last 10 events from card_events + document_events filtered by project.
+              Catch up on what changed since your last visit without opening every board.
             </Text>
           </Paper>
 
@@ -327,22 +314,23 @@ export default function ProjectOverview() {
               </Text>
             </Group>
             <Text size="xs" c="dimmed">
-              List of project_members with avatars.
-              Show role (admin/member), card count per member, last active.
-              Maybe "cards assigned to each member" breakdown.
+              Compact avatar row of project members from project_members.
+              Each avatar shows name on hover, optional role label (Admin/Mitglied).
+              Keeps the team visible and accessible — click an avatar to see their assigned cards.
             </Text>
           </Paper>
 
           <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
             <Group gap="xs" mb="xs">
               <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-                Kartenstatus (Card Stats)
+                Fortschritt (Progress)
               </Text>
             </Group>
             <Text size="xs" c="dimmed">
-              Total cards, by priority (high/medium/low), by label.
-              Progress bar: cards done vs total (needs "done" concept).
-              Priority distribution chart or simple counts.
+              Single progress bar: cards in "done" lists vs. total cards.
+              Below it: open card count per member as small avatar badges with numbers.
+              No charts, no label breakdowns — just one clear signal: "Is this project on track?"
+              Data source: cards grouped by list, compare done-list count to total.
             </Text>
           </Paper>
         </SimpleGrid>

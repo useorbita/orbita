@@ -18,7 +18,7 @@ import {
   Title,
 } from "@mantine/core";
 import {
-  IconActivity,
+  IconChartBar,
   IconCheck,
   IconCircleDotted,
   IconPlus,
@@ -173,15 +173,16 @@ export default function OrgOverview() {
         <SimpleGrid cols={2} spacing="sm">
           <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
             <Group gap="xs" mb="xs">
-              <IconActivity size="1.2em" stroke={1.5} />
+              <IconChartBar size="1.2em" stroke={1.5} />
               <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-                Aktivitaet (Activity Feed)
+                Projektfortschritt (Project Progress)
               </Text>
             </Group>
             <Text size="xs" c="dimmed">
-              Recent card/document changes within this org's projects.
-              Filter from the global card_events/document_events by org projects.
-              Show timestamp, user, action, entity name.
+              Each project in this org with a progress bar.
+              Progress = cards in done-lists / total cards.
+              Gives a quick sense of which projects are on track and which are stalling.
+              Click a project card to navigate to its ProjectOverview.
             </Text>
           </Paper>
 
@@ -193,9 +194,10 @@ export default function OrgOverview() {
               </Text>
             </Group>
             <Text size="xs" c="dimmed">
-              List of org members with avatars (from organization_members).
-              Show role (owner/member), maybe link to their activity.
-              Hide for personal org.
+              People in this org and what they're working on.
+              Each member shows avatar, name, role (Owner/Mitglied),
+              and which projects they belong to.
+              Hidden for personal org — only displayed for team orgs.
             </Text>
           </Paper>
         </SimpleGrid>

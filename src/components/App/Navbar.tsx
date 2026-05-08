@@ -5,12 +5,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   ActionIcon,
   AppShell,
-  Badge,
   Box,
   Button,
   Divider,
   Group,
-  Indicator,
   Loader,
   Avatar as MantineAvatar,
   Modal,
@@ -25,12 +23,10 @@ import {
 import {
   IconBuilding,
   IconCalendar,
-  IconChecklist,
   IconChevronRight,
   IconCircleDotted,
   IconFile,
   IconHome,
-  IconInbox,
   IconLayout,
   IconLayoutDashboard,
   IconLayoutSidebarLeftCollapse,
@@ -244,38 +240,12 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           </Box>
 
           <Box>
-            <Tooltip label="Eingang" position="right" withArrow>
-              <NavLink
-                h={41}
-                leftSection={
-                  <Indicator size={6}>
-                    <IconInbox size={"1.2em"} stroke={1.5} />
-                  </Indicator>
-                }
-                onClick={() => navigate("/inbox")}
-                active={location.pathname === "/inbox"}
-              />
-            </Tooltip>
-          </Box>
-
-          <Box>
             <Tooltip label="Kalender" position="right" withArrow>
               <NavLink
                 h={41}
                 leftSection={<IconCalendar size={"1.2em"} stroke={1.5} />}
                 onClick={() => navigate("/calendar")}
                 active={location.pathname === "/calendar"}
-              />
-            </Tooltip>
-          </Box>
-
-          <Box>
-            <Tooltip label="Mir zugewiesen" position="right" withArrow>
-              <NavLink
-                h={41}
-                leftSection={<IconChecklist size={"1.2em"} stroke={1.5} />}
-                onClick={() => navigate("/assigned")}
-                active={location.pathname === "/assigned"}
               />
             </Tooltip>
           </Box>
@@ -320,23 +290,10 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
           active={location.pathname === "/search"}
         />
         <NavLink
-          label="Eingang"
-          leftSection={<IconInbox size={"1.2em"} stroke={1.5} />}
-          rightSection={<Badge variant="default">42</Badge>}
-          onClick={() => navigate("/inbox")}
-          active={location.pathname === "/inbox"}
-        />
-        <NavLink
           label="Kalender"
           leftSection={<IconCalendar size={"1.2em"} stroke={1.5} />}
           onClick={() => navigate("/calendar")}
           active={location.pathname === "/calendar"}
-        />
-        <NavLink
-          label="Mir zugewiesen"
-          leftSection={<IconChecklist size={"1.2em"} stroke={1.5} />}
-          onClick={() => navigate("/assigned")}
-          active={location.pathname === "/assigned"}
         />
         <Space h="md" />
         <Divider />

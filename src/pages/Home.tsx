@@ -12,9 +12,8 @@ import {
   Title,
 } from "@mantine/core";
 import {
-  IconActivity,
+  IconChartBar,
   IconClockPause,
-  IconDashboard,
   IconTargetArrow,
 } from "@tabler/icons-react";
 import { IconBuilding } from "@tabler/icons-react";
@@ -76,41 +75,16 @@ export default function Home() {
       <SimpleGrid cols={2} spacing="sm" mt="xl">
         <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
           <Group gap="xs" mb="xs">
-            <IconActivity size="1.2em" stroke={1.5} />
-            <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-              Aktivitaet (Activity Feed)
-            </Text>
-          </Group>
-          <Text size="xs" c="dimmed">
-            Unified feed of recent card/document changes across all orgs.
-            Shows "Max hat Karte X erstellt", "Anna hat Dokument Y aktualisiert" etc.
-            Data source: card_events + document_events (already being logged).
-          </Text>
-        </Paper>
-
-        <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
-          <Group gap="xs" mb="xs">
             <IconTargetArrow size="1.2em" stroke={1.5} />
             <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-              Anstehende Fristen (Upcoming Deadlines)
+              Meine Aufgaben (My Tasks)
             </Text>
           </Group>
           <Text size="xs" c="dimmed">
-            Cards with due dates in the next 7 days, sorted by urgency.
-            Show priority badge, card title, project name, days remaining.
-          </Text>
-        </Paper>
-
-        <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
-          <Group gap="xs" mb="xs">
-            <IconDashboard size="1.2em" stroke={1.5} />
-            <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-              Schnellstatistiken (Quick Stats)
-            </Text>
-          </Group>
-          <Text size="xs" c="dimmed">
-            Total orgs, projects, open cards you're assigned to.
-            Could also show completion % or a simple sparkline chart.
+            Summary of your workload across all orgs — not the full list (that's Calendar with "assigned to me" filter).
+            Show two or three key numbers: overdue count (red), due this week, open cards assigned to you.
+            Each number links to the corresponding filtered view in Calendar.
+            "3 überfällig · 5 diese Woche → Alle anzeigen"
           </Text>
         </Paper>
 
@@ -118,12 +92,29 @@ export default function Home() {
           <Group gap="xs" mb="xs">
             <IconClockPause size="1.2em" stroke={1.5} />
             <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-              Zuletzt angesehen (Recently Viewed)
+              Kürzlich angesehen (Recently Viewed)
             </Text>
           </Group>
           <Text size="xs" c="dimmed">
-            Quick-access to your last 5-10 visited items (cards, docs, boards).
-            "Pick up where you left off" — like Linear's recent issues.
+            Last 5-8 items the user visited: cards, documents, boards.
+            Each row shows type icon (card/doc/board), title, and org/project breadcrumb.
+            One click to jump back — reduces navigation friction. "Pick up where you left off."
+            Store in local state or via a view_events collection.
+          </Text>
+        </Paper>
+
+        <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+          <Group gap="xs" mb="xs">
+            <IconChartBar size="1.2em" stroke={1.5} />
+            <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+              Projektfortschritt (Project Progress)
+            </Text>
+          </Group>
+          <Text size="xs" c="dimmed">
+            All projects you're a member of, each with a progress bar.
+            Progress = cards in done-lists / total cards per project.
+            Shows which projects are on track and which need attention at a glance.
+            Click a project to navigate to its ProjectOverview.
           </Text>
         </Paper>
       </SimpleGrid>
