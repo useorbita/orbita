@@ -2,7 +2,12 @@
 
 A lightweight project management tool for small teams 
 
-> **Status:** Work in progress. Core features are functional; several areas are still being built out. Not yet ready for use.
+![screenshot](/screenshot.png)
+
+> [!WARNING]
+> Orbita is under active development. The drag and drop functionality and the backend API rules
+> are currently rewritten. Please use it exclusively for development purposes at this time.
+
 
 ## Features & Goals
 
@@ -20,32 +25,6 @@ A lightweight project management tool for small teams
 
 **AI Opt-In** Connect a local LLM via llama.cpp or Jan to enhance search and automate tasks.
 
----
-
-### In Progress
-- **Organizations** — Create organizations, invite members, manage roles
-- **Projects** — Group boards and documents under a project within an organization
-- **Boards** — Kanban-style boards with lists (columns) and cards
-- **Cards** — Tasks with title, rich-text description, labels, member assignment, due date, and priority
-- **Comments / Activity** — Comment thread on each card
-- **Knowledge Base** — Rich-text documents per project (powered by TipTap)
-- **Views** — Switch between Kanban (list) and table view on a board
-- **Calendar** — View all cards with due dates in a calendar
-- **Authentication** — Sign up / sign in via PocketBase
-- **Settings** — User account info, color scheme (light / dark / system)
-- **Collapsible sidebar** — Navigation across orgs, projects, boards, docs
-
-### Planned / Work started
-- Card deletion
-- Board deletion
-- Drag-and-drop card reordering
-- Search (UI stub exists, not connected)
-- Filter by member / label / due date
-- Workflow editor (trigger-based automation with react-flow)
-- Internationalization (currently German-only)
-- Board settings (labels management)
-
----
 
 ## Tech Stack
 
@@ -83,9 +62,9 @@ On first run, open the admin UI at `http://localhost:8090/_/` and create your su
 ./pocketbase import pocketbase/pb_schema.json
 ```
 
-### 2. Configure environment
+### 2. Configure development environment
 
-Create a `.env` file in the project root:
+Create a `.env` file in the project root. This is only used for development and optional:
 
 ```env
 VITE_PB_URL=http://localhost:8090
