@@ -9,6 +9,7 @@ import {
   Text,
   Tooltip,
 } from "@mantine/core";
+import dayjs from "dayjs";
 
 import type {
   CardsResponse,
@@ -72,7 +73,7 @@ export function TableView({ cards, lists, users, labels }: TableViewProps) {
                       label={
                         (
                           users.find(
-                            (user: UsersResponse) => user.id === member
+                            (user: UsersResponse) => user.id === member,
                           ) || { name: "Unbekannt" }
                         ).name
                       }
@@ -93,9 +94,7 @@ export function TableView({ cards, lists, users, labels }: TableViewProps) {
               )}
 
               {card.date ? (
-                <Text size="sm">
-                  {new Date(card.date).toLocaleDateString("DE-de")}
-                </Text>
+                <Text size="sm">{dayjs(card.date).format("DD.MM.YYYY")}</Text>
               ) : (
                 <Text size="sm" c="dimmed">
                   Datum

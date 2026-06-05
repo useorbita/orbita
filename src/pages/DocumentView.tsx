@@ -14,14 +14,13 @@ import {
 } from "@mantine/core";
 
 import dayjs from "dayjs";
-import "dayjs/locale/de";
-import relativeTime from "dayjs/plugin/relativeTime";
-dayjs.extend(relativeTime);
-dayjs.locale("de");
 
 import { useDocument, useUpdateDocument } from "../api/documents";
 
-import { DocumentEditor, type DocumentEditorHandle } from "../components/UI/DocumentEditor";
+import {
+  DocumentEditor,
+  type DocumentEditorHandle,
+} from "../components/UI/DocumentEditor";
 
 export default function DocumentView() {
   const { documentId } = useParams();
@@ -93,7 +92,10 @@ export default function DocumentView() {
           onClick={() => {
             if (editingContent) {
               const html = editorRef.current?.getHTML() ?? "";
-              updateDocument.mutate({ id: documentId!, data: { content: html } });
+              updateDocument.mutate({
+                id: documentId!,
+                data: { content: html },
+              });
             }
             setEditingContent(!editingContent);
           }}

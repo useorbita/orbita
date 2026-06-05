@@ -13,6 +13,7 @@ import {
 } from "@mantine/core";
 import { IconCalendar } from "@tabler/icons-react";
 import { useSortable } from "@dnd-kit/react/sortable";
+import dayjs from "dayjs";
 
 import {
   CardsPriorityOptions,
@@ -112,7 +113,7 @@ export function Card({
                 <Group gap="xs">
                   <IconCalendar color="gray" size={"1em"} />
                   <Text c="dimmed" size="sm">
-                    {new Date(card.date).toLocaleDateString("DE-de")}
+                    {dayjs(card.date).format("DD.MM.YYYY")}
                   </Text>
                 </Group>
               )}

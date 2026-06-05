@@ -14,6 +14,7 @@ import { DatePickerInput } from "@mantine/dates";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
+import dayjs from "dayjs";
 
 import { useCard, useUpdateCard } from "../../api/cards";
 import { useCommentsByCard } from "../../api/comments";
@@ -102,123 +103,131 @@ export function CardModal({
         </Modal.Header>
 
         <Modal.Body p={"lg"}>
-          {!isLoading && activeCard
-            ? (
-              <Grid>
-                <Grid.Col span={7}>
-                  <Text>Beschreibung:</Text>
-                  <TextEditor
-                    content={activeCard.description}
-                    onSave={(content) => {
-                      updateCardMutation.mutate({
-                        id: activeCard.id,
-                        data: {
-                          description: content,
-                        },
-                      });
-                    }}
-                  />
-                  <Space h={"xl"} />
-                  <Text>Aktivität:</Text>
-                  <ul>
-                    {comments.data?.map((comment) => (
-                      <li key={comment.id}>
-                        {comment.author}, {comment.created},
-                        <Text
-                          dangerouslySetInnerHTML={{ __html: comment.content }}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                  <Text>
-                    Verändert am {activeCard &&
-                      new Date(activeCard.updated).toLocaleString("de")}
-                  </Text>
-                  <Text>
-                    Erstellt am {activeCard &&
-                      new Date(activeCard.created).toLocaleString("de")}
-                  </Text>
-                </Grid.Col>
+          {!isLoading && activeCard ? (
+            <Grid>
+              <Grid.Col span={7}>
+                <Text>Beschreibung:</Text>
+                <TextEditor
+                  content={activeCard.description}
+                  onSave={(content) => {
+                    updateCardMutation.mutate({
+                      id: activeCard.id,
+                      data: {
+                        description: content,
+                      },
+                    });
+                  }}
+                />
+                <Space h={"xl"} />
+                <Text>Aktivität:</Text>
+                <ul>
+                  {comments.data?.map((comment) => (
+                    <li key={comment.id}>
+                      {comment.author}, {comment.created},
+                      <Text
+                        dangerouslySetInnerHTML={{ __html: comment.content }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+                <Text>
+                  Verändert am{" "}
+                  {activeCard &&
+                    dayjs(activeCard.updated).format("DD.MM.YYYY HH:mm")}
+                </Text>
+                <Text>
+                  Erstellt am{" "}
+                  {activeCard &&
+                    dayjs(activeCard.created).format("DD.MM.YYYY HH:mm")}
+                </Text>
+              </Grid.Col>
 
-                <Grid.Col span={5}>
-                  <Stack>
-                    <MultiSelect
-                      label="Label"
-                      placeholder="Label Auswählen"
-                      data={labels.data?.map((label) => ({
+              <Grid.Col span={5}>
+                <Stack>
+                  <MultiSelect
+                    label="Label"
+                    placeholder="Label Auswählen"
+                    data={
+                      labels.data?.map((label) => ({
                         value: label.id,
                         label: label.name,
-                      })) || []}
-                      value={activeCard.labels}
-                      onChange={(value) =>
-                        updateCardMutation.mutate({
-                          id: activeCard.id,
-                          data: { labels: value },
-                        })}
-                      searchable
-                    />
+                      })) || []
+                    }
+                    value={activeCard.labels}
+                    onChange={(value) =>
+                      updateCardMutation.mutate({
+                        id: activeCard.id,
+                        data: { labels: value },
+                      })
+                    }
+                    searchable
+                  />
 
-                    <MultiSelect
-                      label="Mitglieder"
-                      placeholder="Personen Auswählen"
-                      data={users.data?.map((user) => ({
+                  <MultiSelect
+                    label="Mitglieder"
+                    placeholder="Personen Auswählen"
+                    data={
+                      users.data?.map((user) => ({
                         value: user.id,
                         label: user.name || user.username,
-                      })) || []}
-                      value={activeCard.members}
-                      onChange={(value) =>
-                        updateCardMutation.mutate({
-                          id: activeCard.id,
-                          data: { members: value },
-                        })}
-                      searchable
-                    />
+                      })) || []
+                    }
+                    value={activeCard.members}
+                    onChange={(value) =>
+                      updateCardMutation.mutate({
+                        id: activeCard.id,
+                        data: { members: value },
+                      })
+                    }
+                    searchable
+                  />
 
-                    <Select
-                      label="Priorität"
-                      placeholder="Pick value"
-                      data={[
-                        {
-                          value: CardsPriorityOptions.highest,
-                          label: "Sehr Hoch",
-                        },
-                        { value: CardsPriorityOptions.high, label: "Hoch" },
-                        { value: CardsPriorityOptions.medium, label: "Mittel" },
-                        { value: CardsPriorityOptions.low, label: "Niedrig" },
-                        {
-                          value: CardsPriorityOptions.lowest,
-                          label: "Sehr Niedrig",
-                        },
-                      ]}
-                      value={activeCard.priority}
-                      onChange={(value) => {
-                        updateCardMutation.mutate({
-                          id: activeCard.id,
-                          data: { priority: value as CardsPriorityOptions },
-                        });
-                      }}
-                      clearable
-                    />
+                  <Select
+                    label="Priorität"
+                    placeholder="Pick value"
+                    data={[
+                      {
+                        value: CardsPriorityOptions.highest,
+                        label: "Sehr Hoch",
+                      },
+                      { value: CardsPriorityOptions.high, label: "Hoch" },
+                      { value: CardsPriorityOptions.medium, label: "Mittel" },
+                      { value: CardsPriorityOptions.low, label: "Niedrig" },
+                      {
+                        value: CardsPriorityOptions.lowest,
+                        label: "Sehr Niedrig",
+                      },
+                    ]}
+                    value={activeCard.priority}
+                    onChange={(value) => {
+                      updateCardMutation.mutate({
+                        id: activeCard.id,
+                        data: { priority: value as CardsPriorityOptions },
+                      });
+                    }}
+                    clearable
+                  />
 
-                    <DatePickerInput
-                      label="Datum"
-                      placeholder="Datum auswählen"
-                      value={activeCard.date ? new Date(activeCard.date) : null}
-                      onChange={(value) => {
-                        updateCardMutation.mutate({
-                          id: activeCard.id,
-                          data: value
-                            ? { date: value.toString() }
-                            : { date: undefined },
-                        });
-                      }}
-                      clearable
-                    />
-                  </Stack>
-                </Grid.Col>
-              </Grid>
-            )
-            : <Text>Lade Karte...</Text>}
+                  <DatePickerInput
+                    label="Datum"
+                    placeholder="Datum auswählen"
+                    value={activeCard.date ? new Date(activeCard.date) : null}
+                    onChange={(value) => {
+                      updateCardMutation.mutate({
+                        id: activeCard.id,
+                        data: value
+                          ? { date: value.toString() }
+                          : { date: undefined },
+                      });
+                    }}
+                    clearable
+                  />
+                </Stack>
+              </Grid.Col>
+            </Grid>
+          ) : (
+            <Text>Lade Karte...</Text>
+          )}
         </Modal.Body>
       </Modal.Content>
     </Modal.Root>
