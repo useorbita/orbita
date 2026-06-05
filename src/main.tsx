@@ -31,7 +31,7 @@ const theme = createTheme({
 
 const queryClient = new QueryClient();
 
-const root = document.getElementById("root")!
+const root = document.getElementById("root")!;
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

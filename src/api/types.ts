@@ -156,7 +156,7 @@ export type CardsRecord = {
 	list: RecordIdString
 	members?: RecordIdString[]
 	number?: number
-	position?: number
+	orderKey?: string
 	priority?: CardsPriorityOptions
 	title: string
 	updated: IsoAutoDateString
@@ -215,7 +215,7 @@ export type ListsRecord = {
 	board?: RecordIdString
 	created: IsoAutoDateString
 	id: string
-	position?: number
+	orderKey?: string
 	title: string
 	updated: IsoAutoDateString
 }

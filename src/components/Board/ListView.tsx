@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 import {
   ActionIcon,
@@ -21,7 +21,8 @@ import type {
 import { List } from "./List";
 
 interface ListViewProps {
-  allData: Record<string, CardsResponse[]>;
+  items: Record<string, string[]>;
+  cardMap: Record<string, CardsResponse>;
   lists: ListsResponse[];
   boardId: string;
   users: UsersResponse[];
@@ -29,7 +30,8 @@ interface ListViewProps {
 }
 
 export function ListView({
-  allData,
+  items,
+  cardMap,
   lists,
   boardId,
   users,
@@ -40,8 +42,11 @@ export function ListView({
 
   const createList = useCreateList();
 
-  const listMap = Object.fromEntries(lists.map((l) => [l.id, l]));
-  const columnOrder = Object.keys(allData);
+  const listMap = useMemo(
+    () => Object.fromEntries(lists.map((l) => [l.id, l])),
+    [lists],
+  );
+  const columnOrder = Object.keys(items);
 
   function handleAddList() {
     if (!newListTitle.trim()) return;
@@ -57,21 +62,21 @@ export function ListView({
   }
 
   return (
-    <Box h="100%" style={{ overflow: "auto hidden" }}>
+    <Box h="100%" style={{ overflow: "auto hidden", minHeight: 0 }}>
       <Group
         style={{ height: "100%" }}
         justify="start"
         align="start"
         wrap="nowrap"
       >
-        {columnOrder.map((listId, index) => (
+        {columnOrder.map((listId) => (
           <List
             key={listId}
-            index={index}
             listId={listId}
             listTitle={listMap[listId]?.title ?? listId}
             boardId={boardId}
-            cards={allData[listId]}
+            cardIds={items[listId]}
+            cardMap={cardMap}
             users={users}
             labels={labels}
           />
