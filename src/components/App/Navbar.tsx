@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -145,30 +145,30 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
     return items;
   }, [organizations.data]);
 
-  // Auto-select the first org when data loads
-  useEffect(() => {
-    if (!selectedOrgId && orgSelectData.length > 0) {
-      setSelectedOrgId(orgSelectData[0].value);
-    }
+  // Derive the effective org ID: user selection, or auto-select the first org
+  const effectiveOrgId = useMemo(() => {
+    if (selectedOrgId) return selectedOrgId;
+    if (orgSelectData.length > 0) return orgSelectData[0].value;
+    return null;
   }, [selectedOrgId, orgSelectData]);
 
   const selectedOrg = useMemo(
-    () => organizations.data?.find((org) => org.id === selectedOrgId),
-    [organizations.data, selectedOrgId],
+    () => organizations.data?.find((org) => org.id === effectiveOrgId),
+    [organizations.data, effectiveOrgId],
   );
 
   // Compute projects with their boards and documents for the selected org
   const orgProjects = useMemo(() => {
-    if (!selectedOrgId || !projects.data || !boards.data || !documents.data)
+    if (!effectiveOrgId || !projects.data || !boards.data || !documents.data)
       return [];
     return projects.data
-      .filter((p) => p.organization === selectedOrgId)
+      .filter((p) => p.organization === effectiveOrgId)
       .map((project) => ({
         ...project,
         boards: boards.data.filter((b) => b.project === project.id),
         documents: documents.data.filter((d) => d.project === project.id),
       }));
-  }, [selectedOrgId, projects.data, boards.data, documents.data]);
+  }, [effectiveOrgId, projects.data, boards.data, documents.data]);
 
   // Handlers
   const handleOrgSelectChange = (value: string | null) => {
@@ -303,7 +303,7 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
         ) : (
           <>
             <Select
-              value={selectedOrgId}
+              value={effectiveOrgId}
               onChange={handleOrgSelectChange}
               data={orgSelectData}
               allowDeselect={false}
@@ -320,10 +320,12 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
                   <IconBuilding size={"1.2em"} stroke={1.5} />
                 )
               }
-              onClick={() => navigate(`/orgs/${selectedOrgId}`)}
+              onClick={() => navigate(`/orgs/${effectiveOrgId}`)}
               active={
-                location.pathname.startsWith(`/orgs/${selectedOrgId}`) &&
-                !location.pathname.startsWith(`/orgs/${selectedOrgId}/settings`)
+                location.pathname.startsWith(`/orgs/${effectiveOrgId}`) &&
+                !location.pathname.startsWith(
+                  `/orgs/${effectiveOrgId}/settings`,
+                )
               }
             />
 

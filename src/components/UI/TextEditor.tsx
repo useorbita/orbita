@@ -35,7 +35,7 @@ export function TextEditor({ content, onSave }: TextEditorProps) {
     if (isEditable) {
       editor?.commands.focus();
     }
-  }, [isEditable]);
+  }, [editor, isEditable]);
 
   return (
     <>

@@ -226,9 +226,11 @@ export default function Settings() {
                   maxRows={6}
                   miw={FIELD_W}
                   bottomSection={
-                    <Text size="xs" c="dimmed" ta="right">
-                      {biography.length}/{BIO_MAX}
-                    </Text>
+                    <Box w="100%" ta="right">
+                      <Text size="xs" c="dimmed" span>
+                        {biography.length}/{BIO_MAX}
+                      </Text>
+                    </Box>
                   }
                 />
               </SettingsRow>

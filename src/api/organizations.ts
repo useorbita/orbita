@@ -29,9 +29,11 @@ export const useOrganizations = () =>
   useQuery({
     queryKey: organizationKeys.all,
     queryFn: () =>
-      pb.collection(Collections.Organizations).getFullList<OrganizationsResponse>({
-        sort: "created",
-      }),
+      pb
+        .collection(Collections.Organizations)
+        .getFullList<OrganizationsResponse>({
+          sort: "created",
+        }),
   });
 
 /**
@@ -42,7 +44,9 @@ export const useOrganization = (id: string | undefined) =>
     queryKey: organizationKeys.detail(id ?? ""),
     enabled: !!id,
     queryFn: () =>
-      pb.collection(Collections.Organizations).getOne<OrganizationsResponse>(id!),
+      pb
+        .collection(Collections.Organizations)
+        .getOne<OrganizationsResponse>(id!),
   });
 
 type OrganizationMemberExpand = {
@@ -77,11 +81,14 @@ export const useCreateOrganization = () => {
 
   return useMutation({
     mutationFn: (data: { name: string }) =>
-      pb.collection(Collections.Organizations).create<OrganizationsResponse>(data),
+      pb
+        .collection(Collections.Organizations)
+        .create<OrganizationsResponse>(data),
     onSuccess: (data) => {
       queryClient.setQueryData(
         organizationKeys.all,
-        (old: OrganizationsResponse[] | undefined) => (old ? [...old, data] : [data])
+        (old: OrganizationsResponse[] | undefined) =>
+          old ? [...old, data] : [data],
       );
     },
   });
@@ -95,13 +102,15 @@ export const useUpdateOrganization = () => {
 
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: { name?: string } }) =>
-      pb.collection(Collections.Organizations).update<OrganizationsResponse>(id, data),
+      pb
+        .collection(Collections.Organizations)
+        .update<OrganizationsResponse>(id, data),
     onSuccess: (data) => {
       // Update in list
       queryClient.setQueryData(
         organizationKeys.all,
         (old: OrganizationsResponse[] | undefined) =>
-          old?.map((org) => (org.id === data.id ? data : org))
+          old?.map((org) => (org.id === data.id ? data : org)),
       );
       // Update detail cache
       queryClient.setQueryData(organizationKeys.detail(data.id), data);
@@ -122,7 +131,7 @@ export const useDeleteOrganization = () => {
       queryClient.setQueryData(
         organizationKeys.all,
         (old: OrganizationsResponse[] | undefined) =>
-          old?.filter((org) => org.id !== id)
+          old?.filter((org) => org.id !== id),
       );
       queryClient.removeQueries({ queryKey: organizationKeys.detail(id) });
       queryClient.removeQueries({ queryKey: organizationKeys.members(id) });
@@ -146,11 +155,13 @@ export const useAddOrganizationMember = () => {
       userId: string;
       role?: OrganizationMembersRoleOptions;
     }) =>
-      pb.collection(Collections.OrganizationMembers).create<OrganizationMembersResponse>({
-        organization: organizationId,
-        user: userId,
-        role,
-      }),
+      pb
+        .collection(Collections.OrganizationMembers)
+        .create<OrganizationMembersResponse>({
+          organization: organizationId,
+          user: userId,
+          role,
+        }),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: organizationKeys.members(variables.organizationId),
@@ -166,13 +177,8 @@ export const useRemoveOrganizationMember = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({
-      memberId,
-      organizationId,
-    }: {
-      memberId: string;
-      organizationId: string;
-    }) => pb.collection(Collections.OrganizationMembers).delete(memberId),
+    mutationFn: ({ memberId }: { memberId: string; organizationId: string }) =>
+      pb.collection(Collections.OrganizationMembers).delete(memberId),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: organizationKeys.members(variables.organizationId),

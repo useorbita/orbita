@@ -24,7 +24,6 @@ import {
   IconLayout,
   IconPlus,
   IconSettings,
-  IconTargetArrow,
   IconUsers,
   IconX,
 } from "@tabler/icons-react";
