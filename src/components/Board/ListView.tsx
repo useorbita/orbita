@@ -85,7 +85,7 @@ export function ListView({
         {addingList ? (
           <Stack gap="xs" p="xs">
             <TextInput
-              placeholder="List title"
+              placeholder="Listentitel"
               value={newListTitle}
               onChange={(e) => setNewListTitle(e.currentTarget.value)}
               onKeyDown={(e) => {
@@ -122,7 +122,7 @@ export function ListView({
             size="xs"
             onClick={() => setAddingList(true)}
           >
-            Add list
+            Liste hinzufügen
           </Button>
         )}
       </Group>

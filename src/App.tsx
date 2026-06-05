@@ -2,7 +2,7 @@ import { lazy, Suspense, useState } from "react";
 
 import { Route, Routes } from "react-router-dom";
 
-import { AppShell, Loader } from "@mantine/core";
+import { AppShell, Center, Loader } from "@mantine/core";
 
 import { Navbar } from "./components/App/Navbar";
 
@@ -21,8 +21,13 @@ const ProjectSettings = lazy(() => import("./pages/ProjectSettings"));
 const Board = lazy(() => import("./pages/Board"));
 const BoardSettings = lazy(() => import("./pages/BoardSettings"));
 const DocumentView = lazy(() => import("./pages/DocumentView"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-const FallbackLoader = () => <Loader color="gray" />;
+const FallbackLoader = () => (
+  <Center h="100%">
+    <Loader color="gray" />
+  </Center>
+);
 
 const NAVBAR_WIDTH = 250;
 const NAVBAR_COLLAPSED_WIDTH = 46;
@@ -65,7 +70,7 @@ export function App() {
             <Route path="/boards/:boardId/settings" element={<BoardSettings />} />
             <Route path="/boards/:boardId/cards/:cardId" element={<Board />} />
             <Route path="/documents/:documentId" element={<DocumentView />} />
-            <Route path="*" element={<p>Seite nicht gefunden</p>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </AppShell.Main>

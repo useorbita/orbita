@@ -53,8 +53,8 @@ export default function OrgSettings() {
           <Stack gap="xs">
             <Text>Name der Organisation</Text>
             <Text size="sm" c="dimmed">
-              Dies ist der Name der Organisation, der allen Mitgliedern angezeigt
-              wird
+              Dies ist der Name der Organisation, der allen Mitgliedern
+              angezeigt wird
             </Text>
           </Stack>
         </Grid.Col>
@@ -86,7 +86,7 @@ export default function OrgSettings() {
               {members.data?.map((member) => (
                 <Group key={member.id} justify="space-between">
                   <Text size="sm">
-                    {(member.expand as any)?.user?.name ?? member.user}
+                    {member.expand?.user?.name ?? member.user}
                   </Text>
                   <Text size="xs" c="dimmed">
                     {member.role}

@@ -8,7 +8,8 @@ import { Collections, type BoardsResponse } from "./types";
 
 export const boardKeys = {
   all: [Collections.Boards] as const,
-  byProject: (projectId: string) => [Collections.Boards, "project", projectId] as const,
+  byProject: (projectId: string) =>
+    [Collections.Boards, "project", projectId] as const,
   detail: (id: string) => [Collections.Boards, id] as const,
 };
 
@@ -49,7 +50,8 @@ export const useBoard = (id: string | undefined) =>
   useQuery({
     queryKey: boardKeys.detail(id ?? ""),
     enabled: !!id,
-    queryFn: () => pb.collection(Collections.Boards).getOne<BoardsResponse>(id!),
+    queryFn: () =>
+      pb.collection(Collections.Boards).getOne<BoardsResponse>(id as string),
   });
 
 // ============================================================================
@@ -63,12 +65,15 @@ export const useCreateBoard = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: { title: string; description?: string; project?: string }) =>
-      pb.collection(Collections.Boards).create<BoardsResponse>(data),
+    mutationFn: (data: {
+      title: string;
+      description?: string;
+      project?: string;
+    }) => pb.collection(Collections.Boards).create<BoardsResponse>(data),
     onSuccess: (data) => {
       queryClient.setQueryData(
         boardKeys.all,
-        (old: BoardsResponse[] | undefined) => (old ? [...old, data] : [data])
+        (old: BoardsResponse[] | undefined) => (old ? [...old, data] : [data]),
       );
       if (data.project) {
         queryClient.invalidateQueries({
@@ -98,7 +103,7 @@ export const useUpdateBoard = () => {
       queryClient.setQueryData(
         boardKeys.all,
         (old: BoardsResponse[] | undefined) =>
-          old?.map((board) => (board.id === data.id ? data : board))
+          old?.map((board) => (board.id === data.id ? data : board)),
       );
       // Update detail cache
       queryClient.setQueryData(boardKeys.detail(data.id), data);
@@ -123,7 +128,8 @@ export const useDeleteBoard = () => {
     onSuccess: (_, id) => {
       queryClient.setQueryData(
         boardKeys.all,
-        (old: BoardsResponse[] | undefined) => old?.filter((board) => board.id !== id)
+        (old: BoardsResponse[] | undefined) =>
+          old?.filter((board) => board.id !== id),
       );
       queryClient.removeQueries({ queryKey: boardKeys.detail(id) });
     },

@@ -130,7 +130,7 @@ export function List({
           {addingCard ? (
             <>
               <TextInput
-                placeholder="Card title"
+                placeholder="Kartentitel"
                 value={newCardTitle}
                 onChange={(e) => setNewCardTitle(e.currentTarget.value)}
                 onKeyDown={(e) => {
@@ -165,7 +165,7 @@ export function List({
               color="gray"
               size="sm"
               onClick={() => setAddingCard(true)}
-              title="Add card"
+              title="Karte hinzufügen"
             >
               <IconPlus size="1em" />
             </ActionIcon>

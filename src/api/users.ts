@@ -34,7 +34,8 @@ export const useUser = (id: string | undefined) =>
   useQuery({
     queryKey: userKeys.detail(id ?? ""),
     enabled: !!id,
-    queryFn: () => pb.collection(Collections.Users).getOne<UsersResponse>(id!),
+    queryFn: () =>
+      pb.collection(Collections.Users).getOne<UsersResponse>(id as string),
   });
 
 // ============================================================================
@@ -65,7 +66,7 @@ export const useUpdateUser = () => {
       queryClient.setQueryData(
         userKeys.all,
         (old: UsersResponse[] | undefined) =>
-          old?.map((user) => (user.id === data.id ? data : user))
+          old?.map((user) => (user.id === data.id ? data : user)),
       );
       // Update detail cache
       queryClient.setQueryData(userKeys.detail(data.id), data);
@@ -84,7 +85,8 @@ export const useDeleteUser = () => {
     onSuccess: (_, id) => {
       queryClient.setQueryData(
         userKeys.all,
-        (old: UsersResponse[] | undefined) => old?.filter((user) => user.id !== id)
+        (old: UsersResponse[] | undefined) =>
+          old?.filter((user) => user.id !== id),
       );
       queryClient.removeQueries({ queryKey: userKeys.detail(id) });
     },

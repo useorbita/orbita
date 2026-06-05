@@ -1,36 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link href="./fonts/fonts.css" rel="stylesheet" />
+        <title>Orbita</title>
+        <style>
+            /* hide everything, until react is initialized */
+            #root {
+                opacity: 0;
+                transition: opacity 250ms ease;
+            }
+        </style>
+        <script>
+            // this is a workaround to prevent the inital white flash, while the page/react/mantine is loading
+            (function () {
+                const theme = localStorage.getItem(
+                    "mantine-color-scheme-value",
+                );
+                const isDark =
+                    theme === "dark" ||
+                    (theme !== "light" &&
+                        matchMedia("(prefers-color-scheme: dark)").matches);
+                document.documentElement.style.background = isDark
+                    ? "#242424"
+                    : "#ffffff";
+                document.documentElement.style.color = isDark
+                    ? "#ffffff"
+                    : "#242424";
+            })();
+        </script>
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <link href="./fonts/fonts.css" rel="stylesheet" />
-  <title>Orbita</title>
-  <style>
-    /* hide everything, until react is initialized */
-    #root {
-      opacity: 0;
-      transition: opacity 250ms ease;
-    }
-  </style>
-  <script>
-    // this is a workaround to prevent the inital white flash, while the page/react/mantine is loading
-    (function () {
-      const theme = localStorage.getItem("mantine-color-scheme-value");
-      const isDark = theme === "dark" || (theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
-      document.documentElement.style.background = isDark ? "#242424" : "#ffffff";
-      document.documentElement.style.color = isDark ? "#ffffff" : "#242424";
-    })();
-  </script>
-</head>
-
-<body>
-  <noscript>
-    JavaScript is required to use this application.
-  </noscript>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
-
+    <body>
+        <noscript>JavaScript is required to use this application.</noscript>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
 </html>

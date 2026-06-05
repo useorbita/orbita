@@ -8,7 +8,8 @@ import { Collections, type CardCommentsResponse } from "./types";
 
 export const commentKeys = {
   all: [Collections.CardComments] as const,
-  byCard: (cardId: string) => [Collections.CardComments, "card", cardId] as const,
+  byCard: (cardId: string) =>
+    [Collections.CardComments, "card", cardId] as const,
   detail: (id: string) => [Collections.CardComments, id] as const,
 };
 
@@ -23,9 +24,11 @@ export const useComments = () =>
   useQuery({
     queryKey: commentKeys.all,
     queryFn: () =>
-      pb.collection(Collections.CardComments).getFullList<CardCommentsResponse>({
-        sort: "-created",
-      }),
+      pb
+        .collection(Collections.CardComments)
+        .getFullList<CardCommentsResponse>({
+          sort: "-created",
+        }),
   });
 
 /**
@@ -36,10 +39,12 @@ export const useCommentsByCard = (cardId: string | undefined) =>
     queryKey: commentKeys.byCard(cardId ?? ""),
     enabled: !!cardId,
     queryFn: () =>
-      pb.collection(Collections.CardComments).getFullList<CardCommentsResponse>({
-        filter: `card = "${cardId}"`,
-        sort: "-created",
-      }),
+      pb
+        .collection(Collections.CardComments)
+        .getFullList<CardCommentsResponse>({
+          filter: `card = "${cardId}"`,
+          sort: "-created",
+        }),
   });
 
 /**
@@ -50,7 +55,9 @@ export const useComment = (id: string | undefined) =>
     queryKey: commentKeys.detail(id ?? ""),
     enabled: !!id,
     queryFn: () =>
-      pb.collection(Collections.CardComments).getOne<CardCommentsResponse>(id!),
+      pb
+        .collection(Collections.CardComments)
+        .getOne<CardCommentsResponse>(id as string),
   });
 
 // ============================================================================
@@ -65,11 +72,14 @@ export const useCreateComment = () => {
 
   return useMutation({
     mutationFn: (data: { content?: string; card?: string; author?: string }) =>
-      pb.collection(Collections.CardComments).create<CardCommentsResponse>(data),
+      pb
+        .collection(Collections.CardComments)
+        .create<CardCommentsResponse>(data),
     onSuccess: (data) => {
       queryClient.setQueryData(
         commentKeys.all,
-        (old: CardCommentsResponse[] | undefined) => (old ? [...old, data] : [data])
+        (old: CardCommentsResponse[] | undefined) =>
+          old ? [...old, data] : [data],
       );
       if (data.card) {
         queryClient.invalidateQueries({
@@ -94,13 +104,15 @@ export const useUpdateComment = () => {
       id: string;
       data: { content?: string; card?: string; author?: string };
     }) =>
-      pb.collection(Collections.CardComments).update<CardCommentsResponse>(id, data),
+      pb
+        .collection(Collections.CardComments)
+        .update<CardCommentsResponse>(id, data),
     onSuccess: (data) => {
       // Update in list
       queryClient.setQueryData(
         commentKeys.all,
         (old: CardCommentsResponse[] | undefined) =>
-          old?.map((comment) => (comment.id === data.id ? data : comment))
+          old?.map((comment) => (comment.id === data.id ? data : comment)),
       );
       // Update detail cache
       queryClient.setQueryData(commentKeys.detail(data.id), data);
@@ -127,7 +139,7 @@ export const useDeleteComment = () => {
       queryClient.setQueryData(
         commentKeys.all,
         (old: CardCommentsResponse[] | undefined) =>
-          old?.filter((comment) => comment.id !== id)
+          old?.filter((comment) => comment.id !== id),
       );
       queryClient.removeQueries({ queryKey: commentKeys.detail(id) });
     },

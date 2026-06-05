@@ -24,19 +24,21 @@ import "@mantine/tiptap/styles.css";
 
 import { App } from "./App";
 
-// show react-scan performance widget
-// if (typeof window !== "undefined" && import.meta.env.DEV) {
-//   scan({
-//     enabled: true,
-//     log: true,
-//   });
+// show react-scan performance widget in development
+// if (import.meta.env.DEV) {
+//   import("react-scan").then(m => m.scan({ enabled: true, log: true }));
 // }
 
 const theme = createTheme({
   /** Your theme override here */
 });
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { staleTime: 30_000, retry: 1 },
+    mutations: { retry: 0 },
+  },
+});
 
 const root = document.getElementById("root")!;
 ReactDOM.createRoot(root).render(

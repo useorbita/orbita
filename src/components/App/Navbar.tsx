@@ -7,6 +7,7 @@ import {
   AppShell,
   Box,
   Button,
+  Center,
   Divider,
   Group,
   Loader,
@@ -43,6 +44,7 @@ import {
 } from "../../api/organizations";
 import { pb } from "../../api/pocketbase";
 import { useProjects } from "../../api/projects";
+import { sortOrganizations } from "../../shared/organizationUtils";
 
 interface ProjectNavItemProps {
   project: {
@@ -135,16 +137,10 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
   // Build select data for organizations
   const orgSelectData = useMemo(() => {
     if (!organizations.data) return [];
-    const items = [...organizations.data]
-      .sort((a, b) => {
-        if (a.is_personal && !b.is_personal) return -1;
-        if (!a.is_personal && b.is_personal) return 1;
-        return 0;
-      })
-      .map((org) => ({
-        value: org.id,
-        label: org.is_personal ? "Dein Bereich" : org.name || org.id,
-      }));
+    const items = sortOrganizations(organizations.data ?? []).map((org) => ({
+      value: org.id,
+      label: org.is_personal ? "Dein Bereich" : org.name || org.id,
+    }));
     items.push({ value: "__create__", label: "+ Neue Organisation" });
     return items;
   }, [organizations.data]);
@@ -301,7 +297,9 @@ export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
 
       <AppShell.Section grow component={ScrollArea}>
         {isLoading ? (
-          <Loader color="gray" m="md" />
+          <Center h="100%">
+            <Loader color="gray" />
+          </Center>
         ) : (
           <>
             <Select

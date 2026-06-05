@@ -22,7 +22,7 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { modals } from "@mantine/modals";
-import { notifications } from "@mantine/notifications";
+import { showNotImplemented } from "../shared/notifications";
 import {
   IconAdjustments,
   IconBrush,
@@ -98,15 +98,8 @@ export default function Settings() {
       ),
       labels: { confirm: "Konto löschen", cancel: "Abbrechen" },
       confirmProps: { color: "red" },
-      onCancel: () => console.log("abgebrochen"),
-      onConfirm: () => {
-        notifications.show({
-          title: "Noch nicht implementiert",
-          message: "Das ist leider noch nicht implementiert :(",
-          withBorder: true,
-          color: "gray",
-        });
-      },
+      onCancel: () => {},
+      onConfirm: () => showNotImplemented(),
     });
 
   return (
@@ -281,17 +274,7 @@ export default function Settings() {
                       <Button variant="default" onClick={cancelPasswordChange}>
                         Abbrechen
                       </Button>
-                      <Button
-                        onClick={() => {
-                          notifications.show({
-                            title: "Noch nicht implementiert",
-                            message:
-                              "Das ist leider noch nicht implementiert :(",
-                            withBorder: true,
-                            color: "gray",
-                          });
-                        }}
-                      >
+                      <Button onClick={() => showNotImplemented()}>
                         Passwort speichern
                       </Button>
                     </Group>

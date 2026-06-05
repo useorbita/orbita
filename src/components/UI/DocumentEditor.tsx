@@ -29,7 +29,7 @@ export const DocumentEditor = forwardRef<
       SubScript,
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
-      // UndoRedo // TODO: fix duplicate import
+      // UndoRedo
     ],
     content,
     editable: isEditable,
@@ -93,6 +93,7 @@ export const DocumentEditor = forwardRef<
               <RichTextEditor.AlignRight />
             </RichTextEditor.ControlsGroup>
 
+            {/* Undo/Redo controls — uncomment when available */}
             {/* <RichTextEditor.ControlsGroup>
               <RichTextEditor.Undo />
               <RichTextEditor.Redo />

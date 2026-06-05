@@ -30,10 +30,6 @@ import {
 } from "@tabler/icons-react";
 
 import dayjs from "dayjs";
-import "dayjs/locale/de";
-import relativeTime from "dayjs/plugin/relativeTime";
-dayjs.extend(relativeTime);
-dayjs.locale("de");
 
 import { useBoardsByProject, useCreateBoard } from "../api/boards";
 import { useCreateDocument, useDocumentsByProject } from "../api/documents";
@@ -57,7 +53,8 @@ export default function ProjectOverview() {
   const boardInputRef = useRef<HTMLInputElement>(null);
   const docInputRef = useRef<HTMLInputElement>(null);
 
-  const isLoading = project.isLoading || boards.isLoading || documents.isLoading;
+  const isLoading =
+    project.isLoading || boards.isLoading || documents.isLoading;
 
   useEffect(() => {
     if (creatingBoard) boardInputRef.current?.focus();
@@ -291,7 +288,12 @@ export default function ProjectOverview() {
         </Box>
 
         <SimpleGrid cols={2} spacing="sm">
-          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+          <Paper
+            withBorder
+            p="md"
+            radius="sm"
+            style={{ borderStyle: "dashed", opacity: 0.6 }}
+          >
             <Group gap="xs" mb="xs">
               <IconActivity size="1.2em" stroke={1.5} />
               <Text size="xs" fw={700} c="dimmed" tt="uppercase">
@@ -299,14 +301,20 @@ export default function ProjectOverview() {
               </Text>
             </Group>
             <Text size="xs" c="dimmed">
-              Recent changes within this project: cards moved, documents edited, new cards created.
-              Format: "[Avatar] [Name] [action] [entity]".
-              Last 10 events from card_events + document_events filtered by project.
-              Catch up on what changed since your last visit without opening every board.
+              Recent changes within this project: cards moved, documents edited,
+              new cards created. Format: "[Avatar] [Name] [action] [entity]".
+              Last 10 events from card_events + document_events filtered by
+              project. Catch up on what changed since your last visit without
+              opening every board.
             </Text>
           </Paper>
 
-          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+          <Paper
+            withBorder
+            p="md"
+            radius="sm"
+            style={{ borderStyle: "dashed", opacity: 0.6 }}
+          >
             <Group gap="xs" mb="xs">
               <IconUsers size="1.2em" stroke={1.5} />
               <Text size="xs" fw={700} c="dimmed" tt="uppercase">
@@ -314,23 +322,30 @@ export default function ProjectOverview() {
               </Text>
             </Group>
             <Text size="xs" c="dimmed">
-              Compact avatar row of project members from project_members.
-              Each avatar shows name on hover, optional role label (Admin/Mitglied).
-              Keeps the team visible and accessible — click an avatar to see their assigned cards.
+              Compact avatar row of project members from project_members. Each
+              avatar shows name on hover, optional role label (Admin/Mitglied).
+              Keeps the team visible and accessible — click an avatar to see
+              their assigned cards.
             </Text>
           </Paper>
 
-          <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+          <Paper
+            withBorder
+            p="md"
+            radius="sm"
+            style={{ borderStyle: "dashed", opacity: 0.6 }}
+          >
             <Group gap="xs" mb="xs">
               <Text size="xs" fw={700} c="dimmed" tt="uppercase">
                 Fortschritt (Progress)
               </Text>
             </Group>
             <Text size="xs" c="dimmed">
-              Single progress bar: cards in "done" lists vs. total cards.
-              Below it: open card count per member as small avatar badges with numbers.
-              No charts, no label breakdowns — just one clear signal: "Is this project on track?"
-              Data source: cards grouped by list, compare done-list count to total.
+              Single progress bar: cards in "done" lists vs. total cards. Below
+              it: open card count per member as small avatar badges with
+              numbers. No charts, no label breakdowns — just one clear signal:
+              "Is this project on track?" Data source: cards grouped by list,
+              compare done-list count to total.
             </Text>
           </Paper>
         </SimpleGrid>

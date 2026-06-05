@@ -19,16 +19,9 @@ import dayjs from "dayjs";
 
 import { useBoards } from "../api/boards";
 import { useCards } from "../api/cards";
-import { CardsPriorityOptions } from "../api/types";
 import type { CardsResponse } from "../api/types";
 
-const PRIORITY_COLOR: Record<string, string> = {
-  [CardsPriorityOptions.lowest]: "gray",
-  [CardsPriorityOptions.low]: "blue",
-  [CardsPriorityOptions.medium]: "yellow",
-  [CardsPriorityOptions.high]: "orange",
-  [CardsPriorityOptions.highest]: "red",
-};
+import { PRIORITY_COLOR } from "../shared/priorityUtils";
 
 export default function Calendar() {
   const navigate = useNavigate();
@@ -55,7 +48,13 @@ export default function Calendar() {
 
   const sortedDays = Object.keys(grouped).sort();
 
-  const scheduleEvents: any[] =
+  const scheduleEvents: Array<{
+    id: string;
+    title: string;
+    start: string;
+    end: string;
+    color: string;
+  }> =
     cardsWithDate?.map((card) => ({
       id: card.id,
       title: card.title,
@@ -63,8 +62,6 @@ export default function Calendar() {
       end: dayjs(card.date).endOf("day").format("YYYY-MM-DD HH:mm:ss"),
       color: PRIORITY_COLOR[card.priority ?? ""] ?? "blue",
     })) ?? [];
-
-  console.log(scheduleEvents)
 
   if (isLoading) return <Loader color="gray" />;
 
@@ -100,7 +97,7 @@ export default function Calendar() {
       </Group>
 
       {view === "calendar" ? (
-        <Schedule defaultView="month" locale="DE-de" events={scheduleEvents} />
+        <Schedule defaultView="month" locale="de-DE" events={scheduleEvents} />
       ) : (
         <Stack gap="xl">
           {sortedDays.map((day) => (

@@ -16,11 +16,12 @@ import { useSortable } from "@dnd-kit/react/sortable";
 import dayjs from "dayjs";
 
 import {
-  CardsPriorityOptions,
   type CardsResponse,
   type LabelsResponse,
   type UsersResponse,
 } from "../../api/types";
+
+import { PRIORITY_COLOR } from "../../shared/priorityUtils";
 
 interface CardProps {
   index: number;
@@ -30,14 +31,6 @@ interface CardProps {
   listId: string;
   boardId: string;
 }
-
-const PRIORITY_COLOR: Record<string, string> = {
-  [CardsPriorityOptions.lowest]: "gray",
-  [CardsPriorityOptions.low]: "blue",
-  [CardsPriorityOptions.medium]: "yellow",
-  [CardsPriorityOptions.high]: "orange",
-  [CardsPriorityOptions.highest]: "red",
-};
 
 export function Card({
   index,

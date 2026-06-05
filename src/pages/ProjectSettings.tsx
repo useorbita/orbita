@@ -84,7 +84,7 @@ export default function ProjectSettings() {
               {members.data?.map((member) => (
                 <Group key={member.id} justify="space-between">
                   <Text size="sm">
-                    {(member.expand as any)?.user?.name ?? member.user}
+                    {member.expand?.user?.name ?? member.user}
                   </Text>
                   <Text size="xs" c="dimmed">
                     {member.role}

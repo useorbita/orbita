@@ -16,7 +16,7 @@ import {
   Title,
 } from "@mantine/core";
 import { modals } from "@mantine/modals";
-import { notifications } from "@mantine/notifications";
+import { showNotImplemented } from "../shared/notifications";
 import { IconArrowLeft, IconTrash } from "@tabler/icons-react";
 
 export default function BoardSettings() {
@@ -41,15 +41,8 @@ export default function BoardSettings() {
       ),
       labels: { confirm: "Board löschen", cancel: "Nein, nicht löschen" },
       confirmProps: { color: "red" },
-      onCancel: () => console.log("Cancel"),
-      onConfirm: () => {
-        notifications.show({
-          title: "Noch nicht implementiert",
-          message: "Das ist leider noch nicht implementiert :(",
-          withBorder: true,
-          color: "gray",
-        });
-      },
+      onCancel: () => {},
+      onConfirm: () => showNotImplemented(),
     });
 
   return (

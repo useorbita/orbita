@@ -19,6 +19,7 @@ import {
 import { IconBuilding } from "@tabler/icons-react";
 
 import { useOrganizations } from "../api/organizations";
+import { sortOrganizations } from "../shared/organizationUtils";
 import { pb } from "../api/pocketbase";
 
 function getGreeting(name: string): string {
@@ -32,11 +33,7 @@ function getGreeting(name: string): string {
 export default function Home() {
   const navigate = useNavigate();
   const organizations = useOrganizations();
-  const sortedOrgs = [...(organizations.data ?? [])].sort((a, b) => {
-    if (a.is_personal && !b.is_personal) return -1;
-    if (!a.is_personal && b.is_personal) return 1;
-    return 0;
-  });
+  const sortedOrgs = sortOrganizations(organizations.data ?? []);
 
   return (
     <ScrollArea p={"xl"}>
@@ -73,7 +70,12 @@ export default function Home() {
       </Box>
 
       <SimpleGrid cols={2} spacing="sm" mt="xl">
-        <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+        <Paper
+          withBorder
+          p="md"
+          radius="sm"
+          style={{ borderStyle: "dashed", opacity: 0.6 }}
+        >
           <Group gap="xs" mb="xs">
             <IconTargetArrow size="1.2em" stroke={1.5} />
             <Text size="xs" fw={700} c="dimmed" tt="uppercase">
@@ -81,14 +83,20 @@ export default function Home() {
             </Text>
           </Group>
           <Text size="xs" c="dimmed">
-            Summary of your workload across all orgs — not the full list (that's Calendar with "assigned to me" filter).
-            Show two or three key numbers: overdue count (red), due this week, open cards assigned to you.
-            Each number links to the corresponding filtered view in Calendar.
-            "3 überfällig · 5 diese Woche → Alle anzeigen"
+            Summary of your workload across all orgs — not the full list (that's
+            Calendar with "assigned to me" filter). Show two or three key
+            numbers: overdue count (red), due this week, open cards assigned to
+            you. Each number links to the corresponding filtered view in
+            Calendar. "3 überfällig · 5 diese Woche → Alle anzeigen"
           </Text>
         </Paper>
 
-        <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+        <Paper
+          withBorder
+          p="md"
+          radius="sm"
+          style={{ borderStyle: "dashed", opacity: 0.6 }}
+        >
           <Group gap="xs" mb="xs">
             <IconClockPause size="1.2em" stroke={1.5} />
             <Text size="xs" fw={700} c="dimmed" tt="uppercase">
@@ -96,14 +104,19 @@ export default function Home() {
             </Text>
           </Group>
           <Text size="xs" c="dimmed">
-            Last 5-8 items the user visited: cards, documents, boards.
-            Each row shows type icon (card/doc/board), title, and org/project breadcrumb.
-            One click to jump back — reduces navigation friction. "Pick up where you left off."
-            Store in local state or via a view_events collection.
+            Last 5-8 items the user visited: cards, documents, boards. Each row
+            shows type icon (card/doc/board), title, and org/project breadcrumb.
+            One click to jump back — reduces navigation friction. "Pick up where
+            you left off." Store in local state or via a view_events collection.
           </Text>
         </Paper>
 
-        <Paper withBorder p="md" radius="sm" style={{ borderStyle: "dashed", opacity: 0.6 }}>
+        <Paper
+          withBorder
+          p="md"
+          radius="sm"
+          style={{ borderStyle: "dashed", opacity: 0.6 }}
+        >
           <Group gap="xs" mb="xs">
             <IconChartBar size="1.2em" stroke={1.5} />
             <Text size="xs" fw={700} c="dimmed" tt="uppercase">
@@ -111,10 +124,10 @@ export default function Home() {
             </Text>
           </Group>
           <Text size="xs" c="dimmed">
-            All projects you're a member of, each with a progress bar.
-            Progress = cards in done-lists / total cards per project.
-            Shows which projects are on track and which need attention at a glance.
-            Click a project to navigate to its ProjectOverview.
+            All projects you're a member of, each with a progress bar. Progress
+            = cards in done-lists / total cards per project. Shows which
+            projects are on track and which need attention at a glance. Click a
+            project to navigate to its ProjectOverview.
           </Text>
         </Paper>
       </SimpleGrid>

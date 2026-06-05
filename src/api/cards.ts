@@ -78,7 +78,7 @@ export const useCards = () =>
 export const useCardsByBoard = (boardId: string | undefined) =>
   useQuery({
     queryKey: cardKeys.byBoard(boardId ?? ""),
-    enabled: !!boardId && boardId !== "settings",
+    enabled: !!boardId,
     queryFn: () =>
       pb.collection(Collections.Cards).getFullList<CardsResponse>({
         filter: `board = "${boardId}"`,
@@ -91,7 +91,8 @@ export const useCard = (id: string | undefined) =>
   useQuery({
     queryKey: cardKeys.detail(id ?? ""),
     enabled: !!id,
-    queryFn: () => pb.collection(Collections.Cards).getOne<CardsResponse>(id!),
+    queryFn: () =>
+      pb.collection(Collections.Cards).getOne<CardsResponse>(id as string),
   });
 
 // ============================================================================

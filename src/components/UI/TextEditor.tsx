@@ -42,7 +42,7 @@ export function TextEditor({ content, onSave }: TextEditorProps) {
       <RichTextEditor
         editor={editor}
         onClick={() => setIsEditable(true)}
-        // style={!isEditable ? { border: "none", marginTop: 48 } : {}}
+        // style: not needed currently
       >
         {isEditable && (
           <RichTextEditor.Toolbar>

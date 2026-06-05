@@ -12,9 +12,7 @@ import {
 } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { modals } from "@mantine/modals";
-import { notifications } from "@mantine/notifications";
 import { IconLink, IconTrash } from "@tabler/icons-react";
-import dayjs from "dayjs";
 
 import { useCard, useUpdateCard } from "../../api/cards";
 import { useCommentsByCard } from "../../api/comments";
@@ -22,14 +20,17 @@ import { useLabels } from "../../api/labels";
 import { CardsPriorityOptions } from "../../api/types";
 import { useUsers } from "../../api/users";
 
+import { formatDateTime } from "../../shared/dateUtils";
+import { showNotImplemented } from "../../shared/notifications";
+
 import { TextEditor } from "../UI/TextEditor";
 
 export function CardModal({
-  open,
+  open = true,
   close,
   cardId,
 }: {
-  open: boolean;
+  open?: boolean;
   close: () => void;
   cardId: string;
 }) {
@@ -41,6 +42,11 @@ export function CardModal({
 
   const activeCard = card.data;
   const isLoading = card.isLoading || comments.isLoading;
+
+  const updateCard = (data: Record<string, unknown>) => {
+    if (!activeCard) return;
+    updateCardMutation.mutate({ id: activeCard.id, data });
+  };
 
   const confirmDelete = () =>
     modals.openConfirmModal({
@@ -55,25 +61,14 @@ export function CardModal({
       ),
       labels: { confirm: "Karte löschen", cancel: "Nein, nicht löschen" },
       confirmProps: { color: "red" },
-      onCancel: () => console.log("Cancel"),
+      onCancel: () => {},
       onConfirm: () => {
         close();
-        notifications.show({
-          title: "Noch nicht implementiert",
-          message: "Das ist leider noch nicht implementiert :(",
-          withBorder: true,
-          color: "gray",
-        });
+        showNotImplemented();
       },
     });
 
-  const linkToClipboard = () =>
-    notifications.show({
-      title: "Noch nicht implementiert",
-      message: "Das ist leider noch nicht implementiert :(",
-      withBorder: true,
-      color: "gray",
-    });
+  const linkToClipboard = () => showNotImplemented();
 
   return (
     <Modal.Root opened={open} onClose={close} centered size={"64em"}>
@@ -110,12 +105,7 @@ export function CardModal({
                 <TextEditor
                   content={activeCard.description}
                   onSave={(content) => {
-                    updateCardMutation.mutate({
-                      id: activeCard.id,
-                      data: {
-                        description: content,
-                      },
-                    });
+                    updateCard({ description: content });
                   }}
                 />
                 <Space h={"xl"} />
@@ -132,13 +122,10 @@ export function CardModal({
                 </ul>
                 <Text>
                   Verändert am{" "}
-                  {activeCard &&
-                    dayjs(activeCard.updated).format("DD.MM.YYYY HH:mm")}
+                  {activeCard && formatDateTime(activeCard.updated)}
                 </Text>
                 <Text>
-                  Erstellt am{" "}
-                  {activeCard &&
-                    dayjs(activeCard.created).format("DD.MM.YYYY HH:mm")}
+                  Erstellt am {activeCard && formatDateTime(activeCard.created)}
                 </Text>
               </Grid.Col>
 
@@ -154,12 +141,7 @@ export function CardModal({
                       })) || []
                     }
                     value={activeCard.labels}
-                    onChange={(value) =>
-                      updateCardMutation.mutate({
-                        id: activeCard.id,
-                        data: { labels: value },
-                      })
-                    }
+                    onChange={(value) => updateCard({ labels: value })}
                     searchable
                   />
 
@@ -173,12 +155,7 @@ export function CardModal({
                       })) || []
                     }
                     value={activeCard.members}
-                    onChange={(value) =>
-                      updateCardMutation.mutate({
-                        id: activeCard.id,
-                        data: { members: value },
-                      })
-                    }
+                    onChange={(value) => updateCard({ members: value })}
                     searchable
                   />
 
@@ -200,10 +177,7 @@ export function CardModal({
                     ]}
                     value={activeCard.priority}
                     onChange={(value) => {
-                      updateCardMutation.mutate({
-                        id: activeCard.id,
-                        data: { priority: value as CardsPriorityOptions },
-                      });
+                      updateCard({ priority: value as CardsPriorityOptions });
                     }}
                     clearable
                   />
@@ -213,12 +187,11 @@ export function CardModal({
                     placeholder="Datum auswählen"
                     value={activeCard.date ? new Date(activeCard.date) : null}
                     onChange={(value) => {
-                      updateCardMutation.mutate({
-                        id: activeCard.id,
-                        data: value
+                      updateCard(
+                        value
                           ? { date: value.toString() }
                           : { date: undefined },
-                      });
+                      );
                     }}
                     clearable
                   />

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -26,6 +27,15 @@ interface TableViewProps {
 }
 
 export function TableView({ cards, lists, users, labels }: TableViewProps) {
+  const labelMap = useMemo(
+    () => Object.fromEntries(labels.map((l) => [l.id, l])),
+    [labels],
+  );
+  const userMap = useMemo(
+    () => Object.fromEntries(users.map((u) => [u.id, u])),
+    [users],
+  );
+
   return (
     <ScrollArea>
       <Stack>
@@ -36,28 +46,19 @@ export function TableView({ cards, lists, users, labels }: TableViewProps) {
                 <Text size="sm">{card.title}</Text>
               </Link>
 
-              {card.labels.map((label) => (
-                <Badge
-                  key={label}
-                  size="sm"
-                  variant="light"
-                  color={
-                    (
-                      labels.find((l: LabelsResponse) => l.id === label) || {
-                        color: "",
-                      }
-                    ).color
-                  }
-                >
-                  {
-                    (
-                      labels.find((l: LabelsResponse) => l.id === label) || {
-                        title: "Unbekannt",
-                      }
-                    ).title
-                  }
-                </Badge>
-              ))}
+              {card.labels.map((labelId) => {
+                const label = labelMap[labelId];
+                return (
+                  <Badge
+                    key={labelId}
+                    size="sm"
+                    variant="light"
+                    color={label?.color ?? "grey"}
+                  >
+                    {label?.name ?? "Unbekannt"}
+                  </Badge>
+                );
+              })}
             </Group>
 
             <Group>
@@ -67,21 +68,23 @@ export function TableView({ cards, lists, users, labels }: TableViewProps) {
 
               <Tooltip.Group openDelay={300} closeDelay={100}>
                 <Avatar.Group spacing="sm">
-                  {card.members.map((member) => (
-                    <Tooltip
-                      key={member}
-                      label={
-                        (
-                          users.find(
-                            (user: UsersResponse) => user.id === member,
-                          ) || { name: "Unbekannt" }
-                        ).name
-                      }
-                      withArrow
-                    >
-                      <Avatar size="sm" radius="xl" />
-                    </Tooltip>
-                  ))}
+                  {card.members.map((memberId) => {
+                    const user = userMap[memberId];
+                    return (
+                      <Tooltip
+                        key={memberId}
+                        label={user?.name ?? "Unbekannt"}
+                        withArrow
+                      >
+                        <Avatar
+                          size="sm"
+                          radius="xl"
+                          name={user?.name}
+                          color="initials"
+                        />
+                      </Tooltip>
+                    );
+                  })}
                 </Avatar.Group>
               </Tooltip.Group>
 

@@ -256,7 +256,6 @@ export default function Board() {
       {/* ── Card modal ──────────────────────────────────────────── */}
       {cardId && (
         <CardModal
-          open={!!cardId}
           close={() => navigate(`/boards/${boardId}`)}
           cardId={cardId}
         />
