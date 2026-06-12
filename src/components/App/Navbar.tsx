@@ -111,7 +111,7 @@ interface NavbarProps {
   onToggleCollapse: () => void;
 }
 
-export function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
+export default function Navbar({ collapsed, onToggleCollapse }: NavbarProps) {
   const organizations = useOrganizations();
   const projects = useProjects();
   const boards = useBoards();

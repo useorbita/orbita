@@ -13,6 +13,7 @@ import {
   Title,
 } from "@mantine/core";
 import { Schedule } from "@mantine/schedule";
+import "@mantine/schedule/styles.css";
 import { IconCalendar, IconLayoutList } from "@tabler/icons-react";
 
 import dayjs from "dayjs";

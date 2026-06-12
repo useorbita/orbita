@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 
 import { Link, RichTextEditor } from "@mantine/tiptap";
+import "@mantine/tiptap/styles.css";
 import Highlight from "@tiptap/extension-highlight";
 import SubScript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";

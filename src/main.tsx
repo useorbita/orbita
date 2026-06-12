@@ -19,8 +19,6 @@ dayjs.locale("de");
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
-import "@mantine/schedule/styles.css";
-import "@mantine/tiptap/styles.css";
 
 import { App } from "./App";
 
@@ -55,6 +53,3 @@ ReactDOM.createRoot(root).render(
     </QueryClientProvider>
   </React.StrictMode>,
 );
-
-// fade in the app, the opacity is set to 0 initially in index.html
-root.style.opacity = "1";

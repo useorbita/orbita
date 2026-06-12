@@ -1,15 +1,14 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 import { Route, Routes } from "react-router-dom";
 
 import { AppShell, Center, Loader } from "@mantine/core";
 
-import { Navbar } from "./components/App/Navbar";
-
 import { useAuth } from "./api/auth";
 
-import Authentication from "./pages/Authentication";
+const Navbar = lazy(() => import("./components/App/Navbar"));
 
+const Authentication = lazy(() => import("./pages/Authentication"));
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
 const Settings = lazy(() => import("./pages/Settings"));
@@ -29,6 +28,13 @@ const FallbackLoader = () => (
   </Center>
 );
 
+function FadeIn() {
+  useEffect(() => {
+    document.getElementById("root")!.style.opacity = "1";
+  }, []);
+  return null;
+}
+
 const NAVBAR_WIDTH = 250;
 const NAVBAR_COLLAPSED_WIDTH = 46;
 
@@ -37,25 +43,29 @@ export function App() {
   const { isAuthenticated } = useAuth();
 
   return !isAuthenticated ? (
-    <Authentication />
+    <Suspense fallback={<FallbackLoader />}>
+      <FadeIn />
+      <Authentication />
+    </Suspense>
   ) : (
-    <AppShell
-      layout="alt"
-      navbar={{
-        width: navCollapsed ? NAVBAR_COLLAPSED_WIDTH : NAVBAR_WIDTH,
-        breakpoint: 0,
-      }}
-      padding="md"
-    >
-      <AppShell.Navbar withBorder={true}>
-        <Navbar
-          collapsed={navCollapsed}
-          onToggleCollapse={() => setNavCollapsed((c) => !c)}
-        />
-      </AppShell.Navbar>
+    <Suspense fallback={<FallbackLoader />}>
+      <FadeIn />
+      <AppShell
+        layout="alt"
+        navbar={{
+          width: navCollapsed ? NAVBAR_COLLAPSED_WIDTH : NAVBAR_WIDTH,
+          breakpoint: 0,
+        }}
+        padding="md"
+      >
+        <AppShell.Navbar withBorder={true}>
+          <Navbar
+            collapsed={navCollapsed}
+            onToggleCollapse={() => setNavCollapsed((c) => !c)}
+          />
+        </AppShell.Navbar>
 
-      <AppShell.Main h="100vh">
-        <Suspense fallback={<FallbackLoader />}>
+        <AppShell.Main h="100vh">
           {/* prettier-ignore */}
           <Routes>
             <Route path="/" element={<Home />} />
@@ -72,8 +82,8 @@ export function App() {
             <Route path="/documents/:documentId" element={<DocumentView />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </Suspense>
-      </AppShell.Main>
-    </AppShell>
+        </AppShell.Main>
+      </AppShell>
+    </Suspense>
   );
 }

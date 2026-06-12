@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Button, Group } from "@mantine/core";
 import { Link, RichTextEditor } from "@mantine/tiptap";
+import "@mantine/tiptap/styles.css";
 import Highlight from "@tiptap/extension-highlight";
 import SubScript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
