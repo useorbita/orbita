@@ -24,7 +24,7 @@ export const useLists = () =>
     queryKey: listKeys.all,
     queryFn: () =>
       pb.collection(Collections.Lists).getFullList<ListsResponse>({
-        sort: "position",
+        sort: "orderKey",
       }),
   });
 
@@ -38,6 +38,7 @@ export const useListsByBoard = (boardId: string | undefined) =>
     queryFn: () =>
       pb.collection(Collections.Lists).getFullList<ListsResponse>({
         filter: `board = "${boardId}"`,
+        sort: "orderKey",
       }),
   });
 
@@ -48,7 +49,7 @@ export const useList = (id: string | undefined) =>
   useQuery({
     queryKey: listKeys.detail(id ?? ""),
     enabled: !!id,
-    queryFn: () => pb.collection(Collections.Lists).getOne<ListsResponse>(id!),
+    queryFn: () => pb.collection(Collections.Lists).getOne<ListsResponse>(id as string),
   });
 
 // ============================================================================
@@ -62,12 +63,12 @@ export const useCreateList = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: { title: string; board?: string; position?: number }) =>
+    mutationFn: (data: { title: string; board?: string; orderKey?: string }) =>
       pb.collection(Collections.Lists).create<ListsResponse>(data),
     onSuccess: (data) => {
       queryClient.setQueryData(
         listKeys.all,
-        (old: ListsResponse[] | undefined) => (old ? [...old, data] : [data])
+        (old: ListsResponse[] | undefined) => (old ? [...old, data] : [data]),
       );
       if (data.board) {
         queryClient.invalidateQueries({
@@ -90,14 +91,14 @@ export const useUpdateList = () => {
       data,
     }: {
       id: string;
-      data: { title?: string; board?: string; position?: number };
+      data: { title?: string; board?: string; orderKey?: string };
     }) => pb.collection(Collections.Lists).update<ListsResponse>(id, data),
     onSuccess: (data) => {
       // Update in list
       queryClient.setQueryData(
         listKeys.all,
         (old: ListsResponse[] | undefined) =>
-          old?.map((list) => (list.id === data.id ? data : list))
+          old?.map((list) => (list.id === data.id ? data : list)),
       );
       // Update detail cache
       queryClient.setQueryData(listKeys.detail(data.id), data);
@@ -122,7 +123,8 @@ export const useDeleteList = () => {
     onSuccess: (_, id) => {
       queryClient.setQueryData(
         listKeys.all,
-        (old: ListsResponse[] | undefined) => old?.filter((list) => list.id !== id)
+        (old: ListsResponse[] | undefined) =>
+          old?.filter((list) => list.id !== id),
       );
       queryClient.removeQueries({ queryKey: listKeys.detail(id) });
     },

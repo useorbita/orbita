@@ -8,7 +8,8 @@ import { Collections, type DocumentsResponse } from "./types";
 
 export const documentKeys = {
   all: [Collections.Documents] as const,
-  byProject: (projectId: string) => [Collections.Documents, "project", projectId] as const,
+  byProject: (projectId: string) =>
+    [Collections.Documents, "project", projectId] as const,
   detail: (id: string) => [Collections.Documents, id] as const,
 };
 
@@ -49,7 +50,10 @@ export const useDocument = (id: string | undefined) =>
   useQuery({
     queryKey: documentKeys.detail(id ?? ""),
     enabled: !!id,
-    queryFn: () => pb.collection(Collections.Documents).getOne<DocumentsResponse>(id!),
+    queryFn: () =>
+      pb
+        .collection(Collections.Documents)
+        .getOne<DocumentsResponse>(id as string),
   });
 
 // ============================================================================
@@ -73,7 +77,8 @@ export const useCreateDocument = () => {
     onSuccess: (data) => {
       queryClient.setQueryData(
         documentKeys.all,
-        (old: DocumentsResponse[] | undefined) => (old ? [...old, data] : [data])
+        (old: DocumentsResponse[] | undefined) =>
+          old ? [...old, data] : [data],
       );
       if (data.project) {
         queryClient.invalidateQueries({
@@ -103,13 +108,14 @@ export const useUpdateDocument = () => {
         parent?: string;
         order?: number;
       };
-    }) => pb.collection(Collections.Documents).update<DocumentsResponse>(id, data),
+    }) =>
+      pb.collection(Collections.Documents).update<DocumentsResponse>(id, data),
     onSuccess: (data) => {
       // Update in list
       queryClient.setQueryData(
         documentKeys.all,
         (old: DocumentsResponse[] | undefined) =>
-          old?.map((document) => (document.id === data.id ? data : document))
+          old?.map((document) => (document.id === data.id ? data : document)),
       );
       // Update detail cache
       queryClient.setQueryData(documentKeys.detail(data.id), data);
@@ -134,7 +140,8 @@ export const useDeleteDocument = () => {
     onSuccess: (_, id) => {
       queryClient.setQueryData(
         documentKeys.all,
-        (old: DocumentsResponse[] | undefined) => old?.filter((document) => document.id !== id)
+        (old: DocumentsResponse[] | undefined) =>
+          old?.filter((document) => document.id !== id),
       );
       queryClient.removeQueries({ queryKey: documentKeys.detail(id) });
     },

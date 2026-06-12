@@ -8,7 +8,8 @@ import { Collections, type LabelsResponse } from "./types";
 
 export const labelKeys = {
   all: [Collections.Labels] as const,
-  byProject: (projectId: string) => [Collections.Labels, "project", projectId] as const,
+  byProject: (projectId: string) =>
+    [Collections.Labels, "project", projectId] as const,
   detail: (id: string) => [Collections.Labels, id] as const,
 };
 
@@ -49,7 +50,8 @@ export const useLabel = (id: string | undefined) =>
   useQuery({
     queryKey: labelKeys.detail(id ?? ""),
     enabled: !!id,
-    queryFn: () => pb.collection(Collections.Labels).getOne<LabelsResponse>(id!),
+    queryFn: () =>
+      pb.collection(Collections.Labels).getOne<LabelsResponse>(id as string),
   });
 
 // ============================================================================
@@ -68,7 +70,7 @@ export const useCreateLabel = () => {
     onSuccess: (data) => {
       queryClient.setQueryData(
         labelKeys.all,
-        (old: LabelsResponse[] | undefined) => (old ? [...old, data] : [data])
+        (old: LabelsResponse[] | undefined) => (old ? [...old, data] : [data]),
       );
       if (data.project) {
         queryClient.invalidateQueries({
@@ -98,7 +100,7 @@ export const useUpdateLabel = () => {
       queryClient.setQueryData(
         labelKeys.all,
         (old: LabelsResponse[] | undefined) =>
-          old?.map((label) => (label.id === data.id ? data : label))
+          old?.map((label) => (label.id === data.id ? data : label)),
       );
       // Update detail cache
       queryClient.setQueryData(labelKeys.detail(data.id), data);
@@ -123,7 +125,8 @@ export const useDeleteLabel = () => {
     onSuccess: (_, id) => {
       queryClient.setQueryData(
         labelKeys.all,
-        (old: LabelsResponse[] | undefined) => old?.filter((label) => label.id !== id)
+        (old: LabelsResponse[] | undefined) =>
+          old?.filter((label) => label.id !== id),
       );
       queryClient.removeQueries({ queryKey: labelKeys.detail(id) });
     },

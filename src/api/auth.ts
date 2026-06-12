@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { pb } from "./pocketbase";
+import { Collections } from "./types";
 
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(pb.authStore.isValid);
@@ -20,7 +21,7 @@ export const useAuth = () => {
 export const useSignIn = () => {
   return useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
-      pb.collection("users").authWithPassword(email, password),
+      pb.collection(Collections.Users).authWithPassword(email, password),
   });
 };
 
@@ -35,21 +36,26 @@ export const useSignUp = () => {
       password: string;
       name: string;
     }) => {
-      await pb.collection("users").create({
+      await pb.collection(Collections.Users).create({
         email,
         password,
         passwordConfirm: password,
         name,
       });
-      return pb.collection("users").authWithPassword(email, password);
+      return pb.collection(Collections.Users).authWithPassword(email, password);
     },
   });
 };
 
 export const useLogout = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async () => {
       pb.authStore.clear();
+    },
+    onSuccess: () => {
+      queryClient.clear();
     },
   });
 };

@@ -15,7 +15,6 @@ export type CardUpdateData = {
   priority?: CardsPriorityOptions;
   labels?: string[];
   members?: string[];
-  position?: number;
   orderKey?: string;
   date?: string;
 };
@@ -149,10 +148,19 @@ export const useUpdateCard = () => {
       const previousAll = queryClient.getQueryData<CardsResponse[]>(
         cardKeys.all,
       );
-      const boardId = resolveBoardId(queryClient, id, data.board);
-      const previousByBoard = boardId
-        ? queryClient.getQueryData<CardsResponse[]>(cardKeys.byBoard(boardId))
-        : undefined;
+      const oldBoardId = resolveBoardId(queryClient, id);
+      const newBoardId = data.board || oldBoardId;
+
+      const snapshot = (boardId: string | undefined) =>
+        boardId
+          ? queryClient.getQueryData<CardsResponse[]>(cardKeys.byBoard(boardId))
+          : undefined;
+
+      const previousNewBoard = snapshot(newBoardId);
+      const previousOldBoard =
+        oldBoardId && oldBoardId !== newBoardId
+          ? snapshot(oldBoardId)
+          : undefined;
 
       // Update all-cards cache
       queryClient.setQueryData(
@@ -161,13 +169,41 @@ export const useUpdateCard = () => {
           old?.map((card) => (card.id === id ? { ...card, ...data } : card)),
       );
 
-      // Update board-specific cache
-      if (boardId) {
+      // If the card moved to a different board, remove from the old board
+      // and add to the new board cache.
+      if (oldBoardId && oldBoardId !== newBoardId) {
         queryClient.setQueryData(
-          cardKeys.byBoard(boardId),
+          cardKeys.byBoard(oldBoardId),
           (old: CardsResponse[] | undefined) =>
-            old?.map((card) => (card.id === id ? { ...card, ...data } : card)),
+            old?.filter((card) => card.id !== id),
         );
+      }
+
+      // Update / add in the target board cache
+      if (newBoardId) {
+        if (oldBoardId === newBoardId) {
+          // Same board – update in-place
+          queryClient.setQueryData(
+            cardKeys.byBoard(newBoardId),
+            (old: CardsResponse[] | undefined) =>
+              old?.map((card) =>
+                card.id === id ? { ...card, ...data } : card,
+              ),
+          );
+        } else {
+          // Different board – remove from old (handled above) and add to new
+          const cardFromAll = queryClient
+            .getQueryData<CardsResponse[]>(cardKeys.all)
+            ?.find((c) => c.id === id);
+          if (cardFromAll) {
+            const merged = { ...cardFromAll, ...data };
+            queryClient.setQueryData(
+              cardKeys.byBoard(newBoardId),
+              (old: CardsResponse[] | undefined) =>
+                old ? sortByOrderKey([...old, merged]) : [merged],
+            );
+          }
+        }
       }
 
       // Update detail cache (used by CardModal)
@@ -177,17 +213,29 @@ export const useUpdateCard = () => {
           old ? { ...old, ...data } : undefined,
       );
 
-      return { previousAll, previousByBoard, boardId };
+      return {
+        previousAll,
+        previousNewBoard,
+        previousOldBoard,
+        oldBoardId,
+        newBoardId,
+      };
     },
     onError: (_err, _vars, context) => {
       // Roll back on failure
       if (context?.previousAll !== undefined) {
         queryClient.setQueryData(cardKeys.all, context.previousAll);
       }
-      if (context?.previousByBoard !== undefined && context?.boardId) {
+      if (context?.previousNewBoard !== undefined && context?.newBoardId) {
         queryClient.setQueryData(
-          cardKeys.byBoard(context.boardId),
-          context.previousByBoard,
+          cardKeys.byBoard(context.newBoardId),
+          context.previousNewBoard,
+        );
+      }
+      if (context?.previousOldBoard !== undefined && context?.oldBoardId) {
+        queryClient.setQueryData(
+          cardKeys.byBoard(context.oldBoardId),
+          context.previousOldBoard,
         );
       }
     },
