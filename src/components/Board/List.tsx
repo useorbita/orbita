@@ -103,7 +103,6 @@ export function List({
           minHeight: 0,
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#00000009",
         }}
       >
         <ScrollArea style={{ flex: 1, minHeight: 0 }} type="scroll">
