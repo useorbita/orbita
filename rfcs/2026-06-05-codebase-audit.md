@@ -1,3 +1,11 @@
+---
+date: 2026-06-05
+type: audit
+status: updated
+title: "Codebase Audit Report"
+tags: [audit, security, code-quality, architecture]
+---
+
 # Orbita Codebase Audit Report (Updated)
 
 > Re-audited 2026-06-05 against current `main`. Original report from 2026-05-06.
